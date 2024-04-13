@@ -3,7 +3,7 @@ package entity;
 public class ChatLieu {
 	private String maChatLieu;
 	private String tenChatLieu;
-
+	//aaa
 	public ChatLieu() {
 		super();
 
