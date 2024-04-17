@@ -7,13 +7,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.tools.ant.taskdefs.Local;
-
 import db.DBConnection;
-import entity.ChiTietHoaDon;
-import entity.HoaDon;
-
 import entity.KhachHang;
 import entity.NhanVien;
 import entity.SanPham;

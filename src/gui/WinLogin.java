@@ -28,21 +28,21 @@ import javax.swing.JPasswordField;
 
 public class WinLogin extends JFrame implements ActionListener, MouseListener {
 
-	private JPanel contentPane;
+	private JPanel pnlContainer;
 	private JTextField txtTenDangNhap;
 	private JTextField txtMatKhau;
-	private JPasswordField passwordField;
+	private JPasswordField pwdLogin;
 	private JLabel lblTieuDe;
 	private JButton btnDangNhap;
 	private JButton btnQuenMatKhau;
-	private JPanel panel_UserIcon;
-	private JLabel lbl_UserIcon;
-	private JPanel panel_PassIcon;
-	private JLabel lbl_PassIcon;
-	private JLabel lblBackgorund;
+	private JPanel pnlIconUser;
+	private JLabel lblIconUser;
+	private JPanel pnlIconPassword;
+	private JLabel lblIconPassword;
+	private JLabel lblBackground;
 	public static TaiKhoan taiKhoan;
 	public TaiKhoanDao taiKhoanDao;
-	public Frm_QuenMatKhau frm_QuenMatKhau = new Frm_QuenMatKhau();
+	public Frm_QuenMatKhau winQuenMatKhau = new Frm_QuenMatKhau();
 
 	// public static NhanVien nv;
 	/**
@@ -79,27 +79,27 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// setSize();
 		setBounds(GetMaxWidth() / 4, GetMaxHeight() / 4, 965, 537);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
-		contentPane.setForeground(new Color(0, 0, 0));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		pnlContainer = new JPanel();
+		pnlContainer.setBackground(new Color(255, 255, 255));
+		pnlContainer.setForeground(new Color(0, 0, 0));
+		pnlContainer.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(pnlContainer);
+		pnlContainer.setLayout(null);
 
 		lblTieuDe = new JLabel("HỆ THỐNG QUẢN LÝ NHÀ SÁCH");
 		lblTieuDe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTieuDe.setForeground(Color.RED);
 		lblTieuDe.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblTieuDe.setBounds(0, 0, 944, 55);
-		contentPane.add(lblTieuDe);
+		pnlContainer.add(lblTieuDe);
 
 		btnDangNhap = new JButton("Đăng nhập");
 		btnDangNhap.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnDangNhap.setForeground(new Color(255, 255, 0));
 		btnDangNhap.setBackground(new Color(30, 144, 255));
 		btnDangNhap.setBounds(592, 342, 137, 48);
-		contentPane.add(btnDangNhap);
+		pnlContainer.add(btnDangNhap);
 
 		btnQuenMatKhau = new JButton("Quên mật khẩu");
 		btnQuenMatKhau.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -110,7 +110,7 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 			}
 		});
 		btnQuenMatKhau.setBounds(750, 342, 137, 48);
-		contentPane.add(btnQuenMatKhau);
+		pnlContainer.add(btnQuenMatKhau);
 
 		txtTenDangNhap = new JTextField();
 		txtTenDangNhap.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -119,7 +119,7 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 		txtTenDangNhap.setText("duc");
 
 		txtTenDangNhap.setBounds(650, 136, 237, 55);
-		contentPane.add(txtTenDangNhap);
+		pnlContainer.add(txtTenDangNhap);
 		txtTenDangNhap.setColumns(10);
 
 		txtMatKhau = new JPasswordField();
@@ -128,46 +128,46 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 		txtMatKhau.setBackground(new Color(0, 0, 128));
 		txtMatKhau.setText("123456");
 		txtMatKhau.setBounds(650, 236, 237, 55);
-		contentPane.add(txtMatKhau);
+		pnlContainer.add(txtMatKhau);
 		txtMatKhau.setColumns(10);
 
-		panel_UserIcon = new JPanel();
-		panel_UserIcon.setBackground(new Color(0, 0, 128));
-		panel_UserIcon.setBounds(591, 136, 61, 55);
-		contentPane.add(panel_UserIcon);
-		panel_UserIcon.setLayout(null);
+		pnlIconUser = new JPanel();
+		pnlIconUser.setBackground(new Color(0, 0, 128));
+		pnlIconUser.setBounds(591, 136, 61, 55);
+		pnlContainer.add(pnlIconUser);
+		pnlIconUser.setLayout(null);
 
-		lbl_UserIcon = new JLabel("");
-		lbl_UserIcon.setForeground(new Color(0, 0, 0));
-		lbl_UserIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_UserIcon.setIcon(new ImageIcon(WinLogin.class.getResource("/gui/icon/woman.png")));
-		lbl_UserIcon.setBounds(10, 11, 41, 33);
+		lblIconUser = new JLabel("");
+		lblIconUser.setForeground(new Color(0, 0, 0));
+		lblIconUser.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIconUser.setIcon(new ImageIcon(WinLogin.class.getResource("/gui/icon/woman.png")));
+		lblIconUser.setBounds(10, 11, 41, 33);
 
-		panel_UserIcon.add(lbl_UserIcon);
+		pnlIconUser.add(lblIconUser);
 
-		panel_PassIcon = new JPanel();
-		panel_PassIcon.setBackground(new Color(0, 0, 128));
-		panel_PassIcon.setBounds(592, 236, 60, 55);
-		contentPane.add(panel_PassIcon);
-		panel_PassIcon.setLayout(null);
+		pnlIconPassword = new JPanel();
+		pnlIconPassword.setBackground(new Color(0, 0, 128));
+		pnlIconPassword.setBounds(592, 236, 60, 55);
+		pnlContainer.add(pnlIconPassword);
+		pnlIconPassword.setLayout(null);
 
-		lbl_PassIcon = new JLabel("");
-		lbl_PassIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_PassIcon.setIcon(new ImageIcon(WinLogin.class.getResource("/gui/icon/lock.png")));
-		lbl_PassIcon.setBounds(10, 11, 40, 33);
-		panel_PassIcon.add(lbl_PassIcon);
+		lblIconPassword = new JLabel("");
+		lblIconPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIconPassword.setIcon(new ImageIcon(WinLogin.class.getResource("/gui/icon/lock.png")));
+		lblIconPassword.setBounds(10, 11, 40, 33);
+		pnlIconPassword.add(lblIconPassword);
 
-		lblBackgorund = new JLabel("");
-		lblBackgorund.setIcon(
+		lblBackground = new JLabel("");
+		lblBackground.setIcon(
 				new ImageIcon(WinLogin.class.getResource("/gui/icon/login_1.jpg")));
-		lblBackgorund.setBounds(28, 45, 630, 450);
-		contentPane.add(lblBackgorund);
+		lblBackground.setBounds(28, 45, 630, 450);
+		pnlContainer.add(lblBackground);
 		btnDangNhap.addActionListener(this);
 		btnQuenMatKhau.addActionListener(this);
 		btnDangNhap.addMouseListener(this);
 
 		btnQuenMatKhau.addMouseListener(this);
-		contentPane.addMouseListener(new MouseListener() {
+		pnlContainer.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -281,9 +281,9 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 
-		String strUserName = txtTenDangNhap.getText();
+		String userName = txtTenDangNhap.getText();
 		char[] chPassWord = ((JPasswordField) txtMatKhau).getPassword();
-		String strPassword = new String(chPassWord);
+		String password = new String(chPassWord);
 		boolean status = false;
 		TaiKhoanDao accControl = new TaiKhoanDao();
 		List<TaiKhoan> list = accControl.getList();
@@ -291,8 +291,8 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 		if (obj.equals(btnDangNhap)) {
 			// System.out.println("ok");
 			for (TaiKhoan account : list) {
-				if (strUserName.equalsIgnoreCase(account.getTenDangNhap())) {
-					if (strPassword.trim().equalsIgnoreCase(account.getMatKhau())) {
+				if (userName.equalsIgnoreCase(account.getTenDangNhap())) {
+					if (password.trim().equalsIgnoreCase(account.getMatKhau())) {
 						if (account.isQuyen() == true) {
 							// System.out.println(account);
 							taiKhoan = account;
@@ -334,7 +334,7 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 				System.exit(0);
 			else {
 				// this.setVisible(false);
-				frm_QuenMatKhau.setVisible(true);
+				winQuenMatKhau.setVisible(true);
 			}
 		}
 	}
