@@ -189,8 +189,8 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 			synchronized (shareData) {
 				shareData.setThanhToan(true);
 				shareData.setSdtThanhToan(sdt);
-				shareData.setListSanPhamThanhToanTiep(listSPThanhToan);
-				shareData.setListHoaDonCho(listHoaDonCho);
+				shareData.setDsSanPhamThanhToanTiep(listSPThanhToan);
+				shareData.setDsHoaDonCho(listHoaDonCho);
 				shareData.notifyAll();
 				this.setVisible(false);	
 			}
@@ -203,7 +203,7 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 			return;
 		}
 		listHoaDonCho.remove(sdt);
-		shareData.setListHoaDonCho(listHoaDonCho);
+		shareData.setDsHoaDonCho(listHoaDonCho);
 		modelKhachHang.removeRow(row);
 	}
 	public void Thoat() {

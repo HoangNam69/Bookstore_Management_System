@@ -142,7 +142,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 	private ArrayList<XuatXu> dsXuatXu;
 	private JButton btnQuanLyDanhMuc;
 	private HSSFWorkbook hssfWorkbook;
-	private JFileChooser filechoose;
+	private JFileChooser fch;
 	private File file;
 	private ArrayList<Sach> dsSach;
 	private ArrayList<VanPhongPham> dsVanPhongPham;
@@ -708,12 +708,12 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 				new Frm_QuanLyDanhMuc("Văn phòng phẩm").setVisible(true);
 		}
 		if (o.equals(btnImportFile)) {
-			filechoose = new JFileChooser("../HieuSachTuNhan/Script");
-			filechoose.setMultiSelectionEnabled(false);
+			fch = new JFileChooser("../HieuSachTuNhan/Script");
+			fch.setMultiSelectionEnabled(false);
 			String filePath = "";
-			int x = filechoose.showDialog(this, "Chọn File");
+			int x = fch.showDialog(this, "Chọn File");
 			if (x == JFileChooser.APPROVE_OPTION) {
-				file = filechoose.getSelectedFile();
+				file = fch.getSelectedFile();
 				filePath = file.getAbsolutePath();
 			}
 			if (!filePath.endsWith(".xlsx")) {
@@ -749,15 +749,15 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		}
 
 		if (o.equals(btnXuatFile)) {
-			filechoose = new JFileChooser();
+			fch = new JFileChooser();
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("*.xlsx", "xlsx");
-			filechoose.setFileFilter(filter);
-			filechoose.setMultiSelectionEnabled(false);
+			fch.setFileFilter(filter);
+			fch.setMultiSelectionEnabled(false);
 
 			String filePath = "";
-			int x = filechoose.showDialog(this, "Chọn File");
+			int x = fch.showDialog(this, "Chọn File");
 			if (x == JFileChooser.APPROVE_OPTION) {
-				file = filechoose.getSelectedFile();
+				file = fch.getSelectedFile();
 				filePath = file.getAbsolutePath();
 				if (!filePath.endsWith(".xlsx")) {
 					filePath += ".xlsx";

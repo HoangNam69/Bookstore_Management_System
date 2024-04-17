@@ -1425,7 +1425,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 					winHangCho = new Frm_HangCho(dsHoaDonCho, shareData);
 					winHangCho.setVisible(true);
 					shareData.wait();
-					dsHoaDonCho = shareData.getListHoaDonCho();
+					dsHoaDonCho = shareData.getDsHoaDonCho();
 					if (shareData.isThanhToan()) {
 						modelHoaDon.setRowCount(0);
 						String sdt = shareData.getSdtThanhToan();
@@ -1435,7 +1435,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 							txtSDT.setText(khachHang.getsDT());
 							txtTenKhachHang.setText(khachHang.getHoTenKhachHang());
 							ArrayList<SanPham> dsSanPham = new ArrayList<>();
-							dsSanPham = shareData.getListSanPhamThanhToanTiep();
+							dsSanPham = shareData.getDsSanPhamThanhToanTiep();
 							for (int i = 0; i < dsSanPham.size(); i++) {
 								Sach sach = null;
 								VanPhongPham vanPhongPham = null;

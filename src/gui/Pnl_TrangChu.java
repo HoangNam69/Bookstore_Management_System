@@ -28,17 +28,17 @@ public class Pnl_TrangChu extends JPanel {
 		lblBackGround.setBounds(500, 0, 1700, 1000);
 		add(lblBackGround);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 206, 209));
-		panel.setBounds(0, 0, 500, 1000);
-		add(panel);
-		panel.setLayout(null);
+		JPanel pnl = new JPanel();
+		pnl.setBackground(new Color(0, 206, 209));
+		pnl.setBounds(0, 0, 500, 1000);
+		add(pnl);
+		pnl.setLayout(null);
 
 		JLabel lblTenHieuSach = new JLabel("QUẢN LÝ HIỆU SÁCH ĐTD");
 		lblTenHieuSach.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTenHieuSach.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblTenHieuSach.setBounds(0, 29, 565, 106);
-		panel.add(lblTenHieuSach);
+		pnl.add(lblTenHieuSach);
 
 		
 

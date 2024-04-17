@@ -94,7 +94,7 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
 	private JLabel lblSoDienThoai;
 	private JTextField txtSDTTim;
 	private JTextField txtTenTim;
-	private JFileChooser filechoose;
+	private JFileChooser fch;
 	private JLabel lblHinhAnh;
 
 	/**
@@ -745,14 +745,14 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
 		} else if (obj.equals(btnLamMoi)) {
 			clearTxtfields();
 		} else if (obj.equals(btnChonAnh)) {
-			filechoose = new JFileChooser("D:\\hinhAnhHieuSach");
+			fch = new JFileChooser("D:\\hinhAnhHieuSach");
 			FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("hinh anh", "jpg", "png");
-			filechoose.setFileFilter(imageFilter);
-			filechoose.setMultiSelectionEnabled(false);
+			fch.setFileFilter(imageFilter);
+			fch.setMultiSelectionEnabled(false);
 
-			int x = filechoose.showDialog(this, "Chọn Ảnh");
+			int x = fch.showDialog(this, "Chọn Ảnh");
 			if (x == JFileChooser.APPROVE_OPTION) {
-				file = filechoose.getSelectedFile();
+				file = fch.getSelectedFile();
 				
 				String name = file.getName();
 				System.out.println(name);

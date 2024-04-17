@@ -6,22 +6,22 @@ import java.util.HashMap;
 import entity.SanPham;
 
 public class ShareData {
-	private static HashMap<String, ArrayList<SanPham>> listHoaDonCho;
-	private static ArrayList<SanPham> listSanPhamThanhToanTiep;
+	private static HashMap<String, ArrayList<SanPham>> dsHoaDonCho;
+	private static ArrayList<SanPham> dsSanPhamThanhToanTiep;
 	private static boolean thanhToan ;
 	private static boolean xoa ;
 	private static String sdtThanhToan;
 
-	public ShareData(HashMap<String, ArrayList<SanPham>> listHoaDonCho) {
-		ShareData.listHoaDonCho = listHoaDonCho;
+	public ShareData(HashMap<String, ArrayList<SanPham>> dsHoaDonCho) {
+		ShareData.dsHoaDonCho = dsHoaDonCho;
 		thanhToan = false;
 		xoa = false;
 	}
-	public static HashMap<String, ArrayList<SanPham>> getListHoaDonCho() {
-		return listHoaDonCho;
+	public static HashMap<String, ArrayList<SanPham>> getDsHoaDonCho() {
+		return dsHoaDonCho;
 	}
-	public static void setListHoaDonCho(HashMap<String, ArrayList<SanPham>> listHoaDonCho) {
-		ShareData.listHoaDonCho = listHoaDonCho;
+	public static void setDsHoaDonCho(HashMap<String, ArrayList<SanPham>> dsHoaDonCho) {
+		ShareData.dsHoaDonCho = dsHoaDonCho;
 	}
 	public static boolean isThanhToan() {
 		return thanhToan;
@@ -41,11 +41,11 @@ public class ShareData {
 	public static void setSdtThanhToan(String sdtThanhToan) {
 		ShareData.sdtThanhToan = sdtThanhToan;
 	}
-	public static ArrayList<SanPham> getListSanPhamThanhToanTiep() {
-		return listSanPhamThanhToanTiep;
+	public static ArrayList<SanPham> getDsSanPhamThanhToanTiep() {
+		return dsSanPhamThanhToanTiep;
 	}
-	public static void setListSanPhamThanhToanTiep(ArrayList<SanPham> listSanPhamThanhToanTiep) {
-		ShareData.listSanPhamThanhToanTiep = listSanPhamThanhToanTiep;
+	public static void setDsSanPhamThanhToanTiep(ArrayList<SanPham> dsSanPhamThanhToanTiep) {
+		ShareData.dsSanPhamThanhToanTiep = dsSanPhamThanhToanTiep;
 	}
 	
 }
