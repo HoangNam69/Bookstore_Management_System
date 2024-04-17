@@ -16,6 +16,17 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 public class WinXemChiTietHoaDonDoiTra extends JFrame implements ActionListener {
+	// String variables
+	private String maHDDT;
+	private String maHD;
+	private String tenNhanVien;
+	private String ngayLap;
+	private String tenKhachHang;
+	private String ghiChu;
+	private String tienKhachDua;
+	private String tienPhaiTru;
+
+	// JLabel variables
 	private JLabel lblMaHoaDonDoiTra;
 	private JLabel lblNhanVienLap;
 	private JLabel lblTenKhach;
@@ -32,19 +43,14 @@ public class WinXemChiTietHoaDonDoiTra extends JFrame implements ActionListener 
 	private JLabel lblTienKhachDuaGiaTri;
 	private JLabel lblMaHDCu;
 	private JLabel lblMaHDCuGiaTri;
+
+	// JPanel variables
 	private JPanel pnlChiTiet;
 	private JPanel pnlThongTin;
+
+	// JButton and JTextArea variables
 	private JButton btnThoat;
 	private JTextArea txaGhiChu;
-
-	private String maHDDT;
-	private String maHD;
-	private String tenNhanVien;
-	private String ngayLap;
-	private String tenKhachHang;
-	private String ghiChu;
-	private String tienKhachDua;
-	private String tienPhaiTru;
 
 
 	@SuppressWarnings("deprecation")
