@@ -39,7 +39,6 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 	private JLabel lblNXB;
 	private JLabel lblNamXB;
 	private JLabel lblSoTrang;
-	private JLabel lblSoTrangLabel;
 	private JLabel lblChooserNamXB;
 	private JLabel lblNewLabel_7;
 	private JLabel lblSoLuong;

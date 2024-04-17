@@ -47,11 +47,6 @@ public class Frm_XemChiTietHoaDon extends JFrame implements ActionListener {
 	private JButton btnThoat;
 	private ChiTietHoaDonDao chiTietHoaDonDao;
 	private List<ChiTietHoaDon> dsHoaDon;
-
-	String loaiSanPham;
-	Sach sach;
-	HoaDon hoaDon;
-	VanPhongPham vanPhongPham;
 	String maHoaDon;
 	String tenNhanVien;
 	String ngayLap;

@@ -57,16 +57,12 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 	private JTable tblKhachHang;
 	private JScrollPane scrKhachHang;
 	private JButton btnThanhToan;
-	private String loaiSanPham;
 	private KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
 	private JLabel lblTitle;
 	private JButton btnThoat;
 	private ButtonGroup group;
 	private JButton btnXoa;
-	Pn_TaoHoaDon pn_TaoHoaDon ;
 	ArrayList<KhachHang> listKhachHang;
-	public static boolean xoa = false;
-	public static boolean thanhToan = false;
 	public HashMap<String, ArrayList<SanPham>> listHoaDonCho = new HashMap<String, ArrayList<SanPham>>();
 	private String sdt = "";
 	private ShareData shareData;
