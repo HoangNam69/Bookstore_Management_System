@@ -45,8 +45,8 @@ public class Frm_QuenMatKhau extends JFrame implements ActionListener, MouseList
 	private JPanel contentPane;
 	private JTextField txtEmail;
 	private JTextField txtOTP;
-	private JPasswordField passwordFieldPassMoi;
-	private JPasswordField passwordFieldConfirm;
+	private JPasswordField pwdPassMoi;
+	private JPasswordField pwdConfirm;
 	private JButton btnNhanOTP;
 	private JButton btnKiemTra;
 	private JLabel lblConfirm;
@@ -56,7 +56,7 @@ public class Frm_QuenMatKhau extends JFrame implements ActionListener, MouseList
 	private NhanVienServiceImpl iNhanVien;
 	private TaiKhoanServiceImpl iTaiKhoan;
 	private JButton btnXong;
-	private JLabel lblTitile;
+	private JLabel lblTitle;
 
 	/**
 	 * Launch the application.
@@ -128,25 +128,25 @@ public class Frm_QuenMatKhau extends JFrame implements ActionListener, MouseList
 		btnXong.setBounds(223, 355, 138, 35);
 		contentPane.add(btnXong);
 
-		lblTitile = new JLabel("QUÊN MẬT KHẨU");
-		lblTitile.setForeground(new Color(255, 69, 0));
-		lblTitile.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblTitile.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitile.setBounds(0, 11, 586, 65);
-		contentPane.add(lblTitile);
+		lblTitle = new JLabel("QUÊN MẬT KHẨU");
+		lblTitle.setForeground(new Color(255, 69, 0));
+		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 30));
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setBounds(0, 11, 586, 65);
+		contentPane.add(lblTitle);
 
 		btnNhanOTP = new JButton("Nhận OTP");
 		btnNhanOTP.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnNhanOTP.setBounds(434, 107, 102, 23);
 		contentPane.add(btnNhanOTP);
 
-		passwordFieldPassMoi = new JPasswordField();
-		passwordFieldPassMoi.setBounds(256, 232, 267, 20);
-		contentPane.add(passwordFieldPassMoi);
+		pwdPassMoi = new JPasswordField();
+		pwdPassMoi.setBounds(256, 232, 267, 20);
+		contentPane.add(pwdPassMoi);
 
-		passwordFieldConfirm = new JPasswordField();
-		passwordFieldConfirm.setBounds(256, 286, 267, 20);
-		contentPane.add(passwordFieldConfirm);
+		pwdConfirm = new JPasswordField();
+		pwdConfirm.setBounds(256, 286, 267, 20);
+		contentPane.add(pwdConfirm);
 
 		btnNhanOTP.addActionListener(this);
 		btnKiemTra.addActionListener(this);
@@ -268,8 +268,8 @@ public class Frm_QuenMatKhau extends JFrame implements ActionListener, MouseList
 	}
 
 	private void enableMatKhauMoi() {
-		passwordFieldPassMoi.setEnabled(true);
-		passwordFieldConfirm.setEnabled(true);
+		pwdPassMoi.setEnabled(true);
+		pwdConfirm.setEnabled(true);
 		btnXong.setEnabled(true);
 	}
 
@@ -297,8 +297,8 @@ public class Frm_QuenMatKhau extends JFrame implements ActionListener, MouseList
 	private void resetForm() {
 		txtEmail.setEnabled(true);
 		txtOTP.setEnabled(true);
-		passwordFieldPassMoi.setEnabled(false);
-		passwordFieldConfirm.setEnabled(false);
+		pwdPassMoi.setEnabled(false);
+		pwdConfirm.setEnabled(false);
 		btnXong.setEnabled(false);
 		clearInput();
 	}
@@ -306,18 +306,18 @@ public class Frm_QuenMatKhau extends JFrame implements ActionListener, MouseList
 	private void clearInput() {
 		txtEmail.setText("");
 		txtOTP.setText("");
-		passwordFieldPassMoi.setText("");
-		passwordFieldConfirm.setText("");
+		pwdPassMoi.setText("");
+		pwdConfirm.setText("");
 	}
 
 	private void doiPass() {
 		iNhanVien = new NhanVienServiceImpl();
 		iTaiKhoan = new TaiKhoanServiceImpl();
-		char[] pfMoi = passwordFieldPassMoi.getPassword();
+		char[] pfMoi = pwdPassMoi.getPassword();
 
 		String valueMoi = new String(pfMoi);
 
-		char[] pfXacNhan = passwordFieldConfirm.getPassword();
+		char[] pfXacNhan = pwdConfirm.getPassword();
 		String valueXacNhan = new String(pfXacNhan);
 
 		if (valueMoi.trim().equals("")) {

@@ -48,11 +48,11 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JComboBox<Object> cbbLoai;
-	private JComboBox<Object> cbbTacGiaorChatLieu;
-	private JComboBox<Object> cbbNhaXBorXuatXu;
-	private JComboBox<String> cbbNhaCungCap;
-	private JComboBox<String> cbbMauSac;
+	private JComboBox<Object> cmbLoai;
+	private JComboBox<Object> cmbTacGiaorChatLieu;
+	private JComboBox<Object> cmbNhaXBorXuatXu;
+	private JComboBox<String> cmbNhaCungCap;
+	private JComboBox<String> cmbMauSac;
 	private JTextField txtMasp;
 	private JLabel lblNewLabel_2;
 	private JLabel lblTacGia;
@@ -92,14 +92,14 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 	private ArrayList<ChatLieu> chatLieus;
 	private ArrayList<XuatXu> xuatXus;
 	private ArrayList<MauSac> mauSacs;
-	private JTextArea txtAreaGhiChu;
-	private JComboBox<String> cbbDonVi;
+	private JTextArea txaGhiChu;
+	private JComboBox<String> cmbDonVi;
 	String loaiSanPham;
 	Sach sach;
 	VanPhongPham vanPhongPham;
 	String maSanPham;
 	private String hinhAnh;
-	private JFileChooser filechoose;
+	private JFileChooser fchFilechoose;
 
 	@SuppressWarnings("deprecation")
 	public Frm_CapNhatSP(String maSanPham, String loaiSanPham) {
@@ -118,36 +118,36 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 		lblNewLabel_1.setBounds(10, 89, 116, 23);
 		getContentPane().add(lblNewLabel_1);
 
-		cbbLoai = new JComboBox<Object>();
-		cbbLoai.setBackground(new Color(255, 255, 255));
-		cbbLoai.setBounds(125, 159, 240, 33);
-		getContentPane().add(cbbLoai);
+		cmbLoai = new JComboBox<Object>();
+		cmbLoai.setBackground(new Color(255, 255, 255));
+		cmbLoai.setBounds(125, 159, 240, 33);
+		getContentPane().add(cmbLoai);
 
-		cbbTacGiaorChatLieu = new JComboBox<Object>();
-		cbbTacGiaorChatLieu.setBackground(Color.WHITE);
-		cbbTacGiaorChatLieu.setBounds(125, 202, 240, 33);
-		getContentPane().add(cbbTacGiaorChatLieu);
+		cmbTacGiaorChatLieu = new JComboBox<Object>();
+		cmbTacGiaorChatLieu.setBackground(Color.WHITE);
+		cmbTacGiaorChatLieu.setBounds(125, 202, 240, 33);
+		getContentPane().add(cmbTacGiaorChatLieu);
 
-		cbbNhaXBorXuatXu = new JComboBox<Object>();
-		cbbNhaXBorXuatXu.setBackground(Color.WHITE);
-		cbbNhaXBorXuatXu.setBounds(125, 245, 240, 33);
-		getContentPane().add(cbbNhaXBorXuatXu);
+		cmbNhaXBorXuatXu = new JComboBox<Object>();
+		cmbNhaXBorXuatXu.setBackground(Color.WHITE);
+		cmbNhaXBorXuatXu.setBounds(125, 245, 240, 33);
+		getContentPane().add(cmbNhaXBorXuatXu);
 
-		cbbNhaCungCap = new JComboBox<String>();
-		cbbNhaCungCap.setBackground(Color.WHITE);
-		cbbNhaCungCap.setBounds(125, 364, 328, 33);
-		getContentPane().add(cbbNhaCungCap);
+		cmbNhaCungCap = new JComboBox<String>();
+		cmbNhaCungCap.setBackground(Color.WHITE);
+		cmbNhaCungCap.setBounds(125, 364, 328, 33);
+		getContentPane().add(cmbNhaCungCap);
 
-		cbbMauSac = new JComboBox<String>();
-		cbbMauSac.setBackground(Color.WHITE);
-		cbbMauSac.setBounds(125, 288, 240, 33);
-		getContentPane().add(cbbMauSac);
-		cbbMauSac.hide();
+		cmbMauSac = new JComboBox<String>();
+		cmbMauSac.setBackground(Color.WHITE);
+		cmbMauSac.setBounds(125, 288, 240, 33);
+		getContentPane().add(cmbMauSac);
+		cmbMauSac.hide();
 
-		JPanel panel = new JPanel();
-		panel.setBounds(10, 38, 285, 46);
-		getContentPane().add(panel);
-		panel.setLayout(null);
+		JPanel pnlPanel = new JPanel();
+		pnlPanel.setBounds(10, 38, 285, 46);
+		getContentPane().add(pnlPanel);
+		pnlPanel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("CẬP NHẬT SẢN PHẨM");
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -276,31 +276,31 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 		txtTrongLuong.setBounds(125, 480, 85, 23);
 		getContentPane().add(txtTrongLuong);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 558, 766, 54);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		JPanel pnlPanel_1 = new JPanel();
+		pnlPanel_1.setBounds(10, 558, 766, 54);
+		getContentPane().add(pnlPanel_1);
+		pnlPanel_1.setLayout(null);
 
 		btnCapNhatSP = new JButton("Cập nhật");
 		btnCapNhatSP.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCapNhatSP.setBounds(316, 10, 132, 39);
-		panel_1.add(btnCapNhatSP);
+		pnlPanel_1.add(btnCapNhatSP);
 
 		btnHuy = new JButton("Hủy");
 		btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnHuy.setBounds(540, 10, 132, 39);
-		panel_1.add(btnHuy);
+		pnlPanel_1.add(btnHuy);
 
 		btnLamMoi = new JButton("Khôi phục");
 		btnLamMoi.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnLamMoi.setBounds(92, 10, 132, 39);
-		panel_1.add(btnLamMoi);
+		pnlPanel_1.add(btnLamMoi);
 
-		txtAreaGhiChu = new JTextArea();
-		txtAreaGhiChu.setFont(new Font("Courier New", Font.PLAIN, 13));
-		txtAreaGhiChu.setBounds(491, 400, 285, 158);
-		txtAreaGhiChu.setBorder(BorderFactory.createLineBorder(Color.black));
-		getContentPane().add(txtAreaGhiChu);
+		txaGhiChu = new JTextArea();
+		txaGhiChu.setFont(new Font("Courier New", Font.PLAIN, 13));
+		txaGhiChu.setBounds(491, 400, 285, 158);
+		txaGhiChu.setBorder(BorderFactory.createLineBorder(Color.black));
+		getContentPane().add(txaGhiChu);
 
 		JLabel lblNewLabel_6_1 = new JLabel("Ghi chú(Mô tả):");
 		lblNewLabel_6_1.setForeground(new Color(72, 61, 139));
@@ -308,13 +308,13 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 		lblNewLabel_6_1.setBounds(490, 374, 127, 23);
 		getContentPane().add(lblNewLabel_6_1);
 
-		cbbDonVi = new JComboBox<String>();
-		cbbDonVi.addItem("Cái");
-		cbbDonVi.addItem("Cuốn");
-		cbbDonVi.addItem("Chiếc");
-		cbbDonVi.setBackground(Color.WHITE);
-		cbbDonVi.setBounds(125, 438, 240, 33);
-		getContentPane().add(cbbDonVi);
+		cmbDonVi = new JComboBox<String>();
+		cmbDonVi.addItem("Cái");
+		cmbDonVi.addItem("Cuốn");
+		cmbDonVi.addItem("Chiếc");
+		cmbDonVi.setBackground(Color.WHITE);
+		cmbDonVi.setBounds(125, 438, 240, 33);
+		getContentPane().add(cmbDonVi);
 		
 		JLabel lblNewLabel_13_1 = new JLabel("kg");
 		lblNewLabel_13_1.setForeground(new Color(72, 61, 139));
@@ -409,11 +409,11 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			}
 		}
 		if (o.equals(btnChooser)) {
-			filechoose = new JFileChooser("../HieuSachTuNhan/hinhAnhHieuSach");
-			filechoose.setMultiSelectionEnabled(false);
-			int x = filechoose.showDialog(this, "Chọn Ảnh");
+			fchFilechoose = new JFileChooser("../HieuSachTuNhan/hinhAnhHieuSach");
+			fchFilechoose.setMultiSelectionEnabled(false);
+			int x = fchFilechoose.showDialog(this, "Chọn Ảnh");
 			if (x == JFileChooser.APPROVE_OPTION) {
-				String file = filechoose.getSelectedFile().getAbsolutePath();
+				String file = fchFilechoose.getSelectedFile().getAbsolutePath();
 				if (!file.matches(".*(\\.jpg|\\.png|\\.PNG)")) {
 					file = "..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg";
 				}
@@ -437,12 +437,12 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 		;
-		cbbLoai.removeAllItems();
+		cmbLoai.removeAllItems();
 		for (TheLoaiSach theLoaiSach : theLoaiSachs) {
-			cbbLoai.addItem(theLoaiSach.getTenLoai());
+			cmbLoai.addItem(theLoaiSach.getTenLoai());
 		}
 
-		cbbLoai.setSelectedItem(sach.getTheLoaiSach().getTenLoai());
+		cmbLoai.setSelectedItem(sach.getTheLoaiSach().getTenLoai());
 		// tac gia
 		tacGias = new ArrayList<TacGia>();
 		try {
@@ -452,11 +452,11 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 		lblTacGia.setText("Tác giả: ");
-		cbbTacGiaorChatLieu.removeAllItems();
+		cmbTacGiaorChatLieu.removeAllItems();
 		for (TacGia tacGia : tacGias) {
-			cbbTacGiaorChatLieu.addItem(tacGia.getTenTacGia());
+			cmbTacGiaorChatLieu.addItem(tacGia.getTenTacGia());
 		}
-		cbbTacGiaorChatLieu.setSelectedItem(sach.getTacGia().getTenTacGia());
+		cmbTacGiaorChatLieu.setSelectedItem(sach.getTacGia().getTenTacGia());
 		// nxb
 		nhaXuatBans = new ArrayList<NhaXuatBan>();
 		try {
@@ -466,11 +466,11 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 		lblNXB.setText("Nhà xuất bản: ");
-		cbbNhaXBorXuatXu.removeAllItems();
+		cmbNhaXBorXuatXu.removeAllItems();
 		for (NhaXuatBan nhaXuatBan : nhaXuatBans) {
-			cbbNhaXBorXuatXu.addItem(nhaXuatBan.getTenNXB());
+			cmbNhaXBorXuatXu.addItem(nhaXuatBan.getTenNXB());
 		}
-		cbbNhaXBorXuatXu.setSelectedItem(sach.getNhaXuatBan().getTenNXB());
+		cmbNhaXBorXuatXu.setSelectedItem(sach.getNhaXuatBan().getTenNXB());
 		// ncc
 		nhaCungCaps = new ArrayList<NhaCungCap>();
 		try {
@@ -479,27 +479,27 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		cbbNhaCungCap.removeAllItems();
+		cmbNhaCungCap.removeAllItems();
 		for (NhaCungCap nhaCungCap : nhaCungCaps) {
-			cbbNhaCungCap.addItem(nhaCungCap.getTenNCC());
+			cmbNhaCungCap.addItem(nhaCungCap.getTenNCC());
 		}
 		ImageIcon icon = new ImageIcon("..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg");
 		if (new File("..\\HieuSachTuNhan\\hinhAnhHieuSach\\" + sach.getHinhAnh()).exists()) {
 			icon = new ImageIcon("..\\HieuSachTuNhan\\hinhAnhHieuSach\\" + sach.getHinhAnh());
 		}
 		lblImgSP.setIcon(setSizeImageIcon(icon, lblImgSP.getWidth(), lblImgSP.getHeight()));
-		cbbNhaCungCap.setSelectedItem(sach.getNhaCungCap().getTenNCC());
+		cmbNhaCungCap.setSelectedItem(sach.getNhaCungCap().getTenNCC());
 		lblSoTrang.setText("Số trang: ");
 		txtSoTrang.setText(sach.getSoTrang() + "");
 		lblnamXB.show();
 		chooserNamXB.show();
 		chooserNamXB.setYear(sach.getNamXuatBan());
-		cbbMauSac.hide();
-		cbbDonVi.setSelectedItem(sach.getDonViSanPham());
+		cmbMauSac.hide();
+		cmbDonVi.setSelectedItem(sach.getDonViSanPham());
 		txtGiaNhap.setText(sach.getGiaNhap() + "");
 		txtSoLuong.setText(sach.getSoLuongTon() + "");
 		txtTrongLuong.setText(sach.getTrongLuong() + "");
-		txtAreaGhiChu.setText(sach.getGhiChu());
+		txaGhiChu.setText(sach.getGhiChu());
 	}
 
 	@SuppressWarnings("deprecation")
@@ -514,12 +514,12 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		cbbLoai.removeAllItems();
+		cmbLoai.removeAllItems();
 		for (TheLoaiVanPhongPham theLoaiVanPhongPham : theLoaiVanPhongPhams) {
-			cbbLoai.addItem(theLoaiVanPhongPham.getTenLoai());
+			cmbLoai.addItem(theLoaiVanPhongPham.getTenLoai());
 		}
-		cbbLoai.setSelectedItem(vanPhongPham.getLoaiVanPhongPham());
-		cbbDonVi.setSelectedItem(vanPhongPham.getDonViSanPham());
+		cmbLoai.setSelectedItem(vanPhongPham.getLoaiVanPhongPham());
+		cmbDonVi.setSelectedItem(vanPhongPham.getDonViSanPham());
 		// chat lieu
 		chatLieus = new ArrayList<ChatLieu>();
 		try {
@@ -529,11 +529,11 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 		lblTacGia.setText("Chất liệu: ");
-		cbbTacGiaorChatLieu.removeAllItems();
+		cmbTacGiaorChatLieu.removeAllItems();
 		for (ChatLieu chatLieu : chatLieus) {
-			cbbTacGiaorChatLieu.addItem(chatLieu.getTenChatLieu());
+			cmbTacGiaorChatLieu.addItem(chatLieu.getTenChatLieu());
 		}
-		cbbTacGiaorChatLieu.setSelectedItem(vanPhongPham.getChatLieu().getTenChatLieu());
+		cmbTacGiaorChatLieu.setSelectedItem(vanPhongPham.getChatLieu().getTenChatLieu());
 		// Xuat xu
 		xuatXus = new ArrayList<XuatXu>();
 		try {
@@ -543,11 +543,11 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 		lblNXB.setText("Xuất xứ: ");
-		cbbNhaXBorXuatXu.removeAllItems();
+		cmbNhaXBorXuatXu.removeAllItems();
 		for (XuatXu xuatXu : xuatXus) {
-			cbbNhaXBorXuatXu.addItem(xuatXu.getTenXuatXu());
+			cmbNhaXBorXuatXu.addItem(xuatXu.getTenXuatXu());
 		}
-		cbbNhaXBorXuatXu.setSelectedItem(vanPhongPham.getXuatXu().getTenXuatXu());
+		cmbNhaXBorXuatXu.setSelectedItem(vanPhongPham.getXuatXu().getTenXuatXu());
 		// ncc
 		nhaCungCaps = new ArrayList<NhaCungCap>();
 		try {
@@ -556,11 +556,11 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		cbbNhaCungCap.removeAllItems();
+		cmbNhaCungCap.removeAllItems();
 		for (NhaCungCap nhaCungCap : nhaCungCaps) {
-			cbbNhaCungCap.addItem(nhaCungCap.getTenNCC());
+			cmbNhaCungCap.addItem(nhaCungCap.getTenNCC());
 		}
-		cbbNhaCungCap.setSelectedItem(vanPhongPham.getNhaCungCap().getTenNCC());
+		cmbNhaCungCap.setSelectedItem(vanPhongPham.getNhaCungCap().getTenNCC());
 		// mau sac
 		mauSacs = new ArrayList<MauSac>();
 		try {
@@ -570,10 +570,10 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 		lblSoTrang.setText("Màu sắc: ");
-		cbbMauSac.show();
-		cbbMauSac.removeAllItems();
+		cmbMauSac.show();
+		cmbMauSac.removeAllItems();
 		for (MauSac mauSac : mauSacs) {
-			cbbMauSac.addItem(mauSac.getTenMau());
+			cmbMauSac.addItem(mauSac.getTenMau());
 		}
 		ImageIcon icon = new ImageIcon("..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg");
 		if (new File("..\\HieuSachTuNhan\\hinhAnhHieuSach\\" + vanPhongPham.getHinhAnh()).exists()) {
@@ -581,14 +581,14 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 		}
 		lblImgSP.setIcon(setSizeImageIcon(icon, lblImgSP.getWidth(), lblImgSP.getHeight()));
 
-		cbbMauSac.setSelectedItem(vanPhongPham.getMauSac().getTenMau());
+		cmbMauSac.setSelectedItem(vanPhongPham.getMauSac().getTenMau());
 		lblnamXB.hide();
 		txtSoTrang.hide();
 		chooserNamXB.hide();
 		txtGiaNhap.setText(vanPhongPham.getGiaNhap() + "");
 		txtSoLuong.setText(vanPhongPham.getSoLuongTon() + "");
 		txtTrongLuong.setText(vanPhongPham.getTrongLuong() + "");
-		txtAreaGhiChu.setText(vanPhongPham.getGhiChu());
+		txaGhiChu.setText(vanPhongPham.getGhiChu());
 	}
 
 	public Sach taoSach() {
@@ -625,7 +625,7 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			txtSoLuong.selectAll();
 			return null;
 		}
-		NhaCungCap nhaCungCap = nhaCungCaps.get(cbbNhaCungCap.getSelectedIndex());
+		NhaCungCap nhaCungCap = nhaCungCaps.get(cmbNhaCungCap.getSelectedIndex());
 		long giaNhap;
 		try {
 			giaNhap = Long.parseLong(txtGiaNhap.getText().trim());
@@ -641,11 +641,11 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			txtGiaNhap.selectAll();
 			return null;
 		}
-		String ghiChu = txtAreaGhiChu.getText().trim();
-		String donViSanPham = cbbDonVi.getSelectedItem().toString();
+		String ghiChu = txaGhiChu.getText().trim();
+		String donViSanPham = cmbDonVi.getSelectedItem().toString();
 		String tenSach = txtTenSp.getText().trim();
-		TacGia tacGia = tacGias.get(cbbTacGiaorChatLieu.getSelectedIndex());
-		NhaXuatBan nhaXuatBan = nhaXuatBans.get(cbbNhaXBorXuatXu.getSelectedIndex());
+		TacGia tacGia = tacGias.get(cmbTacGiaorChatLieu.getSelectedIndex());
+		NhaXuatBan nhaXuatBan = nhaXuatBans.get(cmbNhaXBorXuatXu.getSelectedIndex());
 		int namXuatBan = chooserNamXB.getYear();
 		int namHienTai = LocalDate.now().getYear();
 		if(namXuatBan > namHienTai || namXuatBan<1980) {
@@ -669,7 +669,7 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			txtTrongLuong.selectAll();
 			return null;
 		}
-		TheLoaiSach theLoaiSach = theLoaiSachs.get(cbbLoai.getSelectedIndex());
+		TheLoaiSach theLoaiSach = theLoaiSachs.get(cmbLoai.getSelectedIndex());
 		s = new Sach(maSanPham, loaiSanPham, soLuongTon, trongLuong, nhaCungCap, giaNhap, ghiChu, donViSanPham, hinhAnh,
 				tenSach, tacGia, nhaXuatBan, namXuatBan, soTrang, theLoaiSach);
 		return s;
@@ -694,7 +694,7 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			txtSoLuong.selectAll();
 			return null;
 		}
-		NhaCungCap nhaCungCap = nhaCungCaps.get(cbbNhaCungCap.getSelectedIndex());
+		NhaCungCap nhaCungCap = nhaCungCaps.get(cmbNhaCungCap.getSelectedIndex());
 		long giaNhap;
 		try {
 			giaNhap = Long.parseLong(txtGiaNhap.getText().trim());
@@ -704,13 +704,13 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 			txtGiaNhap.selectAll();
 			return null;
 		}
-		String ghiChu = txtAreaGhiChu.getText().trim();
-		String donViSanPham = cbbDonVi.getSelectedItem().toString();
+		String ghiChu = txaGhiChu.getText().trim();
+		String donViSanPham = cmbDonVi.getSelectedItem().toString();
 		String tenVPP = txtTenSp.getText().trim();
-		TheLoaiVanPhongPham loaiVanPhongPham = theLoaiVanPhongPhams.get(cbbLoai.getSelectedIndex());
-		MauSac mauSac = mauSacs.get(cbbMauSac.getSelectedIndex());
-		ChatLieu chatLieu = chatLieus.get(cbbTacGiaorChatLieu.getSelectedIndex());
-		XuatXu xuatXu = xuatXus.get(cbbNhaXBorXuatXu.getSelectedIndex());
+		TheLoaiVanPhongPham loaiVanPhongPham = theLoaiVanPhongPhams.get(cmbLoai.getSelectedIndex());
+		MauSac mauSac = mauSacs.get(cmbMauSac.getSelectedIndex());
+		ChatLieu chatLieu = chatLieus.get(cmbTacGiaorChatLieu.getSelectedIndex());
+		XuatXu xuatXu = xuatXus.get(cmbNhaXBorXuatXu.getSelectedIndex());
 		double trongLuong;
 		try {
 			trongLuong = Double.parseDouble(txtTrongLuong.getText().trim());

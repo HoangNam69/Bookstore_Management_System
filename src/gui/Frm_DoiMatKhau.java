@@ -28,16 +28,16 @@ import java.awt.Color;
 
 public class Frm_DoiMatKhau extends JFrame implements ActionListener, MouseListener {
 
-	private JPanel contentPane;
+	private JPanel pnlContentPane;
 	private JLabel lblDoiMatKhau;
 	private JLabel lblOldPass;
 	private JLabel lblNewPass;
 	private JLabel lblNewPassConfirm;
 	private JButton btnDoi;
 	private JButton btnThoat;
-	private JPasswordField passwordFieldCu;
-	private JPasswordField passwordFieldMoi;
-	private JPasswordField passwordFieldXacNhan;
+	private JPasswordField txtPasswordFieldCu;
+	private JPasswordField txtPasswordFieldMoi;
+	private JPasswordField txtPasswordFieldXacNhan;
 	private NhanVienServiceImpl iNhanvien;
 	private NhanVien nv;
 	private JLabel lblTenNV;
@@ -70,64 +70,64 @@ public class Frm_DoiMatKhau extends JFrame implements ActionListener, MouseListe
 	public Frm_DoiMatKhau() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 541, 337);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 206, 209));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		pnlContentPane = new JPanel();
+		pnlContentPane.setBackground(new Color(0, 206, 209));
+		pnlContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLocationRelativeTo(null);
 		setResizable(false);
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(pnlContentPane);
+		pnlContentPane.setLayout(null);
 
 		lblDoiMatKhau = new JLabel("ĐỔI MẬT KHẨU");
 		lblDoiMatKhau.setForeground(new Color(255, 0, 0));
 		lblDoiMatKhau.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDoiMatKhau.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblDoiMatKhau.setBounds(0, 11, 525, 64);
-		contentPane.add(lblDoiMatKhau);
+		pnlContentPane.add(lblDoiMatKhau);
 
 		lblOldPass = new JLabel("Nhập mật khẩu cũ:");
 		lblOldPass.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblOldPass.setBounds(24, 89, 177, 14);
-		contentPane.add(lblOldPass);
+		pnlContentPane.add(lblOldPass);
 
 		lblNewPass = new JLabel("Nhập mật khẩu mới:");
 		lblNewPass.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewPass.setBounds(24, 147, 177, 23);
-		contentPane.add(lblNewPass);
+		pnlContentPane.add(lblNewPass);
 
 		lblNewPassConfirm = new JLabel("Xác nhận mật khẩu mới:");
 		lblNewPassConfirm.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewPassConfirm.setBounds(24, 218, 177, 14);
-		contentPane.add(lblNewPassConfirm);
+		pnlContentPane.add(lblNewPassConfirm);
 
 		btnDoi = new JButton("Đổi");
 		btnDoi.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnDoi.setBounds(112, 264, 89, 23);
-		contentPane.add(btnDoi);
+		pnlContentPane.add(btnDoi);
 
 		btnThoat = new JButton("Thoát");
 		btnThoat.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThoat.setBounds(300, 264, 89, 23);
-		contentPane.add(btnThoat);
+		pnlContentPane.add(btnThoat);
 
-		passwordFieldCu = new JPasswordField();
-		passwordFieldCu.setBounds(201, 86, 292, 20);
-		contentPane.add(passwordFieldCu);
+		txtPasswordFieldCu = new JPasswordField();
+		txtPasswordFieldCu.setBounds(201, 86, 292, 20);
+		pnlContentPane.add(txtPasswordFieldCu);
 
-		passwordFieldMoi = new JPasswordField();
-		passwordFieldMoi.setBounds(201, 149, 292, 20);
-		contentPane.add(passwordFieldMoi);
+		txtPasswordFieldMoi = new JPasswordField();
+		txtPasswordFieldMoi.setBounds(201, 149, 292, 20);
+		pnlContentPane.add(txtPasswordFieldMoi);
 
-		passwordFieldXacNhan = new JPasswordField();
-		passwordFieldXacNhan.setBounds(201, 215, 292, 20);
-		contentPane.add(passwordFieldXacNhan);
+		txtPasswordFieldXacNhan = new JPasswordField();
+		txtPasswordFieldXacNhan.setBounds(201, 215, 292, 20);
+		pnlContentPane.add(txtPasswordFieldXacNhan);
 
 		btnDoi.addActionListener(this);
 		btnThoat.addActionListener(this);
 
 		lblTenNV = new JLabel();
-		contentPane.add(lblTenNV);
+		pnlContentPane.add(lblTenNV);
 
 		iNhanvien = new NhanVienServiceImpl();
 		nv = new NhanVien();
@@ -176,13 +176,13 @@ public class Frm_DoiMatKhau extends JFrame implements ActionListener, MouseListe
 		}
 		if (o.equals(btnDoi)) {
 			iTaiKhoan = new TaiKhoanServiceImpl();
-			char[] pfCu = passwordFieldCu.getPassword();
+			char[] pfCu = txtPasswordFieldCu.getPassword();
 			String valueCU = new String(pfCu);
 
-			char[] pfMoi = passwordFieldMoi.getPassword();
+			char[] pfMoi = txtPasswordFieldMoi.getPassword();
 			String valueMoi = new String(pfMoi);
 
-			char[] pfXacNhan = passwordFieldXacNhan.getPassword();
+			char[] pfXacNhan = txtPasswordFieldXacNhan.getPassword();
 			String valueXacNhan = new String(pfXacNhan);
 
 			String passCu = taiKhoan.getMatKhau();

@@ -48,14 +48,14 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 	private static final long serialVersionUID = 1L;
 	private JTextField txtMa;
 	private JTextField txtTen;
-	private DefaultTableModel modelThuocTinh;
-	private JTable tableThuocTinh;
-	private JScrollPane scrollThuocTinh;
+	private DefaultTableModel mdlThuocTinh;
+	private JTable tblThuocTinh;
+	private JScrollPane scrThuocTinh;
 	private JLabel lblMa;
 	private JLabel lblTen;
 	private JRadioButton radTheLoai;
-	private JRadioButton radNXBorXuatXu;
-	private JRadioButton radTacGiaorChatLieu;
+	private JRadioButton radNxbOrXuatXu;
+	private JRadioButton radTacGiaOrChatLieu;
 	private JRadioButton radNhaCungCap;
 	private JRadioButton radMauSac;
 	private JButton btnThem;
@@ -125,34 +125,34 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 		lblTen.setBounds(20, 95, 218, 28);
 		getContentPane().add(lblTen);
 		String[] cols = { "Mã", "Tên" };
-		modelThuocTinh = new DefaultTableModel(cols, 0);
-		tableThuocTinh = new JTable(modelThuocTinh);
-		tableThuocTinh.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableThuocTinh.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		scrollThuocTinh = new JScrollPane(tableThuocTinh);
-		scrollThuocTinh.setBounds(10, 256, 966, 307);
+		mdlThuocTinh = new DefaultTableModel(cols, 0);
+		tblThuocTinh = new JTable(mdlThuocTinh);
+		tblThuocTinh.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tblThuocTinh.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		scrThuocTinh = new JScrollPane(tblThuocTinh);
+		scrThuocTinh.setBounds(10, 256, 966, 307);
 
-		tableThuocTinh.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tableThuocTinh.setAutoCreateRowSorter(true);
-		tableThuocTinh.setRowHeight(25);
-		scrollThuocTinh.getViewport().setBackground(Color.WHITE);
-		tableThuocTinh.getTableHeader().setPreferredSize(new Dimension(0, 40));
-		getContentPane().add(scrollThuocTinh);
+		tblThuocTinh.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tblThuocTinh.setAutoCreateRowSorter(true);
+		tblThuocTinh.setRowHeight(25);
+		scrThuocTinh.getViewport().setBackground(Color.WHITE);
+		tblThuocTinh.getTableHeader().setPreferredSize(new Dimension(0, 40));
+		getContentPane().add(scrThuocTinh);
 
 		radTheLoai = new JRadioButton("Thể loại sách");
 		radTheLoai.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		radTheLoai.setBounds(525, 54, 211, 21);
 		getContentPane().add(radTheLoai);
 
-		radNXBorXuatXu = new JRadioButton("Nhà xuất bản");
-		radNXBorXuatXu.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		radNXBorXuatXu.setBounds(525, 95, 157, 21);
-		getContentPane().add(radNXBorXuatXu);
+		radNxbOrXuatXu = new JRadioButton("Nhà xuất bản");
+		radNxbOrXuatXu.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		radNxbOrXuatXu.setBounds(525, 95, 157, 21);
+		getContentPane().add(radNxbOrXuatXu);
 
-		radTacGiaorChatLieu = new JRadioButton("Tác giả");
-		radTacGiaorChatLieu.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		radTacGiaorChatLieu.setBounds(738, 54, 91, 21);
-		getContentPane().add(radTacGiaorChatLieu);
+		radTacGiaOrChatLieu = new JRadioButton("Tác giả");
+		radTacGiaOrChatLieu.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		radTacGiaOrChatLieu.setBounds(738, 54, 91, 21);
+		getContentPane().add(radTacGiaOrChatLieu);
 
 		radNhaCungCap = new JRadioButton("Nhà cung cấp");
 		radNhaCungCap.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -173,11 +173,11 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 		setEditTxt(false);
 		radTheLoai.setSelected(true);
 		group = new ButtonGroup();
-		group.add(radNXBorXuatXu);
+		group.add(radNxbOrXuatXu);
 		group.add(radTheLoai);
 		group.add(radMauSac);
 		group.add(radNhaCungCap);
-		group.add(radTacGiaorChatLieu);
+		group.add(radTacGiaOrChatLieu);
 
 		btnHuy = new JButton("Thoát");
 		btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -235,14 +235,14 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 				loadThuocTinhSach();
 				for (TheLoaiSach loaiSach : theLoaiSachs) {
 					Object[] o1 = { loaiSach.getMaLoai(), loaiSach.getTenLoai() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 
 			} else {
 				loadThuocTinhVPP();
 				for (TheLoaiVanPhongPham loaiVanPhongPham : theLoaiVanPhongPhams) {
 					Object[] o1 = { loaiVanPhongPham.getMaLoai(), loaiVanPhongPham.getTenLoai() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 			}
 		} catch (Exception e) {
@@ -251,12 +251,12 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 		}
 		btnThem.addActionListener(this);
 		btnHuy.addActionListener(this);
-		radNXBorXuatXu.addMouseListener(this);
+		radNxbOrXuatXu.addMouseListener(this);
 		radTheLoai.addMouseListener(this);
 		radMauSac.addMouseListener(this);
 		radNhaCungCap.addMouseListener(this);
-		radTacGiaorChatLieu.addMouseListener(this);
-		tableThuocTinh.addMouseListener(this);
+		radTacGiaOrChatLieu.addMouseListener(this);
+		tblThuocTinh.addMouseListener(this);
 	}
 
 	@Override
@@ -265,40 +265,40 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 		if (o.equals(radTheLoai)) {
 			setlbl("Mã thể loại:", "Tên thể loại:");
 			if (loaiSanPham.equals("Sách")) {
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (TheLoaiSach loaiSach : theLoaiSachs) {
 					Object[] o1 = { loaiSach.getMaLoai(), loaiSach.getTenLoai() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			} else {
 				String[] cols = { "Mã thể loại", "Tên thể loại" };
-				modelThuocTinh = new DefaultTableModel(cols, 0);
-				tableThuocTinh = new JTable(modelThuocTinh);
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh = new DefaultTableModel(cols, 0);
+				tblThuocTinh = new JTable(mdlThuocTinh);
+				mdlThuocTinh.setRowCount(0);
 				for (TheLoaiVanPhongPham loaiVanPhongPham : theLoaiVanPhongPhams) {
 					Object[] o1 = { loaiVanPhongPham.getMaLoai(), loaiVanPhongPham.getTenLoai() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			}
 
 		}
-		if (o.equals(radNXBorXuatXu)) {
+		if (o.equals(radNxbOrXuatXu)) {
 			if (loaiSanPham.equals("Sách")) {
 				setlbl("Mã nhà xuất bản:", "Tên nhà xuất bản:");
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (NhaXuatBan nhaXuatBan : nhaXuatBans) {
 					Object[] o1 = { nhaXuatBan.getMaNXB(), nhaXuatBan.getTenNXB() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			} else {
 				setlbl("Mã xuất xứ:", "Tên xuất xứ:");
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (XuatXu xuatXu : xuatXus) {
 					Object[] o1 = { xuatXu.getMaXuatXu(), xuatXu.getTenXuatXu() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			}
@@ -306,28 +306,28 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 		}
 		if (o.equals(radMauSac)) {
 			setlbl("Mã màu:", "Tên màu:");
-			modelThuocTinh.setRowCount(0);
+			mdlThuocTinh.setRowCount(0);
 			for (MauSac mauSac : mauSacs) {
 				Object[] o1 = { mauSac.getMaMau(), mauSac.getTenMau() };
-				modelThuocTinh.addRow(o1);
+				mdlThuocTinh.addRow(o1);
 			}
 			setTxt("", "");
 		}
-		if (o.equals(radTacGiaorChatLieu)) {
+		if (o.equals(radTacGiaOrChatLieu)) {
 			if (loaiSanPham.equals("Sách")) {
 				setlbl("Mã tác giả:", "Tên tác giả:");
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (TacGia tacGia : tacGias) {
 					Object[] o1 = { tacGia.getMaTacGia(), tacGia.getTenTacGia() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			} else {
 				setlbl("Mã chất liệu: ", "Tên chất liệu:");
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (ChatLieu chatLieu : chatLieus) {
 					Object[] o1 = { chatLieu.getMaChatLieu(), chatLieu.getTenChatLieu() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			}
@@ -344,10 +344,10 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 			txtDiaChi.setText("");
 			txtEmail.setText("");
 			txtSdt.setText("");
-			modelThuocTinh.setRowCount(0);
+			mdlThuocTinh.setRowCount(0);
 			for (NhaCungCap nhaCungCap : nhaCungCaps) {
 				Object[] o1 = { nhaCungCap.getMaNCC(), nhaCungCap.getTenNCC() };
-				modelThuocTinh.addRow(o1);
+				mdlThuocTinh.addRow(o1);
 			}
 			setTxt("", "");
 		} else {
@@ -358,10 +358,10 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 			lblDiaChi.setVisible(false);
 			txtDiaChi.setVisible(false);
 		}
-		if (o.equals(tableThuocTinh)) {
-			int row = tableThuocTinh.getSelectedRow();
-			setTxt(modelThuocTinh.getValueAt(row, 0).toString().trim(),
-					modelThuocTinh.getValueAt(row, 1).toString().trim());
+		if (o.equals(tblThuocTinh)) {
+			int row = tblThuocTinh.getSelectedRow();
+			setTxt(mdlThuocTinh.getValueAt(row, 0).toString().trim(),
+					mdlThuocTinh.getValueAt(row, 1).toString().trim());
 			if (radNhaCungCap.isSelected()) {
 				lblEmail.setVisible(true);
 				lblSdt.setVisible(true);
@@ -411,16 +411,16 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 				if (loaiSanPham.equals("Sách")) {
 					if (radTheLoai.isSelected())
 						ma = tangMa(theLoaiSachs.get(theLoaiSachs.size() - 1).getMaLoai(), 1);
-					else if (radNXBorXuatXu.isSelected())
+					else if (radNxbOrXuatXu.isSelected())
 						ma = tangMa(nhaXuatBans.get(nhaXuatBans.size() - 1).getMaNXB(), 3);
-					else if (radTacGiaorChatLieu.isSelected())
+					else if (radTacGiaOrChatLieu.isSelected())
 						ma = tangMa(tacGias.get(tacGias.size() - 1).getMaTacGia(), 2);
 				} else {
 					if (radTheLoai.isSelected())
 						ma = tangMa(theLoaiVanPhongPhams.get(theLoaiVanPhongPhams.size() - 1).getMaLoai(), 2);
-					else if (radNXBorXuatXu.isSelected())
+					else if (radNxbOrXuatXu.isSelected())
 						ma = tangMa(xuatXus.get(xuatXus.size() - 1).getMaXuatXu(), 2);
-					else if (radTacGiaorChatLieu.isSelected())
+					else if (radTacGiaOrChatLieu.isSelected())
 						ma = tangMa(chatLieus.get(chatLieus.size() - 1).getMaChatLieu(), 2);
 					else if (radMauSac.isSelected())
 						ma = tangMa(mauSacs.get(mauSacs.size() - 1).getMaMau(), 2);
@@ -483,7 +483,7 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-						else if (radNXBorXuatXu.isSelected())
+						else if (radNxbOrXuatXu.isSelected())
 							try {
 								if (!checkDuLieuRong(txtTen, "Tên nhà xuất bản không được để trống")) {
 									return;
@@ -494,7 +494,7 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-						else if (radTacGiaorChatLieu.isSelected())
+						else if (radTacGiaOrChatLieu.isSelected())
 							try {
 								if (!checkDuLieuRong(txtTen, "Tên tác giả không được để trống")) {
 									return;
@@ -553,7 +553,7 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-						else if (radNXBorXuatXu.isSelected())
+						else if (radNxbOrXuatXu.isSelected())
 							try {
 								if (!checkDuLieuRong(txtTen, "Tên xuất xứ sản phẩm không được để trống")) {
 									return;
@@ -564,7 +564,7 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-						else if (radTacGiaorChatLieu.isSelected())
+						else if (radTacGiaOrChatLieu.isSelected())
 							try {
 								if (!checkDuLieuRong(txtTen, "Tên chất liệu không được để trống")) {
 									return;
@@ -637,8 +637,8 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 		nhaCungCaps = new ArrayList<>();
 		nhaCungCaps = nhaCungCapServiceImpl.getAllListNhaCungCap();
 		radMauSac.setVisible(false);
-		radNXBorXuatXu.setText("Nhà xuất bản");
-		radTacGiaorChatLieu.setText("Tác giả");
+		radNxbOrXuatXu.setText("Nhà xuất bản");
+		radTacGiaOrChatLieu.setText("Tác giả");
 		radTheLoai.setText("Thể loại sách");
 	}
 
@@ -655,8 +655,8 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 		mauSacs = new ArrayList<>();
 		mauSacs = mauSacServiceImpl.getListMauSac();
 		radMauSac.setVisible(true);
-		radNXBorXuatXu.setText("Xuất xứ");
-		radTacGiaorChatLieu.setText("Chất liệu");
+		radNxbOrXuatXu.setText("Xuất xứ");
+		radTacGiaOrChatLieu.setText("Chất liệu");
 		radTheLoai.setText("Thể loại văn phòng phẩm");
 	}
 
@@ -688,8 +688,8 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 	public void setRadEnable(boolean enable) {
 		radMauSac.setEnabled(enable);
 		radNhaCungCap.setEnabled(enable);
-		radNXBorXuatXu.setEnabled(enable);
-		radTacGiaorChatLieu.setEnabled(enable);
+		radNxbOrXuatXu.setEnabled(enable);
+		radTacGiaOrChatLieu.setEnabled(enable);
 		radTheLoai.setEnabled(enable);
 		if (enable == true) {
 			addMouseRad();
@@ -701,55 +701,55 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 	public void removeMouseRad() {
 		radMauSac.removeMouseListener(this);
 		radNhaCungCap.removeMouseListener(this);
-		radNXBorXuatXu.removeMouseListener(this);
-		radTacGiaorChatLieu.removeMouseListener(this);
+		radNxbOrXuatXu.removeMouseListener(this);
+		radTacGiaOrChatLieu.removeMouseListener(this);
 		radTheLoai.removeMouseListener(this);
 
 	}
 
 	public void addMouseRad() {
-		radNXBorXuatXu.addMouseListener(this);
+		radNxbOrXuatXu.addMouseListener(this);
 		radTheLoai.addMouseListener(this);
 		radMauSac.addMouseListener(this);
 		radNhaCungCap.addMouseListener(this);
-		radTacGiaorChatLieu.addMouseListener(this);
+		radTacGiaOrChatLieu.addMouseListener(this);
 	}
 
 	public void loadDuLieu() {
 		if (radTheLoai.isSelected()) {
 			setlbl("Mã thể loại:", "Tên thể loại:");
 			if (loaiSanPham.equals("Sách")) {
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (TheLoaiSach loaiSach : theLoaiSachs) {
 					Object[] o1 = { loaiSach.getMaLoai(), loaiSach.getTenLoai() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			} else {
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (TheLoaiVanPhongPham loaiVanPhongPham : theLoaiVanPhongPhams) {
 					Object[] o1 = { loaiVanPhongPham.getMaLoai(), loaiVanPhongPham.getTenLoai() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			}
 
 		}
-		if (radNXBorXuatXu.isSelected()) {
+		if (radNxbOrXuatXu.isSelected()) {
 			if (loaiSanPham.equals("Sách")) {
 				setlbl("Mã nhà xuất bản:", "Tên nhà xuất bản:");
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (NhaXuatBan nhaXuatBan : nhaXuatBans) {
 					Object[] o1 = { nhaXuatBan.getMaNXB(), nhaXuatBan.getTenNXB() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			} else {
 				setlbl("Mã xuất xứ:", "Tên xuất xứ:");
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (XuatXu xuatXu : xuatXus) {
 					Object[] o1 = { xuatXu.getMaXuatXu(), xuatXu.getTenXuatXu() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			}
@@ -757,28 +757,28 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 		}
 		if (radMauSac.isSelected()) {
 			setlbl("Mã màu:", "Tên màu:");
-			modelThuocTinh.setRowCount(0);
+			mdlThuocTinh.setRowCount(0);
 			for (MauSac mauSac : mauSacs) {
 				Object[] o1 = { mauSac.getMaMau(), mauSac.getTenMau() };
-				modelThuocTinh.addRow(o1);
+				mdlThuocTinh.addRow(o1);
 			}
 			setTxt("", "");
 		}
-		if (radTacGiaorChatLieu.isSelected()) {
+		if (radTacGiaOrChatLieu.isSelected()) {
 			if (loaiSanPham.equals("Sách")) {
 				setlbl("Mã tác giả:", "Tên tác giả:");
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (TacGia tacGia : tacGias) {
 					Object[] o1 = { tacGia.getMaTacGia(), tacGia.getTenTacGia() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			} else {
 				setlbl("Mã chất liệu: ", "Tên chất liệu:");
-				modelThuocTinh.setRowCount(0);
+				mdlThuocTinh.setRowCount(0);
 				for (ChatLieu chatLieu : chatLieus) {
 					Object[] o1 = { chatLieu.getMaChatLieu(), chatLieu.getTenChatLieu() };
-					modelThuocTinh.addRow(o1);
+					mdlThuocTinh.addRow(o1);
 				}
 				setTxt("", "");
 			}
@@ -786,10 +786,10 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 		}
 		if (radNhaCungCap.isSelected()) {
 			setlbl("Mã nhà cung cấp:", "Tên nhà cung cấp:");
-			modelThuocTinh.setRowCount(0);
+			mdlThuocTinh.setRowCount(0);
 			for (NhaCungCap nhaCungCap : nhaCungCaps) {
 				Object[] o1 = { nhaCungCap.getMaNCC(), nhaCungCap.getTenNCC() };
-				modelThuocTinh.addRow(o1);
+				mdlThuocTinh.addRow(o1);
 			}
 			setTxt("", "");
 		}

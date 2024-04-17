@@ -53,24 +53,24 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JComboBox<Object> cbbLoai;
-	private JComboBox<Object> cbbTacGiaorChatLieu;
-	private JComboBox<Object> cbbNhaXBorXuatXu;
-	private JComboBox<String> cbbNhaCungCap;
-	private JComboBox<String> cbbMauSac;
+	private JComboBox<Object> cmbLoai;
+	private JComboBox<Object> cmbTacGiaOrChatLieu;
+	private JComboBox<Object> cmbNhaXbOrXuatXu;
+	private JComboBox<String> cmbNhaCungCap;
+	private JComboBox<String> cmbMauSac;
 	private JTextField txtMasp;
 	private JRadioButton radSach;
 	private JRadioButton radVPP;
 	private JLabel lblNewLabel_2;
 	private JLabel lblTacGia;
-	private JLabel lblNXB;
-	private JLabel lblnamXB;
+	private JLabel lblNxb;
+	private JLabel lblNamXb;
 	private JTextField txtSoTrang;
 	private JLabel lblSoTrang;
 	private JYearChooser chooserNamXB;
 	private JLabel lblNewLabel_7;
 	private JTextField txtSoLuong;
-	private JLabel lblImgSP;
+	private JLabel lblImgSp;
 	private JButton btnChooser;
 	private JLabel lblNewLabel_9;
 	private JTextField txtTenSp;
@@ -82,7 +82,7 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 	private JTextField txtTrongLuong;
 	private JButton btnLamMoi;
 	private JButton btnHuy;
-	private JButton btnThemSP;
+	private JButton btnThemSp;
 	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
 	TheLoaiServiceImpl theLoaiServiceImpl = new TheLoaiServiceImpl();
 	TacGiaServiceImpl tacGiaServiceImpl = new TacGiaServiceImpl();
@@ -99,8 +99,8 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 	private ArrayList<ChatLieu> chatLieus;
 	private ArrayList<XuatXu> xuatXus;
 	private ArrayList<MauSac> mauSacs;
-	private JTextArea txtAreaGhiChu;
-	private JComboBox<String> cbbDonVi;
+	private JTextArea txaGhiChu;
+	private JComboBox<String> cmbDonVi;
 	private JFileChooser filechoose;
 	private String hinhAnh;
 	private JLabel lblNewLabel_3;
@@ -120,31 +120,31 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 		lblNewLabel_1.setBounds(10, 89, 116, 23);
 		getContentPane().add(lblNewLabel_1);
 
-		cbbLoai = new JComboBox<Object>();
-		cbbLoai.setBackground(new Color(255, 255, 255));
-		cbbLoai.setBounds(125, 159, 240, 33);
-		getContentPane().add(cbbLoai);
+		cmbLoai = new JComboBox<Object>();
+		cmbLoai.setBackground(new Color(255, 255, 255));
+		cmbLoai.setBounds(125, 159, 240, 33);
+		getContentPane().add(cmbLoai);
 
-		cbbTacGiaorChatLieu = new JComboBox<Object>();
-		cbbTacGiaorChatLieu.setBackground(Color.WHITE);
-		cbbTacGiaorChatLieu.setBounds(125, 202, 240, 33);
-		getContentPane().add(cbbTacGiaorChatLieu);
+		cmbTacGiaOrChatLieu = new JComboBox<Object>();
+		cmbTacGiaOrChatLieu.setBackground(Color.WHITE);
+		cmbTacGiaOrChatLieu.setBounds(125, 202, 240, 33);
+		getContentPane().add(cmbTacGiaOrChatLieu);
 
-		cbbNhaXBorXuatXu = new JComboBox<Object>();
-		cbbNhaXBorXuatXu.setBackground(Color.WHITE);
-		cbbNhaXBorXuatXu.setBounds(125, 245, 240, 33);
-		getContentPane().add(cbbNhaXBorXuatXu);
+		cmbNhaXbOrXuatXu = new JComboBox<Object>();
+		cmbNhaXbOrXuatXu.setBackground(Color.WHITE);
+		cmbNhaXbOrXuatXu.setBounds(125, 245, 240, 33);
+		getContentPane().add(cmbNhaXbOrXuatXu);
 
-		cbbNhaCungCap = new JComboBox<String>();
-		cbbNhaCungCap.setBackground(Color.WHITE);
-		cbbNhaCungCap.setBounds(125, 364, 328, 33);
-		getContentPane().add(cbbNhaCungCap);
+		cmbNhaCungCap = new JComboBox<String>();
+		cmbNhaCungCap.setBackground(Color.WHITE);
+		cmbNhaCungCap.setBounds(125, 364, 328, 33);
+		getContentPane().add(cmbNhaCungCap);
 
-		cbbMauSac = new JComboBox<String>();
-		cbbMauSac.setBackground(Color.WHITE);
-		cbbMauSac.setBounds(125, 288, 240, 33);
-		getContentPane().add(cbbMauSac);
-		cbbMauSac.hide();
+		cmbMauSac = new JComboBox<String>();
+		cmbMauSac.setBackground(Color.WHITE);
+		cmbMauSac.setBounds(125, 288, 240, 33);
+		getContentPane().add(cmbMauSac);
+		cmbMauSac.hide();
 
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 38, 285, 46);
@@ -194,22 +194,22 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 		lblTacGia.setBounds(10, 197, 116, 38);
 		getContentPane().add(lblTacGia);
 
-		lblNXB = new JLabel("Nhà xuất bản:");
-		lblNXB.setForeground(new Color(72, 61, 139));
-		lblNXB.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNXB.setBounds(10, 240, 116, 38);
-		getContentPane().add(lblNXB);
+		lblNxb = new JLabel("Nhà xuất bản:");
+		lblNxb.setForeground(new Color(72, 61, 139));
+		lblNxb.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNxb.setBounds(10, 240, 116, 38);
+		getContentPane().add(lblNxb);
 
 		chooserNamXB = new JYearChooser();
 		chooserNamXB.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		chooserNamXB.setBounds(125, 514, 100, 23);
 		getContentPane().add(chooserNamXB);
 
-		lblnamXB = new JLabel("Năm xuất bản:");
-		lblnamXB.setForeground(new Color(72, 61, 139));
-		lblnamXB.setFont(new Font("Arial", Font.BOLD, 16));
-		lblnamXB.setBounds(10, 514, 116, 23);
-		getContentPane().add(lblnamXB);
+		lblNamXb = new JLabel("Năm xuất bản:");
+		lblNamXb.setForeground(new Color(72, 61, 139));
+		lblNamXb.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNamXb.setBounds(10, 514, 116, 23);
+		getContentPane().add(lblNamXb);
 
 		txtSoTrang = new JTextField();
 		txtSoTrang.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -235,13 +235,13 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 		txtSoLuong.setBounds(125, 331, 170, 23);
 		getContentPane().add(txtSoLuong);
 
-		lblImgSP = new JLabel("");
-		lblImgSP.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImgSP.setBounds(472, 77, 224, 245);
-		lblImgSP.setIcon(setSizeImageIcon(new ImageIcon("..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg"),
-				lblImgSP.getWidth(), lblImgSP.getHeight()));
-		lblImgSP.setBorder(BorderFactory.createLineBorder(Color.black));
-		getContentPane().add(lblImgSP);
+		lblImgSp = new JLabel("");
+		lblImgSp.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImgSp.setBounds(472, 77, 224, 245);
+		lblImgSp.setIcon(setSizeImageIcon(new ImageIcon("..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg"),
+				lblImgSp.getWidth(), lblImgSp.getHeight()));
+		lblImgSp.setBorder(BorderFactory.createLineBorder(Color.black));
+		getContentPane().add(lblImgSp);
 
 		btnChooser = new JButton("Chọn File");
 		btnChooser.setBounds(535, 332, 109, 29);
@@ -300,10 +300,10 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
-		btnThemSP = new JButton("Thêm sản phẩm");
-		btnThemSP.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnThemSP.setBounds(316, 10, 132, 39);
-		panel_1.add(btnThemSP);
+		btnThemSp = new JButton("Thêm sản phẩm");
+		btnThemSp.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnThemSp.setBounds(316, 10, 132, 39);
+		panel_1.add(btnThemSp);
 
 		btnHuy = new JButton("Hủy");
 		btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -315,11 +315,11 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 		btnLamMoi.setBounds(92, 10, 132, 39);
 		panel_1.add(btnLamMoi);
 
-		txtAreaGhiChu = new JTextArea();
-		txtAreaGhiChu.setFont(new Font("Courier New", Font.PLAIN, 13));
-		txtAreaGhiChu.setBounds(491, 400, 285, 158);
-		txtAreaGhiChu.setBorder(BorderFactory.createLineBorder(Color.black));
-		getContentPane().add(txtAreaGhiChu);
+		txaGhiChu = new JTextArea();
+		txaGhiChu.setFont(new Font("Courier New", Font.PLAIN, 13));
+		txaGhiChu.setBounds(491, 400, 285, 158);
+		txaGhiChu.setBorder(BorderFactory.createLineBorder(Color.black));
+		getContentPane().add(txaGhiChu);
 
 		JLabel lblNewLabel_6_1 = new JLabel("Ghi chú(Mô tả):");
 		lblNewLabel_6_1.setForeground(new Color(72, 61, 139));
@@ -327,13 +327,13 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 		lblNewLabel_6_1.setBounds(490, 374, 127, 23);
 		getContentPane().add(lblNewLabel_6_1);
 
-		cbbDonVi = new JComboBox<String>();
-		cbbDonVi.addItem("Cái");
-		cbbDonVi.addItem("Cuốn");
-		cbbDonVi.addItem("Chiếc");
-		cbbDonVi.setBackground(Color.WHITE);
-		cbbDonVi.setBounds(125, 438, 240, 33);
-		getContentPane().add(cbbDonVi);
+		cmbDonVi = new JComboBox<String>();
+		cmbDonVi.addItem("Cái");
+		cmbDonVi.addItem("Cuốn");
+		cmbDonVi.addItem("Chiếc");
+		cmbDonVi.setBackground(Color.WHITE);
+		cmbDonVi.setBounds(125, 438, 240, 33);
+		getContentPane().add(cmbDonVi);
 
 		setRadSach();
 		try {
@@ -353,7 +353,7 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 		radVPP.addMouseListener(this);
 		btnChooser.addActionListener(this);
 		btnLamMoi.addActionListener(this);
-		btnThemSP.addActionListener(this);
+		btnThemSp.addActionListener(this);
 		btnHuy.addActionListener(this);
 	}
 
@@ -402,7 +402,7 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 		if (o.equals(btnLamMoi)) {
 			lamMoi();
 		}
-		if (o.equals(btnThemSP)) {
+		if (o.equals(btnThemSp)) {
 			themSP();
 
 		}
@@ -415,7 +415,7 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 				if (!file.matches(".*(\\.jpg|\\.png|\\.PNG)")) {
 					file = "..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg";
 				}
-				lblImgSP.setIcon(setSizeImageIcon(new ImageIcon(file), lblImgSP.getWidth(), lblImgSP.getHeight()));
+				lblImgSp.setIcon(setSizeImageIcon(new ImageIcon(file), lblImgSp.getWidth(), lblImgSp.getHeight()));
 				hinhAnh = getPathHinhAnh(file);
 			}
 		}
@@ -504,10 +504,10 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		cbbLoai.removeAllItems();
+		cmbLoai.removeAllItems();
 		;
 		for (TheLoaiSach theLoaiSach : theLoaiSachs) {
-			cbbLoai.addItem(theLoaiSach.getTenLoai());
+			cmbLoai.addItem(theLoaiSach.getTenLoai());
 		}
 		// tac gia
 		tacGias = new ArrayList<TacGia>();
@@ -518,9 +518,9 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			e1.printStackTrace();
 		}
 		lblTacGia.setText("Tác giả: ");
-		cbbTacGiaorChatLieu.removeAllItems();
+		cmbTacGiaOrChatLieu.removeAllItems();
 		for (TacGia tacGia : tacGias) {
-			cbbTacGiaorChatLieu.addItem(tacGia.getTenTacGia());
+			cmbTacGiaOrChatLieu.addItem(tacGia.getTenTacGia());
 		}
 		// nxb
 		nhaXuatBans = new ArrayList<NhaXuatBan>();
@@ -530,10 +530,10 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		lblNXB.setText("Nhà xuất bản: ");
-		cbbNhaXBorXuatXu.removeAllItems();
+		lblNxb.setText("Nhà xuất bản: ");
+		cmbNhaXbOrXuatXu.removeAllItems();
 		for (NhaXuatBan nhaXuatBan : nhaXuatBans) {
-			cbbNhaXBorXuatXu.addItem(nhaXuatBan.getTenNXB());
+			cmbNhaXbOrXuatXu.addItem(nhaXuatBan.getTenNXB());
 		}
 		// ncc
 		nhaCungCaps = new ArrayList<NhaCungCap>();
@@ -543,15 +543,15 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		cbbNhaCungCap.removeAllItems();
+		cmbNhaCungCap.removeAllItems();
 		for (NhaCungCap nhaCungCap : nhaCungCaps) {
-			cbbNhaCungCap.addItem(nhaCungCap.getTenNCC());
+			cmbNhaCungCap.addItem(nhaCungCap.getTenNCC());
 		}
 		lblSoTrang.setText("Số trang: ");
-		lblnamXB.show();
+		lblNamXb.show();
 		chooserNamXB.show();
-		cbbMauSac.hide();
-		cbbDonVi.setSelectedIndex(1);
+		cmbMauSac.hide();
+		cmbDonVi.setSelectedIndex(1);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -564,11 +564,11 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		cbbLoai.removeAllItems();
+		cmbLoai.removeAllItems();
 		for (TheLoaiVanPhongPham theLoaiVanPhongPham : theLoaiVanPhongPhams) {
-			cbbLoai.addItem(theLoaiVanPhongPham.getTenLoai());
+			cmbLoai.addItem(theLoaiVanPhongPham.getTenLoai());
 		}
-		cbbDonVi.setSelectedIndex(0);
+		cmbDonVi.setSelectedIndex(0);
 		// chat lieu
 		chatLieus = new ArrayList<ChatLieu>();
 		try {
@@ -578,9 +578,9 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			e1.printStackTrace();
 		}
 		lblTacGia.setText("Chất liệu: ");
-		cbbTacGiaorChatLieu.removeAllItems();
+		cmbTacGiaOrChatLieu.removeAllItems();
 		for (ChatLieu chatLieu : chatLieus) {
-			cbbTacGiaorChatLieu.addItem(chatLieu.getTenChatLieu());
+			cmbTacGiaOrChatLieu.addItem(chatLieu.getTenChatLieu());
 		}
 		// Xuat xu
 		xuatXus = new ArrayList<XuatXu>();
@@ -590,10 +590,10 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		lblNXB.setText("Xuất xứ: ");
-		cbbNhaXBorXuatXu.removeAllItems();
+		lblNxb.setText("Xuất xứ: ");
+		cmbNhaXbOrXuatXu.removeAllItems();
 		for (XuatXu xuatXu : xuatXus) {
-			cbbNhaXBorXuatXu.addItem(xuatXu.getTenXuatXu());
+			cmbNhaXbOrXuatXu.addItem(xuatXu.getTenXuatXu());
 		}
 		// ncc
 		nhaCungCaps = new ArrayList<NhaCungCap>();
@@ -603,9 +603,9 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		cbbNhaCungCap.removeAllItems();
+		cmbNhaCungCap.removeAllItems();
 		for (NhaCungCap nhaCungCap : nhaCungCaps) {
-			cbbNhaCungCap.addItem(nhaCungCap.getTenNCC());
+			cmbNhaCungCap.addItem(nhaCungCap.getTenNCC());
 		}
 		// mau sac
 		mauSacs = new ArrayList<MauSac>();
@@ -616,12 +616,12 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			e1.printStackTrace();
 		}
 		lblSoTrang.setText("Màu sắc: ");
-		cbbMauSac.show();
-		cbbMauSac.removeAllItems();
+		cmbMauSac.show();
+		cmbMauSac.removeAllItems();
 		for (MauSac mauSac : mauSacs) {
-			cbbMauSac.addItem(mauSac.getTenMau());
+			cmbMauSac.addItem(mauSac.getTenMau());
 		}
-		lblnamXB.hide();
+		lblNamXb.hide();
 		chooserNamXB.hide();
 	}
 
@@ -659,7 +659,7 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			txtSoLuong.selectAll();
 			return null;
 		}
-		NhaCungCap nhaCungCap = nhaCungCaps.get(cbbNhaCungCap.getSelectedIndex());
+		NhaCungCap nhaCungCap = nhaCungCaps.get(cmbNhaCungCap.getSelectedIndex());
 		long giaNhap;
 		try {
 			giaNhap = Long.parseLong(txtGiaNhap.getText().trim());
@@ -675,11 +675,11 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			txtGiaNhap.selectAll();
 			return null;
 		}
-		String ghiChu = txtAreaGhiChu.getText().trim();
-		String donViSanPham = cbbDonVi.getSelectedItem().toString();
+		String ghiChu = txaGhiChu.getText().trim();
+		String donViSanPham = cmbDonVi.getSelectedItem().toString();
 		String tenSach = txtTenSp.getText().trim();
-		TacGia tacGia = tacGias.get(cbbTacGiaorChatLieu.getSelectedIndex());
-		NhaXuatBan nhaXuatBan = nhaXuatBans.get(cbbNhaXBorXuatXu.getSelectedIndex());
+		TacGia tacGia = tacGias.get(cmbTacGiaOrChatLieu.getSelectedIndex());
+		NhaXuatBan nhaXuatBan = nhaXuatBans.get(cmbNhaXbOrXuatXu.getSelectedIndex());
 		int namXuatBan = chooserNamXB.getYear();
 		int namHienTai = LocalDate.now().getYear();
 		if(namXuatBan > namHienTai || namXuatBan<1980) {
@@ -703,7 +703,7 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			txtTrongLuong.selectAll();
 			return null;
 		}
-		TheLoaiSach theLoaiSach = theLoaiSachs.get(cbbLoai.getSelectedIndex());
+		TheLoaiSach theLoaiSach = theLoaiSachs.get(cmbLoai.getSelectedIndex());
 		s = new Sach(maSanPham, loaiSanPham, soLuongTon, trongLuong, nhaCungCap, giaNhap, ghiChu, donViSanPham, hinhAnh,
 				tenSach, tacGia, nhaXuatBan, namXuatBan, soTrang, theLoaiSach);
 		return s;
@@ -728,7 +728,7 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			txtSoLuong.selectAll();
 			return null;
 		}
-		NhaCungCap nhaCungCap = nhaCungCaps.get(cbbNhaCungCap.getSelectedIndex());
+		NhaCungCap nhaCungCap = nhaCungCaps.get(cmbNhaCungCap.getSelectedIndex());
 		long giaNhap;
 		try {
 			giaNhap = Long.parseLong(txtGiaNhap.getText().trim());
@@ -738,13 +738,13 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 			txtGiaNhap.selectAll();
 			return null;
 		}
-		String ghiChu = txtAreaGhiChu.getText().trim();
-		String donViSanPham = cbbDonVi.getSelectedItem().toString();
+		String ghiChu = txaGhiChu.getText().trim();
+		String donViSanPham = cmbDonVi.getSelectedItem().toString();
 		String tenVPP = txtTenSp.getText().trim();
-		TheLoaiVanPhongPham loaiVanPhongPham = theLoaiVanPhongPhams.get(cbbLoai.getSelectedIndex());
-		MauSac mauSac = mauSacs.get(cbbMauSac.getSelectedIndex());
-		ChatLieu chatLieu = chatLieus.get(cbbTacGiaorChatLieu.getSelectedIndex());
-		XuatXu xuatXu = xuatXus.get(cbbNhaXBorXuatXu.getSelectedIndex());
+		TheLoaiVanPhongPham loaiVanPhongPham = theLoaiVanPhongPhams.get(cmbLoai.getSelectedIndex());
+		MauSac mauSac = mauSacs.get(cmbMauSac.getSelectedIndex());
+		ChatLieu chatLieu = chatLieus.get(cmbTacGiaOrChatLieu.getSelectedIndex());
+		XuatXu xuatXu = xuatXus.get(cmbNhaXbOrXuatXu.getSelectedIndex());
 		double trongLuong;
 		try {
 			trongLuong = Double.parseDouble(txtTrongLuong.getText().trim());

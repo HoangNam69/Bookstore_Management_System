@@ -37,13 +37,12 @@ public class Frm_ThemKH extends JFrame implements ActionListener{
 	private JTextField txtMaKhachHang;
 	private JTextField txtTenKhachHang;
 	private JTextField txtSDT;
-	private JComboBox cbxGioiTinh;
-	private JComboBox cbxDiaChi;
+	private JComboBox cmbGioiTinh;
+	private JComboBox cmbDiaChi;
 	private JButton btnThemKhachHang;
 	private JButton btnLamMoi;
 	private JButton btnHuy;
 	private int port;
-	private String host;
 	private KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
 	private List<KhachHang> dsKhachHang;
 
@@ -105,23 +104,23 @@ public class Frm_ThemKH extends JFrame implements ActionListener{
 		lblGioiTinh.setBounds(20, 190, 114, 25);
 		contentPane.add(lblGioiTinh);
 		
-		cbxGioiTinh = new JComboBox();
-		cbxGioiTinh.setModel(new DefaultComboBoxModel(new String[] {"Nam", "Nữ"}));
-		cbxGioiTinh.setBounds(184, 190, 240, 25);
-		contentPane.add(cbxGioiTinh);
+		cmbGioiTinh = new JComboBox();
+		cmbGioiTinh.setModel(new DefaultComboBoxModel(new String[] {"Nam", "Nữ"}));
+		cmbGioiTinh.setBounds(184, 190, 240, 25);
+		contentPane.add(cmbGioiTinh);
 		
 		JLabel lblDiaChi = new JLabel("Địa chỉ:");
 		lblDiaChi.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblDiaChi.setBounds(20, 235, 100, 25);
 		contentPane.add(lblDiaChi);
 		
-		cbxDiaChi = new JComboBox();
-		cbxDiaChi.setBounds(184, 235, 240, 25);
-		cbxDiaChi.setModel(new DefaultComboBoxModel(new String[] { "Thủ Đức", "Quận 1", "Quận 2", "Quận 3 ", "Quận 4",
+		cmbDiaChi = new JComboBox();
+		cmbDiaChi.setBounds(184, 235, 240, 25);
+		cmbDiaChi.setModel(new DefaultComboBoxModel(new String[] { "Thủ Đức", "Quận 1", "Quận 2", "Quận 3 ", "Quận 4",
 				"Quận 5", "Quận 6", "Quận 7", "Quận 8", "Quận 9", "Quận 10", "Quận 11", "Quận 12", "Gò Vấp", "Tân Bình",
 				"Bình Tân", "Bình Thạnh", "Phú Nhuận", "Tân Phú", "Bình Chánh", "Cần Giờ", "Củ Chi", "Hóc Môn",
 				"Nhà Bè" }));
-		contentPane.add(cbxDiaChi);
+		contentPane.add(cmbDiaChi);
 		
 		btnThemKhachHang = new JButton("Thêm");
 		btnThemKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -198,17 +197,17 @@ public class Frm_ThemKH extends JFrame implements ActionListener{
 	public KhachHang revertKhachHangFromTextfields() {
 		String maKH = txtMaKhachHang.getText();
 		String tenKH = txtTenKhachHang.getText();
-		String diaChi = cbxDiaChi.getSelectedItem().toString();
+		String diaChi = cmbDiaChi.getSelectedItem().toString();
 		String sdt = txtSDT.getText();
-		boolean gioiTinh = cbxGioiTinh.getSelectedItem().toString() == "Nam" ? true : false;
+		boolean gioiTinh = cmbGioiTinh.getSelectedItem().toString() == "Nam" ? true : false;
 		KhachHang kh = new KhachHang(maKH, tenKH, sdt, gioiTinh, diaChi);
 		return kh;
 	}
 	private void clearTxtfields() {
 		txtTenKhachHang.setText("");
 		txtSDT.setText("");
-		cbxDiaChi.setSelectedIndex(0);
-		cbxGioiTinh.setSelectedIndex(0);
+		cmbDiaChi.setSelectedIndex(0);
+		cmbGioiTinh.setSelectedIndex(0);
 	}
 	public  String auto_ID() throws SQLException {
 		String idPrefix = "KH";
@@ -223,9 +222,9 @@ public class Frm_ThemKH extends JFrame implements ActionListener{
 	public boolean validData() {
 		String makh = txtMaKhachHang.getText();
 		String tenkh =txtTenKhachHang.getText();
-		String diaChi = cbxDiaChi.getSelectedItem().toString();
+		String diaChi = cmbDiaChi.getSelectedItem().toString();
 		String sdt = txtSDT.getText();
-		boolean gioiTinh = cbxGioiTinh.getSelectedItem().toString() == "Nam" ? true : false;
+		boolean gioiTinh = cmbGioiTinh.getSelectedItem().toString() == "Nam" ? true : false;
 		
 		if(!(tenkh.length()>0 && tenkh.matches("[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊ"
 				+ "ỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]*"))) {
