@@ -43,7 +43,7 @@ import service.impl.TacGiaServiceImpl;
 import service.impl.TheLoaiServiceImpl;
 import service.impl.XuatXuServiceImpl;
 
-public class Frm_CapNhatSP extends JFrame implements ActionListener {
+public class WinCapNhatSP extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -102,7 +102,7 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 	private JFileChooser fchFilechoose;
 
 	@SuppressWarnings("deprecation")
-	public Frm_CapNhatSP(String maSanPham, String loaiSanPham) {
+	public WinCapNhatSP(String maSanPham, String loaiSanPham) {
 		this.loaiSanPham = loaiSanPham;
 		this.maSanPham = maSanPham;
 		setTitle("Thêm Sản Phẩm");
@@ -219,7 +219,7 @@ public class Frm_CapNhatSP extends JFrame implements ActionListener {
 
 		lblImgSP = new JLabel("");
 		lblImgSP.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImgSP.setIcon(new ImageIcon(Frm_ThemSP.class.getResource("/gui/icon/user.png")));
+		lblImgSP.setIcon(new ImageIcon(WinThemSP.class.getResource("/gui/icon/user.png")));
 		lblImgSP.setBounds(472, 77, 224, 245);
 		lblImgSP.setBorder(BorderFactory.createLineBorder(Color.black));
 		getContentPane().add(lblImgSP);

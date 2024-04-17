@@ -22,14 +22,13 @@ import javax.swing.table.DefaultTableModel;
 import dao.ChiTietHoaDonDao;
 import dao.SanPhamDao;
 import entity.ChiTietHoaDon;
-import entity.HoaDon;
 import entity.Sach;
 import entity.SanPham;
 import entity.VanPhongPham;
 
 import java.awt.SystemColor;
 
-public class Frm_XemChiTietHoaDon extends JFrame implements ActionListener {
+public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -65,8 +64,8 @@ public class Frm_XemChiTietHoaDon extends JFrame implements ActionListener {
 	private SanPhamDao sanPham_dao;
 
 	@SuppressWarnings("deprecation")
-	public Frm_XemChiTietHoaDon(String maHoaDon, String tenNhanVien, String ngayLap, String tenKhachHang,
-			String tienKhachDua, String tongTienHoaDon, String ghiChu) {
+	public WinXemChiTietHoaDon(String maHoaDon, String tenNhanVien, String ngayLap, String tenKhachHang,
+							   String tienKhachDua, String tongTienHoaDon, String ghiChu) {
 
 		this.maHoaDon = maHoaDon;
 		this.tenNhanVien = tenNhanVien;

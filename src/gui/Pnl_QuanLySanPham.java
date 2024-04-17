@@ -599,7 +599,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		}
 		if(o.equals(btnXemSachLoi)) {
 			try {
-				new Frm_XemChiTietHoaDon2().setVisible(true);
+				new WinXemChiTietHoaDon2().setVisible(true);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -646,7 +646,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		}
 
 		if (o.equals(btnThemSP)) {
-			new Frm_ThemSP().setVisible(true);
+			new WinThemSP().setVisible(true);
 		}
 
 		if (o.equals(btnCapNhat)) {
@@ -660,7 +660,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 				if (radVPP.isSelected()) {
 					loai = "Văn phòng phẩm";
 				}
-				new Frm_CapNhatSP(maSP, loai).setVisible(true);
+				new WinCapNhatSP(maSP, loai).setVisible(true);
 
 			}
 		}
@@ -698,14 +698,14 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 				if (radVPP.isSelected()) {
 					loai = "Văn phòng phẩm";
 				}
-				new Frm_XemChiTiet(maSP, loai).setVisible(true);
+				new WinXemChiTiet(maSP, loai).setVisible(true);
 			}
 		}
 		if (o.equals(btnQuanLyDanhMuc)) {
 			if (radSach.isSelected())
-				new Frm_QuanLyDanhMuc("Sách").setVisible(true);
+				new WinQuanLyDanhMuc("Sách").setVisible(true);
 			else
-				new Frm_QuanLyDanhMuc("Văn phòng phẩm").setVisible(true);
+				new WinQuanLyDanhMuc("Văn phòng phẩm").setVisible(true);
 		}
 		if (o.equals(btnImportFile)) {
 			fch = new JFileChooser("../HieuSachTuNhan/Script");

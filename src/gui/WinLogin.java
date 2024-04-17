@@ -42,7 +42,7 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 	private JLabel lblBackground;
 	public static TaiKhoan taiKhoan;
 	public TaiKhoanDao taiKhoanDao;
-	public Frm_QuenMatKhau winQuenMatKhau = new Frm_QuenMatKhau();
+	public WinQuenMatKhau winQuenMatKhau = new WinQuenMatKhau();
 
 	// public static NhanVien nv;
 	/**

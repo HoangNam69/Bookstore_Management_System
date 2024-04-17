@@ -23,7 +23,7 @@ import entity.VanPhongPham;
 
 import service.impl.SanPhamServiceImpl;
 
-public class Frm_XemChiTiet extends JFrame implements ActionListener {
+public class WinXemChiTiet extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -61,7 +61,7 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 	private String maSanPham;
 
 	@SuppressWarnings("deprecation")
-	public Frm_XemChiTiet(String maSanPham, String loaiSanPham) {
+	public WinXemChiTiet(String maSanPham, String loaiSanPham) {
 		this.loaiSanPham = loaiSanPham;
 		this.maSanPham = maSanPham;
 		setTitle("Thêm Sản Phẩm");
@@ -181,7 +181,7 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 
 		lblImgSP = new JLabel("");
 		lblImgSP.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImgSP.setIcon(new ImageIcon(Frm_ThemSP.class.getResource("/gui/icon/user.png")));
+		lblImgSP.setIcon(new ImageIcon(WinThemSP.class.getResource("/gui/icon/user.png")));
 		lblImgSP.setBounds(472, 77, 224, 245);
 		lblImgSP.setBorder(BorderFactory.createLineBorder(Color.black));
 		getContentPane().add(lblImgSP);

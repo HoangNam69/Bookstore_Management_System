@@ -118,7 +118,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	private TacGiaDao tacgiaDao;
 	private List<TacGia> dsTacGia;
 	private static HashMap<String, ArrayList<SanPham>> dsHoaDonCho = new HashMap<String, ArrayList<SanPham>>();
-	Frm_HangCho winHangCho;
+	WinHangCho winHangCho;
 	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
 	private JLabel lblMaHD;
 	private JTextField txtTimKiemMaSP;
@@ -902,7 +902,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 				return;
 			} else {
 				JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng, vui lòng thêm khách hàng mới");
-				Frm_ThemKH winThemKH = new Frm_ThemKH();
+				WinThemKH winThemKH = new WinThemKH();
 				winThemKH.setVisible(true);
 				return;
 			}
@@ -1056,7 +1056,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		} else if (obj.equals(btnHangCho)) {
 			openFrmHoaDonCho();
 		} else if (obj.equals(btnThemKhachHang)) {
-			Frm_ThemKH winThemKH = new Frm_ThemKH();
+			WinThemKH winThemKH = new WinThemKH();
 			winThemKH.setVisible(true);
 		} else if (obj.equals(btnXoa)) {
 			int row = tblHoaDon.getSelectedRow();
@@ -1422,7 +1422,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
 			synchronized (shareData) {
 				try {
-					winHangCho = new Frm_HangCho(dsHoaDonCho, shareData);
+					winHangCho = new WinHangCho(dsHoaDonCho, shareData);
 					winHangCho.setVisible(true);
 					shareData.wait();
 					dsHoaDonCho = shareData.getDsHoaDonCho();

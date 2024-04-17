@@ -66,7 +66,7 @@ public class WinQuanLy extends JFrame implements MouseListener {
     private List<NhanVien> dsNhanVien;
     private NhanVien nv;
     private Pnl_TaoHoaDon pnl_TaoHoaDon;
-    private Frm_DoiMatKhau frm_DoiMatKhau;
+    private WinDoiMatKhau win_DoiMatKhau;
     private WinLogin winLogin = new WinLogin();
     private static WinQuanLy winQuanLy;
 
@@ -330,8 +330,8 @@ public class WinQuanLy extends JFrame implements MouseListener {
         getContentPane().add(pnl_QuanLyHoaDon);
         pnl_QuanLyHoaDon.setVisible(false);
 
-        frm_DoiMatKhau = new Frm_DoiMatKhau();
-        frm_DoiMatKhau.setVisible(false);
+        win_DoiMatKhau = new WinDoiMatKhau();
+        win_DoiMatKhau.setVisible(false);
         winLogin.setVisible(false);
 
         WinLogin dangNhap = new WinLogin();
@@ -396,7 +396,7 @@ public class WinQuanLy extends JFrame implements MouseListener {
             pnlTrangChu.setBackground(Color.getColor("#f0f0f0"));
             pnlSanPham.setBackground(Color.getColor("#f0f0f0"));
             pnlTroGiup.setBackground(Color.getColor("#f0f0f0"));
-            frm_DoiMatKhau.setVisible(true);
+            win_DoiMatKhau.setVisible(true);
         }
         if (o.equals(pnlTaoHoaDonMoi)) {
             flag_HD = false;

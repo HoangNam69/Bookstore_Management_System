@@ -48,7 +48,7 @@ import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 
-public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener {
+public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 	/**
 	 * 
 	 */
@@ -106,7 +106,7 @@ public class Frm_ThemSP extends JFrame implements ActionListener, MouseListener 
 	private JLabel lblNewLabel_3;
 
 	@SuppressWarnings("deprecation")
-	public Frm_ThemSP() {
+	public WinThemSP() {
 		setTitle("Thêm Sản Phẩm");
 		setResizable(false);
 		setSize(800, 700);

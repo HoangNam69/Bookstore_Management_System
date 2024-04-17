@@ -41,7 +41,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
-public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseListener {
+public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseListener {
 	/**
 	 * 
 	 */
@@ -86,7 +86,7 @@ public class Frm_QuanLyDanhMuc extends JFrame implements ActionListener, MouseLi
 	private JTextField txtDiaChi;
 	private JLabel lblDiaChi;
 
-	public Frm_QuanLyDanhMuc(String loai) {
+	public WinQuanLyDanhMuc(String loai) {
 		loaiSanPham = loai;
 		setResizable(false);
 		setSize(1000, 600);

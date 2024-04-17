@@ -26,7 +26,7 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 
-public class Frm_DoiMatKhau extends JFrame implements ActionListener, MouseListener {
+public class WinDoiMatKhau extends JFrame implements ActionListener, MouseListener {
 
 	private JPanel pnlContentPane;
 	private JLabel lblDoiMatKhau;
@@ -67,7 +67,7 @@ public class Frm_DoiMatKhau extends JFrame implements ActionListener, MouseListe
 	 * 
 	 * @throws SQLException
 	 */
-	public Frm_DoiMatKhau() throws SQLException {
+	public WinDoiMatKhau() throws SQLException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 541, 337);
 		pnlContentPane = new JPanel();

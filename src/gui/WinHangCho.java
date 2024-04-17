@@ -27,7 +27,7 @@ import java.util.HashMap;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
-public class Frm_HangCho extends JFrame implements ActionListener, MouseListener {
+public class WinHangCho extends JFrame implements ActionListener, MouseListener {
 	/**
 	 * 
 	 */
@@ -47,7 +47,7 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 	private String sdt = "";
 	private ShareData shareData;
 
-	public Frm_HangCho(HashMap<String, ArrayList<SanPham>> dsHoaDonCho, ShareData data){
+	public WinHangCho(HashMap<String, ArrayList<SanPham>> dsHoaDonCho, ShareData data){
 		this.shareData = data;
 		this.dsHoaDonCho = dsHoaDonCho;
 		setResizable(false);

@@ -25,7 +25,7 @@ import entity.SanPham;
 import service.impl.SanPhamServiceImpl;
 import java.awt.SystemColor;
 
-public class Frm_XemChiTietHoaDon2 extends JFrame implements ActionListener {
+public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -45,7 +45,7 @@ public class Frm_XemChiTietHoaDon2 extends JFrame implements ActionListener {
 	private JButton btnDoi;
 
 //	@SuppressWarnings("deprecation")
-	public Frm_XemChiTietHoaDon2() throws Exception {
+	public WinXemChiTietHoaDon2() throws Exception {
 
 		setTitle("Chi tiết hóa đơn");
 		setResizable(false);

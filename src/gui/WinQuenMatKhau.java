@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import entity.NhanVien;
-import entity.TaiKhoan;
 import service.impl.NhanVienServiceImpl;
 import service.impl.TaiKhoanServiceImpl;
 
@@ -24,7 +23,6 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -35,12 +33,11 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
-import java.util.logging.Logger;
 
 import javax.swing.JPasswordField;
 import java.awt.Color;
 
-public class Frm_QuenMatKhau extends JFrame implements ActionListener, MouseListener {
+public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
 	private JTextField txtEmail;
@@ -65,7 +62,7 @@ public class Frm_QuenMatKhau extends JFrame implements ActionListener, MouseList
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Frm_QuenMatKhau frame = new Frm_QuenMatKhau();
+					WinQuenMatKhau frame = new WinQuenMatKhau();
 					frame.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,7 +74,7 @@ public class Frm_QuenMatKhau extends JFrame implements ActionListener, MouseList
 	/**
 	 * Create the frame.
 	 */
-	public Frm_QuenMatKhau() {
+	public WinQuenMatKhau() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 602, 466);

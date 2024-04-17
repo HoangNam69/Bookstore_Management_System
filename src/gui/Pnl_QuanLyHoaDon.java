@@ -70,7 +70,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 	private HoaDonDao hoaDonDao;
 	private List<HoaDon> dsHoaDon;
 	private List<KhachHang> dsKhachHang;
-	private Frm_XemChiTietHoaDon winXemChiTietHoaDon;
+	private WinXemChiTietHoaDon winXemChiTietHoaDon;
 
 	private JButton btnRefresh;
 	private JButton btnFind;
@@ -479,7 +479,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 						e1.printStackTrace();
 					}
 
-					new Frm_XemChiTietHoaDon(maHoaDon, tenNhanVien, ngayLap, tenKhachHang, tienKhachDua, tongTienHoaDon,
+					new WinXemChiTietHoaDon(maHoaDon, tenNhanVien, ngayLap, tenKhachHang, tienKhachDua, tongTienHoaDon,
 							ghiChu).setVisible(true);
 				}
 			} else if (obj.equals(btnFind)) {
@@ -612,7 +612,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 						String tienPhaiTru = hoaDonDT.getTienPhaiTru() + "";
 						String ghiChu = hoaDonDT.getGhiChu();
 						System.out.println("Ma hd cu: " + maHDCu);
-						new Frm_XemChiTietHoaDonDoiTra(maHoaDonDT, maHDCu, tenNV, tenKH, ngayLapHD, ghiChu,
+						new WinXemChiTietHoaDonDoiTra(maHoaDonDT, maHDCu, tenNV, tenKH, ngayLapHD, ghiChu,
 								tienKhachDua, tienPhaiTru).setVisible(true);
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block

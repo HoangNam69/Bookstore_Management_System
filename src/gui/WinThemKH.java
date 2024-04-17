@@ -1,13 +1,10 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import entity.KhachHang;
-import service.KhachHangService;
 import service.impl.KhachHangServiceImpl;
 
 import javax.swing.JLabel;
@@ -17,9 +14,6 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -31,7 +25,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
-public class Frm_ThemKH extends JFrame implements ActionListener{
+public class WinThemKH extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField txtMaKhachHang;
@@ -52,7 +46,7 @@ public class Frm_ThemKH extends JFrame implements ActionListener{
 	 * @throws SQLException 
 	 * @throws RemoteException 
 	 */
-	public Frm_ThemKH(){
+	public WinThemKH(){
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
