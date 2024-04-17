@@ -36,21 +36,21 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JLabel txtLoai;
-	private JLabel txtTacGiaorChatLieu;
-	private JLabel txtNhaXBorXuatXu;
+	private JLabel txtTacGiaOrChatLieu;
+	private JLabel txtNhaXbOrXuatXu;
 	private JLabel txtNhaCungCap;
 	private JLabel txtMauSac;
 	private JLabel txtMasp;
 	private JLabel lblNewLabel_2;
 	private JLabel lblTacGia;
-	private JLabel lblNXB;
+	private JLabel lblNxb;
 	private JLabel lblnamXB;
 	private JLabel txtSoTrang;
 	private JLabel lblSoTrang;
-	private JLabel chooserNamXB;
+	private JLabel choNamXb;
 	private JLabel lblNewLabel_7;
 	private JLabel txtSoLuong;
-	private JLabel lblImgSP;
+	private JLabel lblImgSp;
 	private JLabel lblNewLabel_9;
 	private JLabel txtTenSp;
 	private JLabel lblNewLabel_10;
@@ -68,7 +68,7 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 	ChatLieuServiceImpl chatLieuServiceImpl = new ChatLieuServiceImpl();
 	XuatXuServiceImpl xuatXuServiceImpl = new XuatXuServiceImpl();
 	MauSacServiceImpl mauSacServiceImpl = new MauSacServiceImpl();
-	private JTextArea txtAreaGhiChu;
+	private JTextArea txaGhiChu;
 	private JLabel txtDonVi;
 	String loaiSanPham;
 	Sach sach;
@@ -98,17 +98,17 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 		txtLoai.setBounds(125, 159, 240, 33);
 		getContentPane().add(txtLoai);
 
-		txtTacGiaorChatLieu = new JLabel();
-		txtTacGiaorChatLieu.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtTacGiaorChatLieu.setBackground(Color.WHITE);
-		txtTacGiaorChatLieu.setBounds(125, 202, 240, 33);
-		getContentPane().add(txtTacGiaorChatLieu);
+		txtTacGiaOrChatLieu = new JLabel();
+		txtTacGiaOrChatLieu.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtTacGiaOrChatLieu.setBackground(Color.WHITE);
+		txtTacGiaOrChatLieu.setBounds(125, 202, 240, 33);
+		getContentPane().add(txtTacGiaOrChatLieu);
 
-		txtNhaXBorXuatXu = new JLabel();
-		txtNhaXBorXuatXu.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		txtNhaXBorXuatXu.setBackground(Color.WHITE);
-		txtNhaXBorXuatXu.setBounds(125, 245, 240, 33);
-		getContentPane().add(txtNhaXBorXuatXu);
+		txtNhaXbOrXuatXu = new JLabel();
+		txtNhaXbOrXuatXu.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		txtNhaXbOrXuatXu.setBackground(Color.WHITE);
+		txtNhaXbOrXuatXu.setBounds(125, 245, 240, 33);
+		getContentPane().add(txtNhaXbOrXuatXu);
 
 		txtNhaCungCap = new JLabel();
 		txtNhaCungCap.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -153,16 +153,16 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 		lblTacGia.setBounds(10, 197, 116, 38);
 		getContentPane().add(lblTacGia);
 
-		lblNXB = new JLabel("Nhà xuất bản:");
-		lblNXB.setForeground(new Color(72, 61, 139));
-		lblNXB.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNXB.setBounds(10, 240, 116, 38);
-		getContentPane().add(lblNXB);
+		lblNxb = new JLabel("Nhà xuất bản:");
+		lblNxb.setForeground(new Color(72, 61, 139));
+		lblNxb.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNxb.setBounds(10, 240, 116, 38);
+		getContentPane().add(lblNxb);
 
-		chooserNamXB = new JLabel();
-		chooserNamXB.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		chooserNamXB.setBounds(125, 514, 100, 23);
-		getContentPane().add(chooserNamXB);
+		choNamXb = new JLabel();
+		choNamXb.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		choNamXb.setBounds(125, 514, 100, 23);
+		getContentPane().add(choNamXb);
 
 		lblnamXB = new JLabel("Năm xuất bản:");
 		lblnamXB.setForeground(new Color(72, 61, 139));
@@ -194,12 +194,12 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 		txtSoLuong.setBounds(125, 331, 170, 23);
 		getContentPane().add(txtSoLuong);
 
-		lblImgSP = new JLabel("");
-		lblImgSP.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImgSP.setIcon(new ImageIcon(Frm_ThemSP.class.getResource("/gui/icon/user.png")));
-		lblImgSP.setBounds(472, 77, 224, 245);
-		lblImgSP.setBorder(BorderFactory.createLineBorder(Color.black));
-		getContentPane().add(lblImgSP);
+		lblImgSp = new JLabel("");
+		lblImgSp.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImgSp.setIcon(new ImageIcon(Frm_ThemSP.class.getResource("/gui/icon/user.png")));
+		lblImgSp.setBounds(472, 77, 224, 245);
+		lblImgSp.setBorder(BorderFactory.createLineBorder(Color.black));
+		getContentPane().add(lblImgSp);
 
 		lblNewLabel_9 = new JLabel("Tên sản phẩm:");
 		lblNewLabel_9.setForeground(new Color(72, 61, 139));
@@ -258,11 +258,11 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 		btnThoat.setBounds(316, 10, 132, 39);
 		panel_1.add(btnThoat);
 
-		txtAreaGhiChu = new JTextArea();
-		txtAreaGhiChu.setFont(new Font("Courier New", Font.PLAIN, 13));
-		txtAreaGhiChu.setBounds(491, 400, 285, 158);
-		txtAreaGhiChu.setBorder(BorderFactory.createLineBorder(Color.black));
-		getContentPane().add(txtAreaGhiChu);
+		txaGhiChu = new JTextArea();
+		txaGhiChu.setFont(new Font("Courier New", Font.PLAIN, 13));
+		txaGhiChu.setBounds(491, 400, 285, 158);
+		txaGhiChu.setBorder(BorderFactory.createLineBorder(Color.black));
+		getContentPane().add(txaGhiChu);
 
 		JLabel lblNewLabel_6_1 = new JLabel("Ghi chú(Mô tả):");
 		lblNewLabel_6_1.setForeground(new Color(72, 61, 139));
@@ -275,7 +275,7 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 		txtDonVi.setBackground(Color.WHITE);
 		txtDonVi.setBounds(125, 438, 240, 33);
 		getContentPane().add(txtDonVi);
-		txtAreaGhiChu.setEditable(false);
+		txaGhiChu.setEditable(false);
 
 		if (loaiSanPham.equals("Sách")) {
 			try {
@@ -310,8 +310,8 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 	public void setRadSach() throws Exception {
 		sach = sanPhamServiceImpl.timSanPhamTheoMaSach(maSanPham);
 		txtLoai.setText(sach.getTheLoaiSach().getTenLoai());
-		txtTacGiaorChatLieu.setText(sach.getTacGia().getTenTacGia());
-		txtNhaXBorXuatXu.setText(sach.getNhaXuatBan().getTenNXB());
+		txtTacGiaOrChatLieu.setText(sach.getTacGia().getTenTacGia());
+		txtNhaXbOrXuatXu.setText(sach.getNhaXuatBan().getTenNXB());
 		txtTenSp.setText(sach.getTenSach());
 		txtNhaCungCap.setText(sach.getNhaCungCap().getTenNCC());
 		lblSoTrang.setText("Số trang: ");
@@ -320,25 +320,25 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 		if (new File("..\\HieuSachTuNhan\\hinhAnhHieuSach\\" + sach.getHinhAnh()).exists()) {
 			icon = new ImageIcon("..\\HieuSachTuNhan\\hinhAnhHieuSach\\" + sach.getHinhAnh());
 		}
-		lblImgSP.setIcon(setSizeImageIcon(icon, lblImgSP.getWidth(), lblImgSP.getHeight()));
+		lblImgSp.setIcon(setSizeImageIcon(icon, lblImgSp.getWidth(), lblImgSp.getHeight()));
 		lblnamXB.show();
-		chooserNamXB.show();
-		chooserNamXB.setText(sach.getNamXuatBan() + "");
+		choNamXb.show();
+		choNamXb.setText(sach.getNamXuatBan() + "");
 		txtMauSac.hide();
 		txtDonVi.setText(sach.getDonViSanPham());
 		;
 		txtGiaNhap.setText(sach.getGiaNhap() + " VNĐ");
 		txtSoLuong.setText(sach.getSoLuongTon() + " " + sach.getDonViSanPham());
 		txtTrongLuong.setText(sach.getTrongLuong() + "");
-		txtAreaGhiChu.setText(sach.getGhiChu());
+		txaGhiChu.setText(sach.getGhiChu());
 	}
 
 	@SuppressWarnings("deprecation")
 	public void setRadVPP() throws Exception {
 		vanPhongPham = sanPhamServiceImpl.timSanPhamTheoMaVPP(maSanPham);
 		txtLoai.setText(vanPhongPham.getLoaiVanPhongPham().getTenLoai());
-		txtTacGiaorChatLieu.setText(vanPhongPham.getChatLieu().getTenChatLieu());
-		txtNhaXBorXuatXu.setText(vanPhongPham.getXuatXu().getTenXuatXu());
+		txtTacGiaOrChatLieu.setText(vanPhongPham.getChatLieu().getTenChatLieu());
+		txtNhaXbOrXuatXu.setText(vanPhongPham.getXuatXu().getTenXuatXu());
 		txtTenSp.setText(vanPhongPham.getTenVanPhongPham());
 		txtNhaCungCap.setText(vanPhongPham.getNhaCungCap().getTenNCC());
 		lblSoTrang.setText("Màu sắc");
@@ -348,16 +348,16 @@ public class Frm_XemChiTiet extends JFrame implements ActionListener {
 		if (new File("..\\HieuSachTuNhan\\hinhAnhHieuSach\\" + vanPhongPham.getHinhAnh()).exists()) {
 			icon = new ImageIcon("..\\HieuSachTuNhan\\hinhAnhHieuSach\\" + vanPhongPham.getHinhAnh());
 		}
-		lblImgSP.setIcon(setSizeImageIcon(icon, lblImgSP.getWidth(), lblImgSP.getHeight()));
+		lblImgSp.setIcon(setSizeImageIcon(icon, lblImgSp.getWidth(), lblImgSp.getHeight()));
 
 		txtMauSac.show();
 		lblnamXB.hide();
 		txtSoTrang.hide();
-		chooserNamXB.hide();
+		choNamXb.hide();
 		txtGiaNhap.setText(vanPhongPham.getGiaNhap() + " VNĐ");
 		txtSoLuong.setText(vanPhongPham.getSoLuongTon() + " " + vanPhongPham.getDonViSanPham());
 		txtTrongLuong.setText(vanPhongPham.getTrongLuong() + "");
-		txtAreaGhiChu.setText(vanPhongPham.getGhiChu());
+		txaGhiChu.setText(vanPhongPham.getGhiChu());
 	}
 
 	public ImageIcon setSizeImageIcon(ImageIcon icon, int width, int height) {
