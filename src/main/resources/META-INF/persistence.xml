@@ -8,7 +8,7 @@
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
             <property name="jakarta.persistence.jdbc.dialect" value="org.hibernate.dialect.MariaDBDialect"/>
-            <property name="hibernate.connection.url" value="jdbc:mariadb://localhost:3306/albumdb"/>
+            <property name="hibernate.connection.url" value="jdbc:mariadb://localhost:3306/hieusachdb"/>
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value="root"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
