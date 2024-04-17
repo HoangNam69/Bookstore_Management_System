@@ -43,13 +43,13 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 	private JButton btnXoa;
 	Pnl_TaoHoaDon pnl_TaoHoaDon;
 	ArrayList<KhachHang> listKhachHang;
-	public HashMap<String, ArrayList<SanPham>> listHoaDonCho = new HashMap<String, ArrayList<SanPham>>();
+	public HashMap<String, ArrayList<SanPham>> dsHoaDonCho = new HashMap<String, ArrayList<SanPham>>();
 	private String sdt = "";
 	private ShareData shareData;
 
-	public Frm_HangCho(HashMap<String, ArrayList<SanPham>> listHoaDonCho, ShareData data){
+	public Frm_HangCho(HashMap<String, ArrayList<SanPham>> dsHoaDonCho, ShareData data){
 		this.shareData = data;
-		this.listHoaDonCho = listHoaDonCho;
+		this.dsHoaDonCho = dsHoaDonCho;
 		setResizable(false);
 		setSize(630, 600);
 		
@@ -147,17 +147,17 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 		
 	}
 
-	public HashMap<String, ArrayList<SanPham>> getListHoaDonCho() {
-		return listHoaDonCho;
+	public HashMap<String, ArrayList<SanPham>> getDsHoaDonCho() {
+		return dsHoaDonCho;
 	}
 	
-	public void setListHoaDonCho(HashMap<String, ArrayList<SanPham>> listHoaDon) {
-		listHoaDonCho = listHoaDon;
+	public void setDsHoaDonCho(HashMap<String, ArrayList<SanPham>> dsHoaDon) {
+		dsHoaDonCho = dsHoaDon;
 		
 	}
 	public void loadDuLieu() {
 		listKhachHang = new ArrayList<>();
-		for (String sdtKH : listHoaDonCho.keySet()) {
+		for (String sdtKH : dsHoaDonCho.keySet()) {
 			KhachHang khachHang = null;
 			try {
 				khachHang = khachHangServiceImpl.timKhachHangBangSDT(sdtKH);
@@ -180,14 +180,14 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 			return;
 		}
 		sdt = mdlKhachHang.getValueAt(row, 1).toString();
-		ArrayList<SanPham> listSPThanhToan = listHoaDonCho.get(sdt);
-		listHoaDonCho.remove(sdt);
+		ArrayList<SanPham> listSPThanhToan = dsHoaDonCho.get(sdt);
+		dsHoaDonCho.remove(sdt);
 		new Thread(()->{
 			synchronized (shareData) {
 				shareData.setThanhToan(true);
 				shareData.setSdtThanhToan(sdt);
 				shareData.setDsSanPhamThanhToanTiep(listSPThanhToan);
-				shareData.setDsHoaDonCho(listHoaDonCho);
+				shareData.setDsHoaDonCho(dsHoaDonCho);
 				shareData.notifyAll();
 				this.setVisible(false);	
 			}
@@ -199,11 +199,9 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 			JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm xóa","Báo lỗi",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		listHoaDonCho.remove(sdt);
-		shareData.setListHoaDonCho(listHoaDonCho);
+		dsHoaDonCho.remove(sdt);
+		shareData.setDsHoaDonCho(dsHoaDonCho);
 		mdlKhachHang.removeRow(row);
-		shareData.setDsHoaDonCho(listHoaDonCho);
-		modelKhachHang.removeRow(row);
 	}
 	public void Thoat() {
 		new Thread(()->{
