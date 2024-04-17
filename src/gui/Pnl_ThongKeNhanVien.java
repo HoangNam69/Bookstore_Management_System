@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,7 +31,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import com.toedter.calendar.JDateChooser;
 
 import java.awt.Color;
-import com.toedter.calendar.JDayChooser;
 
 import entity.KhachHang;
 import entity.NhanVien;
@@ -45,7 +43,7 @@ import service.impl.SanPhamServiceImpl;
 
 import javax.swing.border.LineBorder;
 
-public class Pn_ThongKeNhanVien extends JPanel implements ActionListener, MouseListener {
+public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, MouseListener {
 
 	/**
 	 * Create the panel.
@@ -133,7 +131,7 @@ public class Pn_ThongKeNhanVien extends JPanel implements ActionListener, MouseL
 		return dataset;
 	}
 
-	public Pn_ThongKeNhanVien() throws SQLException {
+	public Pnl_ThongKeNhanVien() throws SQLException {
 
 		setLayout(null);
 		setSize(1900, 900);
@@ -153,7 +151,7 @@ public class Pn_ThongKeNhanVien extends JPanel implements ActionListener, MouseL
 		panelTongSoLuongSach.setLayout(null);
 
 		lblTongSoLuongSach = new JLabel("    Tổng số lượng sách: \r\n");
-		lblTongSoLuongSach.setIcon(new ImageIcon(Pn_ThongKeQuanLy.class.getResource("/gui/icon/books.png")));
+		lblTongSoLuongSach.setIcon(new ImageIcon(Pnl_ThongKeQuanLy.class.getResource("/gui/icon/books.png")));
 		lblTongSoLuongSach.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTongSoLuongSach.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblTongSoLuongSach.setBounds(0, 0, 263, 36);
@@ -171,7 +169,7 @@ public class Pn_ThongKeNhanVien extends JPanel implements ActionListener, MouseL
 		panelTongSoLuongVanPhongPham.setLayout(null);
 
 		lblTongSoVanPhongPham = new JLabel("    Tổng số văn phòng phẩm: ");
-		lblTongSoVanPhongPham.setIcon(new ImageIcon(Pn_ThongKeQuanLy.class.getResource("/gui/icon/stationery.png")));
+		lblTongSoVanPhongPham.setIcon(new ImageIcon(Pnl_ThongKeQuanLy.class.getResource("/gui/icon/stationery.png")));
 		lblTongSoVanPhongPham.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTongSoVanPhongPham.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblTongSoVanPhongPham.setBounds(0, 0, 263, 37);
@@ -189,7 +187,7 @@ public class Pn_ThongKeNhanVien extends JPanel implements ActionListener, MouseL
 		panelTongSoSachLoi.setLayout(null);
 
 		lblTongSoSachLoi = new JLabel("    Tổng số sách lỗi: ");
-		lblTongSoSachLoi.setIcon(new ImageIcon(Pn_ThongKeQuanLy.class.getResource("/gui/icon/sachloi.png")));
+		lblTongSoSachLoi.setIcon(new ImageIcon(Pnl_ThongKeQuanLy.class.getResource("/gui/icon/sachloi.png")));
 		lblTongSoSachLoi.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTongSoSachLoi.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblTongSoSachLoi.setBounds(0, 0, 263, 40);
@@ -213,7 +211,7 @@ public class Pn_ThongKeNhanVien extends JPanel implements ActionListener, MouseL
 		panelSachBanChayNhat.setLayout(null);
 
 		lblSanPhamBanChayNhat = new JLabel("    Sản phẩm bán chạy nhất: ");
-		lblSanPhamBanChayNhat.setIcon(new ImageIcon(Pn_ThongKeQuanLy.class.getResource("/gui/icon/sachchay.png")));
+		lblSanPhamBanChayNhat.setIcon(new ImageIcon(Pnl_ThongKeQuanLy.class.getResource("/gui/icon/sachchay.png")));
 		lblSanPhamBanChayNhat.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSanPhamBanChayNhat.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblSanPhamBanChayNhat.setBounds(0, 0, 489, 42);
@@ -285,7 +283,7 @@ public class Pn_ThongKeNhanVien extends JPanel implements ActionListener, MouseL
 		btnLocSanPham.setBounds(157, 237, 92, 35);
 		panelLocSPBanChay.add(btnLocSanPham);
 		btnLocSanPham.setHorizontalAlignment(SwingConstants.LEFT);
-		btnLocSanPham.setIcon(new ImageIcon(Pn_ThongKeQuanLy.class.getResource("/gui/icon/filter.png")));
+		btnLocSanPham.setIcon(new ImageIcon(Pnl_ThongKeQuanLy.class.getResource("/gui/icon/filter.png")));
 		btnLocSanPham.setFont(new Font("Tahoma", Font.BOLD, 13));
 
 		lblFromThongKeSP = new JLabel("Từ: ");
@@ -324,14 +322,14 @@ public class Pn_ThongKeNhanVien extends JPanel implements ActionListener, MouseL
 		chartPanel.setBounds(359, 33, 1065, 490);
 		panel_ThongKeDoanhThuBanThan.add(chartPanel);
 		lblTongDoanhThu = new JLabel("Tổng doanh thu: ");
-		lblTongDoanhThu.setIcon(new ImageIcon(Pn_ThongKeNhanVien.class.getResource("/gui/icon/count.png")));
+		lblTongDoanhThu.setIcon(new ImageIcon(Pnl_ThongKeNhanVien.class.getResource("/gui/icon/count.png")));
 		lblTongDoanhThu.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTongDoanhThu.setBounds(44, 316, 209, 28);
 		panel_ThongKeDoanhThuBanThan.add(lblTongDoanhThu);
 
 		lblTongHoaDonBanDuoc = new JLabel("Tổng hóa đơn bán được: ");
 		lblTongHoaDonBanDuoc.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTongHoaDonBanDuoc.setIcon(new ImageIcon(Pn_ThongKeNhanVien.class.getResource("/gui/icon/money.png")));
+		lblTongHoaDonBanDuoc.setIcon(new ImageIcon(Pnl_ThongKeNhanVien.class.getResource("/gui/icon/money.png")));
 		lblTongHoaDonBanDuoc.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTongHoaDonBanDuoc.setBounds(32, 423, 254, 28);
 		panel_ThongKeDoanhThuBanThan.add(lblTongHoaDonBanDuoc);
@@ -362,7 +360,7 @@ public class Pn_ThongKeNhanVien extends JPanel implements ActionListener, MouseL
 		panel_ThongKeDoanhThuBanThan.add(comboBoxTieuChiDoanhThu);
 
 		btnLocDoanhThuNV = new JButton("Lọc");
-		btnLocDoanhThuNV.setIcon(new ImageIcon(Pn_ThongKeNhanVien.class.getResource("/gui/icon/filter.png")));
+		btnLocDoanhThuNV.setIcon(new ImageIcon(Pnl_ThongKeNhanVien.class.getResource("/gui/icon/filter.png")));
 		btnLocDoanhThuNV.setBounds(210, 208, 89, 35);
 		panel_ThongKeDoanhThuBanThan.add(btnLocDoanhThuNV);
 
@@ -386,7 +384,7 @@ public class Pn_ThongKeNhanVien extends JPanel implements ActionListener, MouseL
 		btnLocDoanhThuNV.addActionListener(this);
 		btnLocSanPham.addActionListener(this);
 
-		FrmLogin dangNhap = new FrmLogin();
+		WinLogin dangNhap = new WinLogin();
 		TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
 		iNhanVien = new NhanVienServiceImpl();
 		nv = new NhanVien();

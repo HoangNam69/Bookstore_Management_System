@@ -1,20 +1,12 @@
 package gui;
 
-import javax.swing.JFrame;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.HeadlessException;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,25 +21,19 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.toedter.calendar.JDateChooser;
-
 import dao.KhachHangDao;
 import entity.KhachHang;
-import entity.NhanVien;
 import service.impl.KhachHangServiceImpl;
-import service.impl.NhanVienServiceImpl;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.SystemColor;
 
-public class Pn_QuanLyKhachHang extends JPanel implements MouseListener, ActionListener {
+public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, ActionListener {
 	/**
 	 * 
 	 */
@@ -72,7 +58,7 @@ public class Pn_QuanLyKhachHang extends JPanel implements MouseListener, ActionL
 	private KhachHangServiceImpl iKhachHang = new KhachHangServiceImpl();
 	private JButton btnLuu;
 
-	public Pn_QuanLyKhachHang() {
+	public Pnl_QuanLyKhachHang() {
 		setBackground(new Color(0, 206, 209));
 		setFont(new Font("Dialog", Font.BOLD, 16));
 	    setSize(1720, 630);
@@ -166,14 +152,14 @@ public class Pn_QuanLyKhachHang extends JPanel implements MouseListener, ActionL
 		pnLoc.add(lblDiaChi);
 
 		btnRefresh = new JButton("Làm mới");
-		btnRefresh.setIcon(new ImageIcon(Pn_QuanLyKhachHang.class.getResource("/gui/icon/refresh-button.png")));
+		btnRefresh.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/refresh-button.png")));
 		btnRefresh.setForeground(Color.BLACK);
 		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnRefresh.setBounds(10, 430, 190, 40);
 		pnLoc.add(btnRefresh);
 
 		btnFind = new JButton("Tìm");
-		btnFind.setIcon(new ImageIcon(Pn_QuanLyKhachHang.class.getResource("/gui/icon/loupe.png")));
+		btnFind.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/loupe.png")));
 		btnFind.setForeground(Color.BLACK);
 		btnFind.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnFind.setBounds(218, 430, 190, 40);
@@ -210,7 +196,7 @@ public class Pn_QuanLyKhachHang extends JPanel implements MouseListener, ActionL
 		lblTimKiem.setBackground(Color.LIGHT_GRAY);
 
 		btnLamMoiDanhSach = new JButton("Làm mới bảng");
-		btnLamMoiDanhSach.setIcon(new ImageIcon(Pn_QuanLyKhachHang.class.getResource("/gui/icon/refresh-button.png")));
+		btnLamMoiDanhSach.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/refresh-button.png")));
 		btnLamMoiDanhSach.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -221,7 +207,7 @@ public class Pn_QuanLyKhachHang extends JPanel implements MouseListener, ActionL
 		add(btnLamMoiDanhSach);
 
 		btnThemKhachHang = new JButton("Thêm khách hàng");
-		btnThemKhachHang.setIcon(new ImageIcon(Pn_QuanLyKhachHang.class.getResource("/gui/icon/add-user.png")));
+		btnThemKhachHang.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/add-user.png")));
 		btnThemKhachHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -232,14 +218,14 @@ public class Pn_QuanLyKhachHang extends JPanel implements MouseListener, ActionL
 		add(btnThemKhachHang);
 
 		btnCapNhat = new JButton("Cập nhật khách hàng");
-		btnCapNhat.setIcon(new ImageIcon(Pn_QuanLyKhachHang.class.getResource("/gui/icon/icons-update.png")));
+		btnCapNhat.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/icons-update.png")));
 		btnCapNhat.setForeground(Color.BLACK);
 		btnCapNhat.setFont(new Font("Dialog", Font.BOLD, 16));
 		btnCapNhat.setBounds(970, 700, 235, 40);
 		add(btnCapNhat);
 
 		btnLuu = new JButton("Lưu");
-		btnLuu.setIcon(new ImageIcon(Pn_QuanLyKhachHang.class.getResource("/gui/icon/diskette.png")));
+		btnLuu.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/diskette.png")));
 		btnLuu.setFont(new Font("Dialog", Font.BOLD, 16));
 		btnLuu.setBounds(465, 700, 230, 40);
 		add(btnLuu);

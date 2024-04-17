@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,13 +11,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import com.toedter.calendar.JDateChooser;
 
 import dao.TaiKhoanDao;
 import db.DBConnection;
@@ -29,7 +24,7 @@ import service.impl.TaiKhoanServiceImpl;
 
 import java.awt.Color;
 
-public class FrmThemTaiKhoan extends JFrame implements ActionListener {
+public class WinThemTaiKhoan extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField txtTenDangNhap;
@@ -67,7 +62,7 @@ public class FrmThemTaiKhoan extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public FrmThemTaiKhoan(NhanVien nv) {
+	public WinThemTaiKhoan(NhanVien nv) {
 		//
 		setResizable(false);
 		this.nv = nv;

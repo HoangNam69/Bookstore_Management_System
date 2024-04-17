@@ -1,7 +1,6 @@
 package gui;
 
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -10,25 +9,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import entity.ChatLieu;
 import entity.KhachHang;
-import entity.MauSac;
-import entity.NhaCungCap;
-import entity.NhaXuatBan;
 import entity.SanPham;
-import entity.TacGia;
-import entity.TheLoaiSach;
-import entity.TheLoaiVanPhongPham;
-import entity.XuatXu;
-import service.impl.ChatLieuServiceImpl;
 import service.impl.KhachHangServiceImpl;
-import service.impl.MauSacServiceImpl;
-import service.impl.NhaCungCapServiceImpl;
-import service.impl.NhaXuatBanServiceImpl;
-import service.impl.SanPhamServiceImpl;
-import service.impl.TacGiaServiceImpl;
-import service.impl.TheLoaiServiceImpl;
-import service.impl.XuatXuServiceImpl;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -37,14 +20,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import javax.swing.JRadioButton;
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
@@ -63,7 +42,7 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 	private JButton btnThoat;
 	private ButtonGroup group;
 	private JButton btnXoa;
-	Pn_TaoHoaDon pn_TaoHoaDon ;
+	Pnl_TaoHoaDon pnl_TaoHoaDon;
 	ArrayList<KhachHang> listKhachHang;
 	public static boolean xoa = false;
 	public static boolean thanhToan = false;

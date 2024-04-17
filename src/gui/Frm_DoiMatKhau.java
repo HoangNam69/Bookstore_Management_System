@@ -22,7 +22,6 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.Color;
@@ -42,7 +41,7 @@ public class Frm_DoiMatKhau extends JFrame implements ActionListener, MouseListe
 	private NhanVienServiceImpl iNhanvien;
 	private NhanVien nv;
 	private JLabel lblTenNV;
-	FrmLogin dangNhap = new FrmLogin();
+	WinLogin dangNhap = new WinLogin();
 	TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
 	private TaiKhoanServiceImpl iTaiKhoan;
 

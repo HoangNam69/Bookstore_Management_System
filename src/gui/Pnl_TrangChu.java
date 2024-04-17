@@ -1,15 +1,7 @@
 package gui;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Composite;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -17,12 +9,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Image;
 
-public class Pn_TrangChu extends JPanel {
+public class Pnl_TrangChu extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public Pn_TrangChu() {
+	public Pnl_TrangChu() {
 		setSize(1500, 850);
 		setLayout(null);
 

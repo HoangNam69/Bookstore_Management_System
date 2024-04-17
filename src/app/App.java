@@ -1,8 +1,8 @@
 package app;
-import gui.FrmLogin;
+import gui.WinLogin;
 public class App {
 	public static void main(String[] args) throws Exception {
-		FrmLogin frmLogin = new FrmLogin();
-		frmLogin.setVisible(true);
+		WinLogin winLogin = new WinLogin();
+		winLogin.setVisible(true);
 	}
 }

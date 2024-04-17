@@ -57,7 +57,7 @@ import org.jfree.data.json.impl.JSONObject;
 import entity.*;
 import service.impl.*;
 
-public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseListener {
+public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseListener {
 	private final static int tenSach = 0;
 	private final static int tenTacGia = 1;
 	private final static int tenNhaXuatBan = 2;
@@ -148,7 +148,7 @@ public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseLis
 	private ArrayList<Sach> listSach;
 	private ArrayList<VanPhongPham> listVPP;
 
-	public Pn_QuanLySanPham() throws Exception {
+	public Pnl_QuanLySanPham() throws Exception {
 		setSize(1900, 900);
 		setBackground(new Color(0, 206, 209));
 		setLayout(null);
@@ -279,7 +279,7 @@ public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseLis
 
 		btnLamMoiLoc = new JButton("Làm mới");
 		btnLamMoiLoc.setHorizontalAlignment(SwingConstants.LEFT);
-		imageIcon = setSizeImageIconURL(Pn_QuanLySanPham.class.getResource("/gui/icon/refresh-button.png"), 13, 13);
+		imageIcon = setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/refresh-button.png"), 13, 13);
 		btnLamMoiLoc.setIcon(imageIcon);
 		btnLamMoiLoc.setBackground(new Color(88, 86, 214));
 		btnLamMoiLoc.setForeground(new Color(255, 255, 255));
@@ -293,7 +293,7 @@ public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseLis
 		btnTImKiem.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		btnTImKiem.setBounds(135, 506, 115, 33);
-		imageIcon = setSizeImageIconURL(Pn_QuanLySanPham.class.getResource("/gui/icon/loupe.png"), 13, 13);
+		imageIcon = setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/loupe.png"), 13, 13);
 		btnTImKiem.setIcon(imageIcon);
 		pnLoc.add(btnTImKiem);
 
@@ -405,28 +405,28 @@ public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseLis
 		panel.setLayout(null);
 
 		btnDau = new JButton();
-		btnDau.setIcon(new ImageIcon(Pn_QuanLySanPham.class.getResource("/gui/icon/go-first.png")));
+		btnDau.setIcon(new ImageIcon(Pnl_QuanLySanPham.class.getResource("/gui/icon/go-first.png")));
 		btnDau.setBounds(536, 0, 35, 35);
 		btnDau.setBackground(Color.decode("#F6B85A"));
 		btnDau.setBorder(BorderFactory.createLineBorder(Color.decode("#F6B85A")));
 		panel.add(btnDau);
 
 		btnTruoc = new JButton();
-		btnTruoc.setIcon(new ImageIcon(Pn_QuanLySanPham.class.getResource("/gui/icon/go-previous.png")));
+		btnTruoc.setIcon(new ImageIcon(Pnl_QuanLySanPham.class.getResource("/gui/icon/go-previous.png")));
 		btnTruoc.setBounds(581, 0, 35, 35);
 		btnTruoc.setBackground(Color.decode("#F6B85A"));
 		btnTruoc.setBorder(BorderFactory.createLineBorder(Color.decode("#F6B85A")));
 		panel.add(btnTruoc);
 
 		btnSau = new JButton();
-		btnSau.setIcon(new ImageIcon(Pn_QuanLySanPham.class.getResource("/gui/icon/go-next.png")));
+		btnSau.setIcon(new ImageIcon(Pnl_QuanLySanPham.class.getResource("/gui/icon/go-next.png")));
 		btnSau.setBounds(681, 0, 35, 35);
 		btnSau.setBackground(Color.decode("#F6B85A"));
 		btnSau.setBorder(BorderFactory.createLineBorder(Color.decode("#F6B85A")));
 		panel.add(btnSau);
 
 		btnCuoi = new JButton();
-		btnCuoi.setIcon(new ImageIcon(Pn_QuanLySanPham.class.getResource("/gui/icon/go-last.png")));
+		btnCuoi.setIcon(new ImageIcon(Pnl_QuanLySanPham.class.getResource("/gui/icon/go-last.png")));
 		btnCuoi.setBounds(724, 0, 35, 35);
 		btnCuoi.setBackground(Color.decode("#F6B85A"));
 		btnCuoi.setBorder(BorderFactory.createLineBorder(Color.decode("#F6B85A")));
@@ -445,7 +445,7 @@ public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseLis
 
 		btnThemSP = new JButton("Thêm sản phẩm");
 		btnThemSP.setHorizontalAlignment(SwingConstants.LEFT);
-		btnThemSP.setIcon(setSizeImageIconURL(Pn_QuanLySanPham.class.getResource("/gui/icon/add.png"), 16, 16));
+		btnThemSP.setIcon(setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/add.png"), 16, 16));
 		btnThemSP.setBounds(876, 173, 176, 40);
 		add(btnThemSP);
 		btnThemSP.setBackground(new Color(66, 178, 26));
@@ -454,7 +454,7 @@ public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseLis
 
 		btnImportFile = new JButton("Import File");
 		btnImportFile
-				.setIcon(setSizeImageIconURL(Pn_QuanLySanPham.class.getResource("/gui/icon/download.png"), 25, 25));
+				.setIcon(setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/download.png"), 25, 25));
 		btnImportFile.setHorizontalAlignment(SwingConstants.LEFT);
 		btnImportFile.setBounds(1060, 173, 176, 40);
 		add(btnImportFile);
@@ -463,7 +463,7 @@ public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseLis
 		btnImportFile.setFont(new Font("Dialog", Font.BOLD, 16));
 
 		btnXuatFile = new JButton("Export File");
-		btnXuatFile.setIcon(setSizeImageIconURL(Pn_QuanLySanPham.class.getResource("/gui/icon/share.png"), 25, 25));
+		btnXuatFile.setIcon(setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/share.png"), 25, 25));
 		btnXuatFile.setHorizontalAlignment(SwingConstants.LEFT);
 		btnXuatFile.setBounds(1246, 173, 176, 40);
 		btnXuatFile.setBackground(Color.decode("#E761EA"));
@@ -473,7 +473,7 @@ public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseLis
 
 		btnCapNhat = new JButton("Cập nhật");
 		btnCapNhat
-				.setIcon(setSizeImageIconURL(Pn_QuanLySanPham.class.getResource("/gui/icon/maintenance.png"), 25, 25));
+				.setIcon(setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/maintenance.png"), 25, 25));
 		btnCapNhat.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCapNhat.setBounds(1062, 123, 176, 40);
 		add(btnCapNhat);
@@ -490,7 +490,7 @@ public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseLis
 		btnLamMoiDanhSach = new JButton("Làm mới bảng");
 		btnLamMoiDanhSach.setHorizontalAlignment(SwingConstants.LEFT);
 		btnLamMoiDanhSach.setIcon(
-				setSizeImageIconURL(Pn_QuanLySanPham.class.getResource("/gui/icon/refresh-button.png"), 25, 25));
+				setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/refresh-button.png"), 25, 25));
 		btnLamMoiDanhSach.setBounds(876, 123, 176, 40);
 		add(btnLamMoiDanhSach);
 		btnLamMoiDanhSach.setForeground(Color.WHITE);
@@ -504,7 +504,7 @@ public class Pn_QuanLySanPham extends JPanel implements ActionListener, MouseLis
 		btnXemChiTiet.setBackground(new Color(88, 86, 214));
 		btnXemChiTiet.setBounds(1248, 123, 176, 40);
 		btnXemChiTiet
-				.setIcon(setSizeImageIconURL(Pn_QuanLySanPham.class.getResource("/gui/icon/DetailBook.png"), 25, 25));
+				.setIcon(setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/DetailBook.png"), 25, 25));
 		add(btnXemChiTiet);
 
 		panel_1 = new JPanel();

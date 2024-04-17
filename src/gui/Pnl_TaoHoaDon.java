@@ -1,11 +1,8 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.JobAttributes;
-import java.awt.Window;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -15,14 +12,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicViewportUI;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 
 import dao.ChiTietHoaDonDao;
 import dao.HoaDonDao;
-import dao.KhachHangDao;
 import dao.SanPhamDao;
 import dao.TacGiaDao;
 import dao.TheLoaiDao;
@@ -34,7 +27,6 @@ import entity.Sach;
 import entity.SanPham;
 import entity.TacGia;
 import entity.TaiKhoan;
-import entity.TheLoaiSach;
 import entity.VanPhongPham;
 import service.impl.ChiTietHoaDonServiceImpl;
 import service.impl.HoaDonServiceImpl;
@@ -47,22 +39,17 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
@@ -72,7 +59,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.TitledBorder;
 
-public class Pn_TaoHoaDon extends JPanel implements ActionListener, MouseListener {
+public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListener {
 	private JTextField txtSDT;
 	private JTextField txtTenKhachHang;
 	private JTextField txtMaSach;
@@ -143,7 +130,7 @@ public class Pn_TaoHoaDon extends JPanel implements ActionListener, MouseListene
 	 * Create the panel.
 	 */
 
-	public Pn_TaoHoaDon() {
+	public Pnl_TaoHoaDon() {
 		setBackground(new Color(0, 206, 209));
 		setFont(new Font("Dialog", Font.BOLD, 16));
 		setSize(1493, 650);
@@ -267,19 +254,19 @@ public class Pn_TaoHoaDon extends JPanel implements ActionListener, MouseListene
 
 			}
 		});
-		btnThemKhachHang.setIcon(new ImageIcon(Pn_TaoHoaDon.class.getResource("/gui/icon/add-user.png")));
+		btnThemKhachHang.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/add-user.png")));
 
 		btnRefresh = new JButton("");
 		btnRefresh.setBounds(270, 105, 30, 30);
 		pnlHoaDon.add(btnRefresh);
-		btnRefresh.setIcon(new ImageIcon(Pn_TaoHoaDon.class.getResource("/gui/icon/refresh-button.png")));
-		btnRefresh.setSelectedIcon(new ImageIcon(Pn_TaoHoaDon.class.getResource("/gui/icon/refresh-button.png")));
+		btnRefresh.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/refresh-button.png")));
+		btnRefresh.setSelectedIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/refresh-button.png")));
 
 		btnTimKhachHang = new JButton("Tìm");
 		btnTimKhachHang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnTimKhachHang.setBounds(350, 105, 100, 30);
 		pnlHoaDon.add(btnTimKhachHang);
-		btnTimKhachHang.setIcon(new ImageIcon(Pn_TaoHoaDon.class.getResource("/gui/icon/loupe.png")));
+		btnTimKhachHang.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/loupe.png")));
 
 		JLabel lblMaHoaDon = new JLabel("Mã hoá đơn:");
 		lblMaHoaDon.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -336,7 +323,7 @@ public class Pn_TaoHoaDon extends JPanel implements ActionListener, MouseListene
 		txtNhanVien.setColumns(10);
 		txtNhanVien.setBounds(396, 75, 226, 20);
 
-		FrmLogin dangNhap = new FrmLogin();
+		WinLogin dangNhap = new WinLogin();
 		TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
 		iNhanvien = new NhanVienServiceImpl();
 		nv = new NhanVien();
@@ -397,19 +384,19 @@ public class Pn_TaoHoaDon extends JPanel implements ActionListener, MouseListene
 		pnlHoaDon.add(txtTienThua);
 
 		btnHuyHoaDon = new JButton("Huỷ hoá đơn");
-		btnHuyHoaDon.setIcon(new ImageIcon(Pn_TaoHoaDon.class.getResource("/gui/icon/delete.png")));
+		btnHuyHoaDon.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/delete.png")));
 		btnHuyHoaDon.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnHuyHoaDon.setBounds(10, 700, 150, 35);
 		pnlHoaDon.add(btnHuyHoaDon);
 
 		btnThemHangCho = new JButton("Thêm hàng chờ");
-		btnThemHangCho.setIcon(new ImageIcon(Pn_TaoHoaDon.class.getResource("/gui/icon/icons-add.png")));
+		btnThemHangCho.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/icons-add.png")));
 		btnThemHangCho.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemHangCho.setBounds(300, 700, 170, 35);
 		pnlHoaDon.add(btnThemHangCho);
 
 		btnThanhToan = new JButton("Thanh toán");
-		btnThanhToan.setIcon(new ImageIcon(Pn_TaoHoaDon.class.getResource("/gui/icon/money.png")));
+		btnThanhToan.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/money.png")));
 		btnThanhToan.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThanhToan.setBounds(620, 700, 150, 35);
 		pnlHoaDon.add(btnThanhToan);
@@ -590,7 +577,7 @@ public class Pn_TaoHoaDon extends JPanel implements ActionListener, MouseListene
 		pnSach.add(cbxTheLoai);
 
 		btnThemSach = new JButton("Thêm");
-		btnThemSach.setIcon(new ImageIcon(Pn_TaoHoaDon.class.getResource("/gui/icon/icons-add.png")));
+		btnThemSach.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/icons-add.png")));
 		btnThemSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemSach.setBounds(641, 108, 126, 30);
 		pnSach.add(btnThemSach);
@@ -709,7 +696,7 @@ public class Pn_TaoHoaDon extends JPanel implements ActionListener, MouseListene
 
 		btnThemVPP = new JButton("Thêm");
 		btnThemVPP.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnThemVPP.setIcon(new ImageIcon(Pn_TaoHoaDon.class.getResource("/gui/icon/icons-add.png")));
+		btnThemVPP.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/icons-add.png")));
 		btnThemVPP.setBounds(641, 108, 126, 30);
 		pnVPP.add(btnThemVPP);
 
@@ -777,7 +764,7 @@ public class Pn_TaoHoaDon extends JPanel implements ActionListener, MouseListene
 		txtTimKiemTenSP.setColumns(10);
 
 		btnLamMoiBang = new JButton("Làm mới bảng");
-		btnLamMoiBang.setIcon(new ImageIcon(Pn_TaoHoaDon.class.getResource("/gui/icon/refresh-button.png")));
+		btnLamMoiBang.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/refresh-button.png")));
 		btnLamMoiBang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnLamMoiBang.setBounds(640, 9, 170, 30);
 		pnlTimKiem.add(btnLamMoiBang);
@@ -1219,7 +1206,7 @@ public class Pn_TaoHoaDon extends JPanel implements ActionListener, MouseListene
 
 	public void themHoaDon() throws SQLException {
 		String mahd = txtMaHoaDon.getText();
-		FrmLogin dangNhap = new FrmLogin();
+		WinLogin dangNhap = new WinLogin();
 		TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
 		iNhanvien = new NhanVienServiceImpl();
 		iKhachHang = new KhachHangServiceImpl();

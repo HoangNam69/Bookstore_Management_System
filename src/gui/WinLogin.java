@@ -2,19 +2,14 @@ package gui;
 
 import java.awt.EventQueue;
 import java.awt.GraphicsEnvironment;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dao.TaiKhoanDao;
-import entity.NhanVien;
 import entity.TaiKhoan;
 
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -31,7 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 
-public class FrmLogin extends JFrame implements ActionListener, MouseListener {
+public class WinLogin extends JFrame implements ActionListener, MouseListener {
 
 	private JPanel contentPane;
 	private JTextField txtTenDangNhap;
@@ -57,7 +52,7 @@ public class FrmLogin extends JFrame implements ActionListener, MouseListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmLogin frame = new FrmLogin();
+					WinLogin frame = new WinLogin();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -79,7 +74,7 @@ public class FrmLogin extends JFrame implements ActionListener, MouseListener {
 
 	// set the MAXIMUM size....
 
-	public FrmLogin() {
+	public WinLogin() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// setSize();
@@ -145,7 +140,7 @@ public class FrmLogin extends JFrame implements ActionListener, MouseListener {
 		lbl_UserIcon = new JLabel("");
 		lbl_UserIcon.setForeground(new Color(0, 0, 0));
 		lbl_UserIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_UserIcon.setIcon(new ImageIcon(FrmLogin.class.getResource("/gui/icon/woman.png")));
+		lbl_UserIcon.setIcon(new ImageIcon(WinLogin.class.getResource("/gui/icon/woman.png")));
 		lbl_UserIcon.setBounds(10, 11, 41, 33);
 
 		panel_UserIcon.add(lbl_UserIcon);
@@ -158,13 +153,13 @@ public class FrmLogin extends JFrame implements ActionListener, MouseListener {
 
 		lbl_PassIcon = new JLabel("");
 		lbl_PassIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_PassIcon.setIcon(new ImageIcon(FrmLogin.class.getResource("/gui/icon/lock.png")));
+		lbl_PassIcon.setIcon(new ImageIcon(WinLogin.class.getResource("/gui/icon/lock.png")));
 		lbl_PassIcon.setBounds(10, 11, 40, 33);
 		panel_PassIcon.add(lbl_PassIcon);
 
 		lblBackgorund = new JLabel("");
 		lblBackgorund.setIcon(
-				new ImageIcon(FrmLogin.class.getResource("/gui/icon/login_1.jpg")));
+				new ImageIcon(WinLogin.class.getResource("/gui/icon/login_1.jpg")));
 		lblBackgorund.setBounds(28, 45, 630, 450);
 		contentPane.add(lblBackgorund);
 		btnDangNhap.addActionListener(this);
@@ -303,7 +298,7 @@ public class FrmLogin extends JFrame implements ActionListener, MouseListener {
 							taiKhoan = account;
 							this.dispose();
 							try {
-								new FrmQuanLy().setVisible(true);
+								new WinQuanLy().setVisible(true);
 							} catch (Exception e1) {
 								// TODO Auto-generated catch blockTK
 								e1.printStackTrace();
@@ -315,7 +310,7 @@ public class FrmLogin extends JFrame implements ActionListener, MouseListener {
 							taiKhoan = account;
 							this.dispose();
 							try {
-								new FrmNhanVien().setVisible(true);
+								new WinNhanVien().setVisible(true);
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();

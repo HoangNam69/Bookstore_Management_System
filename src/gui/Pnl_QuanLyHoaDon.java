@@ -15,8 +15,6 @@ import dao.ChiTietHoaDonDao;
 import dao.ChiTietHoaDonDoiTraDao;
 import dao.HoaDonDao;
 import dao.HoaDonDoiTraDao;
-import dao.KhachHangDao;
-import dao.NhanVienDao;
 import db.DBConnection;
 import entity.ChiTietHoaDon;
 import entity.HoaDon;
@@ -45,21 +43,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import javax.mail.Flags.Flag;
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
-public class Pn_QuanLyHoaDon extends JPanel implements ActionListener, MouseListener {
+public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseListener {
 
 	/**
 	 * Create the panel.
@@ -104,7 +98,7 @@ public class Pn_QuanLyHoaDon extends JPanel implements ActionListener, MouseList
 	private List<ChiTietHoaDon> dscthd;
 	private List<HoaDonDoiTra> dsHoaDonDoiTra;
 
-	public Pn_QuanLyHoaDon() {
+	public Pnl_QuanLyHoaDon() {
 		setBackground(new Color(0, 206, 209));
 		setFont(new Font("Dialog", Font.BOLD, 16));
 		setSize(1800, 900);
@@ -305,28 +299,28 @@ public class Pn_QuanLyHoaDon extends JPanel implements ActionListener, MouseList
 		btnRefresh = new JButton("Làm mới");
 		btnRefresh.setBounds(859, 750, 190, 40);
 		add(btnRefresh);
-		btnRefresh.setIcon(new ImageIcon(Pn_QuanLyKhachHang.class.getResource("/gui/icon/refresh-button.png")));
+		btnRefresh.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/refresh-button.png")));
 		btnRefresh.setForeground(Color.BLACK);
 		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		btnFind = new JButton("Tìm");
 		btnFind.setBounds(104, 750, 205, 40);
 		add(btnFind);
-		btnFind.setIcon(new ImageIcon(Pn_QuanLyKhachHang.class.getResource("/gui/icon/loupe.png")));
+		btnFind.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/loupe.png")));
 		btnFind.setForeground(Color.BLACK);
 		btnFind.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		btnXemChiTiet = new JButton("Xem chi tiết");
 		btnXemChiTiet.setForeground(Color.BLACK);
 		btnXemChiTiet.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnXemChiTiet.setIcon(new ImageIcon(Pn_QuanLyKhachHang.class.getResource("/gui/icon/diskette.png")));
+		btnXemChiTiet.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/diskette.png")));
 		btnXemChiTiet.setBounds(518, 750, 205, 40);
 		add(btnXemChiTiet);
 
 		btnIn = new JButton("In");
 		btnIn.setForeground(Color.BLACK);
 		btnIn.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnIn.setIcon(new ImageIcon(Pn_QuanLyKhachHang.class.getResource("/gui/icon/diskette.png")));
+		btnIn.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/diskette.png")));
 		btnIn.setBounds(1204, 750, 205, 40);
 		add(btnIn);
 

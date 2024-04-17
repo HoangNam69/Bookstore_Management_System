@@ -15,13 +15,11 @@ import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,11 +30,8 @@ import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
-import dao.NhanVienDao;
-import dao.TaiKhoanDao;
 import db.DBConnection;
 import entity.NhanVien;
-import entity.TaiKhoan;
 import service.impl.HoaDonServiceImpl;
 import service.impl.NhanVienServiceImpl;
 import service.impl.TaiKhoanServiceImpl;
@@ -50,7 +45,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
-public class Pn_QuanLyNhanVien extends JPanel implements ActionListener, MouseListener {
+public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseListener {
 	private JTextField txtMaNhanVien;
 	private JTextField txtTenNV;
 	private JTextField txtSDT;
@@ -107,7 +102,7 @@ public class Pn_QuanLyNhanVien extends JPanel implements ActionListener, MouseLi
 	/**
 	 * Create the panel.
 	 */
-	public Pn_QuanLyNhanVien() {
+	public Pnl_QuanLyNhanVien() {
 		setBackground(new Color(0, 206, 209));
 		setFont(new Font("Dialog", Font.BOLD, 16));
 		setSize(1900, 900);
@@ -205,37 +200,37 @@ public class Pn_QuanLyNhanVien extends JPanel implements ActionListener, MouseLi
 		txtDiaChi.setColumns(10);
 
 		btnThemNV = new JButton("   Thêm ");
-		btnThemNV.setIcon(new ImageIcon(Pn_QuanLyNhanVien.class.getResource("/gui/icon/add-user.png")));
+		btnThemNV.setIcon(new ImageIcon(Pnl_QuanLyNhanVien.class.getResource("/gui/icon/add-user.png")));
 		btnThemNV.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnThemNV.setBounds(212, 632, 117, 32);
 		panel_Right.add(btnThemNV);
 
 		btnSuaNV = new JButton("   Sửa");
-		btnSuaNV.setIcon(new ImageIcon(Pn_QuanLyNhanVien.class.getResource("/gui/icon/contract.png")));
+		btnSuaNV.setIcon(new ImageIcon(Pnl_QuanLyNhanVien.class.getResource("/gui/icon/contract.png")));
 		btnSuaNV.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSuaNV.setBounds(44, 632, 117, 32);
 		panel_Right.add(btnSuaNV);
 
 		btnXoaNV = new JButton("   Xóa");
-		btnXoaNV.setIcon(new ImageIcon(Pn_QuanLyNhanVien.class.getResource("/gui/icon/delete.png")));
+		btnXoaNV.setIcon(new ImageIcon(Pnl_QuanLyNhanVien.class.getResource("/gui/icon/delete.png")));
 		btnXoaNV.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnXoaNV.setBounds(44, 693, 117, 32);
 		panel_Right.add(btnXoaNV);
 
 		btnTimKiem = new JButton("   Tìm");
-		btnTimKiem.setIcon(new ImageIcon(Pn_QuanLyNhanVien.class.getResource("/gui/icon/loupe.png")));
+		btnTimKiem.setIcon(new ImageIcon(Pnl_QuanLyNhanVien.class.getResource("/gui/icon/loupe.png")));
 		btnTimKiem.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnTimKiem.setBounds(376, 632, 117, 32);
 		panel_Right.add(btnTimKiem);
 
 		btnLamMoi = new JButton("Làm mới");
-		btnLamMoi.setIcon(new ImageIcon(Pn_QuanLyNhanVien.class.getResource("/gui/icon/refresh-button.png")));
+		btnLamMoi.setIcon(new ImageIcon(Pnl_QuanLyNhanVien.class.getResource("/gui/icon/refresh-button.png")));
 		btnLamMoi.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnLamMoi.setBounds(212, 693, 117, 32);
 		panel_Right.add(btnLamMoi);
 
 		btnLuu = new JButton("   Lưu");
-		btnLuu.setIcon(new ImageIcon(Pn_QuanLyNhanVien.class.getResource("/gui/icon/diskette.png")));
+		btnLuu.setIcon(new ImageIcon(Pnl_QuanLyNhanVien.class.getResource("/gui/icon/diskette.png")));
 		btnLuu.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnLuu.setBounds(376, 693, 117, 32);
 		panel_Right.add(btnLuu);
@@ -320,7 +315,7 @@ public class Pn_QuanLyNhanVien extends JPanel implements ActionListener, MouseLi
 		btnLamMoiBang = new JButton("   Làm mới bảng");
 		btnLamMoiBang.setBounds(500, 21, 188, 39);
 		panel_Bot.add(btnLamMoiBang);
-		btnLamMoiBang.setIcon(new ImageIcon(Pn_QuanLyNhanVien.class.getResource("/gui/icon/refresh-button.png")));
+		btnLamMoiBang.setIcon(new ImageIcon(Pnl_QuanLyNhanVien.class.getResource("/gui/icon/refresh-button.png")));
 		btnLamMoiBang.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnLamMoiBang.addActionListener(this);
 
@@ -521,7 +516,7 @@ public class Pn_QuanLyNhanVien extends JPanel implements ActionListener, MouseLi
 					moKhoaControls(true);
 					moKhoaTextfields(false);
 					btnThemNV.setText("   Thêm ");
-					FrmThemTaiKhoan frmThemTK = new FrmThemTaiKhoan(nv);
+					WinThemTaiKhoan frmThemTK = new WinThemTaiKhoan(nv);
 					frmThemTK.setVisible(true);
 				}
 				else {

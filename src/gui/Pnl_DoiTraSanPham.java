@@ -10,17 +10,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -34,8 +27,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTHdrFtr;
 
 import db.DBConnection;
 import entity.ChiTietHoaDon;
@@ -66,7 +57,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.ImageIcon;
 
-public class Pn_DoiTraSanPham extends JPanel implements ActionListener, MouseListener {
+public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseListener {
 	private JTextField txtTongTienSP;
 	private JTextField txtTienKhachTra;
 	private JTextField txtVAT;
@@ -142,14 +133,14 @@ public class Pn_DoiTraSanPham extends JPanel implements ActionListener, MouseLis
 	/**
 	 * Create the panel.
 	 */
-	public Pn_DoiTraSanPham() {
+	public Pnl_DoiTraSanPham() {
 		setBackground(new Color(0, 206, 209));
 		setFont(new Font("Dialog", Font.BOLD, 16));
 		setSize(1800, 900);
 		setLayout(null);
 
 		lblTitle = new JLabel("ĐỔI TRẢ SÁCH");
-		lblTitle.setIcon(new ImageIcon(Pn_DoiTraSanPham.class.getResource("/gui/icon/contract.png")));
+		lblTitle.setIcon(new ImageIcon(Pnl_DoiTraSanPham.class.getResource("/gui/icon/contract.png")));
 		lblTitle.setForeground(new Color(255, 69, 0));
 		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -668,7 +659,7 @@ public class Pn_DoiTraSanPham extends JPanel implements ActionListener, MouseLis
 			String finalId = maHDDT + ngayHD + String.format("%05d", length + 1);
 			txtGiaTriMaHDDT.setText(finalId);
 
-			FrmLogin dangNhap = new FrmLogin();
+			WinLogin dangNhap = new WinLogin();
 			TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
 			iNhanVien = new NhanVienServiceImpl();
 			iKhachHang = new KhachHangServiceImpl();
