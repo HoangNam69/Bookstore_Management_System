@@ -451,7 +451,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 				}
 				clearTxtfields();
 				btnThemKhachHang.setEnabled(false);
-				btnCapNhat.setEnabled(false);
+				btnCapNhat.setEnabled(true);
 				btnLuu.setEnabled(true);
 				btnLuu.setText("Huỷ");
 				btnFind.setText("Tìm kiếm");
