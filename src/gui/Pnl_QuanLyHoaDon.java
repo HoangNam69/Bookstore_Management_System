@@ -61,41 +61,41 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modelHoaDon;
-	private JTable tableHoaDon;
-	private JScrollPane scrollHoaDon;
+	private JTable tblHoaDon;
+	private JScrollPane scrHoaDon;
 	private JTextField txtMaHoaDon;
 	private JTextField txtNgayLap;
 	private JTextField txtTenNhanVien;
 	private JTextField txtTenNVTim;
-	private HoaDonDao hoaDon_dao;
+	private HoaDonDao hoaDonDao;
 	private List<HoaDon> dsHoaDon;
 	private List<KhachHang> dsKhachHang;
-	private Frm_XemChiTietHoaDon frm_XemChiTietHoaDon;
+	private Frm_XemChiTietHoaDon winXemChiTietHoaDon;
 
 	private JButton btnRefresh;
 	private JButton btnFind;
 	private JButton btnXemChiTiet;
 	private JButton btnIn;
-	ButtonGroup G;
-	JRadioButton rdHoaDonDoiTra;
-	JRadioButton rdHoaDonThuong;
-	private KhachHangServiceImpl iKhachHang;
-	private HoaDonServiceImpl iHoaDon;
+	ButtonGroup btnGroup;
+	JRadioButton radHoaDonDoiTra;
+	JRadioButton radHoaDonThuong;
+	private KhachHangServiceImpl khachHangServiceImpl;
+	private HoaDonServiceImpl hoaDonServiceImpl;
 	private JTextField txtTenKHTim;
-	private JLabel lblMHan_1;
+	private JLabel lblMaHoaDon;
 	private JTextField txtMahoaDonTim;
-	private JLabel lblSDT_1;
+	private JLabel lblSDTKhachHang;
 	private JTextField txtSDTTim;
 //	Flag loại hóa đơn
 	int flag = 1; // Mặc định là hóa đơn thường
-	private ChiTietHoaDonServiceImpl iChiTietHoaDon;
+	private ChiTietHoaDonServiceImpl chiTietHoaDonServiceImpl;
 	private ChiTietHoaDonDao chiTietHoaDonDao;
-	private HoaDonDoiTra hddt;
-	private HoaDonDao HoaDon_dao;
+	private HoaDonDoiTra hoaDonDoiTra;
+	private HoaDonDao hoaDonDao_TimTheoMa;
 	private HoaDonDoiTraDao hoaDonDoiTraDao;
 	private ChiTietHoaDonDoiTraDao chiTietHoaDonDoiTra;
-	private SanPhamServiceImpl iSanPham;
-	private List<ChiTietHoaDon> dscthd;
+	private SanPhamServiceImpl sanPhamServiceImpl;
+	private List<ChiTietHoaDon> dsChiTietHoaDon;
 	private List<HoaDonDoiTra> dsHoaDonDoiTra;
 
 	public Pnl_QuanLyHoaDon() {
@@ -111,12 +111,12 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		lblTitle.setBounds(10, 11, 1460, 55);
 		add(lblTitle);
 
-		JPanel pnLoc = new JPanel();
-		pnLoc.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnLoc.setBackground(new Color(255, 255, 255));
-		pnLoc.setBounds(10, 126, 418, 600);
-		add(pnLoc);
-		pnLoc.setLayout(null);
+		JPanel pnlAddress = new JPanel();
+		pnlAddress.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnlAddress.setBackground(new Color(255, 255, 255));
+		pnlAddress.setBounds(10, 126, 418, 600);
+		add(pnlAddress);
+		pnlAddress.setLayout(null);
 
 		txtTenNVTim = new JTextField();
 		txtTenNVTim.setHorizontalAlignment(SwingConstants.CENTER);
@@ -124,19 +124,19 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		txtTenNVTim.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTenNVTim.setColumns(10);
 		txtTenNVTim.setBounds(141, 247, 267, 33);
-		pnLoc.add(txtTenNVTim);
+		pnlAddress.add(txtTenNVTim);
 
 		JLabel lblTenKhachHang = new JLabel("Tên khách hàng:");
 		lblTenKhachHang.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTenKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTenKhachHang.setBounds(10, 461, 121, 33);
-		pnLoc.add(lblTenKhachHang);
+		pnlAddress.add(lblTenKhachHang);
 
 		JLabel lblSDT = new JLabel("Tên nhân viên:");
 		lblSDT.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSDT.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSDT.setBounds(10, 247, 121, 33);
-		pnLoc.add(lblSDT);
+		pnlAddress.add(lblSDT);
 
 		txtTenKHTim = new JTextField();
 		txtTenKHTim.setHorizontalAlignment(SwingConstants.CENTER);
@@ -144,28 +144,28 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		txtTenKHTim.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTenKHTim.setColumns(10);
 		txtTenKHTim.setBounds(141, 461, 267, 33);
-		pnLoc.add(txtTenKHTim);
+		pnlAddress.add(txtTenKHTim);
 
-		JPanel pnTimKiem_1 = new JPanel();
-		pnTimKiem_1.setLayout(null);
-		pnTimKiem_1.setBorder(null);
-		pnTimKiem_1.setBackground(Color.LIGHT_GRAY);
-		pnTimKiem_1.setBounds(0, 63, 418, 46);
-		pnLoc.add(pnTimKiem_1);
+		JPanel pnlTimKiem = new JPanel();
+		pnlTimKiem.setLayout(null);
+		pnlTimKiem.setBorder(null);
+		pnlTimKiem.setBackground(Color.LIGHT_GRAY);
+		pnlTimKiem.setBounds(0, 63, 418, 46);
+		pnlAddress.add(pnlTimKiem);
 
 		JLabel lblTimKiem_1 = new JLabel("Tìm kiếm thông tin hóa đơn");
 		lblTimKiem_1.setBounds(0, 0, 418, 46);
-		pnTimKiem_1.add(lblTimKiem_1);
+		pnlTimKiem.add(lblTimKiem_1);
 		lblTimKiem_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimKiem_1.setForeground(Color.BLACK);
 		lblTimKiem_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTimKiem_1.setBackground(Color.LIGHT_GRAY);
 
-		lblMHan_1 = new JLabel("Mã hóa đơn:");
-		lblMHan_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblMHan_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMHan_1.setBounds(10, 139, 121, 33);
-		pnLoc.add(lblMHan_1);
+		lblMaHoaDon = new JLabel("Mã hóa đơn:");
+		lblMaHoaDon.setHorizontalAlignment(SwingConstants.LEFT);
+		lblMaHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMaHoaDon.setBounds(10, 139, 121, 33);
+		pnlAddress.add(lblMaHoaDon);
 
 		txtMahoaDonTim = new JTextField();
 		txtMahoaDonTim.setHorizontalAlignment(SwingConstants.CENTER);
@@ -173,13 +173,13 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		txtMahoaDonTim.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtMahoaDonTim.setColumns(10);
 		txtMahoaDonTim.setBounds(141, 139, 267, 33);
-		pnLoc.add(txtMahoaDonTim);
+		pnlAddress.add(txtMahoaDonTim);
 
-		lblSDT_1 = new JLabel("Số điện thoại KH:");
-		lblSDT_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblSDT_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSDT_1.setBounds(10, 352, 121, 33);
-		pnLoc.add(lblSDT_1);
+		lblSDTKhachHang = new JLabel("Số điện thoại KH:");
+		lblSDTKhachHang.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSDTKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSDTKhachHang.setBounds(10, 352, 121, 33);
+		pnlAddress.add(lblSDTKhachHang);
 
 		txtSDTTim = new JTextField();
 		txtSDTTim.setHorizontalAlignment(SwingConstants.CENTER);
@@ -187,33 +187,33 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		txtSDTTim.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtSDTTim.setColumns(10);
 		txtSDTTim.setBounds(141, 352, 267, 33);
-		pnLoc.add(txtSDTTim);
+		pnlAddress.add(txtSDTTim);
 
-		rdHoaDonThuong = new JRadioButton("Hóa đơn thường");
-		rdHoaDonThuong.setSelected(true);
-		rdHoaDonThuong.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rdHoaDonThuong.setBounds(41, 12, 135, 37);
-		pnLoc.add(rdHoaDonThuong);
+		radHoaDonThuong = new JRadioButton("Hóa đơn thường");
+		radHoaDonThuong.setSelected(true);
+		radHoaDonThuong.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		radHoaDonThuong.setBounds(41, 12, 135, 37);
+		pnlAddress.add(radHoaDonThuong);
 
-		rdHoaDonDoiTra = new JRadioButton("Hóa đơn đổi trả");
-		rdHoaDonDoiTra.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		rdHoaDonDoiTra.setBounds(231, 12, 128, 37);
-		pnLoc.add(rdHoaDonDoiTra);
+		radHoaDonDoiTra = new JRadioButton("Hóa đơn đổi trả");
+		radHoaDonDoiTra.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		radHoaDonDoiTra.setBounds(231, 12, 128, 37);
+		pnlAddress.add(radHoaDonDoiTra);
 
-		G = new ButtonGroup();
-		G.add(rdHoaDonThuong);
-		G.add(rdHoaDonDoiTra);
+		btnGroup = new ButtonGroup();
+		btnGroup.add(radHoaDonThuong);
+		btnGroup.add(radHoaDonDoiTra);
 
-		rdHoaDonDoiTra.setMnemonic(KeyEvent.VK_C);
-		rdHoaDonThuong.setMnemonic(KeyEvent.VK_M);
+		radHoaDonDoiTra.setMnemonic(KeyEvent.VK_C);
+		radHoaDonThuong.setMnemonic(KeyEvent.VK_M);
 
-		rdHoaDonThuong.addItemListener(new ItemListener() {
+		radHoaDonThuong.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == 1) {
 					setColumnName("Mã hóa đơn", "Thành tiền");
 					modelHoaDon.setRowCount(0);
 					try {
-						DocDuLieuTuArrayListVaoModel();
+						docDuLieuTuArrayListVaoModel();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -224,14 +224,14 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
 			}
 		});
-		rdHoaDonDoiTra.addItemListener(new ItemListener() {
+		radHoaDonDoiTra.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == 1) {
 					setColumnName("Mã hóa đơn đổi trả", "Tiền phải trừ");
 					modelHoaDon.setRowCount(0);
 					try {
-						DocDuLieuHoaDonDoiTraTuArrayListVaoModel();
+						docDuLieuHoaDonDoiTraTuArrayListVaoModel();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -245,21 +245,21 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		if (flag == 1) {
 			String[] cols = { "STT", "Mã hóa đơn", "Nhân viên lâp", "Ngày lập", "Tên khách hàng", "Thành tiền" };
 			modelHoaDon = new DefaultTableModel(cols, 0);
-			tableHoaDon = new JTable(modelHoaDon);
-			tableHoaDon.setBorder(new LineBorder(new Color(0, 0, 0)));
-			tableHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			tblHoaDon = new JTable(modelHoaDon);
+			tblHoaDon.setBorder(new LineBorder(new Color(0, 0, 0)));
+			tblHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-			scrollHoaDon = new JScrollPane(tableHoaDon);
-			scrollHoaDon.setBounds(448, 76, 1320, 650);
-			tableHoaDon.getTableHeader().setBackground(Color.LIGHT_GRAY);
-			tableHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 17));
-			tableHoaDon.setRowHeight(25);
-			tableHoaDon.setBackground(Color.WHITE);
-			scrollHoaDon.getViewport().setBackground(Color.WHITE);
-			tableHoaDon.getTableHeader().setPreferredSize(new Dimension(0, 40));
-			add(scrollHoaDon);
+			scrHoaDon = new JScrollPane(tblHoaDon);
+			scrHoaDon.setBounds(448, 76, 1320, 650);
+			tblHoaDon.getTableHeader().setBackground(Color.LIGHT_GRAY);
+			tblHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 17));
+			tblHoaDon.setRowHeight(25);
+			tblHoaDon.setBackground(Color.WHITE);
+			scrHoaDon.getViewport().setBackground(Color.WHITE);
+			tblHoaDon.getTableHeader().setPreferredSize(new Dimension(0, 40));
+			add(scrHoaDon);
 			try {
-				DocDuLieuTuArrayListVaoModel();
+				docDuLieuTuArrayListVaoModel();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -267,30 +267,30 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		} else {
 			String[] cols = { "STT", "Mã hóa đơn", "Nhân viên lâp", "Ngày lập", "Tên khách hàng", "Tiền trừ" };
 			modelHoaDon = new DefaultTableModel(cols, 0);
-			tableHoaDon = new JTable(modelHoaDon);
-			tableHoaDon.setBorder(new LineBorder(new Color(0, 0, 0)));
-			tableHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			tblHoaDon = new JTable(modelHoaDon);
+			tblHoaDon.setBorder(new LineBorder(new Color(0, 0, 0)));
+			tblHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-			scrollHoaDon = new JScrollPane(tableHoaDon);
-			scrollHoaDon.setBounds(448, 76, 1320, 650);
-			tableHoaDon.getTableHeader().setBackground(Color.LIGHT_GRAY);
-			tableHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 17));
-			tableHoaDon.setRowHeight(25);
-			tableHoaDon.setBackground(Color.WHITE);
-			scrollHoaDon.getViewport().setBackground(Color.WHITE);
-			tableHoaDon.getTableHeader().setPreferredSize(new Dimension(0, 40));
-			add(scrollHoaDon);
+			scrHoaDon = new JScrollPane(tblHoaDon);
+			scrHoaDon.setBounds(448, 76, 1320, 650);
+			tblHoaDon.getTableHeader().setBackground(Color.LIGHT_GRAY);
+			tblHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 17));
+			tblHoaDon.setRowHeight(25);
+			tblHoaDon.setBackground(Color.WHITE);
+			scrHoaDon.getViewport().setBackground(Color.WHITE);
+			tblHoaDon.getTableHeader().setPreferredSize(new Dimension(0, 40));
+			add(scrHoaDon);
 		}
 
-		JPanel pnTimKiem = new JPanel();
-		pnTimKiem.setBackground(Color.LIGHT_GRAY);
-		pnTimKiem.setBorder(null);
-		pnTimKiem.setBounds(10, 76, 418, 49);
-		add(pnTimKiem);
-		pnTimKiem.setLayout(null);
+		JPanel pnlTimKiem_2 = new JPanel();
+		pnlTimKiem_2.setBackground(Color.LIGHT_GRAY);
+		pnlTimKiem_2.setBorder(null);
+		pnlTimKiem_2.setBounds(10, 76, 418, 49);
+		add(pnlTimKiem_2);
+		pnlTimKiem_2.setLayout(null);
 		JLabel lblTimKiem = new JLabel("Loại hóa đơn");
 		lblTimKiem.setBounds(0, 0, 418, 49);
-		pnTimKiem.add(lblTimKiem);
+		pnlTimKiem_2.add(lblTimKiem);
 		lblTimKiem.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimKiem.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTimKiem.setForeground(Color.BLACK);
@@ -324,16 +324,16 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		btnIn.setBounds(1204, 750, 205, 40);
 		add(btnIn);
 
-		TableColumnModel columnMode = tableHoaDon.getColumnModel();
+		TableColumnModel columnMode = tblHoaDon.getColumnModel();
 		columnMode.getColumn(0).setPreferredWidth(10);
 
 		// add action listener
 		btnFind.addActionListener(this);
 		btnRefresh.addActionListener(this);
 		btnXemChiTiet.addActionListener(this);
-		rdHoaDonDoiTra.addMouseListener(this);
-		rdHoaDonThuong.addMouseListener(this);
-		tableHoaDon.addMouseListener(this);
+		radHoaDonDoiTra.addMouseListener(this);
+		radHoaDonThuong.addMouseListener(this);
+		tblHoaDon.addMouseListener(this);
 		btnIn.addActionListener(this);
 
 //		SET FORCUS
@@ -403,21 +403,21 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object o = e.getSource();
-		if (o.equals(rdHoaDonDoiTra)) {
+		if (o.equals(radHoaDonDoiTra)) {
 			setColumnName("Mã hóa đơn đổi trả", "Tiền phải trừ");
 			modelHoaDon.setRowCount(0);
 			try {
-				DocDuLieuHoaDonDoiTraTuArrayListVaoModel();
+				docDuLieuHoaDonDoiTraTuArrayListVaoModel();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		if (o.equals(rdHoaDonThuong)) {
+		if (o.equals(radHoaDonThuong)) {
 			setColumnName("Mã hóa đơn", "Thành tiền");
 			modelHoaDon.setRowCount(0);
 			try {
-				DocDuLieuTuArrayListVaoModel();
+				docDuLieuTuArrayListVaoModel();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -455,7 +455,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		Object obj = e.getSource();
 		if (flag == 1) {
 			if (obj.equals(btnXemChiTiet)) {
-				int row = tableHoaDon.getSelectedRow();
+				int row = tblHoaDon.getSelectedRow();
 				if (row == -1) {
 					JOptionPane.showMessageDialog(null, "Chưa chọn dòng nào!!", "Thông báo",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -468,9 +468,9 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 					String tienKhachDua = "";
 					String ghiChu = "";
 					String tongTienHoaDon = "";
-					HoaDon_dao = new HoaDonDao();
+					hoaDonDao_TimTheoMa = new HoaDonDao();
 					try {
-						HoaDon hd = HoaDon_dao.timHoaDonTheoMa(maHoaDon);
+						HoaDon hd = hoaDonDao_TimTheoMa.timHoaDonTheoMa(maHoaDon);
 						tienKhachDua = hd.getTienKhachDua() + "";
 						tongTienHoaDon = tongTienHoaDon(maHoaDon) + "";
 						ghiChu = hd.getGhiChu();
@@ -491,7 +491,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 						&& txtSDTTim.getText().equals("") && txtTenNVTim.getText().equals("")) {
 					String maTim = txtMahoaDonTim.getText().trim();
 					try {
-						DocDuLieuTimKiemTuArrayListVaoModelTheoMa(maTim);
+						docDuLieuTimKiemTuArrayListVaoModelTheoMa(maTim);
 						xoaTrang();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -501,7 +501,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 						&& txtSDTTim.getText().equals("") && !txtTenNVTim.getText().equals("")) {
 					String tenTim = txtTenNVTim.getText().trim();
 					try {
-						DocDuLieuTimKiemTuArrayListVaoModelTheoTen(tenTim);
+						docDuLieuTimKiemTuArrayListVaoModelTheoTen(tenTim);
 						xoaTrang();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -511,7 +511,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 						&& !txtSDTTim.getText().equals("") && txtTenNVTim.getText().equals("")) {
 					String sdtTim = txtSDTTim.getText().trim();
 					try {
-						DocDuLieuTimKiemTuArrayListVaoModelTheoSDT(sdtTim);
+						docDuLieuTimKiemTuArrayListVaoModelTheoSDT(sdtTim);
 						xoaTrang();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -521,7 +521,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 						&& txtSDTTim.getText().equals("") && txtTenNVTim.getText().equals("")) {
 					String tenKHTim = txtTenKHTim.getText().trim();
 					try {
-						DocDuLieuTimKiemTuArrayListVaoModelTheoTenKH(tenKHTim);
+						docDuLieuTimKiemTuArrayListVaoModelTheoTenKH(tenKHTim);
 						xoaTrang();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -532,16 +532,16 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 			} else if (obj.equals(btnRefresh)) {
 				xoaHetDuLieu();
 				try {
-					DocDuLieuTuArrayListVaoModel();
+					docDuLieuTuArrayListVaoModel();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			} else if (obj.equals(btnIn)) {
-				if (tableHoaDon.getSelectedRow() == -1) {
+				if (tblHoaDon.getSelectedRow() == -1) {
 					JOptionPane.showMessageDialog(this, "Phải chọn hóa đơn cần in");
 				} else {
-					xuatHoaDon(tableHoaDon.getValueAt(tableHoaDon.getSelectedRow(), 1).toString());
+					xuatHoaDon(tblHoaDon.getValueAt(tblHoaDon.getSelectedRow(), 1).toString());
 				}
 			}
 
@@ -554,7 +554,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 						&& txtSDTTim.getText().equals("") && txtTenNVTim.getText().equals("")) {
 					String maTim = txtMahoaDonTim.getText().trim();
 					try {
-						DocDuLieuHoaDonDoiTraVaoModelTheoMa(maTim);
+						docDuLieuHoaDonDoiTraVaoModelTheoMa(maTim);
 						xoaTrang();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -564,7 +564,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 						&& txtSDTTim.getText().equals("") && !txtTenNVTim.getText().equals("")) {
 					String tenTim = txtTenNVTim.getText().trim();
 					try {
-						DocDuLieuHoaDonDoiTraVaoModelTheoTenNV(tenTim);
+						docDuLieuHoaDonDoiTraVaoModelTheoTenNV(tenTim);
 						xoaTrang();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -574,7 +574,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 						&& !txtSDTTim.getText().equals("") && txtTenNVTim.getText().equals("")) {
 					String sdtTim = txtSDTTim.getText().trim();
 					try {
-						DocDuLieuHoaDonDoiTraVaoModelTheoSDT(sdtTim);
+						docDuLieuHoaDonDoiTraVaoModelTheoSDT(sdtTim);
 						xoaTrang();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -585,7 +585,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 					String tenKHTim = txtTenKHTim.getText().trim();
 
 					try {
-						DocDuLieuHoaDonDoiTraVaoModelTheoTenKH(tenKHTim);
+						docDuLieuHoaDonDoiTraVaoModelTheoTenKH(tenKHTim);
 						xoaTrang();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -593,7 +593,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 					}
 				}
 			} else if (obj.equals(btnXemChiTiet)) {
-				int row = tableHoaDon.getSelectedRow();
+				int row = tblHoaDon.getSelectedRow();
 				if (row == -1) {
 					JOptionPane.showMessageDialog(null, "Chưa chọn dòng nào!!", "Thông báo",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -623,17 +623,17 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 			} else if (obj.equals(btnRefresh)) {
 				xoaHetDuLieu();
 				try {
-					DocDuLieuHoaDonDoiTraTuArrayListVaoModel();
+					docDuLieuHoaDonDoiTraTuArrayListVaoModel();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			} else if (obj.equals(btnIn)) {
 				System.out.println("ok");
-				if (tableHoaDon.getSelectedRow() == -1) {
+				if (tblHoaDon.getSelectedRow() == -1) {
 					JOptionPane.showMessageDialog(this, "Phải chọn hóa đơn cần in");
 				} else {
-					xuatHoaDonDoiTra(tableHoaDon.getValueAt(tableHoaDon.getSelectedRow(), 1).toString());
+					xuatHoaDonDoiTra(tblHoaDon.getValueAt(tblHoaDon.getSelectedRow(), 1).toString());
 				}
 			}
 
@@ -642,7 +642,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 	}
 
 	public void setColumnName(String st1, String st2) {
-		JTableHeader HEADER = tableHoaDon.getTableHeader();
+		JTableHeader HEADER = tblHoaDon.getTableHeader();
 		TableColumnModel TMC = HEADER.getColumnModel();
 		TableColumn TC = TMC.getColumn(1);
 		TC.setHeaderValue(st1);
@@ -651,7 +651,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		TC2.setHeaderValue(st2);
 
 		HEADER.repaint();
-		tableHoaDon.getTableHeader().repaint();
+		tblHoaDon.getTableHeader().repaint();
 	}
 
 	public long tongTienHoaDon(String maHoaDon) {
@@ -661,9 +661,9 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
 	}
 
-	public void DocDuLieuTuArrayListVaoModel() throws Exception {
-		hoaDon_dao = new HoaDonDao();
-		dsHoaDon = hoaDon_dao.getHoaDonThuong();
+	public void docDuLieuTuArrayListVaoModel() throws Exception {
+		hoaDonDao = new HoaDonDao();
+		dsHoaDon = hoaDonDao.getHoaDonThuong();
 		int i = 1;
 		for (HoaDon hoaDon : dsHoaDon) {
 			if (hoaDon.getNhanVien() == null) {
@@ -678,9 +678,9 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
 	}
 
-	public void DocDuLieuTimKiemTuArrayListVaoModelTheoMa(String maHoaDon) throws Exception {
-		hoaDon_dao = new HoaDonDao();
-		dsHoaDon = hoaDon_dao.getHoaDonTheoMa(maHoaDon);
+	public void docDuLieuTimKiemTuArrayListVaoModelTheoMa(String maHoaDon) throws Exception {
+		hoaDonDao = new HoaDonDao();
+		dsHoaDon = hoaDonDao.getHoaDonTheoMa(maHoaDon);
 		if (dsHoaDon.size() == 0) {
 			JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
 		} else {
@@ -695,9 +695,9 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		}
 	}
 
-	public void DocDuLieuTimKiemTuArrayListVaoModelTheoTen(String tenNV) throws Exception {
-		hoaDon_dao = new HoaDonDao();
-		dsHoaDon = hoaDon_dao.getHoaDonTheoTen(tenNV);
+	public void docDuLieuTimKiemTuArrayListVaoModelTheoTen(String tenNV) throws Exception {
+		hoaDonDao = new HoaDonDao();
+		dsHoaDon = hoaDonDao.getHoaDonTheoTen(tenNV);
 		if (dsHoaDon.size() == 0) {
 			JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
 		} else {
@@ -712,9 +712,9 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
 	}
 
-	public void DocDuLieuTimKiemTuArrayListVaoModelTheoTenKH(String tenKH) throws Exception {
-		hoaDon_dao = new HoaDonDao();
-		dsHoaDon = hoaDon_dao.timHoaDonTheoTenKH(tenKH);
+	public void docDuLieuTimKiemTuArrayListVaoModelTheoTenKH(String tenKH) throws Exception {
+		hoaDonDao = new HoaDonDao();
+		dsHoaDon = hoaDonDao.timHoaDonTheoTenKH(tenKH);
 		if (dsHoaDon.size() == 0) {
 			JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
 		} else {
@@ -731,9 +731,9 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
 	}
 
-	public void DocDuLieuTimKiemTuArrayListVaoModelTheoSDT(String sdt) throws Exception {
-		hoaDon_dao = new HoaDonDao();
-		dsHoaDon = hoaDon_dao.timHoaDonTheoSDT(sdt);
+	public void docDuLieuTimKiemTuArrayListVaoModelTheoSDT(String sdt) throws Exception {
+		hoaDonDao = new HoaDonDao();
+		dsHoaDon = hoaDonDao.timHoaDonTheoSDT(sdt);
 		if (dsHoaDon.size() == 0) {
 			JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
 		} else {
@@ -748,7 +748,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
 	}
 
-	public void DocDuLieuHoaDonDoiTraTuArrayListVaoModel() throws Exception {
+	public void docDuLieuHoaDonDoiTraTuArrayListVaoModel() throws Exception {
 		hoaDonDoiTraDao = new HoaDonDoiTraDao();
 
 		dsHoaDonDoiTra = hoaDonDoiTraDao.getToanBoDSHoaDonDoiTra();
@@ -761,23 +761,23 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
 	}
 
-	public void DocDuLieuHoaDonDoiTraVaoModelTheoMa(String maHoaDon) throws Exception {
+	public void docDuLieuHoaDonDoiTraVaoModelTheoMa(String maHoaDon) throws Exception {
 		hoaDonDoiTraDao = new HoaDonDoiTraDao();
-		hddt = hoaDonDoiTraDao.timHoaDonDoiTraTheoMa(maHoaDon);
-		if (hddt == null) {
+		hoaDonDoiTra = hoaDonDoiTraDao.timHoaDonDoiTraTheoMa(maHoaDon);
+		if (hoaDonDoiTra == null) {
 			JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
 		} else {
 			xoaHetDuLieu();
 			int i = 1;
 
-			System.out.println(hddt);
-			modelHoaDon.addRow(new Object[] { i++, hddt.getMaHoaDonDoiTra(), hddt.getNhanVien().getHoTenNhanVien(),
-					hddt.getNgayLapHoaDon(), hddt.getKhachHang().getHoTenKhachHang(), hddt.getTienPhaiTru() });
+			System.out.println(hoaDonDoiTra);
+			modelHoaDon.addRow(new Object[] { i++, hoaDonDoiTra.getMaHoaDonDoiTra(), hoaDonDoiTra.getNhanVien().getHoTenNhanVien(),
+					hoaDonDoiTra.getNgayLapHoaDon(), hoaDonDoiTra.getKhachHang().getHoTenKhachHang(), hoaDonDoiTra.getTienPhaiTru() });
 
 		}
 	}
 
-	public void DocDuLieuHoaDonDoiTraVaoModelTheoTenNV(String ten) throws Exception {
+	public void docDuLieuHoaDonDoiTraVaoModelTheoTenNV(String ten) throws Exception {
 		hoaDonDoiTraDao = new HoaDonDoiTraDao();
 		dsHoaDonDoiTra = hoaDonDoiTraDao.getHoaDonDoiTraTheoTen(ten);
 		if (dsHoaDonDoiTra.size() == 0) {
@@ -793,7 +793,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
 	}
 
-	public void DocDuLieuHoaDonDoiTraVaoModelTheoSDT(String sdt) throws Exception {
+	public void docDuLieuHoaDonDoiTraVaoModelTheoSDT(String sdt) throws Exception {
 		hoaDonDoiTraDao = new HoaDonDoiTraDao();
 		dsHoaDonDoiTra = hoaDonDoiTraDao.getHoaDonDoiTraTheoSDT(sdt);
 		if (dsHoaDonDoiTra.size() == 0) {
@@ -809,7 +809,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
 	}
 
-	public void DocDuLieuHoaDonDoiTraVaoModelTheoTenKH(String tenKH) throws Exception {
+	public void docDuLieuHoaDonDoiTraVaoModelTheoTenKH(String tenKH) throws Exception {
 		hoaDonDoiTraDao = new HoaDonDoiTraDao();
 		dsHoaDonDoiTra = hoaDonDoiTraDao.getHoaDonDoiTraTheoTenKH(tenKH);
 		if (dsHoaDonDoiTra.size() == 0) {
@@ -826,7 +826,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 	}
 
 	public void xoaHetDuLieu() {
-		DefaultTableModel dtm = (DefaultTableModel) tableHoaDon.getModel();
+		DefaultTableModel dtm = (DefaultTableModel) tblHoaDon.getModel();
 		dtm.getDataVector().removeAllElements();
 	}
 

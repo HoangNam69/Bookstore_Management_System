@@ -63,71 +63,71 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	private JTextField txtVAT;
 	private JTextField txtMaHoaDonCu;
 	private DefaultTableModel modelChiTietHoaDon;
-	private JTable tableChiTietHoaDon;
-	private JScrollPane scrollChiTietHoaDon;
+	private JTable tblChiTietHoaDon;
+	private JScrollPane scrChiTietHoaDon;
 	private JLabel lblTitle;
-	private JPanel panelTool;
+	private JPanel pnlTool;
 	private JLabel lblTongTienMoi;
 	private JLabel lblVAT;
 	private JLabel lblTienKhachTra;
 	private JLabel lblTienThua;
 	private JLabel lblGiaTriTienThua;
-	private JPanel panelTool2;
+	private JPanel pnlTool2;
 	private JButton btnHuy;
 	private JButton btnIn;
 	private JButton btnThanhToan;
-	private JComponent lblNgayHienTai;
+	private JComponent componentNgayHienTai;
 	private JLabel lblGiaTriNgayHienTai;
 	private JLabel lblMaHoaDonCu;
 	private JButton btnKiemTra;
-	private JPanel panel;
-	private JLabel lblNewLabel;
+	private JPanel pnlDoiTra;
+	private JLabel lblChonSPThayThe;
 	private JLabel lblGia;
-	private JComboBox comboBoxSP;
+	private JComboBox cmbSP;
 	private JLabel lblGiaTriGiaSP;
-	private JButton btnDoi2;
-	private JComponent lblTiTleHoaDonCu;
-	private JPanel panel_HoaDonCu;
+	private JButton btnDoi;
+	private JComponent componentTiTleHoaDonCu;
+	private JPanel pnlHoaDonCu;
 	private JLabel lblNgayHoaDonCu;
 	private JLabel lblMaNhanVien;
-	private JComponent lblMaKhachHang;
+	private JComponent componentMaKhachHang;
 	private JLabel lblTongTien;
 	private JLabel lblGiaTriNgayHoaDonCu;
 	private JLabel lblGiaTriMaNV;
 	private JLabel lblGiaTriMaKH;
 	private JLabel lblGiaTriTongTien;
 	private JLabel lblChitiet;
-	private JPanel panelDoi;
-	private JButton btnDoi;
-	private NhanVienServiceImpl iNhanVien;
-	private ChiTietHoaDonServiceImpl iChiTietHoaDon;
-	private HoaDonServiceImpl iHoaDon;
-	private SanPhamServiceImpl iSanPham;
+	private JPanel pnlDoi;
+	private JButton btnXacNhanDoi;
+	private NhanVienServiceImpl nhanVienServiceImpl;
+	private ChiTietHoaDonServiceImpl chiTietHoaDonServiceImpl;
+	private HoaDonServiceImpl hoaDonServiceImpl;
+	private SanPhamServiceImpl sanPhamServiceImpl;
 	private List<ChiTietHoaDon> dsCTHD;
 	private List<SanPham> dsSP;
-	private List<Sach> dsS;
+	private List<Sach> dsSach;
 	private JLabel lblNhapLoi;
 	private JTextField txtLoi;
 	private JTextField txtSoLuongSPLoi;
-	private SachLoiServiceImpl iSachLoi;
-	private KhachHangServiceImpl iKhachHang;
-	private JLabel lblNewLabel_2;
+	private SachLoiServiceImpl sachLoiSviceImpl;
+	private KhachHangServiceImpl khachHangServiceImpl;
+	private JLabel lblMaSPLoi;
 	private JTextField txtMaSPDoi;
-	private SachLoi sl;
+	private SachLoi sachLoi;
 	private JLabel txtMaHDDoiTra;
 	private JLabel txtGiaTriMaHDDT;
 	private NhanVien nv;
 	private KhachHang kh;
-	private HoaDonDoiTraServiceImpl iHoaDonDoiTra;
+	private HoaDonDoiTraServiceImpl hoaDonDoiTraServiceImpl;
 	private JButton btnXong;
 	private SanPham sp;
-	private ChiTietHoaDonDoiTraServiceImpl iChiTietHoaDonDoiTra;
-	private JButton btnLmMi;
+	private ChiTietHoaDonDoiTraServiceImpl chiTietHoaDonDoiTraServiceImpl;
+	private JButton btnLamMoiTatCa;
 	private JButton btnTaoHDDoiTra;
-	private JButton btnLmMiHD;
-	private List<ChiTietHoaDonDoiTra> dsCTHDDT;
-	private List<SachLoi> dsSL;
-	private HoaDon hd;
+	private JButton btnLamMoiHoaDon;
+	private List<ChiTietHoaDonDoiTra> dsChiTietHoaDonDoiTRa;
+	private List<SachLoi> dsSachLoi;
+	private HoaDon hoaDon;
 	private double tienPhaiTru = 0;
 
 	/**
@@ -147,77 +147,77 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		lblTitle.setBounds(0, 0, 1800, 63);
 		add(lblTitle);
 
-		panelTool = new JPanel();
-		panelTool.setBackground(new Color(144, 238, 144));
-		panelTool.setBounds(0, 700, 1800, 97);
-		add(panelTool);
-		panelTool.setLayout(null);
+		pnlTool = new JPanel();
+		pnlTool.setBackground(new Color(144, 238, 144));
+		pnlTool.setBounds(0, 700, 1800, 97);
+		add(pnlTool);
+		pnlTool.setLayout(null);
 
 		lblTongTienMoi = new JLabel("Tổng tiền :");
 		lblTongTienMoi.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTongTienMoi.setBounds(34, 11, 164, 27);
-		panelTool.add(lblTongTienMoi);
+		pnlTool.add(lblTongTienMoi);
 
 		lblVAT = new JLabel("VAT: ");
 		lblVAT.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblVAT.setBounds(34, 49, 46, 24);
-		panelTool.add(lblVAT);
+		pnlTool.add(lblVAT);
 
 		txtTongTienSP = new JTextField();
 		txtTongTienSP.setBounds(220, 15, 175, 20);
-		panelTool.add(txtTongTienSP);
+		pnlTool.add(txtTongTienSP);
 		txtTongTienSP.setColumns(10);
 
 		lblTienKhachTra = new JLabel("Tiền khách trả: ");
 		lblTienKhachTra.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTienKhachTra.setBounds(463, 15, 106, 23);
-		panelTool.add(lblTienKhachTra);
+		pnlTool.add(lblTienKhachTra);
 
 		txtTienKhachTra = new JTextField();
 		txtTienKhachTra.setBounds(598, 15, 175, 20);
-		panelTool.add(txtTienKhachTra);
+		pnlTool.add(txtTienKhachTra);
 		txtTienKhachTra.setColumns(10);
 
 		lblTienThua = new JLabel("Tiền thừa:");
 		lblTienThua.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTienThua.setBounds(463, 50, 95, 23);
-		panelTool.add(lblTienThua);
+		pnlTool.add(lblTienThua);
 
 		txtVAT = new JTextField();
 		txtVAT.setBounds(220, 52, 175, 20);
-		panelTool.add(txtVAT);
+		pnlTool.add(txtVAT);
 		txtVAT.setColumns(10);
 
 		lblGiaTriTienThua = new JLabel(".......");
 		lblGiaTriTienThua.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblGiaTriTienThua.setBounds(598, 49, 175, 24);
-		panelTool.add(lblGiaTriTienThua);
+		pnlTool.add(lblGiaTriTienThua);
 
-		panelTool2 = new JPanel();
-		panelTool2.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panelTool2.setBounds(1000, 11, 524, 75);
-		panelTool.add(panelTool2);
-		panelTool2.setLayout(null);
+		pnlTool2 = new JPanel();
+		pnlTool2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnlTool2.setBounds(1000, 11, 524, 75);
+		pnlTool.add(pnlTool2);
+		pnlTool2.setLayout(null);
 
 		btnHuy = new JButton("Hủy");
 		btnHuy.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnHuy.setBounds(27, 11, 126, 53);
-		panelTool2.add(btnHuy);
+		pnlTool2.add(btnHuy);
 
 		btnIn = new JButton("In");
 		btnIn.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnIn.setBounds(204, 11, 126, 53);
-		panelTool2.add(btnIn);
+		pnlTool2.add(btnIn);
 
 		btnThanhToan = new JButton("Thanh toán");
 		btnThanhToan.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnThanhToan.setBounds(366, 11, 133, 53);
-		panelTool2.add(btnThanhToan);
+		pnlTool2.add(btnThanhToan);
 
-		lblNgayHienTai = new JLabel("Ngày: ");
-		lblNgayHienTai.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNgayHienTai.setBounds(27, 64, 57, 22);
-		add(lblNgayHienTai);
+		componentNgayHienTai = new JLabel("Ngày: ");
+		componentNgayHienTai.setFont(new Font("Tahoma", Font.BOLD, 13));
+		componentNgayHienTai.setBounds(27, 64, 57, 22);
+		add(componentNgayHienTai);
 
 		lblGiaTriNgayHienTai = new JLabel("26-10-2022");
 		lblGiaTriNgayHienTai.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -238,120 +238,120 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		btnKiemTra.setBounds(340, 136, 89, 23);
 		add(btnKiemTra);
 
-		panel = new JPanel();
-		panel.setBounds(27, 172, 402, 430);
-		add(panel);
-		panel.setLayout(null);
+		pnlDoiTra = new JPanel();
+		pnlDoiTra.setBounds(27, 172, 402, 430);
+		add(pnlDoiTra);
+		pnlDoiTra.setLayout(null);
 
-		lblNewLabel = new JLabel("Chọn sản phẩm thay thế: ");
-		lblNewLabel.setBounds(10, 182, 236, 22);
-		panel.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblChonSPThayThe = new JLabel("Chọn sản phẩm thay thế: ");
+		lblChonSPThayThe.setBounds(10, 182, 236, 22);
+		pnlDoiTra.add(lblChonSPThayThe);
+		lblChonSPThayThe.setFont(new Font("Tahoma", Font.BOLD, 15));
 
 		lblGia = new JLabel("Giá: ");
 		lblGia.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblGia.setBounds(10, 215, 97, 22);
-		panel.add(lblGia);
+		pnlDoiTra.add(lblGia);
 
-		comboBoxSP = new JComboBox();
-		comboBoxSP.setBounds(235, 184, 145, 22);
-		panel.add(comboBoxSP);
+		cmbSP = new JComboBox();
+		cmbSP.setBounds(235, 184, 145, 22);
+		pnlDoiTra.add(cmbSP);
 
 		lblGiaTriGiaSP = new JLabel(".............");
 		lblGiaTriGiaSP.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblGiaTriGiaSP.setBounds(235, 215, 157, 22);
-		panel.add(lblGiaTriGiaSP);
+		pnlDoiTra.add(lblGiaTriGiaSP);
 
-		btnDoi2 = new JButton("Đổi sản phẩm");
-		btnDoi2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnDoi2.setBounds(10, 262, 145, 35);
-		panel.add(btnDoi2);
+		btnDoi = new JButton("Đổi sản phẩm");
+		btnDoi.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnDoi.setBounds(10, 262, 145, 35);
+		pnlDoiTra.add(btnDoi);
 
 		lblNhapLoi = new JLabel("Nhập lỗi sản phẩm:");
 		lblNhapLoi.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNhapLoi.setBounds(10, 64, 183, 22);
-		panel.add(lblNhapLoi);
+		pnlDoiTra.add(lblNhapLoi);
 
 		txtLoi = new JTextField();
 		txtLoi.setBounds(235, 64, 145, 22);
-		panel.add(txtLoi);
+		pnlDoiTra.add(txtLoi);
 		txtLoi.setColumns(10);
 
-		JLabel lblNewLabel_1 = new JLabel("Nhập số lượng sản phẩm lỗi cần thay thế:");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1.setBounds(10, 99, 351, 45);
-		panel.add(lblNewLabel_1);
+		JLabel lblSoLuongSanPhamLoiCanThayThe = new JLabel("Nhập số lượng sản phẩm lỗi cần thay thế:");
+		lblSoLuongSanPhamLoiCanThayThe.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSoLuongSanPhamLoiCanThayThe.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblSoLuongSanPhamLoiCanThayThe.setBounds(10, 99, 351, 45);
+		pnlDoiTra.add(lblSoLuongSanPhamLoiCanThayThe);
 
 		txtSoLuongSPLoi = new JTextField();
 		txtSoLuongSPLoi.setBounds(10, 155, 145, 22);
-		panel.add(txtSoLuongSPLoi);
+		pnlDoiTra.add(txtSoLuongSPLoi);
 		txtSoLuongSPLoi.setColumns(10);
 
-		lblNewLabel_2 = new JLabel("Mã sản phẩm lỗi:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_2.setBounds(10, 19, 145, 22);
-		panel.add(lblNewLabel_2);
+		lblMaSPLoi = new JLabel("Mã sản phẩm lỗi:");
+		lblMaSPLoi.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblMaSPLoi.setBounds(10, 19, 145, 22);
+		pnlDoiTra.add(lblMaSPLoi);
 
 		txtMaSPDoi = new JTextField();
 		txtMaSPDoi.setBounds(235, 22, 145, 20);
-		panel.add(txtMaSPDoi);
+		pnlDoiTra.add(txtMaSPDoi);
 		txtMaSPDoi.setColumns(10);
 
-		lblTiTleHoaDonCu = new JLabel("Hóa đơn cũ");
-		lblTiTleHoaDonCu.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblTiTleHoaDonCu.setBounds(510, 138, 96, 17);
-		add(lblTiTleHoaDonCu);
+		componentTiTleHoaDonCu = new JLabel("Hóa đơn cũ");
+		componentTiTleHoaDonCu.setFont(new Font("Tahoma", Font.BOLD, 13));
+		componentTiTleHoaDonCu.setBounds(510, 138, 96, 17);
+		add(componentTiTleHoaDonCu);
 
-		panel_HoaDonCu = new JPanel();
-		panel_HoaDonCu.setBounds(510, 175, 332, 430);
-		add(panel_HoaDonCu);
-		panel_HoaDonCu.setLayout(null);
+		pnlHoaDonCu = new JPanel();
+		pnlHoaDonCu.setBounds(510, 175, 332, 430);
+		add(pnlHoaDonCu);
+		pnlHoaDonCu.setLayout(null);
 
 		lblNgayHoaDonCu = new JLabel("Ngày lập: ");
 		lblNgayHoaDonCu.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNgayHoaDonCu.setBounds(10, 34, 78, 30);
-		panel_HoaDonCu.add(lblNgayHoaDonCu);
+		pnlHoaDonCu.add(lblNgayHoaDonCu);
 
 		lblMaNhanVien = new JLabel("Mã nhân viên: ");
 		lblMaNhanVien.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblMaNhanVien.setBounds(10, 120, 107, 22);
-		panel_HoaDonCu.add(lblMaNhanVien);
+		pnlHoaDonCu.add(lblMaNhanVien);
 
-		lblMaKhachHang = new JLabel("Mã khách hàng: ");
-		lblMaKhachHang.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMaKhachHang.setBounds(10, 194, 149, 30);
-		panel_HoaDonCu.add(lblMaKhachHang);
+		componentMaKhachHang = new JLabel("Mã khách hàng: ");
+		componentMaKhachHang.setFont(new Font("Tahoma", Font.BOLD, 15));
+		componentMaKhachHang.setBounds(10, 194, 149, 30);
+		pnlHoaDonCu.add(componentMaKhachHang);
 
 		lblTongTien = new JLabel("Tổng tiền: ");
 		lblTongTien.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblTongTien.setBounds(10, 278, 78, 22);
-		panel_HoaDonCu.add(lblTongTien);
+		pnlHoaDonCu.add(lblTongTien);
 
 		lblGiaTriNgayHoaDonCu = new JLabel(".............");
 		lblGiaTriNgayHoaDonCu.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblGiaTriNgayHoaDonCu.setBounds(169, 34, 106, 30);
-		panel_HoaDonCu.add(lblGiaTriNgayHoaDonCu);
+		pnlHoaDonCu.add(lblGiaTriNgayHoaDonCu);
 
 		lblGiaTriMaNV = new JLabel(".............");
 		lblGiaTriMaNV.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblGiaTriMaNV.setBounds(169, 120, 106, 22);
-		panel_HoaDonCu.add(lblGiaTriMaNV);
+		pnlHoaDonCu.add(lblGiaTriMaNV);
 
 		lblGiaTriMaKH = new JLabel(".............");
 		lblGiaTriMaKH.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblGiaTriMaKH.setBounds(169, 194, 106, 30);
-		panel_HoaDonCu.add(lblGiaTriMaKH);
+		pnlHoaDonCu.add(lblGiaTriMaKH);
 
 		lblGiaTriTongTien = new JLabel("0");
 		lblGiaTriTongTien.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblGiaTriTongTien.setBounds(169, 278, 106, 22);
-		panel_HoaDonCu.add(lblGiaTriTongTien);
+		pnlHoaDonCu.add(lblGiaTriTongTien);
 
-		btnLmMiHD = new JButton("Làm mới");
-		btnLmMiHD.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnLmMiHD.setBounds(86, 306, 106, 35);
-		panel_HoaDonCu.add(btnLmMiHD);
+		btnLamMoiHoaDon = new JButton("Làm mới");
+		btnLamMoiHoaDon.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnLamMoiHoaDon.setBounds(86, 306, 106, 35);
+		pnlHoaDonCu.add(btnLamMoiHoaDon);
 
 		lblChitiet = new JLabel("Chi tiết hóa đơn cũ");
 		lblChitiet.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -360,49 +360,49 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 
 		String header_ChiTiet[] = { "STT", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá" };
 		modelChiTietHoaDon = new DefaultTableModel(header_ChiTiet, 0);
-		tableChiTietHoaDon = new JTable(modelChiTietHoaDon);
-		scrollChiTietHoaDon = new JScrollPane(tableChiTietHoaDon, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		tblChiTietHoaDon = new JTable(modelChiTietHoaDon);
+		scrChiTietHoaDon = new JScrollPane(tblChiTietHoaDon, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollChiTietHoaDon.setBounds(922, 173, 830, 377);
-		add(scrollChiTietHoaDon);
+		scrChiTietHoaDon.setBounds(922, 173, 830, 377);
+		add(scrChiTietHoaDon);
 
-		panelDoi = new JPanel();
-		panelDoi.setBounds(922, 568, 830, 35);
-		add(panelDoi);
+		pnlDoi = new JPanel();
+		pnlDoi.setBounds(922, 568, 830, 35);
+		add(pnlDoi);
 
-		btnDoi = new JButton("Đổi sản phẩm này");
-		btnDoi.setFont(new Font("Tahoma", Font.BOLD, 13));
-		panelDoi.add(btnDoi);
+		btnXacNhanDoi = new JButton("Đổi sản phẩm này");
+		btnXacNhanDoi.setFont(new Font("Tahoma", Font.BOLD, 13));
+		pnlDoi.add(btnXacNhanDoi);
 
 		lblGiaTriNgayHienTai.setText(LocalDate.now().toString());
 		txtMaSPDoi.setEditable(false);
 
-		btnLmMi = new JButton("Làm mới");
-		btnLmMi.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnLmMi.setBounds(10, 331, 145, 35);
-		panel.add(btnLmMi);
+		btnLamMoiTatCa = new JButton("Làm mới");
+		btnLamMoiTatCa.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnLamMoiTatCa.setBounds(10, 331, 145, 35);
+		pnlDoiTra.add(btnLamMoiTatCa);
 
 		btnXong = new JButton("Xong");
 		btnXong.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnXong.setBounds(223, 331, 138, 35);
-		panel.add(btnXong);
+		pnlDoiTra.add(btnXong);
 
 		btnTaoHDDoiTra = new JButton("Tạo");
 		btnTaoHDDoiTra.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnTaoHDDoiTra.setBounds(223, 262, 138, 35);
-		panel.add(btnTaoHDDoiTra);
+		pnlDoiTra.add(btnTaoHDDoiTra);
 		btnThanhToan.setEnabled(false);
+		btnXacNhanDoi.addActionListener(this);
 		btnDoi.addActionListener(this);
-		btnDoi2.addActionListener(this);
 		btnIn.addActionListener(this);
 		btnKiemTra.addActionListener(this);
 		btnThanhToan.addActionListener(this);
 		btnHuy.addActionListener(this);
-		btnLmMi.addActionListener(this);
+		btnLamMoiTatCa.addActionListener(this);
 		btnXong.addActionListener(this);
 		btnTaoHDDoiTra.addActionListener(this);
-		btnLmMiHD.addActionListener(this);
-		tableChiTietHoaDon.addMouseListener(this);
+		btnLamMoiHoaDon.addActionListener(this);
+		tblChiTietHoaDon.addMouseListener(this);
 
 		txtMaHDDoiTra = new JLabel("Mã hóa đơn đổi trả: ");
 		txtMaHDDoiTra.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -417,21 +417,21 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		txtMaSPDoi.setEditable(false);
 		txtLoi.setEditable(false);
 		txtSoLuongSPLoi.setEditable(false);
-		btnDoi2.setEnabled(false);
 		btnDoi.setEnabled(false);
+		btnXacNhanDoi.setEnabled(false);
 		btnXong.setEnabled(false);
 		btnTaoHDDoiTra.setEnabled(false);
 		btnIn.setEnabled(false);
 
-		comboBoxSP.addItemListener(new ItemListener() {
+		cmbSP.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
-				iSanPham = new SanPhamServiceImpl();
-				if (comboBoxSP.getItemCount() > 0) {
+				sanPhamServiceImpl = new SanPhamServiceImpl();
+				if (cmbSP.getItemCount() > 0) {
 					lblGiaTriGiaSP.setText(
-							iSanPham.getSachTheoTen(String.valueOf(comboBoxSP.getSelectedItem())).getGiaNhap() + "");
+							sanPhamServiceImpl.getSachTheoTen(String.valueOf(cmbSP.getSelectedItem())).getGiaNhap() + "");
 				} else {
 					return;
 				}
@@ -462,7 +462,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	}
 
 	public void xoaHetDuLieuChiTietHoaDon() {
-		DefaultTableModel dtm = (DefaultTableModel) tableChiTietHoaDon.getModel();
+		DefaultTableModel dtm = (DefaultTableModel) tblChiTietHoaDon.getModel();
 		dtm.getDataVector().removeAllElements();
 	}
 
@@ -474,15 +474,15 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	}
 
 	public void DocDuLieuTuArrayListVaoModel() throws Exception {
-		iHoaDon = new HoaDonServiceImpl();
-		iChiTietHoaDon = new ChiTietHoaDonServiceImpl();
-		iSanPham = new SanPhamServiceImpl();
+		hoaDonServiceImpl = new HoaDonServiceImpl();
+		chiTietHoaDonServiceImpl = new ChiTietHoaDonServiceImpl();
+		sanPhamServiceImpl = new SanPhamServiceImpl();
 
-		if (iHoaDon.getHoaDonTheoMa(txtMaHoaDonCu.getText()).size() == 0) {
+		if (hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDonCu.getText()).size() == 0) {
 			return;
 		} else {
 
-			HoaDon hd = iHoaDon.getHoaDonTheoMa(txtMaHoaDonCu.getText()).get(0);
+			HoaDon hd = hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDonCu.getText()).get(0);
 
 			long dayGap = ChronoUnit.DAYS.between(hd.getNgayLapHoaDon(), LocalDate.now());
 
@@ -492,7 +492,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 			}
 
 			else {
-				dsCTHD = iChiTietHoaDon.getCTHoaDonTheoMaHoaDon(txtMaHoaDonCu.getText());
+				dsCTHD = chiTietHoaDonServiceImpl.getCTHoaDonTheoMaHoaDon(txtMaHoaDonCu.getText());
 				if (dsCTHD.size() == 0) {
 
 					return;
@@ -500,16 +500,16 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 					int count = 0;
 					int i = 1;
 					for (ChiTietHoaDon cthd : dsCTHD) {
-						if (iSanPham.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() == null) {
+						if (sanPhamServiceImpl.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() == null) {
 							count++;
 						}
 					}
 					if (count < dsCTHD.size()) {
 						for (ChiTietHoaDon cthd : dsCTHD) {
-							if (iSanPham.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() != null) {
+							if (sanPhamServiceImpl.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() != null) {
 								modelChiTietHoaDon.addRow(new Object[] { i++,
-										iSanPham.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getMaSanPham(),
-										iSanPham.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach(),
+										sanPhamServiceImpl.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getMaSanPham(),
+										sanPhamServiceImpl.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach(),
 										cthd.getSoLuong(), cthd.getDonGia() });
 							}
 						}
@@ -526,14 +526,14 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 
 	private void DocDuLieuHoaDon() throws SQLException {
 		try {
-			iHoaDon = new HoaDonServiceImpl();
-			iNhanVien = new NhanVienServiceImpl();
-			if (iHoaDon.getHoaDonTheoMa(txtMaHoaDonCu.getText()).size() == 0) {
+			hoaDonServiceImpl = new HoaDonServiceImpl();
+			nhanVienServiceImpl = new NhanVienServiceImpl();
+			if (hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDonCu.getText()).size() == 0) {
 				JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn");
 				return;
 			} else {
 
-				HoaDon hd = iHoaDon.getHoaDonTheoMa(txtMaHoaDonCu.getText()).get(0);
+				HoaDon hd = hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDonCu.getText()).get(0);
 
 				long dayGap = ChronoUnit.DAYS.between(hd.getNgayLapHoaDon(), LocalDate.now());
 
@@ -551,9 +551,9 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 					}
 
 					lblGiaTriMaKH.setText(hd.getKhachHang().getMaKhachHang().toString());
-					iChiTietHoaDon = new ChiTietHoaDonServiceImpl();
+					chiTietHoaDonServiceImpl = new ChiTietHoaDonServiceImpl();
 					long tongTien = 0;
-					dsCTHD = iChiTietHoaDon.getCTHoaDonTheoMaHoaDon(txtMaHoaDonCu.getText());
+					dsCTHD = chiTietHoaDonServiceImpl.getCTHoaDonTheoMaHoaDon(txtMaHoaDonCu.getText());
 
 					for (ChiTietHoaDon cthd : dsCTHD) {
 						tongTien += cthd.tinhThanhTien();
@@ -571,19 +571,19 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 
 	public void DocDuLieuVaoCombobox() {
 		try {
-			iSanPham = new SanPhamServiceImpl();
-			dsS = iSanPham.getAllSach();
+			sanPhamServiceImpl = new SanPhamServiceImpl();
+			dsSach = sanPhamServiceImpl.getAllSach();
 			int row = 0;
-			row = tableChiTietHoaDon.getSelectedRow();
+			row = tblChiTietHoaDon.getSelectedRow();
 
-			DefaultComboBoxModel model = (DefaultComboBoxModel) comboBoxSP.getModel();
+			DefaultComboBoxModel model = (DefaultComboBoxModel) cmbSP.getModel();
 			model.removeAllElements();
 
-			for (Sach sach : dsS) {
+			for (Sach sach : dsSach) {
 
 				if (sach.getSoLuongTon() > 0 && (sach.getGiaNhap() * 1.2) >= Double
-						.parseDouble(tableChiTietHoaDon.getValueAt(row, 4).toString())) {
-					comboBoxSP.addItem(sach.getTenSach());
+						.parseDouble(tblChiTietHoaDon.getValueAt(row, 4).toString())) {
+					cmbSP.addItem(sach.getTenSach());
 				}
 			}
 		} catch (Exception e) {
@@ -592,12 +592,12 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	}
 
 	public void truSLSachKhiDoi() {
-		iSanPham = new SanPhamServiceImpl();
-		Sach s = iSanPham.getSachTheoTen(comboBoxSP.getSelectedItem().toString());
-		s.setSoLuongTon(s.getSoLuongTon() - Integer.valueOf(txtSoLuongSPLoi.getText().toString()).intValue());
+		sanPhamServiceImpl = new SanPhamServiceImpl();
+		Sach sach = sanPhamServiceImpl.getSachTheoTen(cmbSP.getSelectedItem().toString());
+		sach.setSoLuongTon(sach.getSoLuongTon() - Integer.valueOf(txtSoLuongSPLoi.getText().toString()).intValue());
 
 		try {
-			iSanPham.capNhatSanPham(s.getMaSanPham(), s);
+			sanPhamServiceImpl.capNhatSanPham(sach.getMaSanPham(), sach);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -606,25 +606,25 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	}
 
 	public void addVaoSachLoi() {
-		iSachLoi = new SachLoiServiceImpl();
+		sachLoiSviceImpl = new SachLoiServiceImpl();
 		Sach sach = new Sach();
 
 		try {
-			dsSL = iSachLoi.getAllSachLoi();
-			for (SachLoi sachLoi : dsSL) {
+			dsSachLoi = sachLoiSviceImpl.getAllSachLoi();
+			for (SachLoi sachLoi : dsSachLoi) {
 				if (txtMaSPDoi.getText().equals(sachLoi.getSach().getMaSanPham())
 						&& txtLoi.getText().equals(sachLoi.getLoiSanPham())) {
 					sachLoi.setSoLuong(sachLoi.getSoLuong() + Integer.parseInt(txtSoLuongSPLoi.getText().toString()));
-					iSachLoi.capNhatSoLuong(sachLoi);
+					sachLoiSviceImpl.capNhatSoLuong(sachLoi);
 					return;
 				}
 			}
 
 			try {
-				sach = iSanPham.timSanPhamTheoMaSach(txtMaSPDoi.getText());
-				sl = new SachLoi(sach, txtLoi.getText().toString(),
+				sach = sanPhamServiceImpl.timSanPhamTheoMaSach(txtMaSPDoi.getText());
+				sachLoi = new SachLoi(sach, txtLoi.getText().toString(),
 						Integer.parseInt(txtSoLuongSPLoi.getText().toString()));
-				iSachLoi.themSachLoi(sl);
+				sachLoiSviceImpl.themSachLoi(sachLoi);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -640,63 +640,63 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 
 		String maHDDT = "HDDT";
 		LocalDate ngayLapHoaDon = LocalDate.now();
-		String ngayHD = String.valueOf(ngayLapHoaDon.getDayOfMonth());
+		String ngayLapHD = String.valueOf(ngayLapHoaDon.getDayOfMonth());
 		int length = 0;
-		iHoaDonDoiTra = new HoaDonDoiTraServiceImpl();
+		hoaDonDoiTraServiceImpl = new HoaDonDoiTraServiceImpl();
 
-		if (iHoaDonDoiTra.getMaHoaDonDoiTraByMaHDCu(txtMaHoaDonCu.getText().toString()).size() > 0) {
+		if (hoaDonDoiTraServiceImpl.getMaHoaDonDoiTraByMaHDCu(txtMaHoaDonCu.getText().toString()).size() > 0) {
 			JOptionPane.showMessageDialog(this, "Hóa đơn này đã đổi trả rồi");
-			btnDoi.setEnabled(true);
+			btnXacNhanDoi.setEnabled(true);
 			return;
 		} else {
 			JOptionPane.showMessageDialog(this, "Nhập thông tin hóa đơn đổi trả");
 			try {
-				length = iHoaDonDoiTra.getDSHoaDonDoiTra().size();
+				length = hoaDonDoiTraServiceImpl.getDSHoaDonDoiTra().size();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			String finalId = maHDDT + ngayHD + String.format("%05d", length + 1);
+			String finalId = maHDDT + ngayLapHD + String.format("%05d", length + 1);
 			txtGiaTriMaHDDT.setText(finalId);
 
 			WinLogin dangNhap = new WinLogin();
 			TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
-			iNhanVien = new NhanVienServiceImpl();
-			iKhachHang = new KhachHangServiceImpl();
+			nhanVienServiceImpl = new NhanVienServiceImpl();
+			khachHangServiceImpl = new KhachHangServiceImpl();
 
-			nv = iNhanVien.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
-			kh = iKhachHang.timKhachHangTheoMa(lblGiaTriMaKH.getText());
+			nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
+			kh = khachHangServiceImpl.timKhachHangTheoMa(lblGiaTriMaKH.getText());
 			Double tienKhachDua = (double) 0;
 			tienPhaiTru = (double) 0;
 			String ghiChu = "Không";
-			hd = iHoaDon.getHoaDonTheoMa(txtMaHoaDonCu.getText().toString()).get(0);
-			HoaDonDoiTra hdDoiTra = new HoaDonDoiTra(finalId, nv, kh, ngayLapHoaDon, ghiChu, tienKhachDua, hd,
+			hoaDon = hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDonCu.getText().toString()).get(0);
+			HoaDonDoiTra hdDoiTra = new HoaDonDoiTra(finalId, nv, kh, ngayLapHoaDon, ghiChu, tienKhachDua, hoaDon,
 					tienPhaiTru);
-			iHoaDonDoiTra = new HoaDonDoiTraServiceImpl();
-			iHoaDonDoiTra.themHoaDonDoiTra(hdDoiTra);
+			hoaDonDoiTraServiceImpl = new HoaDonDoiTraServiceImpl();
+			hoaDonDoiTraServiceImpl.themHoaDonDoiTra(hdDoiTra);
 		}
 
 	}
 
 	public void addCTHDDoiTraMoi() throws SQLException {
 		try {
-			iChiTietHoaDonDoiTra = new ChiTietHoaDonDoiTraServiceImpl();
-			iHoaDonDoiTra = new HoaDonDoiTraServiceImpl();
-			HoaDonDoiTra hddt = iHoaDonDoiTra.getHoaDonDoiTraTheoMa(txtGiaTriMaHDDT.getText()).get(0);
+			chiTietHoaDonDoiTraServiceImpl = new ChiTietHoaDonDoiTraServiceImpl();
+			hoaDonDoiTraServiceImpl = new HoaDonDoiTraServiceImpl();
+			HoaDonDoiTra hddt = hoaDonDoiTraServiceImpl.getHoaDonDoiTraTheoMa(txtGiaTriMaHDDT.getText()).get(0);
 
-			iSanPham = new SanPhamServiceImpl();
-			sp = iSanPham.getSachTheoTen(comboBoxSP.getSelectedItem().toString());
+			sanPhamServiceImpl = new SanPhamServiceImpl();
+			sp = sanPhamServiceImpl.getSachTheoTen(cmbSP.getSelectedItem().toString());
 
 			int soLuong = Integer.parseInt(txtSoLuongSPLoi.getText().toString().trim());
 			long donGia = Long.parseLong(lblGiaTriGiaSP.getText().toString().trim());
 			ChiTietHoaDonDoiTra cthddt = new ChiTietHoaDonDoiTra(hddt, sp, soLuong, donGia);
-			iChiTietHoaDonDoiTra.themChiTietHoaDonDoiTra(cthddt);
+			chiTietHoaDonDoiTraServiceImpl.themChiTietHoaDonDoiTra(cthddt);
 			int row = 0;
-			row = tableChiTietHoaDon.getSelectedRow();
+			row = tblChiTietHoaDon.getSelectedRow();
 			row = 0;
-			row = tableChiTietHoaDon.getSelectedRow();
+			row = tblChiTietHoaDon.getSelectedRow();
 			tienPhaiTru += Integer.parseInt(txtSoLuongSPLoi.getText().toString())
-					* Double.parseDouble(tableChiTietHoaDon.getValueAt(row, 4).toString());
+					* Double.parseDouble(tblChiTietHoaDon.getValueAt(row, 4).toString());
 			JOptionPane.showMessageDialog(this, "Đã đổi thành công sản phẩm này");
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, "Sản phẩm này đã đổi rồi");
@@ -708,13 +708,13 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object o = e.getSource();
-		if (o.equals(btnDoi)) {
-			if (tableChiTietHoaDon.getSelectedRow() == -1) {
+		if (o.equals(btnXacNhanDoi)) {
+			if (tblChiTietHoaDon.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Phải chọn sản phẩm cần đổi");
 			} else {
 				DocDuLieuVaoCombobox();
-				btnDoi.setEnabled(false);
-				btnDoi2.setEnabled(true);
+				btnXacNhanDoi.setEnabled(false);
+				btnDoi.setEnabled(true);
 
 				txtLoi.setEditable(true);
 				txtSoLuongSPLoi.setEditable(true);
@@ -740,7 +740,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		}
 		if (o.equals(btnTaoHDDoiTra)) {
 
-			btnDoi.setEnabled(true);
+			btnXacNhanDoi.setEnabled(true);
 			btnTaoHDDoiTra.setEnabled(false);
 
 			try {
@@ -751,11 +751,11 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 			}
 		}
 
-		if (o.equals(btnDoi2)) {
+		if (o.equals(btnDoi)) {
 			int row = 0;
-			row = tableChiTietHoaDon.getSelectedRow();
+			row = tblChiTietHoaDon.getSelectedRow();
 			btnXong.setEnabled(true);
-			btnDoi.setEnabled(true);
+			btnXacNhanDoi.setEnabled(true);
 			txtSoLuongSPLoi.setEditable(true);
 			if (txtSoLuongSPLoi.getText().isEmpty()) {
 				JOptionPane.showMessageDialog(this, "Phải nhập thông tin sản phẩm lỗi và sản phẩm muốn đổi");
@@ -767,9 +767,9 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 								"Số lượng sản phẩm đổi và sản phẩm thay thế phải lớn hơn 0");
 						btnXong.setEnabled(false);
 					} else if (Integer.parseInt(txtSoLuongSPLoi.getText()) > Integer
-							.parseInt(tableChiTietHoaDon.getValueAt(row, 3).toString())
+							.parseInt(tblChiTietHoaDon.getValueAt(row, 3).toString())
 							|| Integer.parseInt(txtSoLuongSPLoi.getText()) > Integer
-									.parseInt(tableChiTietHoaDon.getValueAt(row, 3).toString())) {
+									.parseInt(tblChiTietHoaDon.getValueAt(row, 3).toString())) {
 						JOptionPane.showMessageDialog(this,
 								"Số lượng sản phẩm đổi và sản phẩm thay thế nhỏ hơn hoặc bằng số lượng sản phẩm trong hóa đơn cũ");
 						btnXong.setEnabled(false);
@@ -790,10 +790,10 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 				}
 			}
 		}
-		if (o.equals(btnLmMi)) {
+		if (o.equals(btnLamMoiTatCa)) {
 			clearAll();
 		}
-		if (o.equals(btnLmMiHD)) {
+		if (o.equals(btnLamMoiHoaDon)) {
 			clearHD();
 		}
 		if (o.equals(btnThanhToan)) {
@@ -802,8 +802,8 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 			txtLoi.setEditable(false);
 			txtSoLuongSPLoi.setEditable(false);
 			txtSoLuongSPLoi.setEditable(false);
-			btnDoi2.setEnabled(false);
 			btnDoi.setEnabled(false);
+			btnXacNhanDoi.setEnabled(false);
 			btnXong.setEnabled(false);
 			btnTaoHDDoiTra.setEnabled(true);
 			if (Double.parseDouble(lblGiaTriTienThua.getText().toString()) > 0
@@ -812,15 +812,15 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 					JOptionPane.showMessageDialog(this, "Tiền khách đưa phải lớn hơn 0");
 				} else {
 					try {
-						iHoaDonDoiTra = new HoaDonDoiTraServiceImpl();
+						hoaDonDoiTraServiceImpl = new HoaDonDoiTraServiceImpl();
 
-						HoaDonDoiTra hoaDonDoiTra = iHoaDonDoiTra
+						HoaDonDoiTra hoaDonDoiTra = hoaDonDoiTraServiceImpl
 								.getHoaDonDoiTraTheoMa(txtGiaTriMaHDDT.getText().toString()).get(0);
 						hoaDonDoiTra.setTienKhachDua(Double.parseDouble(txtTienKhachTra.getText().toString()));
 						System.out.println(tienPhaiTru);
 						hoaDonDoiTra.setTienPhaiTru(tienPhaiTru);
-						iHoaDonDoiTra.editTienPhaiTru(hoaDonDoiTra);
-						iHoaDonDoiTra.editTienKhachTra(hoaDonDoiTra);
+						hoaDonDoiTraServiceImpl.editTienPhaiTru(hoaDonDoiTra);
+						hoaDonDoiTraServiceImpl.editTienKhachTra(hoaDonDoiTra);
 						JOptionPane.showMessageDialog(this, "Thanh toán thành công");
 						btnThanhToan.setEnabled(false);
 						txtMaHoaDonCu.setText("");
@@ -858,10 +858,10 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		}
 		if (o.equals(btnXong)) {
 
-			iChiTietHoaDonDoiTra = new ChiTietHoaDonDoiTraServiceImpl();
-			dsCTHDDT = iChiTietHoaDonDoiTra.getCTHoaDonDoiTraTheoMaHoaDonDoiTra(txtGiaTriMaHDDT.getText().toString());
+			chiTietHoaDonDoiTraServiceImpl = new ChiTietHoaDonDoiTraServiceImpl();
+			dsChiTietHoaDonDoiTRa = chiTietHoaDonDoiTraServiceImpl.getCTHoaDonDoiTraTheoMaHoaDonDoiTra(txtGiaTriMaHDDT.getText().toString());
 			double tongTien = 0;
-			for (ChiTietHoaDonDoiTra chiTietHoaDonDoiTra : dsCTHDDT) {
+			for (ChiTietHoaDonDoiTra chiTietHoaDonDoiTra : dsChiTietHoaDonDoiTRa) {
 				tongTien += (chiTietHoaDonDoiTra.getDonGia() * 1.2 * chiTietHoaDonDoiTra.getSoLuong());
 			}
 
@@ -886,7 +886,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		int row = tableChiTietHoaDon.getSelectedRow();
+		int row = tblChiTietHoaDon.getSelectedRow();
 		txtMaSPDoi.setText(modelChiTietHoaDon.getValueAt(row, 1).toString());
 		DocDuLieuVaoCombobox();
 	}
@@ -948,7 +948,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	}
 
 	public void xoaHetDuLieu() {
-		DefaultTableModel dtm = (DefaultTableModel) tableChiTietHoaDon.getModel();
+		DefaultTableModel dtm = (DefaultTableModel) tblChiTietHoaDon.getModel();
 		dtm.getDataVector().removeAllElements();
 	}
 

@@ -26,22 +26,22 @@ import java.awt.Color;
 
 public class WinThemTaiKhoan extends JFrame implements ActionListener {
 
-	private JPanel contentPane;
+	private JPanel pnlContainer;
 	private JTextField txtTenDangNhap;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_XacNhan;
+	private JPasswordField pwd;
+	private JPasswordField pwdXacNhan;
 	private JLabel lblTenDangNhap;
 	private JLabel lblMatKhau;
 	private JLabel lblXacNhanMK;
 	private JButton btnTaoTaiKhoan;
-	private JComboBox comboBoxQuyen;
+	private JComboBox cmbQuyen;
 	private JLabel lblLoaiTaiKhoan;
 	private NhanVien nv;
 	private TaiKhoanDao taiKhoanDao;
-	private TaiKhoanServiceImpl iTaiKhoan;
+	private TaiKhoanServiceImpl taiKhoanServiceImpl;
 	private Connection con = DBConnection.getInstance().getConnection();
 	private String matKhau;
-	private ArrayList<TaiKhoan> dsTK;
+	private ArrayList<TaiKhoan> dsTaiKhoan;
 
 	/**
 	 * Launch the application.
@@ -69,59 +69,59 @@ public class WinThemTaiKhoan extends JFrame implements ActionListener {
 		setTitle("Tạo tài khoản\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 557, 351);
-		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 206, 209));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		pnlContainer = new JPanel();
+		pnlContainer.setBackground(new Color(0, 206, 209));
+		pnlContainer.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setContentPane(pnlContainer);
+		pnlContainer.setLayout(null);
 		setLocationRelativeTo(null);
 
 		lblTenDangNhap = new JLabel("Tên đăng nhập: ");
 		lblTenDangNhap.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblTenDangNhap.setBounds(28, 63, 124, 19);
-		contentPane.add(lblTenDangNhap);
+		pnlContainer.add(lblTenDangNhap);
 
 		lblMatKhau = new JLabel("Mật khẩu: ");
 		lblMatKhau.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblMatKhau.setBounds(28, 125, 91, 14);
-		contentPane.add(lblMatKhau);
+		pnlContainer.add(lblMatKhau);
 
 		lblXacNhanMK = new JLabel("Xác nhận mật khẩu: ");
 		lblXacNhanMK.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblXacNhanMK.setBounds(28, 191, 158, 19);
-		contentPane.add(lblXacNhanMK);
+		pnlContainer.add(lblXacNhanMK);
 
 		txtTenDangNhap = new JTextField();
 		txtTenDangNhap.setBounds(245, 64, 210, 20);
-		contentPane.add(txtTenDangNhap);
+		pnlContainer.add(txtTenDangNhap);
 		txtTenDangNhap.setColumns(10);
 
-		passwordField = new JPasswordField();
-		passwordField.setBounds(245, 124, 210, 20);
-		contentPane.add(passwordField);
+		pwd = new JPasswordField();
+		pwd.setBounds(245, 124, 210, 20);
+		pnlContainer.add(pwd);
 
-		passwordField_XacNhan = new JPasswordField();
-		passwordField_XacNhan.setBounds(245, 192, 210, 20);
-		contentPane.add(passwordField_XacNhan);
+		pwdXacNhan = new JPasswordField();
+		pwdXacNhan.setBounds(245, 192, 210, 20);
+		pnlContainer.add(pwdXacNhan);
 
 		btnTaoTaiKhoan = new JButton("Tạo");
 		btnTaoTaiKhoan.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnTaoTaiKhoan.setBounds(170, 266, 158, 35);
-		contentPane.add(btnTaoTaiKhoan);
+		pnlContainer.add(btnTaoTaiKhoan);
 
-		comboBoxQuyen = new JComboBox();
-		comboBoxQuyen.setBounds(245, 11, 210, 22);
-		comboBoxQuyen.addItem("Quản lý");
-		comboBoxQuyen.addItem("Nhân viên");
-		comboBoxQuyen.setSelectedItem(nv.isChucVu() == true ? "Quản lý" : "Nhân viên");
-		comboBoxQuyen.setEditable(false);
-		contentPane.add(comboBoxQuyen);
+		cmbQuyen = new JComboBox();
+		cmbQuyen.setBounds(245, 11, 210, 22);
+		cmbQuyen.addItem("Quản lý");
+		cmbQuyen.addItem("Nhân viên");
+		cmbQuyen.setSelectedItem(nv.isChucVu() == true ? "Quản lý" : "Nhân viên");
+		cmbQuyen.setEditable(false);
+		pnlContainer.add(cmbQuyen);
 
 		lblLoaiTaiKhoan = new JLabel("Loại tài khoản: ");
 		lblLoaiTaiKhoan.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblLoaiTaiKhoan.setBounds(28, 11, 124, 22);
-		contentPane.add(lblLoaiTaiKhoan);
+		pnlContainer.add(lblLoaiTaiKhoan);
 
 		btnTaoTaiKhoan.addActionListener(this);
 
@@ -132,9 +132,9 @@ public class WinThemTaiKhoan extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
 		if (obj.equals(btnTaoTaiKhoan)) {
-			iTaiKhoan = new TaiKhoanServiceImpl();
+			taiKhoanServiceImpl = new TaiKhoanServiceImpl();
 			try {
-				if (iTaiKhoan.insertAccount(revertTaiKhoanFromTextfields()) > 0) 
+				if (taiKhoanServiceImpl.insertAccount(revertTaiKhoanFromTextfields()) > 0)
 					this.setVisible(false);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -145,30 +145,30 @@ public class WinThemTaiKhoan extends JFrame implements ActionListener {
 	}
 
 	public TaiKhoan revertTaiKhoanFromTextfields() throws Exception {
-		iTaiKhoan = new TaiKhoanServiceImpl();
-		if (iTaiKhoan.getList() != null) {
-			dsTK = iTaiKhoan.getList();
+		taiKhoanServiceImpl = new TaiKhoanServiceImpl();
+		if (taiKhoanServiceImpl.getList() != null) {
+			dsTaiKhoan = taiKhoanServiceImpl.getList();
 			String tenDN = txtTenDangNhap.getText();
 			if (tenDN.isEmpty()) {
 				JOptionPane.showMessageDialog(this, "Tên đăng nhập không được rỗng");
 			} else {
-				char[] pf1 = passwordField.getPassword();
-				String valuePass1 = new String(pf1);
-				char[] pf2 = passwordField_XacNhan.getPassword();
-				String valuePass2 = new String(pf2);
-				if (valuePass1.isEmpty()) {
+				char[] pwdBanDauEncode = this.pwd.getPassword();
+				String pwdBanDau = new String(pwdBanDauEncode);
+				char[] pwdXacNhanEncode = this.pwdXacNhan.getPassword();
+				String pwdXacNhanValue = new String(pwdXacNhanEncode);
+				if (pwdBanDau.isEmpty()) {
 					JOptionPane.showMessageDialog(this, "Mật khẩu không được rỗng");
 				} else {
-					if (valuePass1.equals(valuePass2)) {
-						matKhau = valuePass2;
-						boolean quyen = comboBoxQuyen.getSelectedItem().toString() == "Quản lý" ? true : false;
+					if (pwdBanDau.equals(pwdXacNhanValue)) {
+						matKhau = pwdXacNhanValue;
+						boolean quyen = cmbQuyen.getSelectedItem().toString() == "Quản lý" ? true : false;
 						TaiKhoan tk = new TaiKhoan(tenDN, matKhau, nv, quyen);
 						return tk;
 					} else {
 						JOptionPane.showMessageDialog(this, "Mật khẩu xác nhận không đúng");
-						passwordField.setText("");
-						passwordField_XacNhan.setText("");
-						passwordField.requestFocus();
+						this.pwd.setText("");
+						pwdXacNhan.setText("");
+						this.pwd.requestFocus();
 						return null;
 					}
 				}

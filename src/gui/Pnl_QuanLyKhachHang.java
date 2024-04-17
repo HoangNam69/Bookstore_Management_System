@@ -39,23 +39,23 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 	 */
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modelKhachHang;
-	private JTable tableKhachHang;
-	private JScrollPane scrollKhachHang;
+	private JTable tblKhachHang;
+	private JScrollPane scrKhachHang;
 	private JTextField txtMaKhachHang;
 	private JTextField txtTenKhachHang;
 	private JTextField txtSDT;
-	private JComboBox cbxDiaChi;
+	private JComboBox cmbDiaChi;
 	private JButton btnLamMoiDanhSach;
 	private JButton btnThemKhachHang;
 	private JButton btnCapNhat;
-	private JComboBox<Object> cbxGioiTinh;
-	private KhachHangDao khachhang_dao;
+	private JComboBox<Object> cmbGioiTinh;
+	private KhachHangDao khachHangDao;
 	private List<KhachHang> dsKhachHang;
 
 	private JButton btnRefresh;
 	private JLabel lblDiaChi;
 	private JButton btnFind;
-	private KhachHangServiceImpl iKhachHang = new KhachHangServiceImpl();
+	private KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
 	private JButton btnLuu;
 
 	public Pnl_QuanLyKhachHang() {
@@ -72,18 +72,18 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 		lblTitle.setBounds(10, 11, 1700, 55);
 		add(lblTitle);
 
-		JPanel pnLoc = new JPanel();
-		pnLoc.setBorder(new LineBorder(new Color(0, 0, 0)));
-		pnLoc.setBackground(new Color(255, 255, 255));
-		pnLoc.setBounds(20, 140, 418, 534);
-		add(pnLoc);
-		pnLoc.setLayout(null);
+		JPanel pnlAddress = new JPanel();
+		pnlAddress.setBorder(new LineBorder(new Color(0, 0, 0)));
+		pnlAddress.setBackground(new Color(255, 255, 255));
+		pnlAddress.setBounds(20, 140, 418, 534);
+		add(pnlAddress);
+		pnlAddress.setLayout(null);
 
 		txtMaKhachHang = new JTextField();
 		txtMaKhachHang.setHorizontalAlignment(SwingConstants.CENTER);
 		txtMaKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtMaKhachHang.setBounds(141, 50, 267, 33);
-		pnLoc.add(txtMaKhachHang);
+		pnlAddress.add(txtMaKhachHang);
 		txtMaKhachHang.setColumns(10);
 		txtMaKhachHang.setForeground(new Color(0, 0, 0));
 
@@ -93,7 +93,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 		txtTenKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtTenKhachHang.setColumns(10);
 		txtTenKhachHang.setBounds(141, 120, 267, 33);
-		pnLoc.add(txtTenKhachHang);
+		pnlAddress.add(txtTenKhachHang);
 
 		txtSDT = new JTextField();
 		txtSDT.setHorizontalAlignment(SwingConstants.CENTER);
@@ -101,95 +101,95 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 		txtSDT.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtSDT.setColumns(10);
 		txtSDT.setBounds(141, 190, 267, 33);
-		pnLoc.add(txtSDT);
+		pnlAddress.add(txtSDT);
 		String[] tinh = { "Thủ Đức", "Quận 1", "Quận 2", "Quận 3 ", "Quận 4", "Quận 5", "Quận 6", "Quận 7", "Quận 8",
 				"Quận 9", "Quận 10", "Quận 11", "Quận 12", "Gò Vấp", "Tân Bình", "Bình Tân", "Bình Thạnh", "Phú Nhuận",
 				"Tân Phú", "Bình Chánh", "Cần Giờ", "Củ Chi", "Hóc Môn", "Nhà Bè" };
-		cbxDiaChi = new JComboBox<Object>(tinh);
-		cbxDiaChi.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cbxDiaChi.setModel(new DefaultComboBoxModel(new String[] { "Thủ Đức", "Quận 1", "Quận 2", "Quận 3 ", "Quận 4",
+		cmbDiaChi = new JComboBox<Object>(tinh);
+		cmbDiaChi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbDiaChi.setModel(new DefaultComboBoxModel(new String[] { "Thủ Đức", "Quận 1", "Quận 2", "Quận 3 ", "Quận 4",
 				"Quận 5", "Quận 6", "Quận 7", "Quận 8", "Quận 9", "Quận 10", "Quận 11", "Quận 12", "Gò Vấp", "Tân Bình",
 				"Bình Tân", "Bình Thạnh", "Phú Nhuận", "Tân Phú", "Bình Chánh", "Cần Giờ", "Củ Chi", "Hóc Môn",
 				"Nhà Bè" }));
-		cbxDiaChi.setBounds(141, 330, 267, 33);
-		pnLoc.add(cbxDiaChi);
+		cmbDiaChi.setBounds(141, 330, 267, 33);
+		pnlAddress.add(cmbDiaChi);
 
 		JLabel lblGioiTinh = new JLabel("Giới tính:");
 		lblGioiTinh.setHorizontalAlignment(SwingConstants.LEFT);
 		lblGioiTinh.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblGioiTinh.setBounds(10, 260, 121, 33);
-		pnLoc.add(lblGioiTinh);
+		pnlAddress.add(lblGioiTinh);
 
 		JLabel lblMaKhachHang = new JLabel("Mã khách hàng:");
 		lblMaKhachHang.setHorizontalAlignment(SwingConstants.LEFT);
 		lblMaKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblMaKhachHang.setBounds(10, 50, 121, 33);
-		pnLoc.add(lblMaKhachHang);
+		pnlAddress.add(lblMaKhachHang);
 
 		JLabel lblTenKhachHang = new JLabel("Tên khách hàng:");
 		lblTenKhachHang.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTenKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTenKhachHang.setBounds(10, 120, 121, 33);
-		pnLoc.add(lblTenKhachHang);
+		pnlAddress.add(lblTenKhachHang);
 
 		JLabel lblSDT = new JLabel("Số điện thoại:");
 		lblSDT.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSDT.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSDT.setBounds(10, 190, 121, 33);
-		pnLoc.add(lblSDT);
+		pnlAddress.add(lblSDT);
 
-		cbxGioiTinh = new JComboBox<Object>(new Object[] {});
-		cbxGioiTinh.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cbxGioiTinh.setModel(new DefaultComboBoxModel(new String[] { "Nam", "Nữ" }));
-		cbxGioiTinh.setSelectedIndex(0);
-		cbxGioiTinh.setBounds(141, 260, 267, 33);
-		pnLoc.add(cbxGioiTinh);
+		cmbGioiTinh = new JComboBox<Object>(new Object[] {});
+		cmbGioiTinh.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbGioiTinh.setModel(new DefaultComboBoxModel(new String[] { "Nam", "Nữ" }));
+		cmbGioiTinh.setSelectedIndex(0);
+		cmbGioiTinh.setBounds(141, 260, 267, 33);
+		pnlAddress.add(cmbGioiTinh);
 
 		lblDiaChi = new JLabel("Địa chỉ:");
 		lblDiaChi.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDiaChi.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblDiaChi.setBounds(10, 330, 121, 33);
-		pnLoc.add(lblDiaChi);
+		pnlAddress.add(lblDiaChi);
 
 		btnRefresh = new JButton("Làm mới");
 		btnRefresh.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/refresh-button.png")));
 		btnRefresh.setForeground(Color.BLACK);
 		btnRefresh.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnRefresh.setBounds(10, 430, 190, 40);
-		pnLoc.add(btnRefresh);
+		pnlAddress.add(btnRefresh);
 
 		btnFind = new JButton("Tìm");
 		btnFind.setIcon(new ImageIcon(Pnl_QuanLyKhachHang.class.getResource("/gui/icon/loupe.png")));
 		btnFind.setForeground(Color.BLACK);
 		btnFind.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnFind.setBounds(218, 430, 190, 40);
-		pnLoc.add(btnFind);
+		pnlAddress.add(btnFind);
 
 		String[] cols = { "STT", "Mã khách hàng", "Tên khách hàng", "Số điện thoại", "Giới tính", "Địa chỉ" };
 		modelKhachHang = new DefaultTableModel(cols, 0);
-		tableKhachHang = new JTable(modelKhachHang);
-		tableKhachHang.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tblKhachHang = new JTable(modelKhachHang);
+		tblKhachHang.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tblKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-		scrollKhachHang = new JScrollPane(tableKhachHang);
-		scrollKhachHang.setBounds(448, 77, 1400, 600);
-		tableKhachHang.getTableHeader().setBackground(Color.LIGHT_GRAY);
-		tableKhachHang.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 17));
-		tableKhachHang.setRowHeight(25);
-		tableKhachHang.setBackground(Color.WHITE);
-		scrollKhachHang.getViewport().setBackground(Color.WHITE);
-		tableKhachHang.getTableHeader().setPreferredSize(new Dimension(0, 40));
-		add(scrollKhachHang);
+		scrKhachHang = new JScrollPane(tblKhachHang);
+		scrKhachHang.setBounds(448, 77, 1400, 600);
+		tblKhachHang.getTableHeader().setBackground(Color.LIGHT_GRAY);
+		tblKhachHang.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 17));
+		tblKhachHang.setRowHeight(25);
+		tblKhachHang.setBackground(Color.WHITE);
+		scrKhachHang.getViewport().setBackground(Color.WHITE);
+		tblKhachHang.getTableHeader().setPreferredSize(new Dimension(0, 40));
+		add(scrKhachHang);
 
-		JPanel pnTimKiem = new JPanel();
-		pnTimKiem.setBackground(Color.LIGHT_GRAY);
-		pnTimKiem.setBorder(null);
-		pnTimKiem.setBounds(20, 77, 418, 64);
-		add(pnTimKiem);
-		pnTimKiem.setLayout(null);
+		JPanel pnlTimKiem = new JPanel();
+		pnlTimKiem.setBackground(Color.LIGHT_GRAY);
+		pnlTimKiem.setBorder(null);
+		pnlTimKiem.setBounds(20, 77, 418, 64);
+		add(pnlTimKiem);
+		pnlTimKiem.setLayout(null);
 		JLabel lblTimKiem = new JLabel("Tìm kiếm thông tin khách hàng");
 		lblTimKiem.setBounds(0, 0, 418, 64);
-		pnTimKiem.add(lblTimKiem);
+		pnlTimKiem.add(lblTimKiem);
 		lblTimKiem.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimKiem.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTimKiem.setForeground(Color.BLACK);
@@ -237,7 +237,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 		}
 		moKhoaTextfields(false);
 		btnLuu.setEnabled(false);
-		tableKhachHang.addMouseListener(this);
+		tblKhachHang.addMouseListener(this);
 		btnThemKhachHang.addActionListener(this);
 		btnLamMoiDanhSach.addActionListener(this);
 		btnRefresh.addActionListener(this);
@@ -249,12 +249,12 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		int row = tableKhachHang.getSelectedRow();
+		int row = tblKhachHang.getSelectedRow();
 		txtMaKhachHang.setText(modelKhachHang.getValueAt(row, 1).toString());
 		txtTenKhachHang.setText(modelKhachHang.getValueAt(row, 2).toString());
 		txtSDT.setText(modelKhachHang.getValueAt(row, 3).toString());
-		cbxGioiTinh.setSelectedIndex(modelKhachHang.getValueAt(row, 4).toString().equalsIgnoreCase("Nam") ? 0 : 1);
-		cbxDiaChi.setSelectedItem(modelKhachHang.getValueAt(row, 5).toString());
+		cmbGioiTinh.setSelectedIndex(modelKhachHang.getValueAt(row, 4).toString().equalsIgnoreCase("Nam") ? 0 : 1);
+		cmbDiaChi.setSelectedItem(modelKhachHang.getValueAt(row, 5).toString());
 	}
 
 	@Override
@@ -282,7 +282,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 	}
 
 	public void DocDuLieuTuArrayListVaoModel() throws Exception {
-		dsKhachHang = iKhachHang.getDSKhachHang();
+		dsKhachHang = khachHangServiceImpl.getDSKhachHang();
 		int i = 1;
 		for (KhachHang khachHang : dsKhachHang) {
 			modelKhachHang.addRow(new Object[] { i++, khachHang.getMaKhachHang(), khachHang.getHoTenKhachHang(),
@@ -291,7 +291,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 	}
 
 	public void xoaHetDuLieu() {
-		DefaultTableModel dtm = (DefaultTableModel) tableKhachHang.getModel();
+		DefaultTableModel dtm = (DefaultTableModel) tblKhachHang.getModel();
 		dtm.getDataVector().removeAllElements();
 	}
 
@@ -301,7 +301,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 		Object obj = e.getSource();
 		if (obj.equals(btnThemKhachHang)) {
 			if (btnThemKhachHang.getText().equalsIgnoreCase("Thêm khách hàng")) {
-				tableKhachHang.removeMouseListener(this);
+				tblKhachHang.removeMouseListener(this);
 				moKhoaTextfields(true);
 				moKhoaControls(false);
 				clearTxtfields();
@@ -313,7 +313,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 				txtMaKhachHang.setText(auto_ID());
 
 			} else if (btnThemKhachHang.getText().equalsIgnoreCase("Huỷ")) {
-				tableKhachHang.addMouseListener(this);
+				tblKhachHang.addMouseListener(this);
 				moKhoaTextfields(false);
 				moKhoaControls(true);
 				clearTxtfields();
@@ -324,7 +324,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 		} else if (obj.equals(btnRefresh)) {
 			clearTxtfields();
 		} else if (obj.equals(btnLuu)) {
-			iKhachHang = new KhachHangServiceImpl();
+			khachHangServiceImpl = new KhachHangServiceImpl();
 			if (btnLuu.getText().equalsIgnoreCase("Lưu") && btnThemKhachHang.getText().equalsIgnoreCase("Huỷ")) {
 				
 				KhachHang kh = revertKhachHangFromTextField();
@@ -339,7 +339,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 					return;
 				}
 				try {
-					dsKhachHang = iKhachHang.getDSKhachHang();
+					dsKhachHang = khachHangServiceImpl.getDSKhachHang();
 				} catch (SQLException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -353,7 +353,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 				}
 				
 				try {
-					if (iKhachHang.themKhachHang(kh) > 0) {
+					if (khachHangServiceImpl.themKhachHang(kh) > 0) {
 						updateTableData(kh);
 						JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
 						btnThemKhachHang.setText("Thêm khách hàng");
@@ -391,7 +391,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 					return;
 				}
 				try {
-					dsKhachHang = iKhachHang.getDSKhachHang();
+					dsKhachHang = khachHangServiceImpl.getDSKhachHang();
 				} catch (SQLException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -405,7 +405,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 				}
 				try {
 					// if(validData()) {
-					if (iKhachHang.capNhatKhachHang(kh) > 0) {
+					if (khachHangServiceImpl.capNhatKhachHang(kh) > 0) {
 						JOptionPane.showMessageDialog(this, "Sửa thành công 1 nhân viên");
 						editOnRow();
 						moKhoaTextfields(false);
@@ -431,7 +431,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 					e1.printStackTrace();
 				}
 			} else if (btnLuu.getText().equalsIgnoreCase("Huỷ")) {
-				tableKhachHang.addMouseListener(this);
+				tblKhachHang.addMouseListener(this);
 				moKhoaTextfields(false);
 				moKhoaControls(true);
 				clearTxtfields();
@@ -442,7 +442,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 
 		} else if (obj.equals(btnFind)) {
 			if (btnFind.getText().equalsIgnoreCase("Tìm")) {
-				tableKhachHang.removeMouseListener(this);
+				tblKhachHang.removeMouseListener(this);
 				try {
 					DocDuLieuTuArrayListVaoModel();
 				} catch (Exception e1) {
@@ -459,16 +459,16 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 				txtMaKhachHang.setEditable(false);
 				txtTenKhachHang.setEditable(true);
 			} else if (btnFind.getText().equalsIgnoreCase("Tìm kiếm")) {
-				tableKhachHang.addMouseListener(this);
+				tblKhachHang.addMouseListener(this);
 				int i = 0;
-				iKhachHang = new KhachHangServiceImpl();
+				khachHangServiceImpl = new KhachHangServiceImpl();
 				ArrayList<KhachHang> kh = new ArrayList<KhachHang>();
 				String sdt = txtSDT.getText();
 				String tenTim = txtTenKhachHang.getText();
 				if (!sdt.isEmpty() && tenTim.isEmpty()) {
 					if (!sdt.isEmpty() && tenTim.isEmpty()) {
 						try {
-							kh = iKhachHang.timKhachHangTheoSDT(sdt);
+							kh = khachHangServiceImpl.timKhachHangTheoSDT(sdt);
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -477,8 +477,8 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 							xoaHetDuLieu();
 							for (KhachHang khh : kh) {
 								try {
-									iKhachHang = new KhachHangServiceImpl();
-									dsKhachHang = iKhachHang.getDSKhachHang();
+									khachHangServiceImpl = new KhachHangServiceImpl();
+									dsKhachHang = khachHangServiceImpl.getDSKhachHang();
 									modelKhachHang.addRow(new Object[] { ++i, khh.getMaKhachHang(),
 											khh.getHoTenKhachHang(), khh.getsDT(),
 											khh.isGioiTinh() == true ? "Nam" : "Nữ", khh.getDiaChi() });
@@ -511,7 +511,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 					if (!tenTim.isEmpty() && sdt.isEmpty()) {
 
 						try {
-							kh = iKhachHang.timKhachHangTheoTen(tenTim);
+							kh = khachHangServiceImpl.timKhachHangTheoTen(tenTim);
 
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
@@ -521,8 +521,8 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 							xoaHetDuLieu();
 							for (KhachHang khh : kh) {
 								try {
-									iKhachHang = new KhachHangServiceImpl();
-									dsKhachHang = iKhachHang.getDSKhachHang();
+									khachHangServiceImpl = new KhachHangServiceImpl();
+									dsKhachHang = khachHangServiceImpl.getDSKhachHang();
 									modelKhachHang.addRow(new Object[] { ++i, khh.getMaKhachHang(),
 											khh.getHoTenKhachHang(), khh.getsDT(),
 											khh.isGioiTinh() == true ? "Nam" : "Nữ", khh.getDiaChi() });
@@ -553,19 +553,19 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 						}
 					}
 				} else if (!sdt.isEmpty() && !tenTim.isEmpty()) {
-					ArrayList<KhachHang> kh1 = new ArrayList<KhachHang>();
+					ArrayList<KhachHang> dsKhachHang = new ArrayList<KhachHang>();
 					try {
-						kh1 = iKhachHang.getListKhachHangByNameAndSDT(tenTim, sdt);
+						dsKhachHang = khachHangServiceImpl.getListKhachHangByNameAndSDT(tenTim, sdt);
 					} catch (Exception e2) {
 						// TODO: handle exception
 						e2.printStackTrace();
 					}
-					if (kh1 != null) {
+					if (dsKhachHang != null) {
 						xoaHetDuLieu();
-						for (KhachHang khh : kh1) {
+						for (KhachHang khh : dsKhachHang) {
 							try {
-								iKhachHang = new KhachHangServiceImpl();
-								dsKhachHang = iKhachHang.getDSKhachHang();
+								khachHangServiceImpl = new KhachHangServiceImpl();
+								this.dsKhachHang = khachHangServiceImpl.getDSKhachHang();
 								modelKhachHang.addRow(new Object[] { ++i, khh.getMaKhachHang(), khh.getHoTenKhachHang(),
 										khh.getsDT(), khh.isGioiTinh() == true ? "Nam" : "Nữ", khh.getDiaChi() });
 							} catch (SQLException e1) {
@@ -614,7 +614,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 				e1.printStackTrace();
 			}
 		} else if (obj.equals(btnCapNhat)) {
-			if (tableKhachHang.getSelectedRow() == -1) {
+			if (tblKhachHang.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(this, "Phải chọn dòng trước khi sửa");
 			} else {
 				if (btnCapNhat.getText().equalsIgnoreCase("Cập nhật khách hàng")) {
@@ -637,8 +637,8 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 	}
 
 	private void updateTableData(KhachHang kh) throws SQLException {
-		iKhachHang = new KhachHangServiceImpl();
-		dsKhachHang = iKhachHang.getDSKhachHang();
+		khachHangServiceImpl = new KhachHangServiceImpl();
+		dsKhachHang = khachHangServiceImpl.getDSKhachHang();
 		int i = dsKhachHang.size();
 		modelKhachHang.addRow(new Object[] { i++, kh.getMaKhachHang(), kh.getHoTenKhachHang(), kh.getsDT(),
 				kh.isGioiTinh() == true ? "Nam" : "Nữ", kh.getDiaChi() });
@@ -656,35 +656,35 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 		txtMaKhachHang.setEditable(b);
 		txtTenKhachHang.setEditable(b);
 		txtSDT.setEditable(b);
-		cbxDiaChi.setEditable(b);
-		cbxGioiTinh.setEditable(b);
+		cmbDiaChi.setEditable(b);
+		cmbGioiTinh.setEditable(b);
 	}
 
 	private void clearTxtfields() {
 		txtMaKhachHang.setText("");
 		txtTenKhachHang.setText("");
 		txtSDT.setText("");
-		cbxDiaChi.setSelectedIndex(0);
-		cbxGioiTinh.setSelectedIndex(0);
+		cmbDiaChi.setSelectedIndex(0);
+		cmbGioiTinh.setSelectedIndex(0);
 	}
 
 	public KhachHang revertKhachHangFromTextField() {
 		String maKH = txtMaKhachHang.getText();
 		String tenKH = txtTenKhachHang.getText();
 		String sdt = txtSDT.getText();
-		boolean gioiTinh = cbxGioiTinh.getSelectedItem().toString() == "Nam" ? true : false;
-		String diaChi = cbxDiaChi.getSelectedItem().toString();
+		boolean gioiTinh = cmbGioiTinh.getSelectedItem().toString() == "Nam" ? true : false;
+		String diaChi = cmbDiaChi.getSelectedItem().toString();
 		KhachHang kh = new KhachHang(maKH, tenKH, sdt, gioiTinh, diaChi);
 		return kh;
 	}
 
 	public void editOnRow() {
-		int row = tableKhachHang.getSelectedRow();
+		int row = tblKhachHang.getSelectedRow();
 		KhachHang kh = revertKhachHangFromTextField();
-		tableKhachHang.setValueAt(kh.getMaKhachHang(), row, 1);
-		tableKhachHang.setValueAt(kh.getHoTenKhachHang(), row, 2);
-		tableKhachHang.setValueAt(kh.getsDT(), row, 3);
-		tableKhachHang.setValueAt(kh.isGioiTinh() == true ? "Nam" : "Nữ", row, 4);
+		tblKhachHang.setValueAt(kh.getMaKhachHang(), row, 1);
+		tblKhachHang.setValueAt(kh.getHoTenKhachHang(), row, 2);
+		tblKhachHang.setValueAt(kh.getsDT(), row, 3);
+		tblKhachHang.setValueAt(kh.isGioiTinh() == true ? "Nam" : "Nữ", row, 4);
 	}
 
 	private void showMessage(String message, JTextField txt) {

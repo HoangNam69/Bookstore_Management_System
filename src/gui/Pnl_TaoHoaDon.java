@@ -64,21 +64,20 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	private JTextField txtTenKhachHang;
 	private JTextField txtMaSach;
 	private JTextField txtTenSach;
-	private JTable tableSach;
+	private JTable tblSach;
 	private JTextField txtGiaBanSach;
 	private JTextField txtSoLuongSach;
 	private JTextField txtTenVPP;
 	private JTextField txtGiaBanVPP;
-	private JComboBox<Object> cbxXuatXu;
-	private JComboBox<Object> cbxChatLieu;
+	private JComboBox<Object> cmbXuatXu;
+	private JComboBox<Object> cmbChatLieu;
 	private JTabbedPane tabSanPham;
-	private JComboBox<Object> cbxTheLoai;
-	private JComboBox<Object> cbxTacGia;
+	private JComboBox<Object> cmbTheLoai;
+	private JComboBox<Object> cmbTacGia;
 	private JButton btnThemKhachHang;
 	private JButton btnRefresh;
 	private JButton btnTimKhachHang;
-	private JTable table;
-	private JTable tableHoaDon;
+	private JTable tblHoaDon;
 	private JTextField txtMaHoaDon;
 	private JTextField txtTongTienHD;
 	private JTextField txtVAT;
@@ -91,35 +90,35 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	private JButton btnHangCho;
 	private JButton btnXoa;
 	private DefaultTableModel modelSach;
-	private JScrollPane scrollSach;
+	private JScrollPane scrSach;
 	private JLabel lblSoLuongVPP;
 	private JTextField txtSoLuongVPP;
 	private JButton btnThemVPP;
 	private JTable tableVPP;
 	private DefaultTableModel modelVPP;
-	private JScrollPane scrollVPP;
+	private JScrollPane scrVPP;
 	private SanPhamDao sanPhamDao;
-	private SanPhamServiceImpl iSanPham;
+	private SanPhamServiceImpl sanPhamServiceImpl_GetConent;
 	private List<Sach> dsSach;
 	private TheLoaiDao theLoaiSach;
 	private List<VanPhongPham> dsVPP;
 	private JTextField txtMaVPP;
 	private DefaultTableModel modelHoaDon;
-	private JScrollPane scrollHoaDon;
-	private NhanVienServiceImpl iNhanvien;
+	private JScrollPane scrHoaDon;
+	private NhanVienServiceImpl nhanVienServiceImpl;
 	private NhanVien nv;
 	private JButton btnThemSach;
-	private KhachHangServiceImpl iKhachHang;
+	private KhachHangServiceImpl khachHangServiceImpl;
 	private String sdt;
 	private JButton btnLamMoiBang;
 	private ChiTietHoaDonDao chiTietHoaDonDao;
-	private List<ChiTietHoaDon> dscthd;
-	private HoaDonServiceImpl iHoaDon;
-	private ChiTietHoaDonServiceImpl iChiTietHoaDon;
+	private List<ChiTietHoaDon> dsChiTietHoaDon;
+	private HoaDonServiceImpl hoaDonServiceImpl;
+	private ChiTietHoaDonServiceImpl chiTietHoaDonServiceImpl;
 	private TacGiaDao tacgiaDao;
-	private List<TacGia> listTacGia;
-	private static HashMap<String, ArrayList<SanPham>> listHoaDonCho = new HashMap<String, ArrayList<SanPham>>();
-	Frm_HangCho frm_HangCho;
+	private List<TacGia> dsTacGia;
+	private static HashMap<String, ArrayList<SanPham>> dsHoaDonCho = new HashMap<String, ArrayList<SanPham>>();
+	Frm_HangCho winHangCho;
 	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
 	private JLabel lblMaHD;
 	private JTextField txtTimKiemMaSP;
@@ -166,38 +165,38 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		lblTitle.setBounds(0, 0, 1900, 30);
 		pnlTitle.add(lblTitle);
 
-		tableSach = new JTable(modelSach);
-		tableSach.setBounds(10, 307, 780, 316);
+		tblSach = new JTable(modelSach);
+		tblSach.setBounds(10, 307, 780, 316);
 		String[] cols = { "STT", "Mã sách", "Tên sách", "Thể loại", "Tác giả", "Giá bán", "Số lượng" };
 		modelSach = new DefaultTableModel(cols, 0);
-		tableSach.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableSach.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tblSach.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tblSach.setFont(new Font("Tahoma", Font.PLAIN, 12));
 
-		scrollSach = new JScrollPane();
-		scrollSach.setViewportView(tableSach = new JTable(modelSach));
-		scrollSach.setBounds(10, 322, 950, 500);
-		tableSach.getTableHeader().setBackground(Color.LIGHT_GRAY);
-		tableSach.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		tableSach.setRowHeight(25);
-		tableSach.setBackground(Color.WHITE);
-		scrollSach.getViewport().setBackground(Color.WHITE);
-		tableSach.getTableHeader().setPreferredSize(new Dimension(0, 20));
-		add(scrollSach);
-		tableSach.addMouseListener(this);
+		scrSach = new JScrollPane();
+		scrSach.setViewportView(tblSach = new JTable(modelSach));
+		scrSach.setBounds(10, 322, 950, 500);
+		tblSach.getTableHeader().setBackground(Color.LIGHT_GRAY);
+		tblSach.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tblSach.setRowHeight(25);
+		tblSach.setBackground(Color.WHITE);
+		scrSach.getViewport().setBackground(Color.WHITE);
+		tblSach.getTableHeader().setPreferredSize(new Dimension(0, 20));
+		add(scrSach);
+		tblSach.addMouseListener(this);
 		String[] headers = { "STT", "Mã Văn phòng phẩm", "Tên Văn phòng phẩm", "Chất liệu", "Xuất xứ", "Giá bán",
 				"Số lượng" };
 		modelVPP = new DefaultTableModel(headers, 0);
 
-		scrollVPP = new JScrollPane();
-		scrollVPP.setViewportView(tableVPP = new JTable(modelVPP));
-		scrollVPP.setBounds(10, 322, 950, 500);
+		scrVPP = new JScrollPane();
+		scrVPP.setViewportView(tableVPP = new JTable(modelVPP));
+		scrVPP.setBounds(10, 322, 950, 500);
 		tableVPP.getTableHeader().setBackground(Color.LIGHT_GRAY);
 		tableVPP.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tableVPP.setRowHeight(25);
 		tableVPP.setBackground(Color.WHITE);
-		scrollVPP.getViewport().setBackground(Color.WHITE);
+		scrVPP.getViewport().setBackground(Color.WHITE);
 		tableVPP.getTableHeader().setPreferredSize(new Dimension(0, 20));
-		add(scrollVPP);
+		add(scrVPP);
 
 		JPanel pnlHoaDon = new JPanel();
 		pnlHoaDon.setBounds(1000, 40, 870, 780);
@@ -325,10 +324,10 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
 		WinLogin dangNhap = new WinLogin();
 		TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
-		iNhanvien = new NhanVienServiceImpl();
+		nhanVienServiceImpl = new NhanVienServiceImpl();
 		nv = new NhanVien();
 		try {
-			nv = iNhanvien.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
+			nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
 		} catch (SQLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
@@ -411,23 +410,23 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		btnXoa.setBounds(440, 150, 89, 30);
 		pnlHoaDon.add(btnXoa);
 
-		scrollHoaDon = new JScrollPane();
-		scrollHoaDon.setBounds(0, 191, 	850, 400);
-		pnlHoaDon.add(scrollHoaDon);
+		scrHoaDon = new JScrollPane();
+		scrHoaDon.setBounds(0, 191, 	850, 400);
+		pnlHoaDon.add(scrHoaDon);
 		String[] header = { "STT", "Mã sản phẩm", "Tên sản phẩm", "Giá bán", "Số lượng" };
 		modelHoaDon = new DefaultTableModel(header, 0);
-		scrollHoaDon.setViewportView(tableHoaDon = new JTable(modelHoaDon));
+		scrHoaDon.setViewportView(tblHoaDon = new JTable(modelHoaDon));
 
 		txtXoa = new JTextField();
 		txtXoa.setBounds(539, 150, 83, 30);
 		pnlHoaDon.add(txtXoa);
 		txtXoa.setColumns(10);
-		tableHoaDon.getTableHeader().setBackground(Color.LIGHT_GRAY);
-		tableHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 12));
-		tableHoaDon.setRowHeight(25);
-		tableHoaDon.setBackground(Color.WHITE);
-		scrollHoaDon.getViewport().setBackground(Color.WHITE);
-		tableHoaDon.getTableHeader().setPreferredSize(new Dimension(0, 20));
+		tblHoaDon.getTableHeader().setBackground(Color.LIGHT_GRAY);
+		tblHoaDon.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tblHoaDon.setRowHeight(25);
+		tblHoaDon.setBackground(Color.WHITE);
+		scrHoaDon.getViewport().setBackground(Color.WHITE);
+		tblHoaDon.getTableHeader().setPreferredSize(new Dimension(0, 20));
 		btnTimKhachHang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -441,9 +440,9 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		tabSanPham.setBounds(10, 77, 820, 178);
 		add(tabSanPham);
 
-		JPanel pnSach = new JPanel();
-		tabSanPham.addTab("Sách", null, pnSach, null);
-		pnSach.setLayout(null);
+		JPanel pnlSach = new JPanel();
+		tabSanPham.addTab("Sách", null, pnlSach, null);
+		pnlSach.setLayout(null);
 		System.out.println(tabSanPham.getSelectedIndex());
 		
 		tabSanPham.addChangeListener(new ChangeListener() {
@@ -452,12 +451,12 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 			public void stateChanged(ChangeEvent e) {
 				// TODO Auto-generated method stub
 				if (tabSanPham.getSelectedIndex() == 0) {
-					scrollSach.setVisible(true);
-					scrollVPP.setVisible(false);
+					scrSach.setVisible(true);
+					scrVPP.setVisible(false);
 					
 				} else {
-					scrollSach.setVisible(false);
-					scrollVPP.setVisible(true);
+					scrSach.setVisible(false);
+					scrVPP.setVisible(true);
 					txtTimKiemMaSP.addKeyListener(new KeyListener() {
 						
 						@Override
@@ -506,86 +505,86 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		lblMaSach.setHorizontalAlignment(SwingConstants.LEFT);
 		lblMaSach.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMaSach.setBounds(10, 10, 75, 20);
-		pnSach.add(lblMaSach);
+		pnlSach.add(lblMaSach);
 
 		txtMaSach = new JTextField();
 		txtMaSach.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtMaSach.setBounds(170, 10, 250, 25);
-		pnSach.add(txtMaSach);
+		pnlSach.add(txtMaSach);
 		txtMaSach.setColumns(10);
 
 		JLabel lblTenSach = new JLabel("Tên sách");
 		lblTenSach.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTenSach.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTenSach.setBounds(465, 10, 75, 20);
-		pnSach.add(lblTenSach);
+		pnlSach.add(lblTenSach);
 
 		txtTenSach = new JTextField();
 		txtTenSach.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtTenSach.setColumns(10);
 		txtTenSach.setBounds(550, 10, 250, 25);
-		pnSach.add(txtTenSach);
+		pnlSach.add(txtTenSach);
 
 		JLabel lblTacGia = new JLabel("Tác giả");
 		lblTacGia.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTacGia.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTacGia.setBounds(465, 60, 75, 20);
-		pnSach.add(lblTacGia);
+		pnlSach.add(lblTacGia);
 
-		cbxTacGia = new JComboBox();
-		cbxTacGia.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		cmbTacGia = new JComboBox();
+		cmbTacGia.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tacgiaDao = new TacGiaDao();
 		try {
-			listTacGia = tacgiaDao.getListTacGia();
+			dsTacGia = tacgiaDao.getListTacGia();
 		} catch (Exception e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		cbxTacGia.addItem("Tất cả");
-		for (TacGia tg : listTacGia) {
-			cbxTacGia.addItem(tg.getTenTacGia());
+		cmbTacGia.addItem("Tất cả");
+		for (TacGia tg : dsTacGia) {
+			cmbTacGia.addItem(tg.getTenTacGia());
 		}
-		cbxTacGia.setEditable(true);
-		cbxTacGia.setBounds(550, 60, 250, 25);
-		pnSach.add(cbxTacGia);
+		cmbTacGia.setEditable(true);
+		cmbTacGia.setBounds(550, 60, 250, 25);
+		pnlSach.add(cmbTacGia);
 
 		JLabel lblTheLoai = new JLabel("Thể loại");
 		lblTheLoai.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTheLoai.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTheLoai.setBounds(10, 60, 75, 20);
-		pnSach.add(lblTheLoai);
+		pnlSach.add(lblTheLoai);
 
 		JLabel lblGiaBanSach = new JLabel("Giá bán");
 		lblGiaBanSach.setHorizontalAlignment(SwingConstants.LEFT);
 		lblGiaBanSach.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblGiaBanSach.setBounds(10, 110, 75, 20);
-		pnSach.add(lblGiaBanSach);
+		pnlSach.add(lblGiaBanSach);
 
 		txtGiaBanSach = new JTextField();
 		txtGiaBanSach.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtGiaBanSach.setEditable(false);
 		txtGiaBanSach.setColumns(10);
 		txtGiaBanSach.setBounds(170, 110, 250, 25);
-		pnSach.add(txtGiaBanSach);
+		pnlSach.add(txtGiaBanSach);
 
-		cbxTheLoai = new JComboBox();
-		cbxTheLoai.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		cbxTheLoai.setModel(new DefaultComboBoxModel(
+		cmbTheLoai = new JComboBox();
+		cmbTheLoai.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		cmbTheLoai.setModel(new DefaultComboBoxModel(
 				new String[] { "Tất cả", "SGK", "Truyện", "Tiểu thuyết", "Kĩ năng sống", "Kinh doanh", "Thiếu nhi" }));
-		cbxTheLoai.setEditable(true);
-		cbxTheLoai.setBounds(170, 60, 250, 25);
-		pnSach.add(cbxTheLoai);
+		cmbTheLoai.setEditable(true);
+		cmbTheLoai.setBounds(170, 60, 250, 25);
+		pnlSach.add(cmbTheLoai);
 
 		btnThemSach = new JButton("Thêm");
 		btnThemSach.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/icons-add.png")));
 		btnThemSach.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemSach.setBounds(641, 108, 126, 30);
-		pnSach.add(btnThemSach);
+		pnlSach.add(btnThemSach);
 
 		txtSoLuongSach = new JTextField("1");
 		txtSoLuongSach.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtSoLuongSach.setBounds(550, 110, 69, 25);
-		pnSach.add(txtSoLuongSach);
+		pnlSach.add(txtSoLuongSach);
 		txtSoLuongSach.setColumns(10);
 		txtSoLuongSach.addFocusListener(new FocusListener() {
 
@@ -603,82 +602,82 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
 		JLabel lblSoLuongSach = new JLabel("Số lượng");
 		lblSoLuongSach.setBounds(465, 105, 77, 25);
-		pnSach.add(lblSoLuongSach);
+		pnlSach.add(lblSoLuongSach);
 		lblSoLuongSach.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblSoLuongSach.setHorizontalAlignment(SwingConstants.LEFT);
 
-		JPanel pnVPP = new JPanel();
-		tabSanPham.addTab("Văn phòng phẩm", null, pnVPP, null);
-		pnVPP.setLayout(null);
+		JPanel pnlVPP = new JPanel();
+		tabSanPham.addTab("Văn phòng phẩm", null, pnlVPP, null);
+		pnlVPP.setLayout(null);
 
 		JLabel lblMaVPP = new JLabel("Mã văn phòng phẩm");
 		lblMaVPP.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMaVPP.setBounds(10, 10, 150, 25);
-		pnVPP.add(lblMaVPP);
+		pnlVPP.add(lblMaVPP);
 
 		JLabel lblTenVPP = new JLabel("Tên văn phòng phẩm");
 		lblTenVPP.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTenVPP.setBounds(10, 60, 150, 25);
-		pnVPP.add(lblTenVPP);
+		pnlVPP.add(lblTenVPP);
 
 		txtTenVPP = new JTextField();
 		txtTenVPP.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtTenVPP.setBounds(170, 60, 250, 25);
-		pnVPP.add(txtTenVPP);
+		pnlVPP.add(txtTenVPP);
 		txtTenVPP.setColumns(10);
 
 		JLabel lblChatLieu = new JLabel("Chất liệu");
 		lblChatLieu.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblChatLieu.setBounds(465, 10, 72, 25);
-		pnVPP.add(lblChatLieu);
+		pnlVPP.add(lblChatLieu);
 
-		cbxChatLieu = new JComboBox();
-		cbxChatLieu.setModel(new DefaultComboBoxModel(new String[] { "Nhựa", "Giấy", "Tẩy", "Màu", "Vải" }));
-		cbxChatLieu.setEditable(true);
-		cbxChatLieu.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cbxChatLieu.setBounds(550, 10, 254, 25);
-		pnVPP.add(cbxChatLieu);
+		cmbChatLieu = new JComboBox();
+		cmbChatLieu.setModel(new DefaultComboBoxModel(new String[] { "Nhựa", "Giấy", "Tẩy", "Màu", "Vải" }));
+		cmbChatLieu.setEditable(true);
+		cmbChatLieu.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cmbChatLieu.setBounds(550, 10, 254, 25);
+		pnlVPP.add(cmbChatLieu);
 
 		JLabel lblXuatXu = new JLabel("Xuất xứ");
 		lblXuatXu.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblXuatXu.setBounds(465, 60, 72, 25);
-		pnVPP.add(lblXuatXu);
+		pnlVPP.add(lblXuatXu);
 
-		cbxXuatXu = new JComboBox<Object>();
-		cbxXuatXu.setModel(new DefaultComboBoxModel(new String[] { "Việt Nam", "Hoa Kì", "Trung Quốc" }));
-		cbxXuatXu.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		cbxXuatXu.setEditable(true);
-		cbxXuatXu.setBounds(550, 60, 254, 25);
-		pnVPP.add(cbxXuatXu);
+		cmbXuatXu = new JComboBox<Object>();
+		cmbXuatXu.setModel(new DefaultComboBoxModel(new String[] { "Việt Nam", "Hoa Kì", "Trung Quốc" }));
+		cmbXuatXu.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		cmbXuatXu.setEditable(true);
+		cmbXuatXu.setBounds(550, 60, 254, 25);
+		pnlVPP.add(cmbXuatXu);
 
 		JLabel lblGiaBanVPP = new JLabel("Giá bán");
 		lblGiaBanVPP.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblGiaBanVPP.setBounds(10, 110, 150, 25);
-		pnVPP.add(lblGiaBanVPP);
+		pnlVPP.add(lblGiaBanVPP);
 
 		txtGiaBanVPP = new JTextField();
 		txtGiaBanVPP.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtGiaBanVPP.setEditable(false);
 		txtGiaBanVPP.setColumns(10);
 		txtGiaBanVPP.setBounds(170, 110, 250, 25);
-		pnVPP.add(txtGiaBanVPP);
+		pnlVPP.add(txtGiaBanVPP);
 
 		txtMaVPP = new JTextField();
 		txtMaVPP.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtMaVPP.setColumns(10);
 		txtMaVPP.setBounds(170, 10, 250, 25);
-		pnVPP.add(txtMaVPP);
+		pnlVPP.add(txtMaVPP);
 
 		lblSoLuongVPP = new JLabel("Số lượng");
 		lblSoLuongVPP.setBounds(465, 110, 77, 25);
-		pnVPP.add(lblSoLuongVPP);
+		pnlVPP.add(lblSoLuongVPP);
 		lblSoLuongVPP.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSoLuongVPP.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		txtSoLuongVPP = new JTextField("1");
 		txtSoLuongVPP.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtSoLuongVPP.setBounds(550, 110, 69, 25);
-		pnVPP.add(txtSoLuongVPP);
+		pnlVPP.add(txtSoLuongVPP);
 		txtSoLuongVPP.setColumns(10);
 		txtSoLuongVPP.addFocusListener(new FocusListener() {
 
@@ -698,14 +697,14 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		btnThemVPP.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnThemVPP.setIcon(new ImageIcon(Pnl_TaoHoaDon.class.getResource("/gui/icon/icons-add.png")));
 		btnThemVPP.setBounds(641, 108, 126, 30);
-		pnVPP.add(btnThemVPP);
+		pnlVPP.add(btnThemVPP);
 
-		tableSach.getColumnModel().getColumn(0).setPreferredWidth(20);
-		tableSach.getColumnModel().getColumn(1).setPreferredWidth(70);
-		tableSach.getColumnModel().getColumn(2).setPreferredWidth(120);
-		tableSach.getColumnModel().getColumn(3).setPreferredWidth(70);
-		tableSach.getColumnModel().getColumn(4).setPreferredWidth(70);
-		tableSach.getColumnModel().getColumn(5).setPreferredWidth(40);
+		tblSach.getColumnModel().getColumn(0).setPreferredWidth(20);
+		tblSach.getColumnModel().getColumn(1).setPreferredWidth(70);
+		tblSach.getColumnModel().getColumn(2).setPreferredWidth(120);
+		tblSach.getColumnModel().getColumn(3).setPreferredWidth(70);
+		tblSach.getColumnModel().getColumn(4).setPreferredWidth(70);
+		tblSach.getColumnModel().getColumn(5).setPreferredWidth(40);
 
 		tableVPP.getColumnModel().getColumn(0).setPreferredWidth(20);
 		tableVPP.getColumnModel().getColumn(1).setPreferredWidth(120);
@@ -717,8 +716,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		tableVPP.addMouseListener(this);
 
 		try {
-			DocDuLieuSach();
-			DocDuLieuVPP();
+			docDuLieuSach();
+			docDuLieuVPP();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -823,32 +822,32 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		}
 		txtMaSach.setEditable(false);
 		txtTenSach.setEditable(false);
-		cbxTheLoai.setEditable(false);
-		cbxTacGia.setEditable(false);
+		cmbTheLoai.setEditable(false);
+		cmbTacGia.setEditable(false);
 		txtMaVPP.setEditable(false);
 		txtTenVPP.setEditable(false);
-		cbxChatLieu.setEditable(false);
-		cbxXuatXu.setEditable(false);
+		cmbChatLieu.setEditable(false);
+		cmbXuatXu.setEditable(false);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
-		if (obj.equals(tableSach)) {
-			int row = tableSach.getSelectedRow();
-			modelSach = (DefaultTableModel) tableSach.getModel();
+		if (obj.equals(tblSach)) {
+			int row = tblSach.getSelectedRow();
+			modelSach = (DefaultTableModel) tblSach.getModel();
 			txtMaSach.setText(modelSach.getValueAt(row, 1).toString());
 			txtTenSach.setText(modelSach.getValueAt(row, 2).toString());
-			cbxTheLoai.setSelectedItem(modelSach.getValueAt(row, 3).toString());
-			cbxTacGia.setSelectedItem(modelSach.getValueAt(row, 4).toString());
+			cmbTheLoai.setSelectedItem(modelSach.getValueAt(row, 3).toString());
+			cmbTacGia.setSelectedItem(modelSach.getValueAt(row, 4).toString());
 			txtGiaBanSach.setText(modelSach.getValueAt(row, 5).toString());
 		} else if (obj.equals(tableVPP)) {
 			int row1 = tableVPP.getSelectedRow();
 			txtMaVPP.setText(modelVPP.getValueAt(row1, 1).toString());
 			txtTenVPP.setText(modelVPP.getValueAt(row1, 2).toString());
-			cbxChatLieu.setSelectedItem(modelVPP.getValueAt(row1, 3).toString());
-			cbxXuatXu.setSelectedItem(modelVPP.getValueAt(row1, 4).toString());
+			cmbChatLieu.setSelectedItem(modelVPP.getValueAt(row1, 3).toString());
+			cmbXuatXu.setSelectedItem(modelVPP.getValueAt(row1, 4).toString());
 			txtGiaBanVPP.setText(modelVPP.getValueAt(row1, 5).toString());
 		}
 
@@ -885,11 +884,11 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		if (obj.equals(btnRefresh)) {
 			clearTxtFieldsSDT();
 		} else if (obj.equals(btnTimKhachHang)) {
-			iKhachHang = new KhachHangServiceImpl();
+			khachHangServiceImpl = new KhachHangServiceImpl();
 			KhachHang kh = new KhachHang();
 			sdt = txtSDT.getText().toString();
 			try {
-				kh = iKhachHang.timKhachHangBangSDT(sdt);
+				kh = khachHangServiceImpl.timKhachHangBangSDT(sdt);
 			} catch (Exception e2) {
 				// TODO: handle exception
 				e2.printStackTrace();
@@ -903,8 +902,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 				return;
 			} else {
 				JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng, vui lòng thêm khách hàng mới");
-				Frm_ThemKH frm = new Frm_ThemKH();
-				frm.setVisible(true);
+				Frm_ThemKH winThemKH = new Frm_ThemKH();
+				winThemKH.setVisible(true);
 				return;
 			}
 		} else if (obj.equals(btnLamMoiBang)) {
@@ -912,24 +911,24 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 			if (tabSanPham.getSelectedIndex() == 0) {
 				try {
 					clearTableSach();
-					DocDuLieuSach();
+					docDuLieuSach();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			} else {
 				clearTableVPP();
-				DocDuLieuVPP();
+				docDuLieuVPP();
 			}
 
 		} else if (obj.equals(btnThemSach)) {
-			int row = tableSach.getSelectedRow();
+			int row = tblSach.getSelectedRow();
 			if(txtSoLuongSach.getText().isEmpty() || !(txtSoLuongSach.getText().matches("[0-9]*"))) {
 				JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng cần thêm phù hợp");
 				return;
 			}
 			
-			if(tableSach.getSelectedRow()==-1) {
+			if(tblSach.getSelectedRow()==-1) {
 				JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần mua");
 				return;
 			}
@@ -952,7 +951,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 				}
 			}
 		} else if (obj.equals(btnThemVPP)) {
-			int row = tableSach.getSelectedRow();
+			int row = tblSach.getSelectedRow();
 			if(txtSoLuongVPP.getText().isEmpty() || !(txtSoLuongVPP.getText().matches("[0-9]*"))) {
 				JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng cần thêm phù hợp");
 				return;
@@ -1018,36 +1017,36 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 				return;
 			}
 			// xử lý
-			if (listHoaDonCho.containsKey(txtSDT.getText().trim())) {
+			if (dsHoaDonCho.containsKey(txtSDT.getText().trim())) {
 				// đã có người dùng trong hàng chờ
 				for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
 					boolean kiemTraTrung = false;
 					SanPham sanPham = new SanPham(modelHoaDon.getValueAt(i, 1).toString(),
 							Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString()));
-					for (int j = 0; j < listHoaDonCho.get(txtSDT.getText().trim()).size(); j++) {
+					for (int j = 0; j < dsHoaDonCho.get(txtSDT.getText().trim()).size(); j++) {
 						// trùng sản phẩm -> số lượng tăng
 						if (sanPham.getMaSanPham()
-								.equals(listHoaDonCho.get(txtSDT.getText().trim()).get(j).getMaSanPham())) {
-							int soLuong = listHoaDonCho.get(txtSDT.getText().trim()).get(j).getSoLuongTon();
-							listHoaDonCho.get(txtSDT.getText().trim()).get(j)
+								.equals(dsHoaDonCho.get(txtSDT.getText().trim()).get(j).getMaSanPham())) {
+							int soLuong = dsHoaDonCho.get(txtSDT.getText().trim()).get(j).getSoLuongTon();
+							dsHoaDonCho.get(txtSDT.getText().trim()).get(j)
 									.setSoLuongTon(sanPham.getSoLuongTon() + soLuong);
 							kiemTraTrung = true;
 							break;
 						}
 					}
 					if (!kiemTraTrung) {
-						listHoaDonCho.get(txtSDT.getText().trim()).add(sanPham);
+						dsHoaDonCho.get(txtSDT.getText().trim()).add(sanPham);
 					}
 				}
 			} else {
 				// chưa có người dùng trong hàng chờ
-				ArrayList<SanPham> listSanPhamCho = new ArrayList<>();
+				ArrayList<SanPham> dsSanPhamCho = new ArrayList<>();
 				for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
 					SanPham sanPham = new SanPham(modelHoaDon.getValueAt(i, 1).toString(),
 							Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString()));
-					listSanPhamCho.add(sanPham);
+					dsSanPhamCho.add(sanPham);
 				}
-				listHoaDonCho.put(txtSDT.getText().trim(), listSanPhamCho);
+				dsHoaDonCho.put(txtSDT.getText().trim(), dsSanPhamCho);
 			}
 			clearTxtFieldsSDT();
 			setTongTienRong();
@@ -1057,10 +1056,10 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		} else if (obj.equals(btnHangCho)) {
 			openFrmHoaDonCho();
 		} else if (obj.equals(btnThemKhachHang)) {
-			Frm_ThemKH frm = new Frm_ThemKH();
-			frm.setVisible(true);
+			Frm_ThemKH winThemKH = new Frm_ThemKH();
+			winThemKH.setVisible(true);
 		} else if (obj.equals(btnXoa)) {
-			int row = tableHoaDon.getSelectedRow();
+			int row = tblHoaDon.getSelectedRow();
 			if(txtXoa.getText().length()<=0) {
 				JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng xoá");
 				return;
@@ -1083,16 +1082,16 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 			clearTxtFieldsSDT();
 			setTongTienRong();
 			try {
-				DocDuLieuSach();
+				docDuLieuSach();
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			DocDuLieuVPP();
+			docDuLieuVPP();
 		}
 	}
 
-	public void DocDuLieuSach() throws Exception {
+	public void docDuLieuSach() throws Exception {
 		clearTableSach();
 		sanPhamDao = new SanPhamDao();
 		theLoaiSach = new TheLoaiDao();
@@ -1110,7 +1109,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		}
 	}
 
-	public void DocDuLieuVPP() {
+	public void docDuLieuVPP() {
 		clearTableVPP();
 		sanPhamDao = new SanPhamDao();
 		dsVPP = sanPhamDao.getAllVPP();
@@ -1122,25 +1121,25 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		}
 	}
 
-	public void DocDuLieuHoaDon() throws Exception {
-		iHoaDon = new HoaDonServiceImpl();
-		iChiTietHoaDon = new ChiTietHoaDonServiceImpl();
-		iSanPham = new SanPhamServiceImpl();
-		if (iHoaDon.getHoaDonTheoMa(txtMaHoaDon.getText()).size() == 0) {
+	public void docDuLieuHoaDon() throws Exception {
+		hoaDonServiceImpl = new HoaDonServiceImpl();
+		chiTietHoaDonServiceImpl = new ChiTietHoaDonServiceImpl();
+		sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
+		if (hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDon.getText()).size() == 0) {
 			return;
 		} else {
-			HoaDon hd = iHoaDon.getHoaDonTheoMa(txtMaHoaDon.getText()).get(0);
-			dscthd = iChiTietHoaDon.getCTHoaDonTheoMaHoaDon(txtMaHoaDon.getText());
-			if (dscthd.size() == 0) {
+			HoaDon hd = hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDon.getText()).get(0);
+			dsChiTietHoaDon = chiTietHoaDonServiceImpl.getCTHoaDonTheoMaHoaDon(txtMaHoaDon.getText());
+			if (dsChiTietHoaDon.size() == 0) {
 				JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn");
 				return;
 			} else {
 				int i = 1;
-				for (ChiTietHoaDon cthd : dscthd) {
-					if (iSanPham.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() != null) {
+				for (ChiTietHoaDon cthd : dsChiTietHoaDon) {
+					if (sanPhamServiceImpl_GetConent.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() != null) {
 						modelHoaDon.addRow(new Object[] { i++,
-								iSanPham.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getMaSanPham(),
-								iSanPham.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach(),
+								sanPhamServiceImpl_GetConent.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getMaSanPham(),
+								sanPhamServiceImpl_GetConent.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach(),
 								cthd.getSoLuong(), cthd.getDonGia() });
 					} else {
 						JOptionPane.showMessageDialog(this, "Hóa đơn này không có sách để đổi");
@@ -1154,12 +1153,12 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	}
 
 	public void truSLSachKhiDoi() {
-		iSanPham = new SanPhamServiceImpl();
-		Sach s = iSanPham.getSachTheoTen(txtTenSach.getText());
+		sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
+		Sach s = sanPhamServiceImpl_GetConent.getSachTheoTen(txtTenSach.getText());
 		s.setSoLuongTon(s.getSoLuongTon() - Integer.parseInt(txtSoLuongSach.getText().toString()));
 
 		try {
-			iSanPham.capNhatSanPham(s.getMaSanPham(), s);
+			sanPhamServiceImpl_GetConent.capNhatSanPham(s.getMaSanPham(), s);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1170,11 +1169,11 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	public boolean tonTaiSanPhamTrongCTHD(SanPham sp) {
 		int soLuongS = 0;
 		int soLuongVPP = 0;
-		if (tableHoaDon.getRowCount() < 1) {
+		if (tblHoaDon.getRowCount() < 1) {
 			return false;
 		}
-		for (int i = 0; i < tableHoaDon.getRowCount(); i++) {
-			if (tableHoaDon.getValueAt(i, 1).equals(sp.getMaSanPham())) {
+		for (int i = 0; i < tblHoaDon.getRowCount(); i++) {
+			if (tblHoaDon.getValueAt(i, 1).equals(sp.getMaSanPham())) {
 				if (!(txtSoLuongSach.getText().trim().isEmpty())) {
 					soLuongS = Integer.parseInt(txtSoLuongSach.getText());
 				} else if (!(txtSoLuongVPP.getText().trim().isEmpty())) {
@@ -1182,8 +1181,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 				} else
 					return false;
 
-				int tongSP = Integer.parseInt(tableHoaDon.getValueAt(i, 4).toString()) + soLuongS + soLuongVPP;
-				tableHoaDon.setValueAt(tongSP, i, 4);
+				int tongSP = Integer.parseInt(tblHoaDon.getValueAt(i, 4).toString()) + soLuongS + soLuongVPP;
+				tblHoaDon.setValueAt(tongSP, i, 4);
 				return true;
 			}
 		}
@@ -1191,12 +1190,12 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	}
 
 	public void truSLVPPKhiDoi() {
-		iSanPham = new SanPhamServiceImpl();
-		VanPhongPham v = iSanPham.getVPPTheoTen(txtTenVPP.getText());
+		sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
+		VanPhongPham v = sanPhamServiceImpl_GetConent.getVPPTheoTen(txtTenVPP.getText());
 		v.setSoLuongTon(v.getSoLuongTon() - Integer.parseInt(txtSoLuongVPP.getText().toString()));
 
 		try {
-			iSanPham.capNhatSanPham(v.getMaSanPham(), v);
+			sanPhamServiceImpl_GetConent.capNhatSanPham(v.getMaSanPham(), v);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1208,31 +1207,31 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		String mahd = txtMaHoaDon.getText();
 		WinLogin dangNhap = new WinLogin();
 		TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
-		iNhanvien = new NhanVienServiceImpl();
-		iKhachHang = new KhachHangServiceImpl();
-		nv = iNhanvien.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
-		KhachHang kh = iKhachHang.timKhachHangBangSDT(txtSDT.getText());
+		nhanVienServiceImpl = new NhanVienServiceImpl();
+		khachHangServiceImpl = new KhachHangServiceImpl();
+		nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
+		KhachHang kh = khachHangServiceImpl.timKhachHangBangSDT(txtSDT.getText());
 		String sdt = txtSDT.getText();
 		LocalDate ngayLapHoaDon = LocalDate.now();
 		String ghiChu = "Không";
 		Long tienKhachDua = Long.parseLong(txtTienKhachDua.getText().trim());
 		Boolean tinhTrang = true;
 		HoaDon hd = new HoaDon(mahd, nv, kh, ngayLapHoaDon, ghiChu, tienKhachDua, tinhTrang);
-		iHoaDon = new HoaDonServiceImpl();
-		iHoaDon.themHoaDon(hd);
+		hoaDonServiceImpl = new HoaDonServiceImpl();
+		hoaDonServiceImpl.themHoaDon(hd);
 
 	}
 
 	public void themCTHD() throws SQLException {
-		iChiTietHoaDon = new ChiTietHoaDonServiceImpl();
-		iHoaDon = new HoaDonServiceImpl();
+		chiTietHoaDonServiceImpl = new ChiTietHoaDonServiceImpl();
+		hoaDonServiceImpl = new HoaDonServiceImpl();
 		chiTietHoaDonDao = new ChiTietHoaDonDao();
-		HoaDon hd = iHoaDon.getHoaDonTheoMa(txtMaHoaDon.getText()).get(0);
+		HoaDon hd = hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDon.getText()).get(0);
 		List<ChiTietHoaDon> listCTHD = new ArrayList<ChiTietHoaDon>();
-		for (int i = 0; i < tableHoaDon.getRowCount(); i++) {
-			iSanPham = new SanPhamServiceImpl();
-			String masp = tableHoaDon.getValueAt(i, 1).toString();
-			SanPham sp = iSanPham.getSanPhamTheoMa(masp);	
+		for (int i = 0; i < tblHoaDon.getRowCount(); i++) {
+			sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
+			String masp = tblHoaDon.getValueAt(i, 1).toString();
+			SanPham sp = sanPhamServiceImpl_GetConent.getSanPhamTheoMa(masp);
 			int soLuong = Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString());
 			long giaBan = Long.parseLong(modelHoaDon.getValueAt(i, 3).toString());
 			ChiTietHoaDon cthd = new ChiTietHoaDon(hd, sp, soLuong, giaBan);
@@ -1244,18 +1243,18 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	}
 
 	public void themSachVaoGioHang() throws SQLException {
-		int soLuongS = Integer.parseInt(txtSoLuongSach.getText());
-		dscthd = new ArrayList<ChiTietHoaDon>();
-		modelSach = (DefaultTableModel) tableSach.getModel();
-		iSanPham = new SanPhamServiceImpl();
-		int row = tableSach.getSelectedRow();
+		int soLuongSach = Integer.parseInt(txtSoLuongSach.getText());
+		dsChiTietHoaDon = new ArrayList<ChiTietHoaDon>();
+		modelSach = (DefaultTableModel) tblSach.getModel();
+		sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
+		int row = tblSach.getSelectedRow();
 		String maS = modelSach.getValueAt(row, 1).toString();
-		Sach s = iSanPham.getSachTheoMaSP(maS);
+		Sach s = sanPhamServiceImpl_GetConent.getSachTheoMaSP(maS);
 		if (s != null) {
 			if (!tonTaiSanPhamTrongCTHD(s)) {
-				modelHoaDon = (DefaultTableModel) tableHoaDon.getModel();
+				modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
 				modelHoaDon.addRow(new Object[] { modelHoaDon.getRowCount() + 1, s.getMaSanPham(), s.getTenSach(),
-						s.tinhGiaBan(), soLuongS });
+						s.tinhGiaBan(), soLuongSach });
 			}
 		}
 		tongTienHandler();
@@ -1264,15 +1263,15 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
 	public void themHDVPP() throws SQLException {
 		int soLuongV = Integer.parseInt(txtSoLuongVPP.getText());
-		dscthd = new ArrayList<ChiTietHoaDon>();
+		dsChiTietHoaDon = new ArrayList<ChiTietHoaDon>();
 		modelVPP = (DefaultTableModel) tableVPP.getModel();
-		iSanPham = new SanPhamServiceImpl();
+		sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
 		int row = tableVPP.getSelectedRow();
 		String maV = modelVPP.getValueAt(row, 1).toString();
-		VanPhongPham v = iSanPham.getVPPTheoMaSP(maV);
+		VanPhongPham v = sanPhamServiceImpl_GetConent.getVPPTheoMaSP(maV);
 		if (v != null) {
 			if (!tonTaiSanPhamTrongCTHD(v)) {
-				modelHoaDon = (DefaultTableModel) tableHoaDon.getModel();
+				modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
 				modelHoaDon.addRow(new Object[] { modelHoaDon.getRowCount() + 1, v.getMaSanPham(),
 						v.getTenVanPhongPham(), v.tinhGiaBan(), soLuongV });
 			}
@@ -1284,9 +1283,9 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	public void tongTienHandler() {
 		long tongTien = 0;
 
-		for (int i = 0; i < tableHoaDon.getRowCount(); i++) {
-			long thanhTien = Long.parseLong(tableHoaDon.getValueAt(i, 3).toString())
-					* Long.parseLong(tableHoaDon.getValueAt(i, 4).toString());
+		for (int i = 0; i < tblHoaDon.getRowCount(); i++) {
+			long thanhTien = Long.parseLong(tblHoaDon.getValueAt(i, 3).toString())
+					* Long.parseLong(tblHoaDon.getValueAt(i, 4).toString());
 			tongTien += thanhTien;
 		}
 
@@ -1311,8 +1310,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	public void clearTxtFieldsSach() {
 		txtMaSach.setText("");
 		txtTenSach.setText("");
-		cbxTheLoai.setSelectedIndex(0);
-		cbxTacGia.setSelectedIndex(0);
+		cmbTheLoai.setSelectedIndex(0);
+		cmbTacGia.setSelectedIndex(0);
 		txtGiaBanSach.setText("");
 		txtSoLuongSach.setText("1");
 	}
@@ -1320,8 +1319,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	public void clearTxtFieldsVPP() {
 		txtMaVPP.setText("");
 		txtTenVPP.setText("");
-		cbxChatLieu.setSelectedIndex(0);
-		cbxXuatXu.setSelectedIndex(0);
+		cmbChatLieu.setSelectedIndex(0);
+		cmbXuatXu.setSelectedIndex(0);
 		txtGiaBanVPP.setText("");
 		txtSoLuongVPP.setText("1");
 	}
@@ -1340,15 +1339,15 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
 	public void tableDanhSachSachWithFilter() throws Exception {
 		clearTableSach();
-		DefaultTableModel dtm = (DefaultTableModel) tableSach.getModel();
+		DefaultTableModel model = (DefaultTableModel) tblSach.getModel();
 		String maSach = txtTimKiemMaSP.getText().trim();
 		String tenSach = txtTimKiemTenSP.getText().trim();
 		
-		List<Sach> listSach = sanPhamServiceImpl.getAllSach();
+		List<Sach> dsSach = sanPhamServiceImpl.getAllSach();
 		String tacGia = "";
 		int i = 0;
 		
-		for (Sach s : listSach) {
+		for (Sach s : dsSach) {
 			if (s.getTacGia() == null) {
 				tacGia = "Không có tác giả";
 			} else {
@@ -1359,7 +1358,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
 				Object[] rowData = { i++, s.getMaSanPham(), s.getTenSach(), s.getTheLoaiSach().getTenLoai(),
 						tacGia, s.tinhGiaBan(), s.getSoLuongTon() };
-				dtm.addRow(rowData);
+				model.addRow(rowData);
 			}
 		}
 	}
@@ -1367,39 +1366,39 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	public void tableDanhSachVPPWithFilter() {
 		tableVPP.clearSelection();
 		clearTableVPP();
-		DefaultTableModel dtm = (DefaultTableModel) tableVPP.getModel();
+		DefaultTableModel model = (DefaultTableModel) tableVPP.getModel();
 		String mavpp = txtTimKiemMaSP.getText().trim();
 		String tenvpp = txtTimKiemTenSP.getText().trim();
 		
 
-		List<VanPhongPham> listVPP = sanPhamDao.getAllVPP();
+		List<VanPhongPham> dsVPP = sanPhamDao.getAllVPP();
 		int i = 1;
 
-		for (VanPhongPham v : listVPP) {
+		for (VanPhongPham v : dsVPP) {
 			if (removeAccent(v.getMaSanPham()).toLowerCase().contains(removeAccent(mavpp).toLowerCase())
 					&& removeAccent(v.getTenVanPhongPham()).toLowerCase()
 							.contains(removeAccent(tenvpp).toLowerCase())) {
 				Object[] rowData = { i++, v.getMaSanPham(), v.getTenVanPhongPham(), v.getChatLieu().getTenChatLieu(),
 						v.getXuatXu().getTenXuatXu(), v.tinhGiaBan(), v.getSoLuongTon() };
-				dtm.addRow(rowData);
+				model.addRow(rowData);
 			}
 		}
 	}
 
 	public void clearTableSach() {
-		DefaultTableModel dtm = (DefaultTableModel) tableSach.getModel();
-		dtm.setRowCount(0);
+		DefaultTableModel model = (DefaultTableModel) tblSach.getModel();
+		model.setRowCount(0);
 
 	}
 
 	public void clearTableVPP() {
-		DefaultTableModel dtm1 = (DefaultTableModel) tableVPP.getModel();
-		dtm1.setRowCount(0);
+		DefaultTableModel model = (DefaultTableModel) tableVPP.getModel();
+		model.setRowCount(0);
 	}
 
 	public void clearTableCTHD() {
-		DefaultTableModel dtm = (DefaultTableModel) tableHoaDon.getModel();
-		dtm.setRowCount(0);
+		DefaultTableModel model = (DefaultTableModel) tblHoaDon.getModel();
+		model.setRowCount(0);
 	}
 
 	private static String removeAccent(String s) {
@@ -1409,24 +1408,24 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		return pattern.matcher(temp).replaceAll("");
 	}
 
-	public static HashMap<String, ArrayList<SanPham>> getListHoaDonCho() {
-		return listHoaDonCho;
+	public static HashMap<String, ArrayList<SanPham>> getDsHoaDonCho() {
+		return dsHoaDonCho;
 	}
 
 	public static void getListHoaDonCho(HashMap<String, ArrayList<SanPham>> listHD) {
-		listHoaDonCho = listHD;
+		dsHoaDonCho = listHD;
 	}
 
 	public void openFrmHoaDonCho() {
 		new Thread(() -> {
-			ShareData shareData = new ShareData(listHoaDonCho);
+			ShareData shareData = new ShareData(dsHoaDonCho);
 
 			synchronized (shareData) {
 				try {
-					frm_HangCho = new Frm_HangCho(listHoaDonCho, shareData);
-					frm_HangCho.setVisible(true);
+					winHangCho = new Frm_HangCho(dsHoaDonCho, shareData);
+					winHangCho.setVisible(true);
 					shareData.wait();
-					listHoaDonCho = shareData.getListHoaDonCho();
+					dsHoaDonCho = shareData.getListHoaDonCho();
 					if (shareData.isThanhToan()) {
 						modelHoaDon.setRowCount(0);
 						String sdt = shareData.getSdtThanhToan();
@@ -1435,24 +1434,24 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 							KhachHang khachHang = khachHangServiceImpl.timKhachHangBangSDT(sdt);
 							txtSDT.setText(khachHang.getsDT());
 							txtTenKhachHang.setText(khachHang.getHoTenKhachHang());
-							ArrayList<SanPham> listSanPham = new ArrayList<>();
-							listSanPham = shareData.getListSanPhamThanhToanTiep();
-							for (int i = 0; i < listSanPham.size(); i++) {
+							ArrayList<SanPham> dsSanPham = new ArrayList<>();
+							dsSanPham = shareData.getListSanPhamThanhToanTiep();
+							for (int i = 0; i < dsSanPham.size(); i++) {
 								Sach sach = null;
 								VanPhongPham vanPhongPham = null;
-								sach = sanPhamServiceImpl.timSanPhamTheoMaSach(listSanPham.get(i).getMaSanPham());
+								sach = sanPhamServiceImpl.timSanPhamTheoMaSach(dsSanPham.get(i).getMaSanPham());
 								vanPhongPham = sanPhamServiceImpl
-										.timSanPhamTheoMaVPP(listSanPham.get(i).getMaSanPham());
+										.timSanPhamTheoMaVPP(dsSanPham.get(i).getMaSanPham());
 
 								if (sach != null) {
 									Object[] o = { i + 1 + "", sach.getMaSanPham(), sach.getTenSach(),
-											sach.tinhGiaBan() + "", listSanPham.get(i).getSoLuongTon() };
+											sach.tinhGiaBan() + "", dsSanPham.get(i).getSoLuongTon() };
 									modelHoaDon.addRow(o);
 								}
 								if (vanPhongPham != null) {
 									Object[] o = { i + 1 + "", vanPhongPham.getMaSanPham(),
 											vanPhongPham.getTenVanPhongPham(), vanPhongPham.tinhGiaBan() + "",
-											listSanPham.get(i).getSoLuongTon() };
+											dsSanPham.get(i).getSoLuongTon() };
 									modelHoaDon.addRow(o);
 								}
 							}
@@ -1502,8 +1501,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	}
 	public void truSLSachKhiThem() {
 		int soLuongThem = Integer.parseInt(txtSoLuongSach.getText());
-		int row = tableSach.getSelectedRow();
-		modelSach = (DefaultTableModel) tableSach.getModel();
+		int row = tblSach.getSelectedRow();
+		modelSach = (DefaultTableModel) tblSach.getModel();
 		modelSach.setValueAt(Integer.parseInt(modelSach.getValueAt(row, 6).toString()) - soLuongThem, row, 6);
 		
 		
@@ -1517,12 +1516,12 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 	public void truSoLuongTrongGioHang() {
 		int soLuongCanXoa = Integer.parseInt(txtXoa.getText());
 		
-		int row = tableHoaDon.getSelectedRow();
-		modelHoaDon = (DefaultTableModel) tableHoaDon.getModel();
-		modelSach = (DefaultTableModel) tableSach.getModel();
+		int row = tblHoaDon.getSelectedRow();
+		modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
+		modelSach = (DefaultTableModel) tblSach.getModel();
 		modelVPP = (DefaultTableModel) tableVPP.getModel();
-		int tongSP = Integer.parseInt(tableHoaDon.getValueAt(row, 4).toString()) - soLuongCanXoa;
-		tableHoaDon.setValueAt(tongSP, row, 4);
+		int tongSP = Integer.parseInt(tblHoaDon.getValueAt(row, 4).toString()) - soLuongCanXoa;
+		tblHoaDon.setValueAt(tongSP, row, 4);
 		for(int i = 0; i < modelSach.getRowCount(); i++) {
 			if (modelSach.getValueAt(i, 1).toString().equals(modelHoaDon.getValueAt(row, 1).toString())) {
 				modelSach.setValueAt(Integer.parseInt( modelSach.getValueAt(i, 6).toString()) + soLuongCanXoa, i, 6);
@@ -1540,10 +1539,10 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
 	public void themSoLuongSanPhamVaoKho() throws SQLException {
 		int soLuongCanXoa = Integer.parseInt(txtXoa.getText());
-		modelSach = (DefaultTableModel) tableSach.getModel();
+		modelSach = (DefaultTableModel) tblSach.getModel();
 		modelVPP = (DefaultTableModel) tableVPP.getModel();
-		modelHoaDon = (DefaultTableModel) tableHoaDon.getModel();
-		int row = tableHoaDon.getSelectedRow();
+		modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
+		int row = tblHoaDon.getSelectedRow();
 		for (int i = 0; i < modelSach.getRowCount(); i++) {
 			if (modelSach.getValueAt(i, 1).toString().equals(modelHoaDon.getValueAt(row, 1).toString())) {
 				SanPham sp = sanPhamServiceImpl.timSanPhamTheoMa(modelHoaDon.getValueAt(row, 1).toString());
@@ -1559,7 +1558,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 		}
 	}
 	public void truSoLuongKhiThanhToan() throws SQLException {
-		modelHoaDon = (DefaultTableModel) tableHoaDon.getModel();
+		modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
 		for(int i = 0;  i< modelHoaDon.getRowCount(); i++) {
 				SanPham sp =  sanPhamServiceImpl.timSanPhamTheoMa(modelHoaDon.getValueAt(i, 1).toString());
 				int soLuongBanDau = sp.getSoLuongTon();
