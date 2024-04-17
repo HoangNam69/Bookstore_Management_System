@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.ChatLieuDao;
-import entity.ChatLieu;
+import entities.ChatLieu;
 import service.ChatLieuService;
 
 public class ChatLieuServiceImpl implements ChatLieuService {

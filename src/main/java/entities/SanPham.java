@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 public class SanPham {
 	private String maSanPham;

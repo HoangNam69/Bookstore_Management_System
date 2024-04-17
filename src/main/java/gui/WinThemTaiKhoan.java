@@ -18,8 +18,8 @@ import javax.swing.JComboBox;
 
 import dao.TaiKhoanDao;
 import db.DBConnection;
-import entity.NhanVien;
-import entity.TaiKhoan;
+import entities.NhanVien;
+import entities.TaiKhoan;
 import service.impl.TaiKhoanServiceImpl;
 
 import java.awt.Color;

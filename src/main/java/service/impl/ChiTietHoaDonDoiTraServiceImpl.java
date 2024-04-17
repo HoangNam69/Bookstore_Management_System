@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dao.ChiTietHoaDonDoiTraDao;
-import entity.ChiTietHoaDonDoiTra;
+import entities.ChiTietHoaDonDoiTra;
 import service.ChiTietHoaDonDoiTraService;
 
 public class ChiTietHoaDonDoiTraServiceImpl implements ChiTietHoaDonDoiTraService {

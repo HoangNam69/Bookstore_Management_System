@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 public class VanPhongPham extends SanPham {
 	private String tenVanPhongPham;

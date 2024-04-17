@@ -3,7 +3,7 @@ package service;
 import java.sql.SQLException;
 import java.util.List;
 
-import entity.SachLoi;
+import entities.SachLoi;
 
 public interface SachLoiService {
 	public int themSachLoi(SachLoi sl) throws SQLException;

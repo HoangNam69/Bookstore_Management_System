@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import db.DBConnection;
-import entity.NhaXuatBan;
+import entities.NhaXuatBan;
 
 public class NhaXuatBanDao {
 	private Connection con;

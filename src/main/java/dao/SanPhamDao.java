@@ -8,18 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnection;
-import entity.ChatLieu;
-import entity.MauSac;
-import entity.NhaCungCap;
-import entity.NhaXuatBan;
-import entity.Sach;
-import entity.SachLoi;
-import entity.SanPham;
-import entity.TacGia;
-import entity.TheLoaiSach;
-import entity.TheLoaiVanPhongPham;
-import entity.VanPhongPham;
-import entity.XuatXu;
+import entities.ChatLieu;
+import entities.MauSac;
+import entities.NhaCungCap;
+import entities.NhaXuatBan;
+import entities.Sach;
+import entities.SanPham;
+import entities.TacGia;
+import entities.TheLoaiSach;
+import entities.TheLoaiVanPhongPham;
+import entities.VanPhongPham;
+import entities.XuatXu;
 
 public class SanPhamDao {
 	private Connection con;

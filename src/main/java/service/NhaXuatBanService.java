@@ -3,7 +3,7 @@ package service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import entity.NhaXuatBan;
+import entities.NhaXuatBan;
 
 public interface NhaXuatBanService {
 	public ArrayList<NhaXuatBan> getListNhaXuatBan() throws Exception;

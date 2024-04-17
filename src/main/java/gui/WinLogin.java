@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dao.TaiKhoanDao;
-import entity.TaiKhoan;
+import entities.TaiKhoan;
 
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;

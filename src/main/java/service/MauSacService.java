@@ -3,7 +3,7 @@ package service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import entity.MauSac;
+import entities.MauSac;
 
 public interface MauSacService {
 	public ArrayList<MauSac> getListMauSac() throws Exception;

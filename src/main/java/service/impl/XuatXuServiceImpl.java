@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.XuatXuDao;
-import entity.XuatXu;
+import entities.XuatXu;
 import service.XuatXuService;
 
 public class XuatXuServiceImpl implements XuatXuService {

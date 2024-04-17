@@ -18,9 +18,9 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.SachLoiDao;
 import dao.SanPhamDao;
-import entity.Sach;
-import entity.SachLoi;
-import entity.SanPham;
+import entities.Sach;
+import entities.SachLoi;
+import entities.SanPham;
 
 import service.impl.SanPhamServiceImpl;
 import java.awt.SystemColor;

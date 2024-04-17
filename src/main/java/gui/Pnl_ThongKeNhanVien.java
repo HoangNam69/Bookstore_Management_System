@@ -32,9 +32,9 @@ import com.toedter.calendar.JDateChooser;
 
 import java.awt.Color;
 
-import entity.NhanVien;
-import entity.SanPham;
-import entity.TaiKhoan;
+import entities.NhanVien;
+import entities.SanPham;
+import entities.TaiKhoan;
 import service.impl.HoaDonServiceImpl;
 import service.impl.NhanVienServiceImpl;
 import service.impl.SanPhamServiceImpl;

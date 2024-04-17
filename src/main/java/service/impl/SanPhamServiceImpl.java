@@ -7,9 +7,9 @@ import java.util.List;
 
 import dao.SanPhamDao;
 import dao.ThongKeDao;
-import entity.Sach;
-import entity.SanPham;
-import entity.VanPhongPham;
+import entities.Sach;
+import entities.SanPham;
+import entities.VanPhongPham;
 import service.SanPhamService;
 
 public class SanPhamServiceImpl implements SanPhamService {

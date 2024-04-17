@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnection;
-import entity.ChatLieu;
+import entities.ChatLieu;
 
 public class ChatLieuDao {
 	private Connection con;

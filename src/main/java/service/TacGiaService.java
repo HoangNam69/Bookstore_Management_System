@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.TacGia;
+import entities.TacGia;
 
 public interface TacGiaService {
 	public ArrayList<TacGia> getListTacGia() throws Exception;

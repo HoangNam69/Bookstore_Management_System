@@ -1,21 +1,21 @@
-package entity;
+package entities;
 
-public class TheLoaiVanPhongPham {
+public class TheLoaiSach {
 	private String maLoai;
 	private String tenLoai;
 
-	public TheLoaiVanPhongPham() {
+	public TheLoaiSach() {
 		super();
 
 	}
 
-	public TheLoaiVanPhongPham(String maLoai) {
+	public TheLoaiSach(String maLoai) {
 		super();
 		this.maLoai = maLoai;
 
 	}
 
-	public TheLoaiVanPhongPham(String maLoai, String tenLoai) {
+	public TheLoaiSach(String maLoai, String tenLoai) {
 		super();
 		this.maLoai = maLoai;
 		this.tenLoai = tenLoai;
@@ -39,7 +39,7 @@ public class TheLoaiVanPhongPham {
 
 	@Override
 	public String toString() {
-		return "TheLoaiVanPhongPham [maLoai=" + maLoai + ", tenLoai=" + tenLoai + "]";
+		return "TheLoaiSach [maLoai=" + maLoai + ", tenLoai=" + tenLoai + "]";
 	}
 
 }

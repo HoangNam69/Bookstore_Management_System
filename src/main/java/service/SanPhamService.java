@@ -5,10 +5,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.NhanVien;
-import entity.Sach;
-import entity.SanPham;
-import entity.VanPhongPham;
+import entities.Sach;
+import entities.SanPham;
+import entities.VanPhongPham;
 
 public interface SanPhamService {
 

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.MauSacDao;
-import entity.MauSac;
+import entities.MauSac;
 import service.MauSacService;
 
 public class MauSacServiceImpl implements MauSacService {

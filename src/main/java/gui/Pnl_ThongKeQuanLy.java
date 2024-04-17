@@ -35,9 +35,9 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import com.toedter.calendar.JDateChooser;
-import entity.KhachHang;
-import entity.NhanVien;
-import entity.SanPham;
+import entities.KhachHang;
+import entities.NhanVien;
+import entities.SanPham;
 import service.impl.HoaDonServiceImpl;
 import service.impl.KhachHangServiceImpl;
 import service.impl.NhanVienServiceImpl;

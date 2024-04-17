@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnection;
-import entity.TheLoaiSach;
-import entity.TheLoaiVanPhongPham;
+import entities.TheLoaiSach;
+import entities.TheLoaiVanPhongPham;
 
 public class TheLoaiDao {
 	private Connection con;

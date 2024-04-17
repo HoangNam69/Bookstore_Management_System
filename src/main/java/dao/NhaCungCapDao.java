@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import db.DBConnection;
-import entity.NhaCungCap;
+import entities.NhaCungCap;
 
 public class NhaCungCapDao {
 

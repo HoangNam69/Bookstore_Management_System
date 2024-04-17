@@ -1,12 +1,10 @@
 package service.impl;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.NhanVienDao;
 import dao.TaiKhoanDao;
-import entity.TaiKhoan;
+import entities.TaiKhoan;
 import service.TaiKhoanService;
 
 public class TaiKhoanServiceImpl implements TaiKhoanService {

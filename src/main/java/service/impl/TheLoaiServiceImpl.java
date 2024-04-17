@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.TheLoaiDao;
-import entity.TheLoaiSach;
-import entity.TheLoaiVanPhongPham;
+import entities.TheLoaiSach;
+import entities.TheLoaiVanPhongPham;
 import service.TheLoaiService;
 
 public class TheLoaiServiceImpl implements TheLoaiService {

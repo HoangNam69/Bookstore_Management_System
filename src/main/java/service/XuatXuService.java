@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.XuatXu;
+import entities.XuatXu;
 
 public interface XuatXuService {
 	public ArrayList<XuatXu> getListXuatXu() throws Exception;

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.NhaCungCapDao;
-import entity.NhaCungCap;
+import entities.NhaCungCap;
 import service.NhaCungCapService;
 
 public class NhaCungCapServiceImpl implements NhaCungCapService {

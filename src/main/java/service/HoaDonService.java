@@ -1,15 +1,10 @@
 package service;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-import entity.HoaDon;
-import entity.KhachHang;
-import entity.NhanVien;
+import entities.HoaDon;
 
 public interface HoaDonService {
 	public int getSoLuongHoaDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException;

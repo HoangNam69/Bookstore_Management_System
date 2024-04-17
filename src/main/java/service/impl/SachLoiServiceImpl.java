@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dao.SachLoiDao;
-import entity.SachLoi;
+import entities.SachLoi;
 import service.SachLoiService;
 
 public class SachLoiServiceImpl implements SachLoiService {

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import db.DBConnection;
-import entity.MauSac;
+import entities.MauSac;
 
 public class MauSacDao {
 	private Connection con;

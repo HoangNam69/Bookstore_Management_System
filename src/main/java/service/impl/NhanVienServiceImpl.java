@@ -1,6 +1,5 @@
 package service.impl;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -8,7 +7,7 @@ import java.util.List;
 
 import dao.NhanVienDao;
 import dao.ThongKeDao;
-import entity.NhanVien;
+import entities.NhanVien;
 import service.NhanVienService;
 
 public class NhanVienServiceImpl implements NhanVienService {

@@ -30,7 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import db.DBConnection;
-import entity.NhanVien;
+import entities.NhanVien;
 import service.impl.HoaDonServiceImpl;
 import service.impl.NhanVienServiceImpl;
 import service.impl.TaiKhoanServiceImpl;

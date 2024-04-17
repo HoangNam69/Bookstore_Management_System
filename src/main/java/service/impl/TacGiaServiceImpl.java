@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.TacGiaDao;
-import entity.TacGia;
+import entities.TacGia;
 import service.TacGiaService;
 
 public class TacGiaServiceImpl implements TacGiaService {

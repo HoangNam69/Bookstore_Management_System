@@ -9,7 +9,7 @@ import java.util.List;
 
 import db.DBConnection;
 
-import entity.XuatXu;
+import entities.XuatXu;
 
 public class XuatXuDao {
 	private Connection con;

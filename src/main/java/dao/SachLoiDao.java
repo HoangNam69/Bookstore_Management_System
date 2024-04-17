@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnection;
-import entity.NhanVien;
-import entity.Sach;
-import entity.SachLoi;
+import entities.Sach;
+import entities.SachLoi;
 
 public class SachLoiDao {
 	private Connection con;

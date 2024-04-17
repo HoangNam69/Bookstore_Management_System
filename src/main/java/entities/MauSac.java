@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 public class MauSac {
 	private String maMau;

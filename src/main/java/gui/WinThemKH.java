@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import entity.KhachHang;
+import entities.KhachHang;
 import service.impl.KhachHangServiceImpl;
 
 import javax.swing.JLabel;

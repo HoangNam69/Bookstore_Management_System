@@ -21,10 +21,10 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.ChiTietHoaDonDao;
 import dao.SanPhamDao;
-import entity.ChiTietHoaDon;
-import entity.Sach;
-import entity.SanPham;
-import entity.VanPhongPham;
+import entities.ChiTietHoaDon;
+import entities.Sach;
+import entities.SanPham;
+import entities.VanPhongPham;
 
 import java.awt.SystemColor;
 

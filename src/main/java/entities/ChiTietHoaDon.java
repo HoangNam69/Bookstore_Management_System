@@ -1,4 +1,4 @@
-package entity;
+package entities;
 
 public class ChiTietHoaDon {
 	private HoaDon hoaDon;

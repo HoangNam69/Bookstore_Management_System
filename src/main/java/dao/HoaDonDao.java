@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnection;
-import entity.HoaDon;
-import entity.KhachHang;
-import entity.NhanVien;
+import entities.HoaDon;
+import entities.KhachHang;
+import entities.NhanVien;
 
 public class HoaDonDao {
 	private Connection con;

@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
-import entity.NhanVien;
+import entities.NhanVien;
 
 public interface NhanVienService {
 	public int themNhanVien(NhanVien nv) throws SQLException;

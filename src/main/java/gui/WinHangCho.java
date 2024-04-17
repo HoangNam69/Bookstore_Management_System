@@ -9,8 +9,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import entity.KhachHang;
-import entity.SanPham;
+import entities.KhachHang;
+import entities.SanPham;
 import service.impl.KhachHangServiceImpl;
 
 import java.awt.Color;

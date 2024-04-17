@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import entity.NhanVien;
-import entity.TaiKhoan;
+import entities.NhanVien;
+import entities.TaiKhoan;
 import service.impl.NhanVienServiceImpl;
 import service.impl.TaiKhoanServiceImpl;
 

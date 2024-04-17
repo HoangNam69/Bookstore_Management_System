@@ -1,12 +1,9 @@
 package service;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import entity.HoaDonDoiTra;
+import entities.HoaDonDoiTra;
 
 public interface HoaDonDoiTraService {
 	public int themHoaDonDoiTra(HoaDonDoiTra hddt) throws SQLException;

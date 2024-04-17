@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.ChiTietHoaDon;
-import entity.HoaDon;
+import entities.ChiTietHoaDon;
+import entities.HoaDon;
 
 public interface ChiTietHoaDonService {
 	public List<ChiTietHoaDon> getCTHoaDonTheoMaHoaDon(String maHD);

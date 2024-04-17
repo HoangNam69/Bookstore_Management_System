@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dao.HoaDonDoiTraDao;
-import entity.HoaDonDoiTra;
+import entities.HoaDonDoiTra;
 import service.HoaDonDoiTraService;
 
 public class HoaDonDoiTraServiceImpl implements HoaDonDoiTraService {

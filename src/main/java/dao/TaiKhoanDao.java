@@ -5,11 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import db.DBConnection;
-import entity.NhanVien;
-import entity.TaiKhoan;
+import entities.TaiKhoan;
 
 public class TaiKhoanDao {
 

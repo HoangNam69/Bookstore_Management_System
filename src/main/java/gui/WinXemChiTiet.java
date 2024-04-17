@@ -17,9 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
-import entity.Sach;
+import entities.Sach;
 
-import entity.VanPhongPham;
+import entities.VanPhongPham;
 
 import service.impl.SanPhamServiceImpl;
 

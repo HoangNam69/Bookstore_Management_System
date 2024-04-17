@@ -1,6 +1,5 @@
 package dao;
 
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnection;
-import entity.TacGia;
+import entities.TacGia;
 
 public class TacGiaDao {
 	private Connection con;

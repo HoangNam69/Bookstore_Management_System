@@ -8,9 +8,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import db.DBConnection;
-import entity.KhachHang;
-import entity.NhanVien;
-import entity.SanPham;
+import entities.KhachHang;
+import entities.NhanVien;
+import entities.SanPham;
 
 public class ThongKeDao {
 

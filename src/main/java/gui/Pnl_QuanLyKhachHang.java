@@ -22,7 +22,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import dao.KhachHangDao;
-import entity.KhachHang;
+import entities.KhachHang;
 import service.impl.KhachHangServiceImpl;
 
 import javax.swing.JButton;

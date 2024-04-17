@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import db.DBConnection;
-import entity.NhanVien;
-import entity.TaiKhoan;
+import entities.NhanVien;
+import entities.TaiKhoan;
 import service.impl.NhanVienServiceImpl;
 
 import javax.swing.JLabel;

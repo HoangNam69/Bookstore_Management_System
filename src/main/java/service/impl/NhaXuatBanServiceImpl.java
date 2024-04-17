@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dao.NhaXuatBanDao;
-import entity.NhaXuatBan;
+import entities.NhaXuatBan;
 import service.NhaXuatBanService;
 
 public class NhaXuatBanServiceImpl implements NhaXuatBanService {

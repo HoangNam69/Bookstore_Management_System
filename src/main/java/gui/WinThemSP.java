@@ -24,16 +24,16 @@ import javax.swing.JRadioButton;
 
 import com.toedter.calendar.JYearChooser;
 
-import entity.ChatLieu;
-import entity.MauSac;
-import entity.NhaCungCap;
-import entity.NhaXuatBan;
-import entity.Sach;
-import entity.TacGia;
-import entity.TheLoaiSach;
-import entity.TheLoaiVanPhongPham;
-import entity.VanPhongPham;
-import entity.XuatXu;
+import entities.ChatLieu;
+import entities.MauSac;
+import entities.NhaCungCap;
+import entities.NhaXuatBan;
+import entities.Sach;
+import entities.TacGia;
+import entities.TheLoaiSach;
+import entities.TheLoaiVanPhongPham;
+import entities.VanPhongPham;
+import entities.XuatXu;
 import service.impl.ChatLieuServiceImpl;
 import service.impl.MauSacServiceImpl;
 import service.impl.NhaCungCapServiceImpl;

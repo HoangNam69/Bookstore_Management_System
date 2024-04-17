@@ -3,7 +3,7 @@ package gui;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import entity.SanPham;
+import entities.SanPham;
 
 public class ShareData {
 	private static HashMap<String, ArrayList<SanPham>> dsHoaDonCho;

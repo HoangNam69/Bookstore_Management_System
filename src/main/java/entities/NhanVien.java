@@ -1,8 +1,7 @@
-package entity;
+package entities;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class NhanVien {
 	private String maNhanVien;

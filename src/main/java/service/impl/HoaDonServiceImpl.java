@@ -5,9 +5,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import dao.HoaDonDao;
-import dao.SanPhamDao;
 import dao.ThongKeDao;
-import entity.HoaDon;
+import entities.HoaDon;
 import service.HoaDonService;
 
 public class HoaDonServiceImpl implements HoaDonService {

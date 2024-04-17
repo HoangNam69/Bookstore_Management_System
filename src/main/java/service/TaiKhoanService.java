@@ -3,7 +3,7 @@ package service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import entity.TaiKhoan;
+import entities.TaiKhoan;
 
 public interface TaiKhoanService {
 	public int insertAccount(TaiKhoan taiKhoan);

@@ -1,8 +1,7 @@
-package entity;
+package entities;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 
 import dao.HoaDonDao;
 

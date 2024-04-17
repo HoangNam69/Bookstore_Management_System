@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.ChatLieu;
+import entities.ChatLieu;
 
 public interface ChatLieuService {
 	public ArrayList<ChatLieu> getListChatLieu() throws Exception;

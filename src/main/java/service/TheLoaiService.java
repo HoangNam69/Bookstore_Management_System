@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.TheLoaiSach;
-import entity.TheLoaiVanPhongPham;
+import entities.TheLoaiSach;
+import entities.TheLoaiVanPhongPham;
 
 public interface TheLoaiService {
 	public ArrayList<TheLoaiSach> getListTheLoaiSach() throws Exception;

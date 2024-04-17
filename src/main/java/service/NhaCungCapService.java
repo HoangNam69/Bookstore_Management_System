@@ -3,7 +3,7 @@ package service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import entity.NhaCungCap;
+import entities.NhaCungCap;
 
 public interface NhaCungCapService {
 	public ArrayList<NhaCungCap> getListNhaCungCap(String loaiSanPham) throws Exception;

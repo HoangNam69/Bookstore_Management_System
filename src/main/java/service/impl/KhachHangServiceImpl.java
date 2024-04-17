@@ -5,11 +5,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import dao.KhachHangDao;
 import dao.ThongKeDao;
-import entity.KhachHang;
+import entities.KhachHang;
 import service.KhachHangService;
 
 public class KhachHangServiceImpl implements KhachHangService {

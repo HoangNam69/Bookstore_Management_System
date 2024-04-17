@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.ChiTietHoaDonDao;
-import entity.ChiTietHoaDon;
-import entity.HoaDon;
+import entities.ChiTietHoaDon;
+import entities.HoaDon;
 import service.ChiTietHoaDonService;
 
 public class ChiTietHoaDonServiceImpl implements ChiTietHoaDonService {

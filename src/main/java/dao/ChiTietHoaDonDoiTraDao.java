@@ -8,12 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnection;
-import entity.ChiTietHoaDon;
-import entity.ChiTietHoaDonDoiTra;
-import entity.HoaDon;
-import entity.HoaDonDoiTra;
-import entity.KhachHang;
-import entity.NhanVien;
+import entities.ChiTietHoaDonDoiTra;
 
 public class ChiTietHoaDonDoiTraDao {
 	private Connection con;

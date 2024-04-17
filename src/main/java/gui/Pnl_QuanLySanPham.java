@@ -54,7 +54,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jfree.data.json.impl.JSONArray;
 import org.jfree.data.json.impl.JSONObject;
 
-import entity.*;
+import entities.*;
 import service.impl.*;
 
 public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseListener {
