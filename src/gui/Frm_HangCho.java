@@ -53,9 +53,9 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private DefaultTableModel modelKhachHang;
-	private JTable tableKhachHang;
-	private JScrollPane scrollKhachHang;
+	private DefaultTableModel mdlKhachHang;
+	private JTable tblKhachHang;
+	private JScrollPane scrKhachHang;
 	private JButton btnThanhToan;
 	private String loaiSanPham;
 	private KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
@@ -89,19 +89,19 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 		lblTitle.setBounds(10, 6, 586, 28);
 		getContentPane().add(lblTitle);
 		String[] cols = { "Tên khách hàng", "Số điện thoại khách hàng" };
-		modelKhachHang = new DefaultTableModel(cols, 0);
-		tableKhachHang = new JTable(modelKhachHang);
-		tableKhachHang.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableKhachHang.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 17));
-		scrollKhachHang = new JScrollPane(tableKhachHang);
-		scrollKhachHang.setBounds(10, 117, 596, 436);
+		mdlKhachHang = new DefaultTableModel(cols, 0);
+		tblKhachHang = new JTable(mdlKhachHang);
+		tblKhachHang.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tblKhachHang.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 17));
+		scrKhachHang = new JScrollPane(tblKhachHang);
+		scrKhachHang.setBounds(10, 117, 596, 436);
 
-		tableKhachHang.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tableKhachHang.setAutoCreateRowSorter(true);
-		tableKhachHang.setRowHeight(25);
-		scrollKhachHang.getViewport().setBackground(Color.WHITE);
-		tableKhachHang.getTableHeader().setPreferredSize(new Dimension(0, 40));
-		getContentPane().add(scrollKhachHang);
+		tblKhachHang.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tblKhachHang.setAutoCreateRowSorter(true);
+		tblKhachHang.setRowHeight(25);
+		scrKhachHang.getViewport().setBackground(Color.WHITE);
+		tblKhachHang.getTableHeader().setPreferredSize(new Dimension(0, 40));
+		getContentPane().add(scrKhachHang);
 
 		btnThanhToan = new JButton("Thanh toán tiếp");
 		btnThanhToan.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -123,7 +123,7 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 		btnXoa.addActionListener(this);
 		btnThanhToan.addActionListener(this);
 		btnThoat.addActionListener(this);
-		tableKhachHang.addMouseListener(this);
+		tblKhachHang.addMouseListener(this);
 	}
 
 	@Override
@@ -194,16 +194,16 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 		
 		for (KhachHang khachHang : listKhachHang) {
 			Object [] o = {khachHang.getHoTenKhachHang(),khachHang.getsDT()};
-			modelKhachHang.addRow(o);
+			mdlKhachHang.addRow(o);
 		}
 	}
 	public void thanhToan() {
-		int row = tableKhachHang.getSelectedRow();
+		int row = tblKhachHang.getSelectedRow();
 		if(row == -1) {
 			JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm thanh toán","Báo lỗi",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		sdt = modelKhachHang.getValueAt(row, 1).toString();
+		sdt = mdlKhachHang.getValueAt(row, 1).toString();
 		ArrayList<SanPham> listSPThanhToan = listHoaDonCho.get(sdt);
 		listHoaDonCho.remove(sdt);
 		new Thread(()->{
@@ -218,14 +218,14 @@ public class Frm_HangCho extends JFrame implements ActionListener, MouseListener
 		}).start();
 	}
 	public void xoaHoaDon() {
-		int row = tableKhachHang.getSelectedRow();
+		int row = tblKhachHang.getSelectedRow();
 		if(row == -1) {
 			JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm xóa","Báo lỗi",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		listHoaDonCho.remove(sdt);
 		shareData.setListHoaDonCho(listHoaDonCho);
-		modelKhachHang.removeRow(row);
+		mdlKhachHang.removeRow(row);
 	}
 	public void Thoat() {
 		new Thread(()->{
