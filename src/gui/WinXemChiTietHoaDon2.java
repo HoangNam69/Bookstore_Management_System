@@ -26,25 +26,38 @@ import service.impl.SanPhamServiceImpl;
 import java.awt.SystemColor;
 
 public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JLabel lblSoTrang;
 
-	private JButton btnThoat;
-	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
+	// Services
+	private SanPhamServiceImpl sanPhamServiceImpl;
+	private SachLoiDao sachLoiDao;
+	private SanPhamDao sanPhamDao;
+
+	// Data
 	private List<SachLoi> dsSachLoi;
 
+	// UI Components: Labels
+	private JLabel lblTieuDeSachLoi;
+	private JLabel lblSoTrang;
+	private JLabel lblDanhSachSanPham;
+
+	// UI Components: Buttons
+	private JButton btnThoat;
+	private JButton btnDoiSach;
+
+	// UI Components: Panels
+	private JPanel pnlThongTin;
+	private JPanel pnlDanhSachSanPham;
+
+	// UI Components: Tables
 	private JTable tblChiTietHD;
-	private DefaultTableModel tableModelChiTietHoaDonDao;
+	private JTable tblChiTietHoaDon;
 
-	private SachLoiDao sachLoiDao;
-	private JScrollPane scrChiTietHD;
-	private SanPhamDao sanPhamDao;
-	private JButton btnDoi;
+	// UI Components: ScrollPanes
+	private JScrollPane scrChiTietHoaDon;
 
-//	@SuppressWarnings("deprecation")
+	// UI Components: Models
+	private DefaultTableModel modelChiTietHoaDonDao;
+
 	public WinXemChiTietHoaDon2() throws Exception {
 
 		setTitle("Chi tiết hóa đơn");
@@ -54,55 +67,54 @@ public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("CÁC SÁCH LỖI");
-		lblNewLabel.setForeground(SystemColor.textHighlight);
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel.setBounds(201, 10, 766, 39);
-		getContentPane().add(lblNewLabel);
+		lblTieuDeSachLoi = new JLabel("CÁC SÁCH LỖI");
+		lblTieuDeSachLoi.setForeground(SystemColor.textHighlight);
+		lblTieuDeSachLoi.setVerticalAlignment(SwingConstants.TOP);
+		lblTieuDeSachLoi.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTieuDeSachLoi.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblTieuDeSachLoi.setBounds(201, 10, 766, 39);
+		getContentPane().add(lblTieuDeSachLoi);
 
 		lblSoTrang = new JLabel();
 		lblSoTrang.setFont(new Font("Tahoma", Font.PLAIN, 16));
-
 		lblSoTrang.setBounds(125, 290, 170, 23);
 		getContentPane().add(lblSoTrang);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(28, 599, 1078, 54);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		pnlThongTin = new JPanel();
+		pnlThongTin.setBounds(28, 599, 1078, 54);
+		getContentPane().add(pnlThongTin);
+		pnlThongTin.setLayout(null);
 
 		btnThoat = new JButton("Thoát");
 		btnThoat.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnThoat.setBounds(569, 10, 132, 39);
-		panel_1.add(btnThoat);
+		pnlThongTin.add(btnThoat);
 
-		btnDoi = new JButton("Đổi");
-		btnDoi.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnDoi.setBounds(363, 10, 132, 39);
-		panel_1.add(btnDoi);
+		btnDoiSach = new JButton("Đổi");
+		btnDoiSach.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnDoiSach.setBounds(363, 10, 132, 39);
+		pnlThongTin.add(btnDoiSach);
 
-		JPanel panel_right = new JPanel();
-		panel_right.setBounds(28, 59, 1078, 511);
-		getContentPane().add(panel_right);
+		pnlDanhSachSanPham = new JPanel();
+		pnlDanhSachSanPham.setBounds(28, 59, 1078, 511);
+		getContentPane().add(pnlDanhSachSanPham);
 		setValue();
 
-		panel_right.setLayout(null);
+		pnlDanhSachSanPham.setLayout(null);
 		String header_ChiTietHD[] = { "STT", "Mã sản phẩm", "Tên sản phẩm", "Lỗi sản phẩm", "Số lượng" };
-		tableModelChiTietHoaDonDao = new DefaultTableModel(header_ChiTietHD, 0);
-		tblChiTietHD = new JTable(tableModelChiTietHoaDonDao);
-		scrChiTietHD = new JScrollPane(tblChiTietHD, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		modelChiTietHoaDonDao = new DefaultTableModel(header_ChiTietHD, 0);
+		tblChiTietHoaDon = new JTable(modelChiTietHoaDonDao);
+		scrChiTietHoaDon = new JScrollPane(tblChiTietHoaDon, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrChiTietHD.setBounds(10, 45, 1058, 434);
-		tblChiTietHD.setAutoCreateRowSorter(true);
-		panel_right.add(scrChiTietHD);
+		scrChiTietHoaDon.setBounds(10, 45, 1058, 434);
+		tblChiTietHoaDon.setAutoCreateRowSorter(true);
+		pnlDanhSachSanPham.add(scrChiTietHoaDon);
 
-		JLabel lblNewLabel_1 = new JLabel("DANH SÁCH SẢN PHẨM");
-		lblNewLabel_1.setBounds(274, 2, 360, 33);
-		panel_right.add(lblNewLabel_1);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDanhSachSanPham = new JLabel("DANH SÁCH SẢN PHẨM");
+		lblDanhSachSanPham.setBounds(274, 2, 360, 33);
+		pnlDanhSachSanPham.add(lblDanhSachSanPham);
+		lblDanhSachSanPham.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblDanhSachSanPham.setHorizontalAlignment(SwingConstants.CENTER);
 		try {
 			docDuLieuSachLoi();
 		} catch (SQLException e) {
@@ -111,7 +123,7 @@ public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
 		}
 
 		btnThoat.addActionListener(this);
-		btnDoi.addActionListener(this);
+		btnDoiSach.addActionListener(this);
 	}
 
 	public void setValue() {
@@ -129,7 +141,7 @@ public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
 			for (SachLoi sachLoi : dsSachLoi) {
 				Sach sach = sanPhamDao.timSanPhamTheoMaSach(sachLoi.getSach().getMaSanPham());
 				System.out.println(new Sach(sachLoi.getSach().getMaSanPham()).getTenSach());
-				tableModelChiTietHoaDonDao.addRow(new Object[] { i++, sachLoi.getSach().getMaSanPham(),
+				modelChiTietHoaDonDao.addRow(new Object[] { i++, sachLoi.getSach().getMaSanPham(),
 						sach.getTenSach(), sachLoi.getLoiSanPham(), sachLoi.getSoLuong() });
 			}
 		}
@@ -143,7 +155,7 @@ public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
 					JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
 				this.setVisible(false);
 		}
-		if (o.equals(btnDoi)) {
+		if (o.equals(btnDoiSach)) {
 			try {
 				int row = tblChiTietHD.getSelectedRow();
 				if (row == -1) {
@@ -158,7 +170,7 @@ public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
 					sachLoiDao.xoaSachLoi(sanPham.getMaSanPham(), tblChiTietHD.getValueAt(row, 3).toString());
 					JOptionPane.showMessageDialog(this, "Sản phẩm đã được đổi");
 					try {
-						tableModelChiTietHoaDonDao.setRowCount(0);
+						modelChiTietHoaDonDao.setRowCount(0);
 						docDuLieuSachLoi();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
