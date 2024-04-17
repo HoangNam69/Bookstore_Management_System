@@ -1,17 +1,11 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,32 +13,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import dao.ChiTietHoaDonDao;
-import dao.HoaDonDao;
-import dao.HoaDonDoiTraDao;
 import dao.SachLoiDao;
 import dao.SanPhamDao;
-import entity.ChiTietHoaDon;
-import entity.HoaDon;
-import entity.HoaDonDoiTra;
-import entity.NhaCungCap;
 import entity.Sach;
 import entity.SachLoi;
 import entity.SanPham;
-import entity.VanPhongPham;
 
-import service.impl.ChatLieuServiceImpl;
-import service.impl.MauSacServiceImpl;
-import service.impl.NhaCungCapServiceImpl;
-import service.impl.NhaXuatBanServiceImpl;
 import service.impl.SanPhamServiceImpl;
-import service.impl.TacGiaServiceImpl;
-import service.impl.TheLoaiServiceImpl;
-import service.impl.XuatXuServiceImpl;
 import java.awt.SystemColor;
 
 public class Frm_XemChiTietHoaDon2 extends JFrame implements ActionListener {
@@ -52,25 +30,17 @@ public class Frm_XemChiTietHoaDon2 extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JLabel txtSoTrang;
+	private JLabel lblSoTrang;
 
 	private JButton btnThoat;
 	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
-	TheLoaiServiceImpl theLoaiServiceImpl = new TheLoaiServiceImpl();
-	TacGiaServiceImpl tacGiaServiceImpl = new TacGiaServiceImpl();
-	NhaXuatBanServiceImpl nhaXuatBanServiceImpl = new NhaXuatBanServiceImpl();
-	NhaCungCapServiceImpl nhaCungCapServiceImpl = new NhaCungCapServiceImpl();
-	ChatLieuServiceImpl chatLieuServiceImpl = new ChatLieuServiceImpl();
-	XuatXuServiceImpl xuatXuServiceImpl = new XuatXuServiceImpl();
-	MauSacServiceImpl mauSacServiceImpl = new MauSacServiceImpl();
-
 	private List<SachLoi> dsSachLoi;
 
-	private JTable table_ChiTietHD;
-	private DefaultTableModel tableModel_chiTietHoaDonDao;
+	private JTable tblChiTietHD;
+	private DefaultTableModel tableModelChiTietHoaDonDao;
 
-	private SachLoiDao sachLoi_dao;
-	private JScrollPane sp_ChiTietHD;
+	private SachLoiDao sachLoiDao;
+	private JScrollPane scrChiTietHD;
 	private SanPhamDao sanPhamDao;
 	private JButton btnDoi;
 
@@ -92,11 +62,11 @@ public class Frm_XemChiTietHoaDon2 extends JFrame implements ActionListener {
 		lblNewLabel.setBounds(201, 10, 766, 39);
 		getContentPane().add(lblNewLabel);
 
-		txtSoTrang = new JLabel();
-		txtSoTrang.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblSoTrang = new JLabel();
+		lblSoTrang.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
-		txtSoTrang.setBounds(125, 290, 170, 23);
-		getContentPane().add(txtSoTrang);
+		lblSoTrang.setBounds(125, 290, 170, 23);
+		getContentPane().add(lblSoTrang);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(28, 599, 1078, 54);
@@ -120,13 +90,13 @@ public class Frm_XemChiTietHoaDon2 extends JFrame implements ActionListener {
 
 		panel_right.setLayout(null);
 		String header_ChiTietHD[] = { "STT", "Mã sản phẩm", "Tên sản phẩm", "Lỗi sản phẩm", "Số lượng" };
-		tableModel_chiTietHoaDonDao = new DefaultTableModel(header_ChiTietHD, 0);
-		table_ChiTietHD = new JTable(tableModel_chiTietHoaDonDao);
-		sp_ChiTietHD = new JScrollPane(table_ChiTietHD, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		tableModelChiTietHoaDonDao = new DefaultTableModel(header_ChiTietHD, 0);
+		tblChiTietHD = new JTable(tableModelChiTietHoaDonDao);
+		scrChiTietHD = new JScrollPane(tblChiTietHD, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		sp_ChiTietHD.setBounds(10, 45, 1058, 434);
-		table_ChiTietHD.setAutoCreateRowSorter(true);
-		panel_right.add(sp_ChiTietHD);
+		scrChiTietHD.setBounds(10, 45, 1058, 434);
+		tblChiTietHD.setAutoCreateRowSorter(true);
+		panel_right.add(scrChiTietHD);
 
 		JLabel lblNewLabel_1 = new JLabel("DANH SÁCH SẢN PHẨM");
 		lblNewLabel_1.setBounds(274, 2, 360, 33);
@@ -149,9 +119,9 @@ public class Frm_XemChiTietHoaDon2 extends JFrame implements ActionListener {
 
 	// Doc du lieu sach loi
 	public void docDuLieuSachLoi() throws Exception {
-		sachLoi_dao = new SachLoiDao();
+		sachLoiDao = new SachLoiDao();
 		sanPhamDao = new SanPhamDao();
-		dsSachLoi = sachLoi_dao.getAllSachLoi();
+		dsSachLoi =  sachLoiDao.getAllSachLoi();
 		if (dsSachLoi.size() == 0) {
 			JOptionPane.showMessageDialog(this, "Không tìm thấy sách lỗi");
 		} else {
@@ -159,7 +129,7 @@ public class Frm_XemChiTietHoaDon2 extends JFrame implements ActionListener {
 			for (SachLoi sachLoi : dsSachLoi) {
 				Sach sach = sanPhamDao.timSanPhamTheoMaSach(sachLoi.getSach().getMaSanPham());
 				System.out.println(new Sach(sachLoi.getSach().getMaSanPham()).getTenSach());
-				tableModel_chiTietHoaDonDao.addRow(new Object[] { i++, sachLoi.getSach().getMaSanPham(),
+				tableModelChiTietHoaDonDao.addRow(new Object[] { i++, sachLoi.getSach().getMaSanPham(),
 						sach.getTenSach(), sachLoi.getLoiSanPham(), sachLoi.getSoLuong() });
 			}
 		}
@@ -175,20 +145,20 @@ public class Frm_XemChiTietHoaDon2 extends JFrame implements ActionListener {
 		}
 		if (o.equals(btnDoi)) {
 			try {
-				int row = table_ChiTietHD.getSelectedRow();
+				int row = tblChiTietHD.getSelectedRow();
 				if (row == -1) {
 					JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm cần đổi");
 				} else {
 					SanPham sanPham = sanPhamServiceImpl.timSanPhamTheoMa(
-							table_ChiTietHD.getValueAt(table_ChiTietHD.getSelectedRow(), 1).toString());
+							tblChiTietHD.getValueAt(tblChiTietHD.getSelectedRow(), 1).toString());
 					sanPham.setSoLuongTon(sanPham.getSoLuongTon() + Integer
-							.parseInt(table_ChiTietHD.getValueAt(table_ChiTietHD.getSelectedRow(), 4).toString()));
+							.parseInt(tblChiTietHD.getValueAt(tblChiTietHD.getSelectedRow(), 4).toString()));
 					sanPhamServiceImpl.capNhatSoLuongSanPham(sanPham);
 					// Hàm xóa sản phẩm lỗi theo mã
-					sachLoi_dao.xoaSachLoi(sanPham.getMaSanPham(), table_ChiTietHD.getValueAt(row, 3).toString());
+					sachLoiDao.xoaSachLoi(sanPham.getMaSanPham(), tblChiTietHD.getValueAt(row, 3).toString());
 					JOptionPane.showMessageDialog(this, "Sản phẩm đã được đổi");
 					try {
-						tableModel_chiTietHoaDonDao.setRowCount(0);
+						tableModelChiTietHoaDonDao.setRowCount(0);
 						docDuLieuSachLoi();
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
