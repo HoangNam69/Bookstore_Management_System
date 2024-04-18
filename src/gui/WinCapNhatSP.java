@@ -44,10 +44,7 @@ import service.impl.TheLoaiServiceImpl;
 import service.impl.XuatXuServiceImpl;
 
 public class WinCapNhatSP extends JFrame implements ActionListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
 	private JComboBox<Object> cmbLoai;
 	private JComboBox<Object> cmbTacGiaorChatLieu;
 	private JComboBox<Object> cmbNhaXBorXuatXu;

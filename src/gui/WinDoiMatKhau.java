@@ -28,22 +28,31 @@ import java.awt.Color;
 
 public class WinDoiMatKhau extends JFrame implements ActionListener, MouseListener {
 
+	// JPanel
 	private JPanel pnlContentPane;
+
+	// JLabels
 	private JLabel lblDoiMatKhau;
-	private JLabel lblOldPass;
 	private JLabel lblNewPass;
 	private JLabel lblNewPassConfirm;
+	private JLabel lblOldPass;
+	private JLabel lblTenNV;
+
+	// JButtons
 	private JButton btnDoi;
 	private JButton btnThoat;
+
+	// JPasswordFields
 	private JPasswordField txtPasswordFieldCu;
 	private JPasswordField txtPasswordFieldMoi;
 	private JPasswordField txtPasswordFieldXacNhan;
-	private NhanVienServiceImpl iNhanvien;
+
+	// Other objects
 	private NhanVien nv;
-	private JLabel lblTenNV;
-	WinLogin dangNhap = new WinLogin();
-	TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
+	private NhanVienServiceImpl iNhanvien;
+	private TaiKhoan taiKhoan;
 	private TaiKhoanServiceImpl iTaiKhoan;
+	private WinLogin dangNhap = new WinLogin();
 
 	/**
 	 * Launch the application.

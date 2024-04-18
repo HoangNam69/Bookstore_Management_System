@@ -28,24 +28,40 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 public class WinHangCho extends JFrame implements ActionListener, MouseListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private DefaultTableModel mdlKhachHang;
+
+	// DefaultTableModel
+	private DefaultTableModel modelKhachHang;
+
+	// JTable
 	private JTable tblKhachHang;
+
+	// JScrollPane
 	private JScrollPane scrKhachHang;
+
+	// JButton
 	private JButton btnThanhToan;
-	private KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
-	private JLabel lblTitle;
 	private JButton btnThoat;
-	private ButtonGroup group;
 	private JButton btnXoa;
-	Pnl_TaoHoaDon pnl_TaoHoaDon;
+
+	// JLabel
+	private JLabel lblTitle;
+
+	// ButtonGroup
+	private ButtonGroup group;
+
+	// ArrayList
 	ArrayList<KhachHang> listKhachHang;
+
+	// HashMap
 	public HashMap<String, ArrayList<SanPham>> dsHoaDonCho = new HashMap<String, ArrayList<SanPham>>();
+
+	// String
 	private String sdt = "";
+
+	// Other objects
+	private KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
 	private ShareData shareData;
+	Pnl_TaoHoaDon pnl_TaoHoaDon;
 
 	public WinHangCho(HashMap<String, ArrayList<SanPham>> dsHoaDonCho, ShareData data){
 		this.shareData = data;
@@ -65,8 +81,8 @@ public class WinHangCho extends JFrame implements ActionListener, MouseListener 
 		lblTitle.setBounds(10, 6, 586, 28);
 		getContentPane().add(lblTitle);
 		String[] cols = { "Tên khách hàng", "Số điện thoại khách hàng" };
-		mdlKhachHang = new DefaultTableModel(cols, 0);
-		tblKhachHang = new JTable(mdlKhachHang);
+		modelKhachHang = new DefaultTableModel(cols, 0);
+		tblKhachHang = new JTable(modelKhachHang);
 		tblKhachHang.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tblKhachHang.setFont(new Font("Tahoma", Font.CENTER_BASELINE, 17));
 		scrKhachHang = new JScrollPane(tblKhachHang);
@@ -170,7 +186,7 @@ public class WinHangCho extends JFrame implements ActionListener, MouseListener 
 		
 		for (KhachHang khachHang : listKhachHang) {
 			Object [] o = {khachHang.getHoTenKhachHang(),khachHang.getsDT()};
-			mdlKhachHang.addRow(o);
+			modelKhachHang.addRow(o);
 		}
 	}
 	public void thanhToan() {
@@ -179,7 +195,7 @@ public class WinHangCho extends JFrame implements ActionListener, MouseListener 
 			JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm thanh toán","Báo lỗi",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		sdt = mdlKhachHang.getValueAt(row, 1).toString();
+		sdt = modelKhachHang.getValueAt(row, 1).toString();
 		ArrayList<SanPham> listSPThanhToan = dsHoaDonCho.get(sdt);
 		dsHoaDonCho.remove(sdt);
 		new Thread(()->{
@@ -201,7 +217,7 @@ public class WinHangCho extends JFrame implements ActionListener, MouseListener 
 		}
 		dsHoaDonCho.remove(sdt);
 		shareData.setDsHoaDonCho(dsHoaDonCho);
-		mdlKhachHang.removeRow(row);
+		modelKhachHang.removeRow(row);
 	}
 	public void Thoat() {
 		new Thread(()->{
