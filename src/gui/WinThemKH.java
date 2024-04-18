@@ -37,6 +37,7 @@ public class WinThemKH extends JFrame implements ActionListener{
 	private JButton btnLamMoi;
 	private JButton btnHuy;
 	private int port;
+	private String host;
 	private KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
 	private List<KhachHang> dsKhachHang;
 
