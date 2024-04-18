@@ -27,19 +27,34 @@ import javax.swing.JButton;
 
 public class WinThemKH extends JFrame implements ActionListener{
 
+	// JPanel
 	private JPanel contentPane;
+
+	// JTextFields
 	private JTextField txtMaKhachHang;
-	private JTextField txtTenKhachHang;
 	private JTextField txtSDT;
-	private JComboBox cmbGioiTinh;
+	private JTextField txtTenKhachHang;
+
+	// JLabels
+	private JLabel lblTitle;
+	private JLabel lblMaKhachHang;
+	private JLabel lblTenKhachHang;
+	private JLabel lblSDT;
+	private JLabel lblGioiTinh;
+	private JLabel lblDiaChi;
+
+	// JComboBoxes
 	private JComboBox cmbDiaChi;
-	private JButton btnThemKhachHang;
-	private JButton btnLamMoi;
+	private JComboBox cmbGioiTinh;
+
+	// JButtons
 	private JButton btnHuy;
-	private int port;
-	private String host;
-	private KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
+	private JButton btnLamMoi;
+	private JButton btnThemKhachHang;
+
+	// Other objects
 	private List<KhachHang> dsKhachHang;
+	private KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
 
 
 	/**
@@ -58,13 +73,13 @@ public class WinThemKH extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTitle = new JLabel("THÊM KHÁCH HÀNG");
+		lblTitle = new JLabel("THÊM KHÁCH HÀNG");
 		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(10, 11, 414, 32);
 		contentPane.add(lblTitle);
-		
-		JLabel lblMaKhachHang = new JLabel("Mã khách hàng:");
+
+		lblMaKhachHang = new JLabel("Mã khách hàng:");
 		lblMaKhachHang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblMaKhachHang.setBounds(20, 55, 140, 25);
 		contentPane.add(lblMaKhachHang);
@@ -74,7 +89,7 @@ public class WinThemKH extends JFrame implements ActionListener{
 		contentPane.add(txtMaKhachHang);
 		txtMaKhachHang.setColumns(10);
 		
-		JLabel lblTenKhachHang = new JLabel("Tên khách hàng:");
+		lblTenKhachHang = new JLabel("Tên khách hàng:");
 		lblTenKhachHang.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblTenKhachHang.setBounds(20, 100, 140, 25);
 		contentPane.add(lblTenKhachHang);
@@ -84,7 +99,7 @@ public class WinThemKH extends JFrame implements ActionListener{
 		txtTenKhachHang.setBounds(184, 100, 240, 25);
 		contentPane.add(txtTenKhachHang);
 		
-		JLabel lblSDT = new JLabel("Số điện thoại:");
+		lblSDT = new JLabel("Số điện thoại:");
 		lblSDT.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblSDT.setBounds(20, 145, 140, 25);
 		contentPane.add(lblSDT);
@@ -94,7 +109,7 @@ public class WinThemKH extends JFrame implements ActionListener{
 		txtSDT.setBounds(184, 145, 240, 25);
 		contentPane.add(txtSDT);
 		
-		JLabel lblGioiTinh = new JLabel("Giới tính:");
+		lblGioiTinh = new JLabel("Giới tính:");
 		lblGioiTinh.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblGioiTinh.setBounds(20, 190, 114, 25);
 		contentPane.add(lblGioiTinh);
@@ -104,7 +119,7 @@ public class WinThemKH extends JFrame implements ActionListener{
 		cmbGioiTinh.setBounds(184, 190, 240, 25);
 		contentPane.add(cmbGioiTinh);
 		
-		JLabel lblDiaChi = new JLabel("Địa chỉ:");
+		lblDiaChi = new JLabel("Địa chỉ:");
 		lblDiaChi.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblDiaChi.setBounds(20, 235, 100, 25);
 		contentPane.add(lblDiaChi);
