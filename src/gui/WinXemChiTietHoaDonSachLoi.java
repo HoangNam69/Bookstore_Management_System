@@ -20,7 +20,6 @@ import dao.SachLoiDao;
 import dao.SanPhamDao;
 import entity.Sach;
 import entity.SachLoi;
-import entity.SanPham;
 
 import service.impl.SanPhamServiceImpl;
 import java.awt.SystemColor;
