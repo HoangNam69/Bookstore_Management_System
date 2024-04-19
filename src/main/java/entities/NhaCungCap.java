@@ -1,11 +1,23 @@
 package entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+import java.util.Set;
+
+@Entity
+@Table(name = "NhaCungCap")
 public class NhaCungCap {
+	@Id
 	private String maNCC;
 	private String tenNCC;
 	private String diaChi;
 	private String email;
 	private String sDT;
+	@OneToMany(mappedBy = "nhaCungCap")
+	private Set<SanPham> sanPhams;
 
 	public String getMaNCC() {
 		return maNCC;

@@ -1,6 +1,14 @@
 package entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "sanpham")
 public abstract class SanPham {
+    @Id
+
     protected String maSanPham;
     protected String loaiSanPham;
     protected int soLuongTon;
