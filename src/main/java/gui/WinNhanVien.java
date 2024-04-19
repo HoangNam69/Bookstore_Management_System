@@ -55,13 +55,12 @@ public class WinNhanVien extends JFrame implements MouseListener {
 	private Pnl_TrangChu pnl_TrangChu;
 	private Pnl_ThongKeNhanVien pnl_ThongKeNhanVien;
 	private Pnl_TaoHoaDon pnl_TaoHoaDon;
-	private WinDoiMatKhau win_DoiMatKhau;
-	private WinLogin frm_Login = new WinLogin();
+	private WinDoiMatKhau winDoiMatKhau;
+	private WinLogin winLogin = new WinLogin();
 	private Pnl_QuanLyHoaDon pnl_QuanLyHoaDon;
 	// private static FrmNhanVien frame;
 	private JPanel pnlMenuTaiKhoan;
 	private Pnl_DoiTraSanPham pnl_DoiTraSanPham;
-	private static WinNhanVien winNhanVien;
 
 	/**
 	 * Launch the application.
@@ -301,12 +300,13 @@ public class WinNhanVien extends JFrame implements MouseListener {
 		getContentPane().add(pnl_DoiTraSanPham);
 		pnl_DoiTraSanPham.setVisible(false);
 
-		win_DoiMatKhau = new WinDoiMatKhau();
-		win_DoiMatKhau.setVisible(false);
+		winDoiMatKhau = new WinDoiMatKhau();
+		winDoiMatKhau.setVisible(false);
 
 		// hienthiten
 		WinLogin dangNhap = new WinLogin();
 		TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
+		System.out.println(taiKhoan);
 		nhanVienServiceImpl = new NhanVienServiceImpl();
 		nv = new NhanVien();
 		nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
@@ -347,7 +347,7 @@ public class WinNhanVien extends JFrame implements MouseListener {
 		Object o = e.getSource();
 		if (o.equals(pnlDangXuat)) {
 			this.setVisible(false);
-			frm_Login.setVisible(true);
+			winLogin.setVisible(true);
 		}
 		if (o.equals(pnlDoiMatKhau)) {
 			flag_HD = false;
@@ -362,7 +362,7 @@ public class WinNhanVien extends JFrame implements MouseListener {
 			pnlTrangChu.setBackground(Color.getColor("#f0f0f0"));
 			pnlSanPham.setBackground(Color.getColor("#f0f0f0"));
 			pnlTroGiup.setBackground(Color.getColor("#f0f0f0"));
-			win_DoiMatKhau.setVisible(true);
+			winDoiMatKhau.setVisible(true);
 		}
 		if (o.equals(pnlTaoHoaDonMoi)) {
 			flag_HD = false;

@@ -93,7 +93,6 @@ public class NhanVienDao {
 					rs.getString("sdt"), rs.getBoolean("gioiTinh"), rs.getString("email"), rs.getBoolean("chucVu"),
 					rs.getBoolean("caLamViec"), rs.getString("hinhAnh"), null, null);
 			return nv;
-
 		}
 		return null;
 	}

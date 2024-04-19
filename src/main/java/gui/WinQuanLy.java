@@ -68,7 +68,6 @@ public class WinQuanLy extends JFrame implements MouseListener {
     private Pnl_TaoHoaDon pnl_TaoHoaDon;
     private WinDoiMatKhau win_DoiMatKhau;
     private WinLogin winLogin = new WinLogin();
-    private static WinQuanLy winQuanLy;
 
     /**
      * Launch the application.
@@ -79,8 +78,8 @@ public class WinQuanLy extends JFrame implements MouseListener {
 
             public void run() {
                 try {
-                    winQuanLy = new WinQuanLy();
-                    winQuanLy.setVisible(true);
+//                    winQuanLy.setVisible(true);
+//                    winQuanLy = new WinQuanLy();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -336,6 +335,7 @@ public class WinQuanLy extends JFrame implements MouseListener {
 
         WinLogin dangNhap = new WinLogin();
         TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
+        System.out.println(taiKhoan);
 
         nhanVienServiceImpl = new NhanVienServiceImpl();
         nv = new NhanVien();
@@ -367,6 +367,8 @@ public class WinQuanLy extends JFrame implements MouseListener {
         pnlHoaDon.addMouseListener(this);
         pnlTaoXuLyDoiTra.addMouseListener(this);
         pnlQuanLyHoaDon.addMouseListener(this);
+
+        this.setVisible(true);
     }
 
     @Override
