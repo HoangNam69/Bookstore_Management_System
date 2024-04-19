@@ -1,20 +1,28 @@
 package entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 
-public class ChiTietHoaDon {
-	private HoaDon hoaDon;
-	private SanPham sanPham;
+@NoArgsConstructor
+@Entity
+@Table(name = "ChiTietHoaDon")
+public class ChiTietHoaDon implements Serializable {
+
 	private int soLuong;
 	private long donGia;
 
-	public ChiTietHoaDon() {
-		super();
-	}
+	@Id
+	@ManyToOne
+	@JoinColumn(name = "maHoaDon")
+	private HoaDon hoaDon;
+
+	@Id
+	@ManyToOne
+	@JoinColumn(name = "maSanPham")
+	private SanPham sanPham;
+
 
 	public ChiTietHoaDon(HoaDon hoaDon, SanPham sanPham, int soLuong, long donGia) {
 		super();

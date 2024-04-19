@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @NoArgsConstructor
 @Entity
@@ -16,15 +17,21 @@ public abstract class SanPham implements Serializable  {
     protected String loaiSanPham;
     protected int soLuongTon;
     protected double trongLuong;
-
     protected long giaNhap;
     protected String ghiChu;
     protected String donViSanPham;
     protected String hinhAnh;
 
+//    Moi quan he voi nha cung cap
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "maNCC")
     protected NhaCungCap nhaCungCap;
+//    Moi quan he voi chi tiet hoa don
+    @OneToMany(mappedBy = "sanPham", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ChiTietHoaDon> chiTietHoaDons;
+//    Moi quan he voi chi tiet hoa don doi tra
+    @OneToMany(mappedBy = "sanPham", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ChiTietHoaDonDoiTra> chiTietHoaDonDoiTras;
 
     public SanPham(String maSanPham) {
         super();

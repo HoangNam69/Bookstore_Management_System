@@ -1,18 +1,17 @@
 package entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.Set;
 
 @NoArgsConstructor
 @Entity
 @Table(name = "NhanVien")
-public class NhanVien {
+public class NhanVien implements Serializable {
     @Id
     @Column(unique = true, nullable = false)
     private String maNhanVien;
@@ -34,6 +33,10 @@ public class NhanVien {
     private String hinhAnh;
     private String OTP;
     private Timestamp hanOTP;
+
+
+    @OneToMany(mappedBy = "nhanVien", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<HoaDon> hoaDons;
 
 
     public NhanVien(String maNhanVien) {
