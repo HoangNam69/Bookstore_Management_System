@@ -6,8 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="LapTrinhPhanTan" />
-        <module name="LeHoangNam_21002211" />
+        <module name="Bookstore_Management_System" />
       </profile>
     </annotationProcessing>
   </component>
