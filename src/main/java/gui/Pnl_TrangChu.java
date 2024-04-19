@@ -40,6 +40,7 @@ public class Pnl_TrangChu extends JPanel {
 		lblTenHieuSach.setBounds(0, 29, 565, 106);
 		pnl.add(lblTenHieuSach);
 
+		this.setVisible(true);
 		
 
 	}

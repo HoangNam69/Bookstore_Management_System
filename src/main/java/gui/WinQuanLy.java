@@ -368,7 +368,6 @@ public class WinQuanLy extends JFrame implements MouseListener {
         pnlTaoXuLyDoiTra.addMouseListener(this);
         pnlQuanLyHoaDon.addMouseListener(this);
 
-        this.setVisible(true);
     }
 
     @Override

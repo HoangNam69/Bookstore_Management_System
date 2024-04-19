@@ -304,7 +304,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		add(componentTiTleHoaDonCu);
 
 		pnlHoaDonCu = new JPanel();
-		pnlHoaDonCu.setBounds(510, 175, 332, 430);
+		pnlHoaDonCu.setBounds(480, 175, 400, 430);
 		add(pnlHoaDonCu);
 		pnlHoaDonCu.setLayout(null);
 
@@ -313,19 +313,19 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		lblNgayHoaDonCu.setBounds(10, 34, 78, 30);
 		pnlHoaDonCu.add(lblNgayHoaDonCu);
 
-		lblMaNhanVien = new JLabel("Mã nhân viên: ");
+		lblMaNhanVien = new JLabel("Tên nhân viên: ");
 		lblMaNhanVien.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMaNhanVien.setBounds(10, 120, 107, 22);
+		lblMaNhanVien.setBounds(10, 120, 150, 30);
 		pnlHoaDonCu.add(lblMaNhanVien);
 
 		componentMaKhachHang = new JLabel("Mã khách hàng: ");
 		componentMaKhachHang.setFont(new Font("Tahoma", Font.BOLD, 15));
-		componentMaKhachHang.setBounds(10, 194, 149, 30);
+		componentMaKhachHang.setBounds(10, 194, 150, 30);
 		pnlHoaDonCu.add(componentMaKhachHang);
 
 		lblTongTien = new JLabel("Tổng tiền: ");
 		lblTongTien.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblTongTien.setBounds(10, 278, 78, 22);
+		lblTongTien.setBounds(10, 278, 78, 30);
 		pnlHoaDonCu.add(lblTongTien);
 
 		lblGiaTriNgayHoaDonCu = new JLabel(".............");
@@ -335,22 +335,22 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 
 		lblGiaTriMaNV = new JLabel(".............");
 		lblGiaTriMaNV.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblGiaTriMaNV.setBounds(169, 120, 106, 22);
+		lblGiaTriMaNV.setBounds(169, 120, 150, 22);
 		pnlHoaDonCu.add(lblGiaTriMaNV);
 
 		lblGiaTriMaKH = new JLabel(".............");
 		lblGiaTriMaKH.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblGiaTriMaKH.setBounds(169, 194, 106, 30);
+		lblGiaTriMaKH.setBounds(169, 194, 150, 30);
 		pnlHoaDonCu.add(lblGiaTriMaKH);
 
 		lblGiaTriTongTien = new JLabel("0");
 		lblGiaTriTongTien.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblGiaTriTongTien.setBounds(169, 278, 106, 22);
+		lblGiaTriTongTien.setBounds(169, 278, 150, 22);
 		pnlHoaDonCu.add(lblGiaTriTongTien);
 
 		btnLamMoiHoaDon = new JButton("Làm mới");
 		btnLamMoiHoaDon.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnLamMoiHoaDon.setBounds(86, 306, 106, 35);
+		btnLamMoiHoaDon.setBounds(150, 340, 106, 35);
 		pnlHoaDonCu.add(btnLamMoiHoaDon);
 
 		lblChitiet = new JLabel("Chi tiết hóa đơn cũ");
@@ -547,7 +547,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 					if (hd.getNhanVien() == null) {
 						lblGiaTriMaNV.setText("Đã nghỉ việc");
 					} else {
-						lblGiaTriMaNV.setText(hd.getNhanVien().getMaNhanVien().toString());
+						lblGiaTriMaNV.setText(hd.getNhanVien().getHoTenNhanVien().toString());
 					}
 
 					lblGiaTriMaKH.setText(hd.getKhachHang().getMaKhachHang().toString());
@@ -558,7 +558,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 					for (ChiTietHoaDon cthd : dsCTHD) {
 						tongTien += cthd.tinhThanhTien();
 					}
-					lblGiaTriTongTien.setText(String.valueOf(tongTien * 1.1));
+					lblGiaTriTongTien.setText(String.valueOf(tongTien * 1.08));
 				}
 			}
 		}

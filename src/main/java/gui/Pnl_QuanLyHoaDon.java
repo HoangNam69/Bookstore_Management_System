@@ -654,9 +654,9 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		tblHoaDon.getTableHeader().repaint();
 	}
 
-	public long tongTienHoaDon(String maHoaDon) {
+	public double tongTienHoaDon(String maHoaDon) {
 		chiTietHoaDonDao = new ChiTietHoaDonDao();
-		long tongTien = chiTietHoaDonDao.getTien(maHoaDon);
+		double tongTien = chiTietHoaDonDao.getTien(maHoaDon);
 		return tongTien;
 
 	}

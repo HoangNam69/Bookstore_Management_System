@@ -84,7 +84,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 	private final static int hinhAnhvpp = 10;
 
 	private DefaultTableModel modelSanPham;
-	private JTable tableSanPham;
+	private JTable tblSanPham;
 	private JScrollPane scrSanPham;
 	private JTextField txtGiaTu;
 	private JButton btnThemSP;
@@ -368,19 +368,19 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		String[] cols = { "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá nhập", "Giá bán", "Nhà cung cấp", "Số trang",
 				"Tác giả", "Nhà xuất bản" };
 		modelSanPham = new DefaultTableModel(cols, 0);
-		tableSanPham = new JTable(modelSanPham);
-		tableSanPham.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tableSanPham.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		tblSanPham = new JTable(modelSanPham);
+		tblSanPham.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tblSanPham.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
-		scrSanPham = new JScrollPane(tableSanPham);
+		scrSanPham = new JScrollPane(tblSanPham);
 		scrSanPham.setBounds(280, 223, 1600, 348);
 
-		tableSanPham.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		tableSanPham.setAutoCreateRowSorter(true);
-		tableSanPham.setRowHeight(25);
-		tableSanPham.setBackground(Color.decode("#BEFFC0"));
+		tblSanPham.getTableHeader().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tblSanPham.setAutoCreateRowSorter(true);
+		tblSanPham.setRowHeight(25);
+		tblSanPham.setBackground(Color.decode("#BEFFC0"));
 		scrSanPham.getViewport().setBackground(Color.WHITE);
-		tableSanPham.getTableHeader().setPreferredSize(new Dimension(0, 40));
+		tblSanPham.getTableHeader().setPreferredSize(new Dimension(0, 40));
 		add(scrSanPham);
 
 		JPanel pnlTimKiem = new JPanel();
@@ -560,7 +560,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 
 		// load du lieu
 		setRadSach();
-		tongSoMauTin = tableSanPham.getRowCount();
+		tongSoMauTin = tblSanPham.getRowCount();
 		capNhatThongTinMauTin(-1);
 
 		// Đăng ký lắng nghe
@@ -579,7 +579,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		btnTruoc.addActionListener(this);
 		radVPP.addMouseListener(this);
 		radSach.addMouseListener(this);
-		tableSanPham.addMouseListener(this);
+		tblSanPham.addMouseListener(this);
 		btnXemSachLoi.addActionListener(this);
 	}
 
@@ -650,7 +650,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		}
 
 		if (o.equals(btnCapNhat)) {
-			int row = tableSanPham.getSelectedRow();
+			int row = tblSanPham.getSelectedRow();
 			if (row == -1) {
 				JOptionPane.showMessageDialog(null, "Chưa chọn dòng nào!!", "Thông báo",
 						JOptionPane.INFORMATION_MESSAGE);
@@ -672,14 +672,14 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 				else
 					loadDuLieuVPP();
 				int row = -1;
-				if (tableSanPham.getRowCount() != 0) {
-					row = tableSanPham.getSelectedRow();
-					tableSanPham.setRowSelectionInterval(0, 0);
-					mauTinHienHanh = tableSanPham.getSelectedRow();
+				if (tblSanPham.getRowCount() != 0) {
+					row = tblSanPham.getSelectedRow();
+					tblSanPham.setRowSelectionInterval(0, 0);
+					mauTinHienHanh = tblSanPham.getSelectedRow();
 				} else {
 					mauTinHienHanh = -1;
 				}
-				tongSoMauTin = tableSanPham.getRowCount();
+				tongSoMauTin = tblSanPham.getRowCount();
 				capNhatThongTinMauTin(mauTinHienHanh);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -688,7 +688,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		}
 
 		if (o.equals(btnXemChiTiet)) {
-			int row = tableSanPham.getSelectedRow();
+			int row = tblSanPham.getSelectedRow();
 			if (row == -1) {
 				JOptionPane.showMessageDialog(null, "Chưa chọn dòng nào!!", "Thông báo",
 						JOptionPane.INFORMATION_MESSAGE);
@@ -768,7 +768,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 			}
 			if (radSach.isSelected()) {
 				ArrayList<Sach> listSach = new ArrayList<>();
-				int row = tableSanPham.getRowCount();
+				int row = tblSanPham.getRowCount();
 				for (int i = 0; i < row; i++) {
 					try {
 						Sach s = sanPhamServiceImpl.timSanPhamTheoMaSach(modelSanPham.getValueAt(i, 0).toString());
@@ -787,7 +787,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 				}
 			} else {
 				ArrayList<VanPhongPham> listVPP = new ArrayList<>();
-				int row = tableSanPham.getRowCount();
+				int row = tblSanPham.getRowCount();
 				for (int i = 0; i < row; i++) {
 					try {
 						VanPhongPham vpp = sanPhamServiceImpl
@@ -828,7 +828,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 			setRadSach();
 			setColumnName("Số trang", "Tác giả", "Nhà xuất bản");
 			modelSanPham.setRowCount(0);
-			tongSoMauTin = tableSanPham.getRowCount();
+			tongSoMauTin = tblSanPham.getRowCount();
 			capNhatThongTinMauTin(-1);
 			lblSoLuongHienThi.setText("Hiển thị 0 sản phẩm");
 			setHienThiRong();
@@ -837,13 +837,13 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 			setRadVPP();
 			setColumnName("Màu sắc", "Chất liệu", "Xuất xứ");
 			modelSanPham.setRowCount(0);
-			tongSoMauTin = tableSanPham.getRowCount();
+			tongSoMauTin = tblSanPham.getRowCount();
 			capNhatThongTinMauTin(-1);
 			setHienThiRong();
 		}
-		if (o.equals(tableSanPham)) {
-			int row = tableSanPham.getSelectedRow();
-			tongSoMauTin = tableSanPham.getRowCount();
+		if (o.equals(tblSanPham)) {
+			int row = tblSanPham.getSelectedRow();
+			tongSoMauTin = tblSanPham.getRowCount();
 			if (row >= 0) {
 				mauTinHienHanh = row;
 				capNhatThongTinMauTin(mauTinHienHanh);
@@ -960,7 +960,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		}
 		//
 		lblSoLuongHienThi.setText("Hiển thị " + dsSach.size() + " sản phẩm");
-		TableColumnModel columnMode = tableSanPham.getColumnModel();
+		TableColumnModel columnMode = tblSanPham.getColumnModel();
 		columnMode.getColumn(0).setPreferredWidth(40);
 		columnMode.getColumn(1).setPreferredWidth(100);
 		columnMode.getColumn(2).setPreferredWidth(5);
@@ -1053,7 +1053,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 			modelSanPham.addRow(o);
 		}
 		lblSoLuongHienThi.setText("Hiển thị " + dsVanPhongPham.size() + " sản phẩm");
-		TableColumnModel columnMode = tableSanPham.getColumnModel();
+		TableColumnModel columnMode = tblSanPham.getColumnModel();
 		columnMode.getColumn(0).setPreferredWidth(40);
 		columnMode.getColumn(1).setPreferredWidth(100);
 		columnMode.getColumn(2).setPreferredWidth(5);
@@ -1065,10 +1065,10 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 
 	private void capNhatThongTinMauTin(int n) {
 		if (n >= 0) {
-			tableSanPham.setRowSelectionInterval(n, n);
+			tblSanPham.setRowSelectionInterval(n, n);
 			setHienThi(n);
 		}
-		tongSoMauTin = tableSanPham.getRowCount();
+		tongSoMauTin = tblSanPham.getRowCount();
 		mauTinHienHanh = n;
 		if (tongSoMauTin == 0) {
 			mauTinHienHanh = -1;
@@ -1204,7 +1204,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 	}
 
 	public void setColumnName(String soTrangMauSac, String tacGiaOrChatLieu, String nhaXuatBanHoacXuatXu) {
-		JTableHeader tblHeader = tableSanPham.getTableHeader();
+		JTableHeader tblHeader = tblSanPham.getTableHeader();
 		TableColumnModel columnModel = tblHeader.getColumnModel();
 		TableColumn tblCol = columnModel.getColumn(6);
 		tblCol.setHeaderValue(soTrangMauSac);
@@ -1213,15 +1213,15 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		TableColumn tblCol02 = columnModel.getColumn(8);
 		tblCol02.setHeaderValue(nhaXuatBanHoacXuatXu);
 		tblHeader.repaint();
-		tableSanPham.getTableHeader().repaint();
+		tblSanPham.getTableHeader().repaint();
 	}
 
 	public void setHienThi(int row) {
-		lblTenSP.setText("Tên sản phẩm: " + tableSanPham.getValueAt(row, 1).toString());
-		lblSoLuong.setText("Số lượng: " + tableSanPham.getValueAt(row, 2).toString());
-		lblGiaNhap.setText("Giá nhập: " + tableSanPham.getValueAt(row, 3).toString() + " VNĐ");
-		lblGiaBan.setText("Giá bán: " + tableSanPham.getValueAt(row, 4).toString() + " VNĐ");
-		lblNhaCungCap.setText("Nhà cung cấp: " + tableSanPham.getValueAt(row, 5).toString());
+		lblTenSP.setText("Tên sản phẩm: " + tblSanPham.getValueAt(row, 1).toString());
+		lblSoLuong.setText("Số lượng: " + tblSanPham.getValueAt(row, 2).toString());
+		lblGiaNhap.setText("Giá nhập: " + tblSanPham.getValueAt(row, 3).toString() + " VNĐ");
+		lblGiaBan.setText("Giá bán: " + tblSanPham.getValueAt(row, 4).toString() + " VNĐ");
+		lblNhaCungCap.setText("Nhà cung cấp: " + tblSanPham.getValueAt(row, 5).toString());
 		String hinhAnh = "..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg";
 		if (radSach.isSelected()) {
 			hinhAnh = "..\\HieuSachTuNhan\\hinhAnhHieuSach\\" + dsSach.get(row).getHinhAnh();
@@ -1233,9 +1233,9 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		}
 		lblImageSP.setIcon(setSizeImageIconString(hinhAnh, lblImageSP.getWidth(), lblImageSP.getHeight()));
 		if (radSach.isSelected())
-			lblTacGiaOrChatLieu.setText("Tác giả: " + tableSanPham.getValueAt(row, 7).toString());
+			lblTacGiaOrChatLieu.setText("Tác giả: " + tblSanPham.getValueAt(row, 7).toString());
 		else
-			lblTacGiaOrChatLieu.setText("Chất liệu: " + tableSanPham.getValueAt(row, 7).toString());
+			lblTacGiaOrChatLieu.setText("Chất liệu: " + tblSanPham.getValueAt(row, 7).toString());
 
 	}
 

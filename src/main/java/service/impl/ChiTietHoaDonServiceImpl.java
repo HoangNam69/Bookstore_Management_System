@@ -37,7 +37,7 @@ public class ChiTietHoaDonServiceImpl implements ChiTietHoaDonService {
 	}
 
 	@Override
-	public long getTien(String maHD) {
+	public double getTien(String maHD) {
 		// TODO Auto-generated method stub
 		return chiTietHoaDonDao.getTien(maHD);
 	}

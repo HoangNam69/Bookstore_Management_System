@@ -28,6 +28,10 @@ public class Sach extends SanPham {
 		this.theLoaiSach = theLoaiSach;
 	}
 
+	public Sach(String maSanPham, int soLuongTon) {
+		super(maSanPham, soLuongTon);
+	}
+
 	public String getTenSach() {
 		return tenSach;
 	}

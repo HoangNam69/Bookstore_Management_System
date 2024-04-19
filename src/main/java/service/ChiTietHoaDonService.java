@@ -16,5 +16,5 @@ public interface ChiTietHoaDonService {
 
 	public int addChiTietHoaDon(ChiTietHoaDon chiTietHoaDon);
 	
-	public long getTien(String maHD);
+	public double getTien(String maHD);
 }

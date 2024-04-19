@@ -17,9 +17,13 @@ public class VanPhongPham extends SanPham {
 
 	}
 
+	public VanPhongPham(String maSanPham, int soLuongTon) {
+		super(maSanPham, soLuongTon);
+	}
+
 	public VanPhongPham(String maSanPham, String loaiSanPham, int soLuongTon, double trongLuong, NhaCungCap nhaCungCap,
-			long giaNhap, String ghiChu, String donViSanPham, String hinhAnh, String tenVanPhongPham,
-			TheLoaiVanPhongPham loaiVanPhongPham, MauSac mauSac, ChatLieu chatLieu, XuatXu xuatXu) {
+						long giaNhap, String ghiChu, String donViSanPham, String hinhAnh, String tenVanPhongPham,
+						TheLoaiVanPhongPham loaiVanPhongPham, MauSac mauSac, ChatLieu chatLieu, XuatXu xuatXu) {
 		super(maSanPham, loaiSanPham, soLuongTon, trongLuong, nhaCungCap, giaNhap, ghiChu, donViSanPham, hinhAnh);
 		this.tenVanPhongPham = tenVanPhongPham;
 		this.loaiVanPhongPham = loaiVanPhongPham;
