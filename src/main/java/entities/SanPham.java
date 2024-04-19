@@ -1,28 +1,30 @@
 package entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
+@NoArgsConstructor
 @Entity
-@Table(name = "sanpham")
-public abstract class SanPham {
+@Table(name = "SanPham")
+public abstract class SanPham implements Serializable  {
     @Id
-
+    @Column(unique = true, nullable = false)
     protected String maSanPham;
+    @Column(nullable = false)
     protected String loaiSanPham;
     protected int soLuongTon;
     protected double trongLuong;
-    protected NhaCungCap nhaCungCap;
+
     protected long giaNhap;
     protected String ghiChu;
     protected String donViSanPham;
     protected String hinhAnh;
 
-    public SanPham() {
-        super();
-
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maNCC")
+    protected NhaCungCap nhaCungCap;
 
     public SanPham(String maSanPham) {
         super();
