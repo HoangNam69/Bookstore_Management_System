@@ -124,5 +124,4 @@ public abstract class SanPham {
                 + ", trongLuong=" + trongLuong + ", nhaCungCap=" + nhaCungCap + ", giaNhap=" + giaNhap + ", ghiChu="
                 + ghiChu + ", donViSanPham=" + donViSanPham + ", hinhAnh=" + hinhAnh + "]";
     }
-
 }

@@ -1,6 +1,15 @@
 package entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "chitiethoadon")
 public class ChiTietHoaDon {
+	@Id
+	@Column(name = "maHoaDon")
 	private HoaDon hoaDon;
 	private SanPham sanPham;
 	private int soLuong;
