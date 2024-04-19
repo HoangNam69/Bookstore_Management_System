@@ -17,7 +17,7 @@ import jakarta.persistence.Persistence;
  */
 public class Main {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MSSQL");
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
