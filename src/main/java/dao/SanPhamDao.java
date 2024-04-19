@@ -19,11 +19,12 @@ import entities.TheLoaiSach;
 import entities.TheLoaiVanPhongPham;
 import entities.VanPhongPham;
 import entities.XuatXu;
+import org.apache.poi.ss.formula.functions.T;
 
 public class SanPhamDao {
-	private Connection con;
-	private PreparedStatement ps = null;
-	private ResultSet rs;
+	private static Connection con;
+	private static PreparedStatement ps = null;
+	private static ResultSet rs;
 	private String query;
 	private int rsCheck;
 	private ChatLieuDao chatLieuDao;
@@ -38,13 +39,13 @@ public class SanPhamDao {
 
 	/**
 	 * Hàm lấy danh sách tất cả sách
-	 * 
+	 *
 	 * @return ArrayList Sách
 	 * @throws Exception
 	 */
 
-	public SanPham timSanPhamTheoMa(String maSP) throws SQLException {
-		SanPham sp = new SanPham();
+	public static SanPham timSanPhamTheoMa(String maSP) throws SQLException {
+		SanPham sp = null; // Don't instantiate here
 		String query = "Select * from SanPham where maSanPham=?";
 		ps = con.prepareStatement(query);
 		ps.setString(1, maSP);
@@ -55,20 +56,38 @@ public class SanPhamDao {
 			String loaiSanPham = rs.getString("loaiSanPham");
 			int soLuongTon = rs.getInt("soLuongTon");
 			double trongLuong = rs.getDouble("trongLuong");
-
 			NhaCungCap ncc = new NhaCungCap(rs.getString("maNCC"));
 			long giaNhap = rs.getLong("giaNhap");
 			String ghiChu = rs.getString("ghiChu");
-			String donVi = rs.getString("soLuongTon");
+			String donViSanPham = rs.getString("donViSanPham");
 			String hinhAnh = rs.getString("hinhAnh");
-			sp = new SanPham(maSanPham, loaiSanPham, soLuongTon, trongLuong, ncc, giaNhap, ghiChu, donVi, hinhAnh);
+			String tenSach = rs.getString("tenSach");
+			TacGia tacGia = new TacGia(rs.getString("maTacGia"));
+			NhaXuatBan nhaXuatBan = new NhaXuatBan(rs.getString("maNXB"));
+			int namXuatBan = rs.getInt("namXB");
+			int soTrang = rs.getInt("soTrang");
+			TheLoaiSach theLoaiSach = new TheLoaiSach(rs.getString("maTheLoai"));
+			String tenVanPhongPham = rs.getString("tenVanPhongPham");
+			TheLoaiVanPhongPham loaiVanPhongPham = new TheLoaiVanPhongPham(rs.getString("maLoaiVanPhongPham"));
+			MauSac mauSac = new MauSac(rs.getString("maMauSac"));
+			ChatLieu chatLieu = new ChatLieu(rs.getString("maChatLieu"));
+			XuatXu xuatXu = new XuatXu(rs.getString("maXuatXu"));
+
+
+
+			if (loaiSanPham.equals("Sách")) {
+				sp = new Sach(maSanPham, loaiSanPham, soLuongTon, trongLuong, ncc, giaNhap, ghiChu, donViSanPham, hinhAnh,
+						tenSach, tacGia, nhaXuatBan, namXuatBan, soTrang, theLoaiSach);
+			} else if (loaiSanPham.equals("Văn phòng phẩm")) {
+				sp = new VanPhongPham(maSanPham, loaiSanPham, soLuongTon, trongLuong, ncc, giaNhap, ghiChu, donViSanPham, hinhAnh, tenVanPhongPham, loaiVanPhongPham, mauSac, chatLieu, xuatXu);
+			}
 
 			return sp;
 		}
 		return null;
 	}
 
-	public Sach getSachTheoMaSP(String maSP) throws SQLException {
+	public static Sach getSachTheoMaSP(String maSP) throws SQLException {
 		Sach s = new Sach();
 		String query = "Select * from SanPham where maSanPham=?";
 		ps = con.prepareStatement(query);
@@ -112,8 +131,35 @@ public class SanPhamDao {
 		ps.setString(1, masp);
 		rs = ps.executeQuery();
 		while (rs.next()) {
-			SanPham sp = new SanPham(rs.getString("maSanPham"));
-			return sp;
+
+			String maSanPham = rs.getString("maSanPham");
+			String loaiSanPham = rs.getString("loaiSanPham");
+			int soLuongTon = rs.getInt("soLuongTon");
+			double trongLuong = rs.getDouble("trongLuong");
+			NhaCungCap ncc = new NhaCungCap(rs.getString("maNCC"));
+			long giaNhap = rs.getLong("giaNhap");
+			String ghiChu = rs.getString("ghiChu");
+			String donViSanPham = rs.getString("donViSanPham");
+			String hinhAnh = rs.getString("hinhAnh");
+			String tenSach = rs.getString("tenSach");
+			TacGia tacGia = new TacGia(rs.getString("maTacGia"));
+			NhaXuatBan nhaXuatBan = new NhaXuatBan(rs.getString("maNXB"));
+			int namXuatBan = rs.getInt("namXB");
+			int soTrang = rs.getInt("soTrang");
+			TheLoaiSach theLoaiSach = new TheLoaiSach(rs.getString("maTheLoai"));
+			String tenVanPhongPham = rs.getString("tenVanPhongPham");
+			TheLoaiVanPhongPham loaiVanPhongPham = new TheLoaiVanPhongPham(rs.getString("maLoaiVanPhongPham"));
+			MauSac mauSac = new MauSac(rs.getString("maMauSac"));
+			ChatLieu chatLieu = new ChatLieu(rs.getString("maChatLieu"));
+			XuatXu xuatXu = new XuatXu(rs.getString("maXuatXu"));
+
+			if (loaiSanPham.equals("Sach")) {
+				Sach sp = new Sach(maSanPham, loaiSanPham, soLuongTon, trongLuong, ncc, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, tacGia, nhaXuatBan, namXuatBan, soTrang, theLoaiSach);
+				return sp;
+			} else if (loaiSanPham.equals("VanPhongPham")) {
+				VanPhongPham sp = new VanPhongPham(maSanPham, loaiSanPham, soLuongTon, trongLuong, ncc, giaNhap, ghiChu, donViSanPham, hinhAnh, tenVanPhongPham, loaiVanPhongPham, mauSac, chatLieu, xuatXu);
+				return sp;
+			}
 		}
 		return null;
 	}
@@ -148,7 +194,7 @@ public class SanPhamDao {
 	}
 
 	public ArrayList<Sach> getListSach(String maSach, String tenSP, String maTheLoai, Long giaTu, Long giaDen,
-			String maTacGia, String maNXB, String maNCC, boolean hetHang) throws Exception {
+									   String maTacGia, String maNXB, String maNCC, boolean hetHang) throws Exception {
 
 		ArrayList<Sach> listSach = new ArrayList<>();
 		query = "SELECT SanPham.maSanPham, SanPham.soLuongTon,SanPham.loaiSanPham, NhaCungCap.maNCC, NhaCungCap.tenNCC, SanPham.giaNhap, SanPham.ghiChu, SanPham.trongLuong, SanPham.donViSanPham, SanPham.hinhAnh, SanPham.tenSach, TacGia.maTacGia, \r\n"
@@ -183,7 +229,7 @@ public class SanPhamDao {
 	}
 
 	public ArrayList<VanPhongPham> getListVanPhongPham(String maVPP, String tenVPP, String theLoaiVPP, Long giaTu,
-			Long giaDen, String maChatLieu, String maXuatXu, String maNCC, boolean hetHang) throws Exception {
+													   Long giaDen, String maChatLieu, String maXuatXu, String maNCC, boolean hetHang) throws Exception {
 		ArrayList<VanPhongPham> list = new ArrayList<>();
 		query = "SELECT SanPham.maSanPham, SanPham.loaiSanPham, SanPham.soLuongTon, SanPham.trongLuong, "
 				+ "	NhaCungCap.maNCC, NhaCungCap.tenNCC, SanPham.giaNhap, SanPham.ghiChu, SanPham.donViSanPham, SanPham.hinhAnh, "
@@ -557,12 +603,13 @@ public class SanPhamDao {
 		}
 		return 1;
 	}
+
 	public boolean kiemTraTonTaiSanPham(String tenSP) {
-		String query = "select * from SanPham where tenSach = N'"+tenSP+"' or tenVanPhongPham = N'"+tenSP+"'";
+		String query = "select * from SanPham where tenSach = N'" + tenSP + "' or tenVanPhongPham = N'" + tenSP + "'";
 		try {
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				return true;
 			}
 		} catch (SQLException e) {
@@ -573,7 +620,7 @@ public class SanPhamDao {
 	}
 
 	public SanPham timSanPhamTheoMa1(String maSP) throws SQLException {
-		SanPham sanPham = null;
+		SanPham sp = null;
 		// System.out.println(maNV);
 		String query = "Select * from SanPham where maSanPham=?";
 		ps = con.prepareStatement(query);
@@ -586,19 +633,30 @@ public class SanPhamDao {
 			String loaiSanPham = rs.getString("loaiSanPham");
 			int soLuongTon = rs.getInt("soLuongTon");
 			double trongLuong = rs.getDouble("trongLuong");
-
 			NhaCungCap ncc = new NhaCungCap(rs.getString("maNCC"));
 			long giaNhap = rs.getLong("giaNhap");
 			String ghiChu = rs.getString("ghiChu");
-			String donVi = rs.getString("donViSanPham");
+			String donViSanPham = rs.getString("donViSanPham");
 			String hinhAnh = rs.getString("hinhAnh");
-//			String tenVPP= rs.getString("tenVanPhongPham");
-			sanPham = new SanPham(maSanPham, loaiSanPham, soLuongTon, trongLuong , ncc, giaNhap, ghiChu, donVi, hinhAnh);
-			
-			
-		}
-		return sanPham;
-	}
-	
+			String tenSach = rs.getString("tenSach");
+			TacGia tacGia = new TacGia(rs.getString("maTacGia"));
+			NhaXuatBan nhaXuatBan = new NhaXuatBan(rs.getString("maNXB"));
+			int namXuatBan = rs.getInt("namXB");
+			int soTrang = rs.getInt("soTrang");
+			TheLoaiSach theLoaiSach = new TheLoaiSach(rs.getString("maTheLoai"));
+			String tenVanPhongPham = rs.getString("tenVanPhongPham");
+			TheLoaiVanPhongPham loaiVanPhongPham = new TheLoaiVanPhongPham(rs.getString("maLoaiVanPhongPham"));
+			MauSac mauSac = new MauSac(rs.getString("maMauSac"));
+			ChatLieu chatLieu = new ChatLieu(rs.getString("maChatLieu"));
+			XuatXu xuatXu = new XuatXu(rs.getString("maXuatXu"));
 
+			if (loaiSanPham.equals("Sach")) {
+				sp = new Sach(maSanPham, loaiSanPham, soLuongTon, trongLuong, ncc, giaNhap, ghiChu, donViSanPham, hinhAnh,
+						tenSach, tacGia, nhaXuatBan, namXuatBan, soTrang, theLoaiSach);
+			} else if (loaiSanPham.equals("VanPhongPham")) {
+				sp = new VanPhongPham(maSanPham, loaiSanPham, soLuongTon, trongLuong, ncc, giaNhap, ghiChu, donViSanPham, hinhAnh, tenVanPhongPham, loaiVanPhongPham, mauSac, chatLieu, xuatXu);
+			}
+		}
+	return sp;
+	}
 }
