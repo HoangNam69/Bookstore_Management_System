@@ -25,7 +25,7 @@ import entities.SanPham;
 import service.impl.SanPhamServiceImpl;
 import java.awt.SystemColor;
 
-public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
+public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -45,7 +45,7 @@ public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
 	private JButton btnDoi;
 
 //	@SuppressWarnings("deprecation")
-	public WinXemChiTietHoaDon2() throws Exception {
+	public WinXemChiTietHoaDonSachLoi() throws Exception {
 
 		setTitle("Chi tiết hóa đơn");
 		setResizable(false);
@@ -54,13 +54,13 @@ public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("CÁC SÁCH LỖI");
-		lblNewLabel.setForeground(SystemColor.textHighlight);
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel.setBounds(201, 10, 766, 39);
-		getContentPane().add(lblNewLabel);
+		JLabel lblTitle = new JLabel("CÁC SÁCH LỖI");
+		lblTitle.setForeground(SystemColor.textHighlight);
+		lblTitle.setVerticalAlignment(SwingConstants.TOP);
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblTitle.setBounds(201, 10, 766, 39);
+		getContentPane().add(lblTitle);
 
 		lblSoTrang = new JLabel();
 		lblSoTrang.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -68,20 +68,20 @@ public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
 		lblSoTrang.setBounds(125, 290, 170, 23);
 		getContentPane().add(lblSoTrang);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(28, 599, 1078, 54);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		JPanel pnlControl = new JPanel();
+		pnlControl.setBounds(28, 599, 1078, 54);
+		getContentPane().add(pnlControl);
+		pnlControl.setLayout(null);
 
 		btnThoat = new JButton("Thoát");
 		btnThoat.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnThoat.setBounds(569, 10, 132, 39);
-		panel_1.add(btnThoat);
+		pnlControl.add(btnThoat);
 
 		btnDoi = new JButton("Đổi");
 		btnDoi.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnDoi.setBounds(363, 10, 132, 39);
-		panel_1.add(btnDoi);
+		pnlControl.add(btnDoi);
 
 		JPanel panel_right = new JPanel();
 		panel_right.setBounds(28, 59, 1078, 511);
@@ -98,11 +98,11 @@ public class WinXemChiTietHoaDon2 extends JFrame implements ActionListener {
 		tblChiTietHD.setAutoCreateRowSorter(true);
 		panel_right.add(scrChiTietHD);
 
-		JLabel lblNewLabel_1 = new JLabel("DANH SÁCH SẢN PHẨM");
-		lblNewLabel_1.setBounds(274, 2, 360, 33);
-		panel_right.add(lblNewLabel_1);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblDSSanPham = new JLabel("DANH SÁCH SẢN PHẨM");
+		lblDSSanPham.setBounds(274, 2, 360, 33);
+		panel_right.add(lblDSSanPham);
+		lblDSSanPham.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblDSSanPham.setHorizontalAlignment(SwingConstants.CENTER);
 		try {
 			docDuLieuSachLoi();
 		} catch (SQLException e) {

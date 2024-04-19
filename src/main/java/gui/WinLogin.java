@@ -44,10 +44,6 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 	public TaiKhoanDao taiKhoanDao;
 	public WinQuenMatKhau winQuenMatKhau = new WinQuenMatKhau();
 
-	// public static NhanVien nv;
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -286,10 +282,10 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 		String password = new String(chPassWord);
 		boolean status = false;
 		TaiKhoanDao accControl = new TaiKhoanDao();
+
 		List<TaiKhoan> list = accControl.getList();
 
 		if (obj.equals(btnDangNhap)) {
-			// System.out.println("ok");
 			for (TaiKhoan account : list) {
 				if (userName.equalsIgnoreCase(account.getTenDangNhap())) {
 					if (password.trim().equalsIgnoreCase(account.getMatKhau())) {
