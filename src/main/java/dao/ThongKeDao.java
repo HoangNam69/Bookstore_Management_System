@@ -8,9 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import db.DBConnection;
-import entities.KhachHang;
-import entities.NhanVien;
-import entities.SanPham;
+import entities.*;
 
 public class ThongKeDao {
 
@@ -73,6 +71,7 @@ public class ThongKeDao {
 	}
 
 	public List<SanPham> getSanPhamBanNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+		SanPham sp = null;
 		dsSP = new ArrayList<SanPham>();
 		try {
 			String query = "SELECT SanPham.maSanPham\r\n" + "FROM     ChiTietHoaDon INNER JOIN\r\n"
@@ -105,10 +104,34 @@ public class ThongKeDao {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				String maSanPham = rs.getString(1);
-				SanPham sanPham = new SanPham(maSanPham);
-				dsSP.add(sanPham);
 
+				String maSanPham = rs.getString("maSanPham");
+				String loaiSanPham = rs.getString("loaiSanPham");
+				int soLuongTon = rs.getInt("soLuongTon");
+				double trongLuong = rs.getDouble("trongLuong");
+				NhaCungCap ncc = new NhaCungCap(rs.getString("maNCC"));
+				long giaNhap = rs.getLong("giaNhap");
+				String ghiChu = rs.getString("ghiChu");
+				String donViSanPham = rs.getString("donViSanPham");
+				String hinhAnh = rs.getString("hinhAnh");
+				String tenSach = rs.getString("tenSach");
+				TacGia tacGia = new TacGia(rs.getString("maTacGia"));
+				NhaXuatBan nhaXuatBan = new NhaXuatBan(rs.getString("maNXB"));
+				int namXuatBan = rs.getInt("namXB");
+				int soTrang = rs.getInt("soTrang");
+				TheLoaiSach theLoaiSach = new TheLoaiSach(rs.getString("maTheLoai"));
+				String tenVanPhongPham = rs.getString("tenVanPhongPham");
+				TheLoaiVanPhongPham loaiVanPhongPham = new TheLoaiVanPhongPham(rs.getString("maLoaiVanPhongPham"));
+				MauSac mauSac = new MauSac(rs.getString("maMauSac"));
+				ChatLieu chatLieu = new ChatLieu(rs.getString("maChatLieu"));
+				XuatXu xuatXu = new XuatXu(rs.getString("maXuatXu"));
+
+				if (loaiSanPham.equals("Sach")) {
+					sp = new Sach(maSanPham, loaiSanPham, soLuongTon, trongLuong, ncc, giaNhap, ghiChu, donViSanPham, hinhAnh,
+							tenSach, tacGia, nhaXuatBan, namXuatBan, soTrang, theLoaiSach);
+				} else if (loaiSanPham.equals("VanPhongPham")) {
+					sp = new VanPhongPham(maSanPham, loaiSanPham, soLuongTon, trongLuong, ncc, giaNhap, ghiChu, donViSanPham, hinhAnh, tenVanPhongPham, loaiVanPhongPham, mauSac, chatLieu, xuatXu);
+				}
 			}
 			return dsSP;
 

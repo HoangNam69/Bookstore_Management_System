@@ -1021,30 +1021,42 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 				// đã có người dùng trong hàng chờ
 				for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
 					boolean kiemTraTrung = false;
-					SanPham sanPham = new SanPham(modelHoaDon.getValueAt(i, 1).toString(),
-							Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString()));
-					for (int j = 0; j < dsHoaDonCho.get(txtSDT.getText().trim()).size(); j++) {
-						// trùng sản phẩm -> số lượng tăng
-						if (sanPham.getMaSanPham()
-								.equals(dsHoaDonCho.get(txtSDT.getText().trim()).get(j).getMaSanPham())) {
-							int soLuong = dsHoaDonCho.get(txtSDT.getText().trim()).get(j).getSoLuongTon();
-							dsHoaDonCho.get(txtSDT.getText().trim()).get(j)
-									.setSoLuongTon(sanPham.getSoLuongTon() + soLuong);
-							kiemTraTrung = true;
-							break;
-						}
-					}
-					if (!kiemTraTrung) {
-						dsHoaDonCho.get(txtSDT.getText().trim()).add(sanPham);
-					}
+
+//					mã sản phẩm và số lượng tồn
+
+//					lấy được sản phẩm qua mã sp lọc kiểm tra sách hay văn phòng phẩm khởi tạo constructor tương ứng và gán giá trị
+
+                    try {
+                        SanPham sp = sanPhamDao.getSanPhamTheoMa(modelHoaDon.getValueAt(i, 1).toString());
+						System.out.println(sp.getLoaiSanPham());
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+//                    SanPham sanPham = new SanPham(modelHoaDon.getValueAt(i, 1).toString(),
+//							Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString()));
+//					for (int j = 0; j < dsHoaDonCho.get(txtSDT.getText().trim()).size(); j++) {
+//						// trùng sản phẩm -> số lượng tăng
+//						if (sanPham.getMaSanPham()
+//								.equals(dsHoaDonCho.get(txtSDT.getText().trim()).get(j).getMaSanPham())) {
+//							int soLuong = dsHoaDonCho.get(txtSDT.getText().trim()).get(j).getSoLuongTon();
+//							dsHoaDonCho.get(txtSDT.getText().trim()).get(j)
+//									.setSoLuongTon(sanPham.getSoLuongTon() + soLuong);
+//							kiemTraTrung = true;
+//							break;
+//						}
+//					}
+//					if (!kiemTraTrung) {
+//						dsHoaDonCho.get(txtSDT.getText().trim()).add(sanPham);
+//					}
 				}
 			} else {
 				// chưa có người dùng trong hàng chờ
 				ArrayList<SanPham> dsSanPhamCho = new ArrayList<>();
 				for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
-					SanPham sanPham = new SanPham(modelHoaDon.getValueAt(i, 1).toString(),
-							Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString()));
-					dsSanPhamCho.add(sanPham);
+//					SanPham sanPham = new SanPham(modelHoaDon.getValueAt(i, 1).toString(),
+//							Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString()));
+//					dsSanPhamCho.add(sanPham);
 				}
 				dsHoaDonCho.put(txtSDT.getText().trim(), dsSanPhamCho);
 			}

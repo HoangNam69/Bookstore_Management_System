@@ -1,6 +1,6 @@
 package entities;
 
-public  class SanPham {
+public abstract class SanPham {
     protected String maSanPham;
     protected String loaiSanPham;
     protected int soLuongTon;
