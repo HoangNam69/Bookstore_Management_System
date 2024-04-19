@@ -1,64 +1,74 @@
 package entities;
 
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Entity
+@Table(name = "TaiKhoan")
 public class TaiKhoan {
-	private String tenDangNhap;
-	private String matKhau;
-	private NhanVien nhanVien;
-	private boolean quyen;
+    @Id
+    @Column(unique = true, nullable = false)
+    private String tenDangNhap;
+    @Column(nullable = false)
+    private String matKhau;
 
-	public TaiKhoan() {
-		super();
-	}
+    @OneToOne
+    @JoinColumn(name = "maNhanVien")
 
-	public TaiKhoan(String tenDangNhap) {
-		super();
-		this.tenDangNhap = tenDangNhap;
-	}
+    private NhanVien nhanVien;
+    @Column(nullable = false)
+    private boolean quyen;
 
-	public TaiKhoan(String tenDangNhap, String matKhau, NhanVien nhanVien, boolean quyen) {
-		super();
-		this.tenDangNhap = tenDangNhap;
-		this.matKhau = matKhau;
-		this.nhanVien = nhanVien;
-		this.quyen = quyen;
-	}
+    public TaiKhoan(String tenDangNhap) {
+        super();
+        this.tenDangNhap = tenDangNhap;
+    }
 
-	public String getTenDangNhap() {
-		return tenDangNhap;
-	}
+    public TaiKhoan(String tenDangNhap, String matKhau, NhanVien nhanVien, boolean quyen) {
+        super();
+        this.tenDangNhap = tenDangNhap;
+        this.matKhau = matKhau;
+        this.nhanVien = nhanVien;
+        this.quyen = quyen;
+    }
 
-	public void setTenDangNhap(String tenDangNhap) {
-		this.tenDangNhap = tenDangNhap;
-	}
+    public String getTenDangNhap() {
+        return tenDangNhap;
+    }
 
-	public String getMatKhau() {
-		return matKhau;
-	}
+    public void setTenDangNhap(String tenDangNhap) {
+        this.tenDangNhap = tenDangNhap;
+    }
 
-	public void setMatKhau(String matKhau) {
-		this.matKhau = matKhau;
-	}
+    public String getMatKhau() {
+        return matKhau;
+    }
 
-	public NhanVien getNhanVien() {
-		return nhanVien;
-	}
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
 
-	public void setNhanVien(NhanVien nhanVien) {
-		this.nhanVien = nhanVien;
-	}
+    public NhanVien getNhanVien() {
+        return nhanVien;
+    }
 
-	public boolean isQuyen() {
-		return quyen;
-	}
+    public void setNhanVien(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
+    }
 
-	public void setQuyen(boolean quyen) {
-		this.quyen = quyen;
-	}
+    public boolean isQuyen() {
+        return quyen;
+    }
 
-	@Override
-	public String toString() {
-		return "TaiKhoan [tenDangNhap=" + tenDangNhap + ", matKhau=" + matKhau + ", nhanVien=" + nhanVien + ", quyen="
-				+ quyen + "]";
-	}
+    public void setQuyen(boolean quyen) {
+        this.quyen = quyen;
+    }
+
+    @Override
+    public String toString() {
+        return "TaiKhoan [tenDangNhap=" + tenDangNhap + ", matKhau=" + matKhau + ", nhanVien=" + nhanVien + ", quyen="
+                + quyen + "]";
+    }
 
 }
