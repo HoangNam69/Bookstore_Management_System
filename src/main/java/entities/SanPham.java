@@ -1,128 +1,128 @@
 package entities;
 
-public class SanPham {
-	private String maSanPham;
-	private String loaiSanPham;
-	private int soLuongTon;
-	private double trongLuong;
-	private NhaCungCap nhaCungCap;
-	private long giaNhap;
-	private String ghiChu;
-	private String donViSanPham;
-	private String hinhAnh;
+public abstract class SanPham {
+    protected String maSanPham;
+    protected String loaiSanPham;
+    protected int soLuongTon;
+    protected double trongLuong;
+    protected NhaCungCap nhaCungCap;
+    protected long giaNhap;
+    protected String ghiChu;
+    protected String donViSanPham;
+    protected String hinhAnh;
 
-	public SanPham() {
-		super();
+    public SanPham() {
+        super();
 
-	}
+    }
 
-	public SanPham(String maSanPham) {
-		super();
-		this.maSanPham = maSanPham;
+    public SanPham(String maSanPham) {
+        super();
+        this.maSanPham = maSanPham;
 
-	}
+    }
 
-	public SanPham(String maSanPham, String loaiSanPham, int soLuongTon, double trongLuong, NhaCungCap nhaCungCap,
-			long giaNhap, String ghiChu, String donViSanPham, String hinhAnh) {
-		super();
-		this.maSanPham = maSanPham;
-		this.loaiSanPham = loaiSanPham;
-		this.soLuongTon = soLuongTon;
-		this.trongLuong = trongLuong;
-		this.nhaCungCap = nhaCungCap;
-		this.giaNhap = giaNhap;
-		this.ghiChu = ghiChu;
-		this.donViSanPham = donViSanPham;
-		this.hinhAnh = hinhAnh;
-	}
-	
-	public SanPham(String maSanPham, int soLuongTon) {
-		super();
-		this.maSanPham = maSanPham;
-		this.soLuongTon = soLuongTon;
-	}
+    public SanPham(String maSanPham, String loaiSanPham, int soLuongTon, double trongLuong, NhaCungCap nhaCungCap,
+                   long giaNhap, String ghiChu, String donViSanPham, String hinhAnh) {
+        super();
+        this.maSanPham = maSanPham;
+        this.loaiSanPham = loaiSanPham;
+        this.soLuongTon = soLuongTon;
+        this.trongLuong = trongLuong;
+        this.nhaCungCap = nhaCungCap;
+        this.giaNhap = giaNhap;
+        this.ghiChu = ghiChu;
+        this.donViSanPham = donViSanPham;
+        this.hinhAnh = hinhAnh;
+    }
 
-	public String getMaSanPham() {
-		return maSanPham;
-	}
+    public SanPham(String maSanPham, int soLuongTon) {
+        super();
+        this.maSanPham = maSanPham;
+        this.soLuongTon = soLuongTon;
+    }
 
-	public void setMaSanPham(String maSanPham) {
-		this.maSanPham = maSanPham;
-	}
+    public String getMaSanPham() {
+        return maSanPham;
+    }
 
-	public String getLoaiSanPham() {
-		return loaiSanPham;
-	}
+    public void setMaSanPham(String maSanPham) {
+        this.maSanPham = maSanPham;
+    }
 
-	public void setLoaiSanPham(String loaiSanPham) {
-		this.loaiSanPham = loaiSanPham;
-	}
+    public String getLoaiSanPham() {
+        return loaiSanPham;
+    }
 
-	public int getSoLuongTon() {
-		return soLuongTon;
-	}
+    public void setLoaiSanPham(String loaiSanPham) {
+        this.loaiSanPham = loaiSanPham;
+    }
 
-	public void setSoLuongTon(int soLuongTon) {
-		this.soLuongTon = soLuongTon;
-	}
+    public int getSoLuongTon() {
+        return soLuongTon;
+    }
 
-	public double getTrongLuong() {
-		return trongLuong;
-	}
+    public void setSoLuongTon(int soLuongTon) {
+        this.soLuongTon = soLuongTon;
+    }
 
-	public void setTrongLuong(double trongLuong) {
-		this.trongLuong = trongLuong;
-	}
+    public double getTrongLuong() {
+        return trongLuong;
+    }
 
-	public NhaCungCap getNhaCungCap() {
-		return nhaCungCap;
-	}
+    public void setTrongLuong(double trongLuong) {
+        this.trongLuong = trongLuong;
+    }
 
-	public void setNhaCungCap(NhaCungCap nhaCungCap) {
-		this.nhaCungCap = nhaCungCap;
-	}
+    public NhaCungCap getNhaCungCap() {
+        return nhaCungCap;
+    }
 
-	public long getGiaNhap() {
-		return giaNhap;
-	}
+    public void setNhaCungCap(NhaCungCap nhaCungCap) {
+        this.nhaCungCap = nhaCungCap;
+    }
 
-	public void setGiaNhap(long giaNhap) {
-		this.giaNhap = giaNhap;
-	}
+    public long getGiaNhap() {
+        return giaNhap;
+    }
 
-	public String getGhiChu() {
-		return ghiChu;
-	}
+    public void setGiaNhap(long giaNhap) {
+        this.giaNhap = giaNhap;
+    }
 
-	public void setGhiChu(String ghiChu) {
-		this.ghiChu = ghiChu;
-	}
+    public String getGhiChu() {
+        return ghiChu;
+    }
 
-	public String getDonViSanPham() {
-		return donViSanPham;
-	}
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
 
-	public void setDonViSanPham(String donViSanPham) {
-		this.donViSanPham = donViSanPham;
-	}
+    public String getDonViSanPham() {
+        return donViSanPham;
+    }
 
-	public String getHinhAnh() {
-		return hinhAnh;
-	}
+    public void setDonViSanPham(String donViSanPham) {
+        this.donViSanPham = donViSanPham;
+    }
 
-	public void setHinhAnh(String hinhAnh) {
-		this.hinhAnh = hinhAnh;
-	}
+    public String getHinhAnh() {
+        return hinhAnh;
+    }
 
-	public long tinhGiaBan() {
-		return getGiaNhap() + getGiaNhap() * 20 / 100;
-	}
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
+    }
 
-	@Override
-	public String toString() {
-		return "SanPham [maSanPham=" + maSanPham + ", loaiSanPham=" + loaiSanPham + ", soLuongTon=" + soLuongTon
-				+ ", trongLuong=" + trongLuong + ", nhaCungCap=" + nhaCungCap + ", giaNhap=" + giaNhap + ", ghiChu="
-				+ ghiChu + ", donViSanPham=" + donViSanPham + ", hinhAnh=" + hinhAnh + "]";
-	}
+    public long tinhGiaBan() {
+        return getGiaNhap() + getGiaNhap() * 20 / 100;
+    }
+
+    @Override
+    public String toString() {
+        return "SanPham [maSanPham=" + maSanPham + ", loaiSanPham=" + loaiSanPham + ", soLuongTon=" + soLuongTon
+                + ", trongLuong=" + trongLuong + ", nhaCungCap=" + nhaCungCap + ", giaNhap=" + giaNhap + ", ghiChu="
+                + ghiChu + ", donViSanPham=" + donViSanPham + ", hinhAnh=" + hinhAnh + "]";
+    }
 
 }
