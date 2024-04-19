@@ -9,7 +9,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "SanPham")
-public abstract class SanPham implements Serializable  {
+public abstract class SanPham implements Serializable {
     @Id
     @Column(unique = true, nullable = false)
     protected String maSanPham;
@@ -22,21 +22,61 @@ public abstract class SanPham implements Serializable  {
     protected String donViSanPham;
     protected String hinhAnh;
 
-//    Moi quan he voi nha cung cap
+    //    Moi quan he voi nha cung cap
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "maNCC")
     protected NhaCungCap nhaCungCap;
-//    Moi quan he voi chi tiet hoa don
+    //    Moi quan he voi chi tiet hoa don
     @OneToMany(mappedBy = "sanPham", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ChiTietHoaDon> chiTietHoaDons;
-//    Moi quan he voi chi tiet hoa don doi tra
+    //    Moi quan he voi chi tiet hoa don doi tra
     @OneToMany(mappedBy = "sanPham", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ChiTietHoaDonDoiTra> chiTietHoaDonDoiTras;
+
+    //    Moi quan he giua san pham voi xuat xu
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maXuatXu")
+    protected XuatXu xuatXu;
+
+//    Moi quan he giua san pham voi chat lieu
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maChatLieu")
+    private ChatLieu chatLieu;
+
+//    Moi quan he giua san pham voi tac gia
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maTacGia")
+    private TacGia tacGia;
+
+//    Moi quan he giua san pham voi loai van phong pham
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maLoaiVanPhongPham")
+    private TheLoaiVanPhongPham loaiVanPhongPham;
+
+//    Moi quan he giua san pham voi the loai sach
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maLoai")
+    private TheLoaiSach theLoaiSach;
+
+//    Moi quan he giua san pham voi nha xuat ban
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maNXB")
+    private NhaXuatBan nhaXuatBan;
+
+//    Moi quan he giua san pham voi mau sac
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maMauSac")
+    private MauSac mauSac;
+
+//    Moi quan he giua san pham voi sach loi
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maSachLoi")
+    private SachLoi sachLoi;
+
 
     public SanPham(String maSanPham) {
         super();
         this.maSanPham = maSanPham;
-
     }
 
     public SanPham(String maSanPham, String loaiSanPham, int soLuongTon, double trongLuong, NhaCungCap nhaCungCap,

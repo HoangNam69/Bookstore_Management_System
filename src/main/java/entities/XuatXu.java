@@ -1,45 +1,56 @@
 package entities;
 
-public class XuatXu {
-	private String maXuatXu;
-	private String tenXuatXu;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
-	public XuatXu() {
-		super();
+import java.io.Serializable;
+import java.util.Set;
 
-	}
+@NoArgsConstructor
+@Entity
+@Table(name = "XuatXu")
+public class XuatXu implements Serializable {
+    @Id
+    @Column(unique = true, nullable = false)
+    private String maXuatXu;
+    @Column(unique = true, nullable = false)
+    private String tenXuatXu;
 
-	public XuatXu(String maXuatXu) {
-		super();
-		this.maXuatXu = maXuatXu;
+    //	moi quan he giua xuat xu voi san pham
+    @OneToMany(mappedBy = "xuatXu", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<SanPham> sanPhams;
 
-	}
 
-	public XuatXu(String maXuatXu, String tenXuatXu) {
-		super();
-		this.maXuatXu = maXuatXu;
-		this.tenXuatXu = tenXuatXu;
-	}
+    public XuatXu(String maXuatXu) {
+        super();
+        this.maXuatXu = maXuatXu;
+    }
 
-	public String getMaXuatXu() {
-		return maXuatXu;
-	}
+    public XuatXu(String maXuatXu, String tenXuatXu) {
+        super();
+        this.maXuatXu = maXuatXu;
+        this.tenXuatXu = tenXuatXu;
+    }
 
-	public void setMaXuatXu(String maXuatXu) {
-		this.maXuatXu = maXuatXu;
-	}
+    public String getMaXuatXu() {
+        return maXuatXu;
+    }
 
-	public String getTenXuatXu() {
-		return tenXuatXu;
-	}
+    public void setMaXuatXu(String maXuatXu) {
+        this.maXuatXu = maXuatXu;
+    }
 
-	public void setTenXuatXu(String tenXuatXu) {
-		this.tenXuatXu = tenXuatXu;
-	}
+    public String getTenXuatXu() {
+        return tenXuatXu;
+    }
 
-	@Override
-	public String toString() {
-		return "XuatXu [maXuatXu=" + maXuatXu + ", tenXuatXu=" + tenXuatXu + "]";
-	}
+    public void setTenXuatXu(String tenXuatXu) {
+        this.tenXuatXu = tenXuatXu;
+    }
+
+    @Override
+    public String toString() {
+        return "XuatXu [maXuatXu=" + maXuatXu + ", tenXuatXu=" + tenXuatXu + "]";
+    }
 
 }

@@ -1,12 +1,24 @@
 package entities;
 
-public class MauSac {
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Set;
+
+@NoArgsConstructor
+@Entity
+@Table(name = "MauSac")
+public class MauSac implements Serializable {
+	@Id
+	@Column(name = "maMauSac", unique = true, nullable = false)
 	private String maMau;
+	@Column(unique = true, nullable = false)
 	private String tenMau;
 
-	public MauSac() {
-		super();
-	}
+//	Moi quan he giua mau sac voi san pham
+	@OneToMany(mappedBy = "mauSac", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<SanPham> sanPhams;
 
 	public MauSac(String maMau) {
 		super();

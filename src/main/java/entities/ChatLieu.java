@@ -1,13 +1,25 @@
 package entities;
 
-public class ChatLieu {
-	private String maChatLieu;
-	private String tenChatLieu;
-	//aaa
-	public ChatLieu() {
-		super();
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
-	}
+import java.io.Serializable;
+import java.util.Set;
+
+@NoArgsConstructor
+@Entity
+@Table(name = "ChatLieu")
+public class ChatLieu  implements Serializable {
+	@Id
+	@Column(unique = true, nullable = false)
+	private String maChatLieu;
+	@Column(unique = true, nullable = false)
+	private String tenChatLieu;
+
+//	Moi quan he giua chat lieu voi san pham
+	@OneToMany(mappedBy = "chatLieu", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<SanPham> sanPhams;
+
 
 	public ChatLieu(String maChatLieu) {
 		super();

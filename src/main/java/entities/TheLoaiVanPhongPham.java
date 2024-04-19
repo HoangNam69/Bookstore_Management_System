@@ -1,13 +1,25 @@
 package entities;
 
-public class TheLoaiVanPhongPham {
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Set;
+
+@NoArgsConstructor
+@Entity
+@Table(name = "LoaiVanPhongPham")
+public class TheLoaiVanPhongPham implements Serializable {
+	@Id
+	@Column(name = "maLoaiVanPhongPham", unique = true, nullable = false)
 	private String maLoai;
+	@Column(name = "tenTheLoai", unique = true, nullable = false)
 	private String tenLoai;
 
-	public TheLoaiVanPhongPham() {
-		super();
+//	Moi quan he giua loai van phong pham voi san pham
+	@OneToMany(mappedBy = "loaiVanPhongPham", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<SanPham> sanPhams;
 
-	}
 
 	public TheLoaiVanPhongPham(String maLoai) {
 		super();
