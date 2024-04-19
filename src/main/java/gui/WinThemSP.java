@@ -49,48 +49,64 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 
 public class WinThemSP extends JFrame implements ActionListener, MouseListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	// JComboBox
 	private JComboBox<Object> cmbLoai;
 	private JComboBox<Object> cmbTacGiaOrChatLieu;
 	private JComboBox<Object> cmbNhaXbOrXuatXu;
 	private JComboBox<String> cmbNhaCungCap;
 	private JComboBox<String> cmbMauSac;
+	private JComboBox<String> cmbDonVi;
+
+	// JTextField
 	private JTextField txtMasp;
+	private JTextField txtSoTrang;
+	private JTextField txtSoLuong;
+	private JTextField txtTenSp;
+	private JTextField txtGiaNhap;
+	private JTextField txtTrongLuong;
+
+	// JRadioButton
 	private JRadioButton radSach;
 	private JRadioButton radVPP;
-	private JLabel lblNewLabel_2;
+
+	// JLabel
 	private JLabel lblTacGia;
 	private JLabel lblNxb;
 	private JLabel lblNamXb;
-	private JTextField txtSoTrang;
 	private JLabel lblSoTrang;
-	private JYearChooser chooserNamXB;
-	private JLabel lblNewLabel_7;
-	private JTextField txtSoLuong;
-	private JLabel lblImgSp;
+	private JLabel lblSoLuong;
+	private JLabel lblImgSanPham;
+	private JLabel lblTenSanPham;
+	private JLabel lblNhaCungCap;
+	private JLabel lblGiaNhap;
+	private JLabel lblDonViSanPham;
+	private JLabel lblTrongLuong;
+	private JLabel lblTrongLuongKg;
+	private JLabel lblMaSanPham;
+	private JLabel lblTieuDe;
+	private JLabel lblTheLoai;
+	private JLabel lblGhiChuMoTa;
+	
+	// JPanel
+	private JPanel pnlButtonGroup;
+	
+	// JButton
 	private JButton btnChooser;
-	private JLabel lblNewLabel_9;
-	private JTextField txtTenSp;
-	private JLabel lblNewLabel_10;
-	private JLabel lblNewLabel_11;
-	private JTextField txtGiaNhap;
-	private JLabel lblNewLabel_12;
-	private JLabel lblNewLabel_13;
-	private JTextField txtTrongLuong;
 	private JButton btnLamMoi;
 	private JButton btnHuy;
 	private JButton btnThemSp;
-	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
-	TheLoaiServiceImpl theLoaiServiceImpl = new TheLoaiServiceImpl();
-	TacGiaServiceImpl tacGiaServiceImpl = new TacGiaServiceImpl();
-	NhaXuatBanServiceImpl nhaXuatBanServiceImpl = new NhaXuatBanServiceImpl();
-	NhaCungCapServiceImpl nhaCungCapServiceImpl = new NhaCungCapServiceImpl();
-	ChatLieuServiceImpl chatLieuServiceImpl = new ChatLieuServiceImpl();
-	XuatXuServiceImpl xuatXuServiceImpl = new XuatXuServiceImpl();
-	MauSacServiceImpl mauSacServiceImpl = new MauSacServiceImpl();
+
+	// JTextArea
+	private JTextArea txaGhiChu;
+
+	// JFileChooser
+	private JFileChooser fchChonFile;
+
+	// String
+	private String hinhAnh;
+
+	// ArrayList
 	private ArrayList<TheLoaiSach> theLoaiSachs;
 	private ArrayList<TacGia> tacGias;
 	private ArrayList<NhaXuatBan> nhaXuatBans;
@@ -99,11 +115,19 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 	private ArrayList<ChatLieu> chatLieus;
 	private ArrayList<XuatXu> xuatXus;
 	private ArrayList<MauSac> mauSacs;
-	private JTextArea txaGhiChu;
-	private JComboBox<String> cmbDonVi;
-	private JFileChooser filechoose;
-	private String hinhAnh;
-	private JLabel lblNewLabel_3;
+
+	// ServiceImpl
+	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
+	TheLoaiServiceImpl theLoaiServiceImpl = new TheLoaiServiceImpl();
+	TacGiaServiceImpl tacGiaServiceImpl = new TacGiaServiceImpl();
+	NhaXuatBanServiceImpl nhaXuatBanServiceImpl = new NhaXuatBanServiceImpl();
+	NhaCungCapServiceImpl nhaCungCapServiceImpl = new NhaCungCapServiceImpl();
+	ChatLieuServiceImpl chatLieuServiceImpl = new ChatLieuServiceImpl();
+	XuatXuServiceImpl xuatXuServiceImpl = new XuatXuServiceImpl();
+	MauSacServiceImpl mauSacServiceImpl = new MauSacServiceImpl();
+
+	// JYearChooser
+	private JYearChooser chooserNamXB;
 
 	@SuppressWarnings("deprecation")
 	public WinThemSP() {
@@ -114,11 +138,11 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("Mã Sản Phẩm:");
-		lblNewLabel_1.setForeground(new Color(72, 61, 139));
-		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(10, 89, 116, 23);
-		getContentPane().add(lblNewLabel_1);
+		lblMaSanPham = new JLabel("Mã Sản Phẩm:");
+		lblMaSanPham.setForeground(new Color(72, 61, 139));
+		lblMaSanPham.setFont(new Font("Arial", Font.BOLD, 16));
+		lblMaSanPham.setBounds(10, 89, 116, 23);
+		getContentPane().add(lblMaSanPham);
 
 		cmbLoai = new JComboBox<Object>();
 		cmbLoai.setBackground(new Color(255, 255, 255));
@@ -167,12 +191,12 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		group.add(radSach);
 		group.add(radVPP);
 
-		JLabel lblNewLabel = new JLabel("THÊM SẢN PHẨM");
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 23));
-		lblNewLabel.setBounds(10, 10, 766, 39);
-		getContentPane().add(lblNewLabel);
+		lblTieuDe = new JLabel("THÊM SẢN PHẨM");
+		lblTieuDe.setVerticalAlignment(SwingConstants.TOP);
+		lblTieuDe.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTieuDe.setFont(new Font("Tahoma", Font.BOLD, 23));
+		lblTieuDe.setBounds(10, 10, 766, 39);
+		getContentPane().add(lblTieuDe);
 
 		txtMasp = new JTextField();
 		txtMasp.setEditable(false);
@@ -182,11 +206,11 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		getContentPane().add(txtMasp);
 		txtMasp.setColumns(10);
 
-		lblNewLabel_2 = new JLabel("Thể loại:");
-		lblNewLabel_2.setForeground(new Color(72, 61, 139));
-		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_2.setBounds(10, 154, 116, 38);
-		getContentPane().add(lblNewLabel_2);
+		lblTheLoai = new JLabel("Thể loại:");
+		lblTheLoai.setForeground(new Color(72, 61, 139));
+		lblTheLoai.setFont(new Font("Arial", Font.BOLD, 16));
+		lblTheLoai.setBounds(10, 154, 116, 38);
+		getContentPane().add(lblTheLoai);
 
 		lblTacGia = new JLabel("Tác giả:");
 		lblTacGia.setForeground(new Color(72, 61, 139));
@@ -223,11 +247,11 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		lblSoTrang.setBounds(10, 290, 116, 23);
 		getContentPane().add(lblSoTrang);
 
-		lblNewLabel_7 = new JLabel("Số lượng:");
-		lblNewLabel_7.setForeground(new Color(72, 61, 139));
-		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_7.setBounds(10, 331, 116, 23);
-		getContentPane().add(lblNewLabel_7);
+		lblSoLuong = new JLabel("Số lượng:");
+		lblSoLuong.setForeground(new Color(72, 61, 139));
+		lblSoLuong.setFont(new Font("Arial", Font.BOLD, 16));
+		lblSoLuong.setBounds(10, 331, 116, 23);
+		getContentPane().add(lblSoLuong);
 
 		txtSoLuong = new JTextField();
 		txtSoLuong.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -235,23 +259,23 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		txtSoLuong.setBounds(125, 331, 170, 23);
 		getContentPane().add(txtSoLuong);
 
-		lblImgSp = new JLabel("");
-		lblImgSp.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImgSp.setBounds(472, 77, 224, 245);
-		lblImgSp.setIcon(setSizeImageIcon(new ImageIcon("..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg"),
-				lblImgSp.getWidth(), lblImgSp.getHeight()));
-		lblImgSp.setBorder(BorderFactory.createLineBorder(Color.black));
-		getContentPane().add(lblImgSp);
+		lblImgSanPham = new JLabel("");
+		lblImgSanPham.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImgSanPham.setBounds(472, 77, 224, 245);
+		lblImgSanPham.setIcon(setSizeImageIcon(new ImageIcon("..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg"),
+				lblImgSanPham.getWidth(), lblImgSanPham.getHeight()));
+		lblImgSanPham.setBorder(BorderFactory.createLineBorder(Color.black));
+		getContentPane().add(lblImgSanPham);
 
 		btnChooser = new JButton("Chọn File");
 		btnChooser.setBounds(535, 332, 109, 29);
 		getContentPane().add(btnChooser);
 
-		lblNewLabel_9 = new JLabel("Tên sản phẩm:");
-		lblNewLabel_9.setForeground(new Color(72, 61, 139));
-		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_9.setBounds(10, 122, 116, 23);
-		getContentPane().add(lblNewLabel_9);
+		lblTenSanPham = new JLabel("Tên sản phẩm:");
+		lblTenSanPham.setForeground(new Color(72, 61, 139));
+		lblTenSanPham.setFont(new Font("Arial", Font.BOLD, 16));
+		lblTenSanPham.setBounds(10, 122, 116, 23);
+		getContentPane().add(lblTenSanPham);
 
 		txtTenSp = new JTextField();
 		txtTenSp.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -259,17 +283,17 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		txtTenSp.setBounds(125, 122, 328, 23);
 		getContentPane().add(txtTenSp);
 
-		lblNewLabel_10 = new JLabel("Nhà cung cấp:");
-		lblNewLabel_10.setForeground(new Color(72, 61, 139));
-		lblNewLabel_10.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_10.setBounds(10, 359, 116, 38);
-		getContentPane().add(lblNewLabel_10);
+		lblNhaCungCap = new JLabel("Nhà cung cấp:");
+		lblNhaCungCap.setForeground(new Color(72, 61, 139));
+		lblNhaCungCap.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNhaCungCap.setBounds(10, 359, 116, 38);
+		getContentPane().add(lblNhaCungCap);
 
-		lblNewLabel_11 = new JLabel("Giá nhập:");
-		lblNewLabel_11.setForeground(new Color(72, 61, 139));
-		lblNewLabel_11.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_11.setBounds(10, 405, 116, 23);
-		getContentPane().add(lblNewLabel_11);
+		lblGiaNhap = new JLabel("Giá nhập:");
+		lblGiaNhap.setForeground(new Color(72, 61, 139));
+		lblGiaNhap.setFont(new Font("Arial", Font.BOLD, 16));
+		lblGiaNhap.setBounds(10, 405, 116, 23);
+		getContentPane().add(lblGiaNhap);
 
 		txtGiaNhap = new JTextField();
 		txtGiaNhap.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -277,17 +301,17 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		txtGiaNhap.setBounds(125, 405, 170, 23);
 		getContentPane().add(txtGiaNhap);
 
-		lblNewLabel_12 = new JLabel("Đơn vị sp:");
-		lblNewLabel_12.setForeground(new Color(72, 61, 139));
-		lblNewLabel_12.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_12.setBounds(10, 438, 116, 23);
-		getContentPane().add(lblNewLabel_12);
+		lblDonViSanPham = new JLabel("Đơn vị sp:");
+		lblDonViSanPham.setForeground(new Color(72, 61, 139));
+		lblDonViSanPham.setFont(new Font("Arial", Font.BOLD, 16));
+		lblDonViSanPham.setBounds(10, 438, 116, 23);
+		getContentPane().add(lblDonViSanPham);
 
-		lblNewLabel_13 = new JLabel("Trọng lượng:");
-		lblNewLabel_13.setForeground(new Color(72, 61, 139));
-		lblNewLabel_13.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_13.setBounds(10, 481, 116, 23);
-		getContentPane().add(lblNewLabel_13);
+		lblTrongLuong = new JLabel("Trọng lượng:");
+		lblTrongLuong.setForeground(new Color(72, 61, 139));
+		lblTrongLuong.setFont(new Font("Arial", Font.BOLD, 16));
+		lblTrongLuong.setBounds(10, 481, 116, 23);
+		getContentPane().add(lblTrongLuong);	
 
 		txtTrongLuong = new JTextField();
 		txtTrongLuong.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -295,25 +319,25 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		txtTrongLuong.setBounds(125, 480, 86, 23);
 		getContentPane().add(txtTrongLuong);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 558, 766, 54);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		pnlButtonGroup = new JPanel();
+		pnlButtonGroup.setBounds(10, 558, 766, 54);
+		getContentPane().add(pnlButtonGroup);
+		pnlButtonGroup.setLayout(null);
 
 		btnThemSp = new JButton("Thêm sản phẩm");
 		btnThemSp.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnThemSp.setBounds(316, 10, 132, 39);
-		panel_1.add(btnThemSp);
+		pnlButtonGroup.add(btnThemSp);
 
 		btnHuy = new JButton("Hủy");
 		btnHuy.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnHuy.setBounds(540, 10, 132, 39);
-		panel_1.add(btnHuy);
+		pnlButtonGroup.add(btnHuy);
 
 		btnLamMoi = new JButton("Làm mới");
 		btnLamMoi.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnLamMoi.setBounds(92, 10, 132, 39);
-		panel_1.add(btnLamMoi);
+		pnlButtonGroup.add(btnLamMoi);
 
 		txaGhiChu = new JTextArea();
 		txaGhiChu.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -321,11 +345,11 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		txaGhiChu.setBorder(BorderFactory.createLineBorder(Color.black));
 		getContentPane().add(txaGhiChu);
 
-		JLabel lblNewLabel_6_1 = new JLabel("Ghi chú(Mô tả):");
-		lblNewLabel_6_1.setForeground(new Color(72, 61, 139));
-		lblNewLabel_6_1.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_6_1.setBounds(490, 374, 127, 23);
-		getContentPane().add(lblNewLabel_6_1);
+		lblGhiChuMoTa = new JLabel("Ghi chú(Mô tả):");
+		lblGhiChuMoTa.setForeground(new Color(72, 61, 139));
+		lblGhiChuMoTa.setFont(new Font("Arial", Font.BOLD, 16));
+		lblGhiChuMoTa.setBounds(490, 374, 127, 23);
+		getContentPane().add(lblGhiChuMoTa);
 
 		cmbDonVi = new JComboBox<String>();
 		cmbDonVi.addItem("Cái");
@@ -339,11 +363,11 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		try {
 			txtMasp.setText(tangMa());
 			
-			lblNewLabel_3 = new JLabel("kg");
-			lblNewLabel_3.setForeground(new Color(72, 61, 139));
-			lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 16));
-			lblNewLabel_3.setBounds(215, 481, 116, 23);
-			getContentPane().add(lblNewLabel_3);
+			lblTrongLuongKg = new JLabel("kg");
+			lblTrongLuongKg.setForeground(new Color(72, 61, 139));
+			lblTrongLuongKg.setFont(new Font("Arial", Font.BOLD, 16));
+			lblTrongLuongKg.setBounds(215, 481, 116, 23);
+			getContentPane().add(lblTrongLuongKg);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -407,15 +431,15 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 
 		}
 		if (o.equals(btnChooser)) {
-			filechoose = new JFileChooser("../HieuSachTuNhan/hinhAnhHieuSach");
-			filechoose.setMultiSelectionEnabled(false);
-			int x = filechoose.showDialog(this, "Chọn Ảnh");
+			fchChonFile = new JFileChooser("../HieuSachTuNhan/hinhAnhHieuSach");
+			fchChonFile.setMultiSelectionEnabled(false);
+			int x = fchChonFile.showDialog(this, "Chọn Ảnh");
 			if (x == JFileChooser.APPROVE_OPTION) {
-				String file = filechoose.getSelectedFile().getAbsolutePath();
+				String file = fchChonFile.getSelectedFile().getAbsolutePath();
 				if (!file.matches(".*(\\.jpg|\\.png|\\.PNG)")) {
 					file = "..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg";
 				}
-				lblImgSp.setIcon(setSizeImageIcon(new ImageIcon(file), lblImgSp.getWidth(), lblImgSp.getHeight()));
+				lblImgSanPham.setIcon(setSizeImageIcon(new ImageIcon(file), lblImgSanPham.getWidth(), lblImgSanPham.getHeight()));
 				hinhAnh = getPathHinhAnh(file);
 			}
 		}

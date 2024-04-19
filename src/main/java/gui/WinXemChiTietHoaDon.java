@@ -29,23 +29,8 @@ import entities.VanPhongPham;
 import java.awt.SystemColor;
 
 public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private JLabel lblNhanVienLapHoaDon;
-	private JLabel lblTenKhachHang;
-	private JLabel lblNgayLapHoaDon;
-	private JLabel lblMaHoaDon;
-	private JLabel lblTenKH;
-	private JLabel lblSoTrang;
-	private JLabel lblNewLabel_9;
-	private JLabel lblTenSp;
-	private JLabel lblDanhSachSanPham;
-
-	private JButton btnThoat;
-	private ChiTietHoaDonDao chiTietHoaDonDao;
-	private List<ChiTietHoaDon> dsHoaDon;
+	
+	// String variables
 	String maHoaDon;
 	String tenNhanVien;
 	String ngayLap;
@@ -53,19 +38,56 @@ public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 	String tienKhachDua;
 	String ghiChu;
 	String tongTienHoaDon;
+
+	// JLabels
+	private JLabel lblNhanVienLapHoaDon;
+	private JLabel lblTenKhachHang;
+	private JLabel lblNgayLapHoaDonValue;
+	private JLabel lblMaHoaDon;
+	private JLabel lblTenKH;
+	private JLabel lblNgayLapHoaDon;
+	private JLabel lblSoTrang;
+	private JLabel lblNhanVienLapHoaDonDetail;
+	private JLabel lblTenSp;
+	private JLabel lblDanhSachSanPham;
+	private JLabel lblDanhSachSanPhamDetail;
 	private JLabel lblTongTienKhachDua;
 	private JLabel lblTongTienHoaDon;
-	private JTextArea txaGhiChu;
 	private JLabel lblTienKhachDua;
-	JScrollPane sp_ChiTietHD;
-	private JTable tbl_ChiTietHD;
-	private DefaultTableModel tableModel_chiTietHoaDonDao;
+	
+	// JPanel
+	private JPanel pnlRight;
+	
+	// JButton
+	private JButton btnThoat;
+
+	// JTextArea
+	private JTextArea txaGhiChu;
+
+	// JScrollPane
+	JScrollPane scrChiTietHD;
+
+	// JTable
+	private JTable tblChiTietHoaDon;
+
+	// DefaultTableModel
+	private DefaultTableModel modelChiTietHoaDonDao;
+
+	// SanPham
 	private SanPham sanPham;
-	private SanPhamDao sanPham_dao;
+
+	// SanPhamDao
+	private SanPhamDao daoSanPham;
+
+	// ChiTietHoaDonDao
+	private ChiTietHoaDonDao chiTietHoaDonDao;
+
+	// List of ChiTietHoaDon
+	private List<ChiTietHoaDon> dsHoaDon;
 
 	@SuppressWarnings("deprecation")
 	public WinXemChiTietHoaDon(String maHoaDon, String tenNhanVien, String ngayLap, String tenKhachHang,
-							   String tienKhachDua, String tongTienHoaDon, String ghiChu) {
+								String tienKhachDua, String tongTienHoaDon, String ghiChu) {
 
 		this.maHoaDon = maHoaDon;
 		this.tenNhanVien = tenNhanVien;
@@ -99,24 +121,24 @@ public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 		lblTenKhachHang.setBounds(236, 210, 240, 38);
 		getContentPane().add(lblTenKhachHang);
 
-		lblNgayLapHoaDon = new JLabel();
-		lblNgayLapHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNgayLapHoaDon.setBackground(Color.WHITE);
-		lblNgayLapHoaDon.setBounds(236, 275, 240, 38);
-		getContentPane().add(lblNgayLapHoaDon);
+		lblNgayLapHoaDonValue = new JLabel();
+		lblNgayLapHoaDonValue.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNgayLapHoaDonValue.setBackground(Color.WHITE);
+		lblNgayLapHoaDonValue.setBounds(236, 275, 240, 38);
+		getContentPane().add(lblNgayLapHoaDonValue);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 38, 285, 46);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("CHI TIẾT HÓA ĐƠN");
-		lblNewLabel.setForeground(SystemColor.textHighlight);
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel.setBounds(201, 10, 766, 39);
-		getContentPane().add(lblNewLabel);
+		JLabel lblChiTietHoaDon = new JLabel("CHI TIẾT HÓA ĐƠN");
+		lblChiTietHoaDon.setForeground(SystemColor.textHighlight);
+		lblChiTietHoaDon.setVerticalAlignment(SwingConstants.TOP);
+		lblChiTietHoaDon.setHorizontalAlignment(SwingConstants.CENTER);
+		lblChiTietHoaDon.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblChiTietHoaDon.setBounds(201, 10, 766, 39);
+		getContentPane().add(lblChiTietHoaDon);
 
 		lblMaHoaDon = new JLabel(maHoaDon);
 		lblMaHoaDon.setBorder(BorderFactory.createLineBorder(Color.cyan));
@@ -138,29 +160,31 @@ public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 
 		lblSoTrang = new JLabel();
 		lblSoTrang.setFont(new Font("Tahoma", Font.PLAIN, 16));
+
 		lblSoTrang.setBounds(125, 290, 170, 23);
 		getContentPane().add(lblSoTrang);
 
-		lblNewLabel_9 = new JLabel("Nhân viên lập hóa đơn:");
-		lblNewLabel_9.setForeground(new Color(72, 61, 139));
-		lblNewLabel_9.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_9.setBounds(10, 160, 196, 40);
-		getContentPane().add(lblNewLabel_9);
+		lblNhanVienLapHoaDonDetail = new JLabel("Nhân viên lập hóa đơn:");
+		lblNhanVienLapHoaDonDetail.setForeground(new Color(72, 61, 139));
+		lblNhanVienLapHoaDonDetail.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNhanVienLapHoaDonDetail.setBounds(10, 160, 196, 40);
+		getContentPane().add(lblNhanVienLapHoaDonDetail);
 
 		lblTenSp = new JLabel();
 		lblTenSp.setFont(new Font("Tahoma", Font.PLAIN, 16));
+
 		lblTenSp.setBounds(297, 122, 328, 23);
 		getContentPane().add(lblTenSp);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 599, 1096, 54);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		JPanel pnlButtonContainer = new JPanel();
+		pnlButtonContainer.setBounds(10, 599, 1096, 54);
+		getContentPane().add(pnlButtonContainer);
+		pnlButtonContainer.setLayout(null);
 
 		btnThoat = new JButton("Thoát");
 		btnThoat.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnThoat.setBounds(405, 10, 132, 39);
-		panel_1.add(btnThoat);
+		pnlButtonContainer.add(btnThoat);
 
 		txaGhiChu = new JTextArea();
 		txaGhiChu.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -168,11 +192,11 @@ public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 		txaGhiChu.setBorder(BorderFactory.createLineBorder(Color.black));
 		getContentPane().add(txaGhiChu);
 
-		JLabel lblNewLabel_6_1 = new JLabel("Ghi chú(Mô tả):");
-		lblNewLabel_6_1.setForeground(new Color(72, 61, 139));
-		lblNewLabel_6_1.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_6_1.setBounds(158, 447, 160, 23);
-		getContentPane().add(lblNewLabel_6_1);
+		JLabel lblGhiChuMoTa = new JLabel("Ghi chú(Mô tả):");
+		lblGhiChuMoTa.setForeground(new Color(72, 61, 139));
+		lblGhiChuMoTa.setFont(new Font("Arial", Font.BOLD, 16));
+		lblGhiChuMoTa.setBounds(158, 447, 160, 23);
+		getContentPane().add(lblGhiChuMoTa);
 
 		lblTongTienKhachDua = new JLabel("Tổng tiền hóa đơn:");
 		lblTongTienKhachDua.setForeground(new Color(72, 61, 139));
@@ -198,26 +222,26 @@ public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 		lblTienKhachDua.setBounds(236, 336, 240, 39);
 		getContentPane().add(lblTienKhachDua);
 
-		JPanel panel_right = new JPanel();
-		panel_right.setBounds(519, 94, 587, 433);
-		getContentPane().add(panel_right);
+		pnlRight = new JPanel();
+		pnlRight.setBounds(519, 94, 587, 433);
+		getContentPane().add(pnlRight);
 		setValue();
 
-		panel_right.setLayout(null);
-		String header_ChiTietHD[] = { "STT", "Mã sản phẩm", "Tên sản phẩm", "Giá tiền", "Số lượng" };
-		tableModel_chiTietHoaDonDao = new DefaultTableModel(header_ChiTietHD, 0);
-		tbl_ChiTietHD = new JTable(tableModel_chiTietHoaDonDao);
-		sp_ChiTietHD = new JScrollPane(tbl_ChiTietHD, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+		pnlRight.setLayout(null);
+		String[] tieuDeChiTietHoaDon = { "STT", "Mã sản phẩm", "Tên sản phẩm", "Giá tiền", "Số lượng" };
+		modelChiTietHoaDonDao = new DefaultTableModel(tieuDeChiTietHoaDon, 0);
+		tblChiTietHoaDon = new JTable(modelChiTietHoaDonDao);
+		scrChiTietHD = new JScrollPane(tblChiTietHoaDon, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		sp_ChiTietHD.setBounds(10, 45, 552, 367);
-		tbl_ChiTietHD.setAutoCreateRowSorter(true);
-		panel_right.add(sp_ChiTietHD);
+		scrChiTietHD.setBounds(10, 45, 552, 367);
+		tblChiTietHoaDon.setAutoCreateRowSorter(true);
+		pnlRight.add(scrChiTietHD);
 
-		JLabel lblNewLabel_1 = new JLabel("DANH SÁCH SẢN PHẨM");
-		lblNewLabel_1.setBounds(128, 2, 360, 33);
-		panel_right.add(lblNewLabel_1);
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDanhSachSanPhamDetail = new JLabel("DANH SÁCH SẢN PHẨM");
+		lblDanhSachSanPhamDetail.setBounds(128, 2, 360, 33);
+		pnlRight.add(lblDanhSachSanPhamDetail);
+		lblDanhSachSanPhamDetail.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblDanhSachSanPhamDetail.setHorizontalAlignment(SwingConstants.CENTER);
 		try {
 			docDLVaoTableModel();
 		} catch (SQLException e) {
@@ -233,7 +257,7 @@ public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 		lblMaHoaDon.setText(maHoaDon);
 		lblNhanVienLapHoaDon.setText(tenNhanVien);
 		lblTenKhachHang.setText(tenKhachHang);
-		lblNgayLapHoaDon.setText(ngayLap);
+		lblNgayLapHoaDonValue.setText(ngayLap);
 		lblTienKhachDua.setText(tienKhachDua);
 		lblTongTienHoaDon.setText(tongTienHoaDon);
 	}
@@ -245,15 +269,15 @@ public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 
 		for (ChiTietHoaDon chiTietHoaDon : dsHoaDon) {
 			String masanPham = chiTietHoaDon.getSanPham().getMaSanPham();
-			sanPham_dao = new SanPhamDao();
-			sanPham = sanPham_dao.timSanPhamTheoMa1(masanPham);
+			daoSanPham = new SanPhamDao();
+			sanPham = daoSanPham.timSanPhamTheoMa1(masanPham);
 			if (sanPham.getLoaiSanPham().equals("Sách")) {
-				Sach s = sanPham_dao.getSachTheoMaSP(masanPham);
-				tableModel_chiTietHoaDonDao.addRow(new Object[] { i++, s.getMaSanPham(), s.getTenSach(),
+				Sach s = daoSanPham.getSachTheoMaSP(masanPham);
+				modelChiTietHoaDonDao.addRow(new Object[] { i++, s.getMaSanPham(), s.getTenSach(),
 						chiTietHoaDon.getDonGia(), chiTietHoaDon.getSoLuong() });
 			} else {
-				VanPhongPham vvp = sanPham_dao.getVPPTheoMaSP(masanPham);
-				tableModel_chiTietHoaDonDao.addRow(new Object[] { i++, vvp.getMaSanPham(), vvp.getTenVanPhongPham(),
+				VanPhongPham vvp = daoSanPham.getVPPTheoMaSP(masanPham);
+				modelChiTietHoaDonDao.addRow(new Object[] { i++, vvp.getMaSanPham(), vvp.getTenVanPhongPham(),
 						chiTietHoaDon.getDonGia(), chiTietHoaDon.getSoLuong() });
 			}
 

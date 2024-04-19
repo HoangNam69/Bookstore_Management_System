@@ -42,49 +42,54 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	// JTextField
+	private JTextField txtDiaChi;
+	private JTextField txtEmail;
 	private JTextField txtMa;
+	private JTextField txtSdt;
 	private JTextField txtTen;
-	private DefaultTableModel mdlThuocTinh;
-	private JTable tblThuocTinh;
-	private JScrollPane scrThuocTinh;
+
+	// JLabel
+	private JLabel lblDiaChi;
+	private JLabel lblEmail;
 	private JLabel lblMa;
+	private JLabel lblSdt;
 	private JLabel lblTen;
-	private JRadioButton radTheLoai;
+	private JLabel lblTitle;
+
+	// JRadioButton
+	private JRadioButton radMauSac;
+	private JRadioButton radNhaCungCap;
 	private JRadioButton radNxbOrXuatXu;
 	private JRadioButton radTacGiaOrChatLieu;
-	private JRadioButton radNhaCungCap;
-	private JRadioButton radMauSac;
+	private JRadioButton radTheLoai;
+
+	// JButton
+	private JButton btnHuy;
 	private JButton btnThem;
-	private String loaiSanPham;
-	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
-	TheLoaiServiceImpl theLoaiServiceImpl = new TheLoaiServiceImpl();
-	TacGiaServiceImpl tacGiaServiceImpl = new TacGiaServiceImpl();
-	NhaXuatBanServiceImpl nhaXuatBanServiceImpl = new NhaXuatBanServiceImpl();
-	NhaCungCapServiceImpl nhaCungCapServiceImpl = new NhaCungCapServiceImpl();
-	ChatLieuServiceImpl chatLieuServiceImpl = new ChatLieuServiceImpl();
-	XuatXuServiceImpl xuatXuServiceImpl = new XuatXuServiceImpl();
-	MauSacServiceImpl mauSacServiceImpl = new MauSacServiceImpl();
-	private ArrayList<TheLoaiSach> theLoaiSachs;
-	private ArrayList<TheLoaiVanPhongPham> theLoaiVanPhongPhams;
-	private ArrayList<NhaCungCap> nhaCungCaps;
-	private ArrayList<NhaXuatBan> nhaXuatBans;
-	private ArrayList<XuatXu> xuatXus;
-	private ArrayList<TacGia> tacGias;
+
+	// Other objects
 	private ArrayList<ChatLieu> chatLieus;
 	private ArrayList<MauSac> mauSacs;
-	private JLabel lblTitle;
-	private JButton btnHuy;
+	private ArrayList<NhaCungCap> nhaCungCaps;
+	private ArrayList<NhaXuatBan> nhaXuatBans;
+	private ArrayList<TacGia> tacGias;
+	private ArrayList<TheLoaiSach> theLoaiSachs;
+	private ArrayList<TheLoaiVanPhongPham> theLoaiVanPhongPhams;
+	private ArrayList<XuatXu> xuatXus;
 	private ButtonGroup group;
-	private JTextField txtEmail;
-	private JTextField txtSdt;
-	private JLabel lblSdt;
-	private JLabel lblEmail;
-	private JTextField txtDiaChi;
-	private JLabel lblDiaChi;
+	private ChatLieuServiceImpl chatLieuServiceImpl;
+	private DefaultTableModel mdlThuocTinh;
+	private MauSacServiceImpl mauSacServiceImpl;
+	private NhaCungCapServiceImpl nhaCungCapServiceImpl;
+	private NhaXuatBanServiceImpl nhaXuatBanServiceImpl;
+	private JScrollPane scrThuocTinh;
+	private JTable tblThuocTinh;
+	private TacGiaServiceImpl tacGiaServiceImpl;
+	private TheLoaiServiceImpl theLoaiServiceImpl;
+	private XuatXuServiceImpl xuatXuServiceImpl;
+	private String loaiSanPham;
 
 	public WinQuanLyDanhMuc(String loai) {
 		loaiSanPham = loai;

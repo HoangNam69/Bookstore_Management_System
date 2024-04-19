@@ -599,7 +599,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		}
 		if(o.equals(btnXemSachLoi)) {
 			try {
-				new WinXemChiTietHoaDon2().setVisible(true);
+				new WinXemChiTietHoaDonSachLoi().setVisible(true);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

@@ -16,15 +16,32 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 public class WinXemChiTietHoaDonDoiTra extends JFrame implements ActionListener {
-	private static final long serialVersionUID = 1L;
-	private JLabel lblNhanVienLapHD;
+
+	// JLabels
+	private JLabel lblMaHoaDonDoiTra;
+	private JLabel lblNhanVienLapHoaDon;
 	private JLabel lblTenKhachHang;
 	private JLabel lblNgayLapHoaDon;
-	private JLabel lblMaHoaDonDT;
-	private JLabel lblTenKH;
-	private JLabel lblTenKhachHang_1 = new JLabel();
-	private JLabel lblNhanVien;
+	private JLabel lblTenKhachHangLabel;
+	private JLabel lblNgayLapHoaDonLabel;
+	private JLabel lblNhanVienLabel;
+	private JLabel lblMaHDDT;
+	private JLabel lblTienPhaiTruLabel;
+	private JLabel lblTieuDe;
+	private JLabel lblTienPhaiTru;
+	private JLabel lblTienKhachDua;
+	private JLabel lblMaHoaDonCu = new JLabel();
+
+	// JPanels
+	private JPanel pnlContainerButton;
+
+	// JButton
 	private JButton btnThoat;
+
+	// JTextArea
+	private JTextArea txaGhiChu;
+
+	// Strings
 	String maHDDT;
 	String maHD;
 	String ngayLap;
@@ -33,10 +50,6 @@ public class WinXemChiTietHoaDonDoiTra extends JFrame implements ActionListener 
 	String tienKhachDua;
 	String ghiChu;
 	String tienPhaiTru;
-	private JLabel lblTienPhaiTru;
-	private JTextArea txaGhiChu;
-	private JLabel lblTienKhachDua;
-	
 
 	@SuppressWarnings("deprecation")
 	public WinXemChiTietHoaDonDoiTra(String maHDDT, String maHD, String tenNV, String tenKH, String ngayLapHD,
@@ -57,17 +70,17 @@ public class WinXemChiTietHoaDonDoiTra extends JFrame implements ActionListener 
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 
-		JLabel lblMaHDDT = new JLabel("Mã hóa đơn đổi trả:");
+		lblMaHDDT = new JLabel("Mã hóa đơn đổi trả:");
 		lblMaHDDT.setForeground(new Color(72, 61, 139));
 		lblMaHDDT.setFont(new Font("Arial", Font.BOLD, 16));
 		lblMaHDDT.setBounds(10, 94, 160, 38);
 		getContentPane().add(lblMaHDDT);
 
-		lblNhanVienLapHD = new JLabel();
-		lblNhanVienLapHD.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNhanVienLapHD.setBackground(new Color(255, 255, 255));
-		lblNhanVienLapHD.setBounds(236, 195, 273, 38);
-		getContentPane().add(lblNhanVienLapHD);
+		lblNhanVienLapHoaDon = new JLabel();
+		lblNhanVienLapHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNhanVienLapHoaDon.setBackground(new Color(255, 255, 255));
+		lblNhanVienLapHoaDon.setBounds(236, 195, 273, 38);
+		getContentPane().add(lblNhanVienLapHoaDon);
 
 		lblTenKhachHang = new JLabel();
 		lblTenKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -86,47 +99,47 @@ public class WinXemChiTietHoaDonDoiTra extends JFrame implements ActionListener 
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("CHI TIẾT HÓA ĐƠN ĐỔI TRẢ");
-		lblNewLabel.setForeground(SystemColor.textHighlight);
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel.setBounds(10, 10, 751, 39);
-		getContentPane().add(lblNewLabel);
+		lblTieuDe = new JLabel("CHI TIẾT HÓA ĐƠN ĐỔI TRẢ");
+		lblTieuDe.setForeground(SystemColor.textHighlight);
+		lblTieuDe.setVerticalAlignment(SwingConstants.TOP);
+		lblTieuDe.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTieuDe.setFont(new Font("Tahoma", Font.BOLD, 24));
+		lblTieuDe.setBounds(10, 10, 751, 39);
+		getContentPane().add(lblTieuDe);
 
-		lblMaHoaDonDT = new JLabel("maHoaDon");
-		lblMaHoaDonDT.setBorder(BorderFactory.createLineBorder(Color.cyan));
-		lblMaHoaDonDT.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMaHoaDonDT.setBounds(236, 94, 240, 38);
-		getContentPane().add(lblMaHoaDonDT);
+		lblMaHoaDonDoiTra = new JLabel("maHoaDon");
+		lblMaHoaDonDoiTra.setBorder(BorderFactory.createLineBorder(Color.cyan));
+		lblMaHoaDonDoiTra.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMaHoaDonDoiTra.setBounds(236, 94, 240, 38);
+		getContentPane().add(lblMaHoaDonDoiTra);
 
-		lblTenKH = new JLabel("Tên khách hàng:");
-		lblTenKH.setForeground(new Color(72, 61, 139));
-		lblTenKH.setFont(new Font("Arial", Font.BOLD, 16));
-		lblTenKH.setBounds(10, 243, 170, 38);
-		getContentPane().add(lblTenKH);
+		lblTenKhachHangLabel = new JLabel("Tên khách hàng:");
+		lblTenKhachHangLabel.setForeground(new Color(72, 61, 139));
+		lblTenKhachHangLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		lblTenKhachHangLabel.setBounds(10, 243, 170, 38);
+		getContentPane().add(lblTenKhachHangLabel);
 
-		lblNgayLapHoaDon = new JLabel("Ngày lập hóa đơn:");
-		lblNgayLapHoaDon.setForeground(new Color(72, 61, 139));
-		lblNgayLapHoaDon.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNgayLapHoaDon.setBounds(10, 291, 196, 38);
-		getContentPane().add(lblNgayLapHoaDon);
+		lblNgayLapHoaDonLabel = new JLabel("Ngày lập hóa đơn:");
+		lblNgayLapHoaDonLabel.setForeground(new Color(72, 61, 139));
+		lblNgayLapHoaDonLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNgayLapHoaDonLabel.setBounds(10, 291, 196, 38);
+		getContentPane().add(lblNgayLapHoaDonLabel);
 
-		lblNhanVien = new JLabel("Nhân viên lập hóa đơn:");
-		lblNhanVien.setForeground(new Color(72, 61, 139));
-		lblNhanVien.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNhanVien.setBounds(10, 193, 204, 40);
-		getContentPane().add(lblNhanVien);
+		lblNhanVienLabel = new JLabel("Nhân viên lập hóa đơn:");
+		lblNhanVienLabel.setForeground(new Color(72, 61, 139));
+		lblNhanVienLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNhanVienLabel.setBounds(10, 193, 204, 40);
+		getContentPane().add(lblNhanVienLabel);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(10, 599, 1096, 54);
-		getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		pnlContainerButton = new JPanel();
+		pnlContainerButton.setBounds(10, 599, 1096, 54);
+		getContentPane().add(pnlContainerButton);
+		pnlContainerButton.setLayout(null);
 
 		btnThoat = new JButton("Thoát");
 		btnThoat.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnThoat.setBounds(330, 10, 132, 39);
-		panel_1.add(btnThoat);
+		pnlContainerButton.add(btnThoat);
 
 		txaGhiChu = new JTextArea();
 		txaGhiChu.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -134,17 +147,17 @@ public class WinXemChiTietHoaDonDoiTra extends JFrame implements ActionListener 
 		txaGhiChu.setBorder(BorderFactory.createLineBorder(Color.black));
 		getContentPane().add(txaGhiChu);
 
-		JLabel lblNewLabel_6_1 = new JLabel("Ghi chú(Mô tả):");
-		lblNewLabel_6_1.setForeground(new Color(72, 61, 139));
-		lblNewLabel_6_1.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_6_1.setBounds(325, 447, 160, 23);
-		getContentPane().add(lblNewLabel_6_1);
+		JLabel lblGhiChuMoTa = new JLabel("Ghi chú(Mô tả):");
+		lblGhiChuMoTa.setForeground(new Color(72, 61, 139));
+		lblGhiChuMoTa.setFont(new Font("Arial", Font.BOLD, 16));
+		lblGhiChuMoTa.setBounds(325, 447, 160, 23);
+		getContentPane().add(lblGhiChuMoTa);
 
-		lblTienPhaiTru = new JLabel("Tiền phải trừ:");
-		lblTienPhaiTru.setForeground(new Color(72, 61, 139));
-		lblTienPhaiTru.setFont(new Font("Arial", Font.BOLD, 16));
-		lblTienPhaiTru.setBounds(10, 387, 184, 38);
-		getContentPane().add(lblTienPhaiTru);
+		lblTienPhaiTruLabel = new JLabel("Tiền phải trừ:");
+		lblTienPhaiTruLabel.setForeground(new Color(72, 61, 139));
+		lblTienPhaiTruLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		lblTienPhaiTruLabel.setBounds(10, 387, 184, 38);
+		getContentPane().add(lblTienPhaiTruLabel);
 
 		lblTienPhaiTru = new JLabel();
 		lblTienPhaiTru.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -172,20 +185,21 @@ public class WinXemChiTietHoaDonDoiTra extends JFrame implements ActionListener 
 		lblMaHDCu.setBounds(10, 143, 189, 40);
 		getContentPane().add(lblMaHDCu);
 
-		lblTenKhachHang_1 = new JLabel();
-		lblTenKhachHang_1.setText(maHD);
-		lblTenKhachHang_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTenKhachHang_1.setBackground(Color.WHITE);
-		lblTenKhachHang_1.setBounds(236, 147, 240, 38);
-		getContentPane().add(lblTenKhachHang_1);
+
+		lblMaHoaDonCu = new JLabel();
+		lblMaHoaDonCu.setText(maHD);
+		lblMaHoaDonCu.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMaHoaDonCu.setBackground(Color.WHITE);
+		lblMaHoaDonCu.setBounds(236, 147, 240, 38);
+		getContentPane().add(lblMaHoaDonCu);
 
 		btnThoat.addActionListener(this);
 	}
 
 	public void setValue() {
-		lblMaHoaDonDT.setText(maHDDT);
-		lblTenKhachHang_1.setText(maHD);
-		lblNhanVienLapHD.setText(tenNhanVien);
+		lblMaHoaDonDoiTra.setText(maHDDT);
+		lblMaHoaDonCu.setText(maHD);
+		lblNhanVienLapHoaDon.setText(tenNhanVien);
 		lblTenKhachHang.setText(tenKhachHang);
 		lblNgayLapHoaDon.setText(ngayLap);
 		lblTienKhachDua.setText(tienKhachDua);

@@ -39,21 +39,32 @@ import java.awt.Color;
 
 public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListener {
 
+	// JPanel
 	private JPanel contentPane;
+
+	// JTextFields
 	private JTextField txtEmail;
 	private JTextField txtOTP;
-	private JPasswordField pwdPassMoi;
+
+	// JPasswordFields
 	private JPasswordField pwdConfirm;
-	private JButton btnNhanOTP;
+	private JPasswordField pwdPassMoi;
+
+	// JButtons
 	private JButton btnKiemTra;
+	private JButton btnNhanOTP;
+	private JButton btnXong;
+
+	// JLabels
 	private JLabel lblConfirm;
+	private JLabel lblEmail;
 	private JLabel lblNewPass;
 	private JLabel lblOTP;
-	private JLabel lblEmail;
+	private JLabel lblTitle;
+
+	// Other objects
 	private NhanVienServiceImpl iNhanVien;
 	private TaiKhoanServiceImpl iTaiKhoan;
-	private JButton btnXong;
-	private JLabel lblTitle;
 
 	/**
 	 * Launch the application.
