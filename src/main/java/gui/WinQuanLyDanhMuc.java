@@ -105,6 +105,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 		getContentPane().add(txtMa);
 		txtMa.setColumns(10);
 
+
 		lblTitle = new JLabel("QUẢN LÝ DANH MỤC");
 		lblTitle.setVerticalAlignment(SwingConstants.TOP);
 		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 24));
@@ -122,6 +123,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 		txtTen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtTen.setColumns(10);
 		txtTen.setBounds(237, 95, 233, 28);
+		txtTen.setEditable(true);
 		getContentPane().add(txtTen);
 
 		lblTen = new JLabel("Tên thể loại:");

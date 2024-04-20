@@ -719,6 +719,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 				txtLoi.setEditable(true);
 				txtSoLuongSPLoi.setEditable(true);
 				txtSoLuongSPLoi.setEditable(true);
+				txtLoi.requestFocus();
 			}
 		}
 
