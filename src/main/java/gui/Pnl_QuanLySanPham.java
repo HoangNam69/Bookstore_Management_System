@@ -549,7 +549,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		lblImageSP.setIcon(setSizeImageIconString("..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg",
 				lblImageSP.getWidth(), lblImageSP.getHeight()));
 		add(lblImageSP);
-		
+
 		btnXemSachLoi = new JButton("Xem sản phẩm lỗi");
 		btnXemSachLoi.setHorizontalAlignment(SwingConstants.LEFT);
 		btnXemSachLoi.setForeground(Color.WHITE);
@@ -894,6 +894,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		Long giaDen = (long) 100000000;
 		if (cmbGia.getSelectedIndex() != 0) {
 			int key = cmbGia.getSelectedIndex();
+
 			switch (key) {
 			case 1:
 				giaTu = (long) 0;
@@ -916,6 +917,19 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 			}
 		}
 		try {
+			//neu txtGia tu va den khac gia mac dinh thi gan gia tu va den bang gia nhap nhap vao
+			if(Double.parseDouble(txtGiaTu.getText()) < 0 || Double.parseDouble(txtGiaDen.getText()) < 0){
+				JOptionPane.showMessageDialog(null, "Gia phai la so Duong");
+				txtGiaTu.requestFocus();
+				return;
+
+			}
+			if(Double.parseDouble(txtGiaTu.getText()) < Double.parseDouble(txtGiaDen.getText()) ){
+				JOptionPane.showMessageDialog(null, "Gia tu phai be hon gia den");
+				txtGiaTu.requestFocus();
+				return;
+
+			}
 			if (!txtGiaTu.getText().trim().equals("Từ 0đ") && !txtGiaDen.getText().trim().equals("Đến 10,000,000đ")) {
 				giaTu = Long.parseLong(txtGiaTu.getText().trim());
 				giaDen = Long.parseLong(txtGiaDen.getText().trim());
@@ -1274,7 +1288,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 
 			Iterator<Cell> cellIterator = row.iterator();
 			Sach sach = new Sach();
-			
+
 			while (cellIterator.hasNext()) {
 				Cell cell = cellIterator.next();
 				Object cellValue = getCellValue(cell);
@@ -1282,7 +1296,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 				String ten = null;
 				if (cellValue == null || cellValue.toString().isEmpty())
 					continue;
-				
+
 				int columnIndex = cell.getColumnIndex();
 				switch (columnIndex) {
 				case soLuongTon:
@@ -1405,6 +1419,8 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 
 		return i;
 	}
+
+
 
 	public int importVPP(String excelFilePath) throws IOException, SQLException {
 		int i = 0;
