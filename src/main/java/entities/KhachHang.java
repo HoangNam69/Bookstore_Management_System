@@ -73,12 +73,7 @@ public class KhachHang implements Serializable {
         LocalDate myObj = LocalDate.now();
         String ngayMaKH = String.valueOf(myObj.getDayOfMonth());
         int length = 0;
-        try {
-            length = khachhang_dao.getDSKhachHang().size();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        length = khachhang_dao.getDSKhachHang().size();
         String finalId = idPrefix + ngayMaKH + String.format("%04d", length + 1);
         return finalId;
     }

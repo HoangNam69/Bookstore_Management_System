@@ -24,7 +24,7 @@ public class TaiKhoanDao {
 
 	public ArrayList<TaiKhoan> getList() {
 		try {
-			String query = "SELECT * FROM TaiKhoan";
+			query = "SELECT * FROM TaiKhoan";
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
 			NhanVienDao nhanVienDao = new NhanVienDao();
@@ -33,19 +33,18 @@ public class TaiKhoanDao {
 				TaiKhoan a = new TaiKhoan(rs.getString(1), rs.getString(2),
 						nhanVienDao.timNhanVienTheoMa(rs.getString(3)), rs.getBoolean(4));
 				listAcc.add(a);
-				// System.out.println(a);
 			}
 			return listAcc;
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
+			System.out.println("Error retrieving account list: " + e.getMessage());
 		}
 		return null;
 	}
 
 	public int insertAccount(TaiKhoan taiKhoan) {
 		try {
-			String query = "INSERT INTO TaiKhoan VALUES(?,?,?,?)";
-
+			query = "INSERT INTO TaiKhoan VALUES(?,?,?,?)";
 			ps = con.prepareStatement(query);
 			ps.setString(1, taiKhoan.getTenDangNhap());
 			ps.setString(2, taiKhoan.getMatKhau());
@@ -53,53 +52,55 @@ public class TaiKhoanDao {
 			ps.setBoolean(4, taiKhoan.isQuyen());
 			return ps.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
+			System.out.println("Error inserting account: " + e.getMessage());
 		}
 		return -1;
 	}
 
 	public int xoaTaiKhoan(String maNhanVien) {
-		String query = "delete from TaiKhoan where maNhanVien = ?";
+		query = "DELETE FROM TaiKhoan WHERE maNhanVien = ?";
 		try {
-//			System.out.println(maNhanVien);
 			ps = con.prepareStatement(query);
 			ps.setString(1, maNhanVien);
-			// rs = ps.executeQuery();
 			return ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("Error deleting account: " + e.getMessage());
 		}
 		return -1;
 	}
 
-	public TaiKhoan getTaiKhoanTheoMaNV(String maNV) throws SQLException {
+	public TaiKhoan getTaiKhoanTheoMaNV(String maNV) {
 		TaiKhoan tk = new TaiKhoan();
 		NhanVienDao nhanVienDao = new NhanVienDao();
-		String query = "SELECT *FROM TaiKhoan where maNhanVien =?";
-		ps = con.prepareStatement(query);
-		ps.setString(1, maNV);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			tk = new TaiKhoan(rs.getString(1), rs.getString(2), nhanVienDao.timNhanVienTheoMa(rs.getString(3)),
-					rs.getBoolean(4));
-
+		query = "SELECT * FROM TaiKhoan WHERE maNhanVien =?";
+		try {
+			ps = con.prepareStatement(query);
+			ps.setString(1, maNV);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				tk = new TaiKhoan(rs.getString(1), rs.getString(2), nhanVienDao.timNhanVienTheoMa(rs.getString(3)),
+						rs.getBoolean(4));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error retrieving account: " + e.getMessage());
 		}
 		return tk;
 	}
 
 	public int doiMatKhau(String passMoi, String maNV) {
 		try {
-			String query = "update TaiKhoan set matKhau =? where maNhanVien=?";
+			query = "UPDATE TaiKhoan SET matKhau = ? WHERE maNhanVien = ?";
 			ps = con.prepareStatement(query);
 			ps.setString(1, passMoi);
-
 			ps.setString(2, maNV);
-
 			return ps.executeUpdate();
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error updating password: " + e.getMessage());
 		}
 		return -1;
 	}
-
 }

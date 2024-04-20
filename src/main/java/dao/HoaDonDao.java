@@ -28,22 +28,21 @@ public class HoaDonDao {
 
 	public int setNullChoMaNhanVienTrongHoaDon(String maNV) {
 		try {
-			String query = "update HoaDon set maNhanVien =NULL where maNhanVien=?";
+			String query = "UPDATE HoaDon SET maNhanVien = NULL WHERE maNhanVien = ?";
 			ps = con.prepareStatement(query);
-			// ps.setString(1, maNVMoi);
-
 			ps.setString(1, maNV);
-
 			return ps.executeUpdate();
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (SQLException e) {
+			// Ghi log hoặc thông báo lỗi ra ngoài để dễ dàng xác định và sửa lỗi
+			e.printStackTrace();
 		}
 		return 0;
 	}
 
+
 	public List<HoaDon> getDSHoaDon() throws SQLException {
 		List<HoaDon> dshd = new ArrayList<>();
-		String query = "Select * from HoaDon";
+		String query = "SELECT * FROM HoaDon ORDER BY ngayLapHoaDon DESC"; // Sắp xếp theo ngày tạo hóa đơn giảm dần
 		ps = con.prepareStatement(query);
 		rs = ps.executeQuery();
 		while (rs.next()) {
@@ -56,20 +55,18 @@ public class HoaDonDao {
 		return dshd;
 	}
 
+
 	public int doiThongTinHoaDonSauKhiXoa(String tenNV) {
 		try {
-			String query = "update HoaDon set maNhanVien =NULL where maNhanVien=NULL";
+			String query = "UPDATE HoaDon SET maNhanVien = NULL WHERE maNhanVien IS NULL";
 			ps = con.prepareStatement(query);
-			// ps.setString(1, maNVMoi);
-
-			ps.setString(1, tenNV);
-
 			return ps.executeUpdate();
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return 0;
 	}
+
 
 	public int themHoaDon(HoaDon hd) throws SQLException {
 		String sql = "Insert into HoaDon values (?,?,?,?,?,?,?)";
@@ -149,84 +146,91 @@ public class HoaDonDao {
 		}
 		return hoaDon;
 	}
-	public List<HoaDon> getHoaDonTheoTen(String tenNV) throws SQLException{
-		List<HoaDon> dshd = new ArrayList<HoaDon>();
-		// System.out.println(maNV);
-		try {
-			String query = "select * from NhanVien\r\n"
-					+ "\r\n"
-					+ "inner join HoaDon\r\n"
-					+ "on NhanVien.maNhanVien = HoaDon.maNhanVien\r\n"
-					+ "where NhanVien.hotenNhanVien like N'%" + tenNV + "%'";
-					
-			PreparedStatement ps = con.prepareStatement(query);
-//			stmt.setString(1, tenNV);
-			ResultSet rs = ps.executeQuery();;
-			while (rs.next()) {
-				String maHoaDon = rs.getString("maHoaDon");
-				String maNV = rs.getString("maNhanVien");
-				String maKH = rs.getString("maKhachHang");
-//				Date ngayLap =rs.getDate("ngayLapHoaDon");
-				
-				HoaDon hd = new HoaDon(maHoaDon, nhanVienDao.timNhanVienTheoMa(maNV),
-						khachHangDao.timKhachHangTheoMa(maKH), rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
-						rs.getBoolean("tinhTrang"));
 
-				dshd.add(hd);
+
+	public List<HoaDon> getHoaDonTheoTen(String tenNV) throws SQLException {
+		List<HoaDon> dshd = new ArrayList<>();
+		String query = "SELECT * FROM NhanVien "
+				+ "INNER JOIN HoaDon ON NhanVien.maNhanVien = HoaDon.maNhanVien "
+				+ "WHERE NhanVien.hotenNhanVien LIKE ?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, "%" + tenNV + "%");
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					String maHoaDon = rs.getString("maHoaDon");
+					String maNV = rs.getString("maNhanVien");
+					String maKH = rs.getString("maKhachHang");
+					HoaDon hd = new HoaDon(maHoaDon, nhanVienDao.timNhanVienTheoMa(maNV),
+							khachHangDao.timKhachHangTheoMa(maKH),
+							rs.getDate("ngayLapHoaDon").toLocalDate(),
+							rs.getString("ghiChu"),
+							rs.getFloat("tienKhachDua"),
+							rs.getBoolean("tinhTrang"));
+					dshd.add(hd);
+				}
 			}
 		} catch (SQLException e) {
+			// Xử lý ngoại lệ, ví dụ: ghi log hoặc thông báo lỗi ra ngoài
 			e.printStackTrace();
 		}
 		return dshd;
+	}
 
-	}
 //	Tim kiem hoa don theo sdt khach hang
-	
+
 	public List<HoaDon> timHoaDonTheoSDT(String sdt) throws SQLException {
-		List<HoaDon> dshd = new ArrayList<HoaDon>();
-		
-		// System.out.println(maNV);
-		String query = "  select * from HoaDon \r\n"
-				+ "  inner join KhachHang\r\n"
-				+ "  on HoaDon.maKhachHang = KhachHang.maKhachHang\r\n"
-				+ "  inner join NhanVien \r\n"
-				+ "  on HoaDon.maNhanVien = nhanVien.maNhanVien\r\n"
-				+ "  where khachhang.sdt = ?";
-		ps = con.prepareStatement(query);
-		ps.setString(1, sdt);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			HoaDon hd = new HoaDon(rs.getString("maHoaDon"), nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
-					khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")), rs.getDate("ngayLapHoaDon").toLocalDate(),
-					rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
-					rs.getBoolean("tinhTrang"));
-			dshd.add(hd);
-			
+		List<HoaDon> dshd = new ArrayList<>();
+		String query = "SELECT * FROM HoaDon "
+				+ "INNER JOIN KhachHang ON HoaDon.maKhachHang = KhachHang.maKhachHang "
+				+ "INNER JOIN NhanVien ON HoaDon.maNhanVien = NhanVien.maNhanVien "
+				+ "WHERE KhachHang.sdt = ?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, sdt);
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					HoaDon hd = new HoaDon(rs.getString("maHoaDon"),
+							nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
+							khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
+							rs.getDate("ngayLapHoaDon").toLocalDate(),
+							rs.getString("ghiChu"),
+							rs.getFloat("tienKhachDua"),
+							rs.getBoolean("tinhTrang"));
+					dshd.add(hd);
+				}
+			}
+		} catch (SQLException e) {
+			// Xử lý ngoại lệ, ví dụ: ghi log hoặc thông báo lỗi ra ngoài
+			e.printStackTrace();
 		}
 		return dshd;
 	}
+
 	public List<HoaDon> timHoaDonTheoTenKH(String ten) throws SQLException {
-		List<HoaDon> dshd = new ArrayList<HoaDon>();
-		
-		
-		// System.out.println(maNV);
-		String query = "select * from HoaDon \r\n"
-				+"inner join NhanVien \r\n"
-				+"on HoaDon.maNhanVien = NhanVien.maNhanVien \r\n"
-				+"inner join KhachHang \r\n"
-				+"on HoaDon.maKhachHang = KhachHang.maKhachHang \r\n"
-				+ "where KhachHang.hotenKhachHang like N'%"+ ten +"%'";
-		ps = con.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			HoaDon hd = new HoaDon(rs.getString("maHoaDon"), nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
-					khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")), rs.getDate("ngayLapHoaDon").toLocalDate(),
-					rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
-					rs.getBoolean("tinhTrang"));
-			dshd.add(hd);
-			
+		List<HoaDon> dshd = new ArrayList<>();
+		String query = "SELECT * FROM HoaDon "
+				+ "INNER JOIN NhanVien ON HoaDon.maNhanVien = NhanVien.maNhanVien "
+				+ "INNER JOIN KhachHang ON HoaDon.maKhachHang = KhachHang.maKhachHang "
+				+ "WHERE KhachHang.hotenKhachHang LIKE ?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, "%" + ten + "%");
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					HoaDon hd = new HoaDon(rs.getString("maHoaDon"),
+							nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
+							khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
+							rs.getDate("ngayLapHoaDon").toLocalDate(),
+							rs.getString("ghiChu"),
+							rs.getFloat("tienKhachDua"),
+							rs.getBoolean("tinhTrang"));
+					dshd.add(hd);
+				}
+			}
+		} catch (SQLException e) {
+			// Xử lý ngoại lệ, ví dụ: ghi log hoặc thông báo lỗi ra ngoài
+			e.printStackTrace();
 		}
 		return dshd;
 	}
+
 
 }

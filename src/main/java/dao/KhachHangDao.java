@@ -21,128 +21,136 @@ public class KhachHangDao {
 		con = connection.getConnection();
 	}
 
-	public int themKhachHang(KhachHang kh) throws SQLException {
-		String insert = "Insert into KhachHang values (?, ?, ?, ?, ?)";
-		PreparedStatement stmt = con.prepareStatement(insert);
-		stmt.setString(1, kh.getMaKhachHang());
-		stmt.setString(2, kh.getHoTenKhachHang());
-		stmt.setBoolean(3, kh.isGioiTinh());
-		stmt.setString(4, kh.getsDT());
-		stmt.setString(5, kh.getDiaChi());
-		stmt.executeUpdate();
-		return 1;
+	public int themKhachHang(KhachHang kh) {
+		String insert = "INSERT INTO KhachHang VALUES (?, ?, ?, ?, ?)";
+		try (PreparedStatement stmt = con.prepareStatement(insert)) {
+			stmt.setString(1, kh.getMaKhachHang());
+			stmt.setString(2, kh.getHoTenKhachHang());
+			stmt.setBoolean(3, kh.isGioiTinh());
+			stmt.setString(4, kh.getsDT());
+			stmt.setString(5, kh.getDiaChi());
+			return stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
-	public List<KhachHang> getDSKhachHang() throws SQLException {
+	public List<KhachHang> getDSKhachHang() {
 		List<KhachHang> dskh = new ArrayList<>();
-		String query = "Select * from KhachHang";
-		ps = con.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			KhachHang kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"),
-					rs.getString("sdt"), rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
-			dskh.add(kh);
+		String query = "SELECT * FROM KhachHang";
+		try (PreparedStatement ps = con.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+			while (rs.next()) {
+				KhachHang kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"),
+						rs.getString("sdt"), rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
+				dskh.add(kh);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-
 		return dskh;
 	}
 
-	public KhachHang timKhachHangTheoMa(String maKH) throws SQLException {
-		KhachHang kh = new KhachHang();
-		String query = "Select * from KhachHang where maKhachHang=?";
-		ps = con.prepareStatement(query);
-		ps.setString(1, maKH);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"), rs.getString("sdt"),
-					rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
-			return kh;
+	public KhachHang timKhachHangTheoMa(String maKH) {
+		String query = "SELECT * FROM KhachHang WHERE maKhachHang=?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, maKH);
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					return new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"),
+							rs.getString("sdt"), rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public ArrayList<KhachHang> timKhachHangTheoTen(String tenKH) throws SQLException {
-		KhachHang kh = new KhachHang();
-		khachhang = new ArrayList<KhachHang>();
-		System.out.println(tenKH);
-		String query = "Select * from KhachHang where hotenKhachHang LIKE CONCAT('%', ?, '%')";
-		ps = con.prepareStatement(query);
-		ps.setString(1, tenKH);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"), rs.getString("sdt"),
-					rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
-			System.out.println(kh);
-			khachhang.add(kh);
-			// return khachhang;
+	public ArrayList<KhachHang> timKhachHangTheoTen(String tenKH) {
+		ArrayList<KhachHang> khachhang = new ArrayList<>();
+		String query = "SELECT * FROM KhachHang WHERE hotenKhachHang LIKE CONCAT('%', ?, '%')";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, tenKH);
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					KhachHang kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"),
+							rs.getString("sdt"), rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
+					khachhang.add(kh);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return khachhang;
 	}
 
 	public int capNhatKhachHang(KhachHang kh) {
 		String sql = "UPDATE KhachHang SET hotenKhachHang = ?, gioiTinh = ?, sdt = ?, diaChi = ? WHERE maKhachHang = ?";
-		try {
-			ps = con.prepareStatement(sql);
+		try (PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setString(1, kh.getHoTenKhachHang());
 			ps.setBoolean(2, kh.isGioiTinh());
 			ps.setString(3, kh.getsDT());
 			ps.setString(4, kh.getDiaChi());
 			ps.setString(5, kh.getMaKhachHang());
-
 			return ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 0;
 		}
-		return 1;
 	}
 
-	
-
-	public ArrayList<KhachHang> timKhachHangTheoSDT(String sDT) throws SQLException {
-		KhachHang kh = new KhachHang();
-		String query = "Select * from KhachHang where sdt LIKE CONCAT('%', ?, '%')";
-		PreparedStatement stmt = con.prepareCall(query);
-		stmt.setString(1, sDT);
-		ResultSet rs = stmt.executeQuery();
-		while (rs.next()) {
-			kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"), rs.getString("sdt"),
-					rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
-			khachhang.add(kh);
+	public ArrayList<KhachHang> timKhachHangTheoSDT(String sDT) {
+		ArrayList<KhachHang> khachhang = new ArrayList<>();
+		String query = "SELECT * FROM KhachHang WHERE sdt LIKE CONCAT('%', ?, '%')";
+		try (PreparedStatement stmt = con.prepareStatement(query)) {
+			stmt.setString(1, sDT);
+			try (ResultSet rs = stmt.executeQuery()) {
+				while (rs.next()) {
+					KhachHang kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"),
+							rs.getString("sdt"), rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
+					khachhang.add(kh);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return khachhang;
 	}
 
 	public ArrayList<KhachHang> getListKhachHangByNameAndSDT(String tenKH, String sdt) {
-		KhachHang kh = new KhachHang();
+		ArrayList<KhachHang> khachhang = new ArrayList<>();
 		try {
-			String sql = "select * from KhachHang where hotenKhachHang LIKE CONCAT('%', ?, '%') or sdt LIKE CONCAT('%', ?, '%')";
-			PreparedStatement stmt = con.prepareCall(sql);
-			stmt.setString(1, tenKH);
-			stmt.setString(2, sdt);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"), rs.getString("sdt"),
-						rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
-				khachhang.add(kh);
+			String sql = "SELECT * FROM KhachHang WHERE hotenKhachHang LIKE CONCAT('%', ?, '%') OR sdt LIKE CONCAT('%', ?, '%')";
+			try (PreparedStatement stmt = con.prepareStatement(sql)) {
+				stmt.setString(1, tenKH);
+				stmt.setString(2, sdt);
+				try (ResultSet rs = stmt.executeQuery()) {
+					while (rs.next()) {
+						KhachHang kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"),
+								rs.getString("sdt"), rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
+						khachhang.add(kh);
+					}
+				}
 			}
-
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return khachhang;
 	}
 
-	public KhachHang timKhachHangBangSDT(String sdt) throws SQLException {
-		KhachHang kh = new KhachHang();
-		String query = "Select * from KhachHang where sdt=?";
-		ps = con.prepareStatement(query);
-		ps.setString(1, sdt);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			kh = new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"), rs.getString("sdt"),
-					rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
-			return kh;
+	public KhachHang timKhachHangBangSDT(String sdt) {
+		String query = "SELECT * FROM KhachHang WHERE sdt=?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, sdt);
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					return new KhachHang(rs.getString("maKhachHang"), rs.getString("hotenKhachHang"),
+							rs.getString("sdt"), rs.getBoolean("gioiTinh"), rs.getString("diaChi"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

@@ -403,6 +403,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 					boolean kt = sanPhamServiceImpl.capNhatSanPham(s.getMaSanPham(), s);
 					if (kt == true) {
 						JOptionPane.showMessageDialog(null, "Cập nhật thành công !!!");
+						setVisible(false);
 					} else {
 						JOptionPane.showMessageDialog(null,
 								"Số trang phải lớn hơn 0!\nSố lượng phải lớn hơn 0!\nTrọng lượng phải lớn hơn 0!\n Giá nhập lớn hơn 1000!",
