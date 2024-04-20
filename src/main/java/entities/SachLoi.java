@@ -10,18 +10,16 @@ import java.util.Set;
 @Entity
 @Table(name = "SachLoi")
 public class SachLoi implements Serializable {
+
 	@Id
-	@Column(name = "maSach", unique = true, nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "maSach", unique = true, nullable = false)
 	private Sach sach;
+
 	@Column(nullable = false)
 	private String loiSanPham;
 	@Column(nullable = false)
 	private int soLuong;
-
-//	Moi quan he giua sach loi voi san pham
-	@OneToMany(mappedBy = "sachLoi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<SanPham> sanPhams;
-
 
 	public SachLoi(Sach sach, String loiSanPham, int soLuong) {
 		super();

@@ -3,10 +3,12 @@ package entities;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
 @Entity
 @Table(name = "TaiKhoan")
-public class TaiKhoan {
+public class TaiKhoan implements Serializable {
     @Id
     @Column(unique = true, nullable = false)
     private String tenDangNhap;

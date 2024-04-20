@@ -18,7 +18,7 @@ public class XuatXu implements Serializable {
 
     //	moi quan he giua xuat xu voi san pham
     @OneToMany(mappedBy = "xuatXu", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<SanPham> sanPhams;
+    private Set<VanPhongPham> vanPhongPhams;
 
 
     public XuatXu(String maXuatXu) {

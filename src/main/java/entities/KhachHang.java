@@ -18,7 +18,7 @@ public class KhachHang implements Serializable {
     private String maKhachHang;
     @Column(nullable = false)
     private String hoTenKhachHang;
-    @Column(unique = true, nullable = false)
+    @Column(name = "sdt", unique = true, nullable = false)
     private String sDT;
     private boolean gioiTinh;
     private String diaChi;

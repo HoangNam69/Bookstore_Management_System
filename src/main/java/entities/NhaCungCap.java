@@ -18,7 +18,7 @@ public class NhaCungCap implements Serializable {
     private String diaChi;
     @Column(unique = true, nullable = false)
     private String email;
-    @Column(unique = true, nullable = false)
+    @Column(name = "sdt", unique = true, nullable = false)
     private String sDT;
 
     @OneToMany(mappedBy = "nhaCungCap", fetch = FetchType.LAZY , cascade = CascadeType.ALL)

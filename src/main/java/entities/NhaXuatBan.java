@@ -17,9 +17,9 @@ public class NhaXuatBan implements Serializable {
     @Column(unique = true, nullable = false)
     private String tenNXB;
 
-//    Moi quan he giua nha xuat ban voi san pham
+    //    Moi quan he giua nha xuat ban voi san pham
     @OneToMany(mappedBy = "nhaXuatBan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<SanPham> sanPhams;
+    private Set<Sach> sachs;
 
     public NhaXuatBan(String maNXB) {
         super();

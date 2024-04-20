@@ -9,6 +9,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "SanPham")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "phanBietSanPham", discriminatorType = DiscriminatorType.STRING)
 public abstract class SanPham implements Serializable {
     @Id
     @Column(unique = true, nullable = false)
@@ -32,46 +34,6 @@ public abstract class SanPham implements Serializable {
     //    Moi quan he voi chi tiet hoa don doi tra
     @OneToMany(mappedBy = "sanPham", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ChiTietHoaDonDoiTra> chiTietHoaDonDoiTras;
-
-    //    Moi quan he giua san pham voi xuat xu
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "maXuatXu")
-    protected XuatXu xuatXu;
-
-//    Moi quan he giua san pham voi chat lieu
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "maChatLieu")
-    private ChatLieu chatLieu;
-
-//    Moi quan he giua san pham voi tac gia
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "maTacGia")
-    private TacGia tacGia;
-
-//    Moi quan he giua san pham voi loai van phong pham
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "maLoaiVanPhongPham")
-    private TheLoaiVanPhongPham loaiVanPhongPham;
-
-//    Moi quan he giua san pham voi the loai sach
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "maLoai")
-    private TheLoaiSach theLoaiSach;
-
-//    Moi quan he giua san pham voi nha xuat ban
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "maNXB")
-    private NhaXuatBan nhaXuatBan;
-
-//    Moi quan he giua san pham voi mau sac
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "maMauSac")
-    private MauSac mauSac;
-
-//    Moi quan he giua san pham voi sach loi
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "maSachLoi")
-    private SachLoi sachLoi;
 
 
     public SanPham(String maSanPham) {

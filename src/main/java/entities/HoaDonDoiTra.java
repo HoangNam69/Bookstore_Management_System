@@ -3,13 +3,14 @@ package entities;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Set;
 
 @NoArgsConstructor
 @Entity
 @Table(name = "HoaDonDoiTra")
-public class HoaDonDoiTra {
+public class HoaDonDoiTra implements Serializable {
 	@Id
 	@Column(unique = true, nullable = false)
 	private String maHoaDonDoiTra;

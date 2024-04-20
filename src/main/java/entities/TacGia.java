@@ -19,7 +19,7 @@ public class TacGia implements Serializable {
 
 //    Moi quan he giua tac gia voi sanpham
     @OneToMany(mappedBy = "tacGia", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<SanPham> sanPhams;
+    private Set<Sach> sachs;
 
     public TacGia(String maTacGia) {
         super();

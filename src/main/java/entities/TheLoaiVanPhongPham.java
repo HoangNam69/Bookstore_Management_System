@@ -16,9 +16,9 @@ public class TheLoaiVanPhongPham implements Serializable {
 	@Column(name = "tenTheLoai", unique = true, nullable = false)
 	private String tenLoai;
 
-//	Moi quan he giua loai van phong pham voi san pham
+	//	Moi quan he giua loai van phong pham voi van phong pham
 	@OneToMany(mappedBy = "loaiVanPhongPham", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<SanPham> sanPhams;
+	private Set<VanPhongPham> vanPhongPhams;
 
 
 	public TheLoaiVanPhongPham(String maLoai) {

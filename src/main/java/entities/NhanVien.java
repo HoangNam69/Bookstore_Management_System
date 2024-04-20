@@ -23,7 +23,7 @@ public class NhanVien implements Serializable {
     private String cCCD;
     @Column(unique = true, nullable = false)
     private String diaChi;
-    @Column(unique = true, nullable = false)
+    @Column(name = "sdt", unique = true, nullable = false)
     private String sDT;
     private boolean gioiTinh;
     @Column(unique = true, nullable = false)

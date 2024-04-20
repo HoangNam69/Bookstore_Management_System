@@ -1,81 +1,98 @@
 package entities;
 
-public class VanPhongPham extends SanPham {
-	private String tenVanPhongPham;
-	private TheLoaiVanPhongPham loaiVanPhongPham;
-	private MauSac mauSac;
-	private ChatLieu chatLieu;
-	private XuatXu xuatXu;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
-	public VanPhongPham() {
-		super();
+import java.io.Serializable;
 
-	}
+@NoArgsConstructor
+@DiscriminatorValue("VanPhongPham")
+@Entity
+public class VanPhongPham extends SanPham implements Serializable {
+    @Column(nullable = false)
+    private String tenVanPhongPham;
 
-	public VanPhongPham(String maSanPham) {
-		super(maSanPham);
+    //    Moi quan he giua van phong pham voi loai van phong pham
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maLoaiVanPhongPham")
+    private TheLoaiVanPhongPham loaiVanPhongPham;
+    //    Moi quan he giua san pham voi mau sac
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maMauSac")
+    private MauSac mauSac;
+    //    Moi quan he giua san pham voi chat lieu
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maChatLieu")
+    private ChatLieu chatLieu;
 
-	}
+    //    Moi quan he giua san pham voi xuat xu
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "maXuatXu")
+    private XuatXu xuatXu;
 
-	public VanPhongPham(String maSanPham, int soLuongTon) {
-		super(maSanPham, soLuongTon);
-	}
+    public VanPhongPham(String maSanPham) {
+        super(maSanPham);
+    }
 
-	public VanPhongPham(String maSanPham, String loaiSanPham, int soLuongTon, double trongLuong, NhaCungCap nhaCungCap,
-						long giaNhap, String ghiChu, String donViSanPham, String hinhAnh, String tenVanPhongPham,
-						TheLoaiVanPhongPham loaiVanPhongPham, MauSac mauSac, ChatLieu chatLieu, XuatXu xuatXu) {
-		super(maSanPham, loaiSanPham, soLuongTon, trongLuong, nhaCungCap, giaNhap, ghiChu, donViSanPham, hinhAnh);
-		this.tenVanPhongPham = tenVanPhongPham;
-		this.loaiVanPhongPham = loaiVanPhongPham;
-		this.mauSac = mauSac;
-		this.chatLieu = chatLieu;
-		this.xuatXu = xuatXu;
-	}
+    public VanPhongPham(String maSanPham, int soLuongTon) {
+        super(maSanPham, soLuongTon);
+    }
 
-	public String getTenVanPhongPham() {
-		return tenVanPhongPham;
-	}
+    public VanPhongPham(String maSanPham, String loaiSanPham, int soLuongTon, double trongLuong, NhaCungCap nhaCungCap,
+                        long giaNhap, String ghiChu, String donViSanPham, String hinhAnh, String tenVanPhongPham,
+                        TheLoaiVanPhongPham loaiVanPhongPham, MauSac mauSac, ChatLieu chatLieu, XuatXu xuatXu) {
+        super(maSanPham, loaiSanPham, soLuongTon, trongLuong, nhaCungCap, giaNhap, ghiChu, donViSanPham, hinhAnh);
+        this.tenVanPhongPham = tenVanPhongPham;
+        this.loaiVanPhongPham = loaiVanPhongPham;
+        this.mauSac = mauSac;
+        this.chatLieu = chatLieu;
+        this.xuatXu = xuatXu;
+    }
 
-	public void setTenVanPhongPham(String tenVanPhongPham) {
-		this.tenVanPhongPham = tenVanPhongPham;
-	}
+    public String getTenVanPhongPham() {
+        return tenVanPhongPham;
+    }
 
-	public TheLoaiVanPhongPham getLoaiVanPhongPham() {
-		return loaiVanPhongPham;
-	}
+    public void setTenVanPhongPham(String tenVanPhongPham) {
+        this.tenVanPhongPham = tenVanPhongPham;
+    }
 
-	public void setLoaiVanPhongPham(TheLoaiVanPhongPham loaiVanPhongPham) {
-		this.loaiVanPhongPham = loaiVanPhongPham;
-	}
+    public TheLoaiVanPhongPham getLoaiVanPhongPham() {
+        return loaiVanPhongPham;
+    }
 
-	public MauSac getMauSac() {
-		return mauSac;
-	}
+    public void setLoaiVanPhongPham(TheLoaiVanPhongPham loaiVanPhongPham) {
+        this.loaiVanPhongPham = loaiVanPhongPham;
+    }
 
-	public void setMauSac(MauSac mauSac) {
-		this.mauSac = mauSac;
-	}
+    public MauSac getMauSac() {
+        return mauSac;
+    }
 
-	public ChatLieu getChatLieu() {
-		return chatLieu;
-	}
+    public void setMauSac(MauSac mauSac) {
+        this.mauSac = mauSac;
+    }
 
-	public void setChatLieu(ChatLieu chatLieu) {
-		this.chatLieu = chatLieu;
-	}
+    public ChatLieu getChatLieu() {
+        return chatLieu;
+    }
 
-	public XuatXu getXuatXu() {
-		return xuatXu;
-	}
+    public void setChatLieu(ChatLieu chatLieu) {
+        this.chatLieu = chatLieu;
+    }
 
-	public void setXuatXu(XuatXu xuatXu) {
-		this.xuatXu = xuatXu;
-	}
+    public XuatXu getXuatXu() {
+        return xuatXu;
+    }
 
-	@Override
-	public String toString() {
-		return "VanPhongPham [tenVanPhongPham=" + tenVanPhongPham + ", loaiVanPhongPham=" + loaiVanPhongPham
-				+ ", mauSac=" + mauSac + ", chatLieu=" + chatLieu + ", xuatXu=" + xuatXu + "]";
-	}
+    public void setXuatXu(XuatXu xuatXu) {
+        this.xuatXu = xuatXu;
+    }
+
+    @Override
+    public String toString() {
+        return "VanPhongPham [tenVanPhongPham=" + tenVanPhongPham + ", loaiVanPhongPham=" + loaiVanPhongPham
+                + ", mauSac=" + mauSac + ", chatLieu=" + chatLieu + ", xuatXu=" + xuatXu + "]";
+    }
 
 }
