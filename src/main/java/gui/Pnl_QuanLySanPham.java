@@ -894,7 +894,6 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		Long giaDen = (long) 100000000;
 		if (cmbGia.getSelectedIndex() != 0) {
 			int key = cmbGia.getSelectedIndex();
-
 			switch (key) {
 			case 1:
 				giaTu = (long) 0;
@@ -916,28 +915,30 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 				break;
 			}
 		}
-		try {
-			//neu txtGia tu va den khac gia mac dinh thi gan gia tu va den bang gia nhap nhap vao
-			if(Double.parseDouble(txtGiaTu.getText()) < 0 || Double.parseDouble(txtGiaDen.getText()) < 0){
-				JOptionPane.showMessageDialog(null, "Gia phai la so Duong");
+		else{
+			try {
+				if (!txtGiaTu.getText().trim().equals("Từ 0đ") && !txtGiaDen.getText().trim().equals("Đến 10,000,000đ")) {
+					if(Long.parseLong(txtGiaTu.getText().trim()) > Long.parseLong(txtGiaDen.getText().trim())) {
+						JOptionPane.showMessageDialog(null, "Giá từ bao nhiêu phải bé hơn giá nhập!!", "Báo lỗi",
+								JOptionPane.ERROR_MESSAGE);
+						txtGiaTu.requestFocus();
+						return;
+					}
+					if(Long.parseLong(txtGiaTu.getText().trim()) < 0 || Long.parseLong(txtGiaDen.getText().trim()) < 0) {
+						JOptionPane.showMessageDialog(null, "Giá từ bao nhiêu phải lớn hơn 0!!", "Báo lỗi",
+								JOptionPane.ERROR_MESSAGE);
+						txtGiaTu.requestFocus();
+						return;
+					}
+					giaTu = Long.parseLong(txtGiaTu.getText().trim());
+					giaDen = Long.parseLong(txtGiaDen.getText().trim());
+				}
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Giá từ bao nhiêu đến bao nhiêu phải nhập số!!!");
 				txtGiaTu.requestFocus();
 				return;
-
 			}
-			if(Double.parseDouble(txtGiaTu.getText()) < Double.parseDouble(txtGiaDen.getText()) ){
-				JOptionPane.showMessageDialog(null, "Gia tu phai be hon gia den");
-				txtGiaTu.requestFocus();
-				return;
-
-			}
-			if (!txtGiaTu.getText().trim().equals("Từ 0đ") && !txtGiaDen.getText().trim().equals("Đến 10,000,000đ")) {
-				giaTu = Long.parseLong(txtGiaTu.getText().trim());
-				giaDen = Long.parseLong(txtGiaDen.getText().trim());
-			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Giá từ bao nhiêu đến bao nhiêu phải nhập số!!!");
-			txtGiaTu.requestFocus();
-			return;
 		}
 
 		String maTacGia = "";
