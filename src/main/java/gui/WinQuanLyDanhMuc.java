@@ -79,16 +79,16 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 	private ArrayList<TheLoaiVanPhongPham> theLoaiVanPhongPhams;
 	private ArrayList<XuatXu> xuatXus;
 	private ButtonGroup group;
-	private ChatLieuServiceImpl chatLieuServiceImpl;
+	private ChatLieuServiceImpl chatLieuServiceImpl = new ChatLieuServiceImpl() ;
 	private DefaultTableModel mdlThuocTinh;
-	private MauSacServiceImpl mauSacServiceImpl;
-	private NhaCungCapServiceImpl nhaCungCapServiceImpl;
-	private NhaXuatBanServiceImpl nhaXuatBanServiceImpl;
+	private MauSacServiceImpl mauSacServiceImpl = new MauSacServiceImpl();
+	private NhaCungCapServiceImpl nhaCungCapServiceImpl = new NhaCungCapServiceImpl();
+	private NhaXuatBanServiceImpl nhaXuatBanServiceImpl = new NhaXuatBanServiceImpl();
 	private JScrollPane scrThuocTinh;
 	private JTable tblThuocTinh;
-	private TacGiaServiceImpl tacGiaServiceImpl;
-	private TheLoaiServiceImpl theLoaiServiceImpl;
-	private XuatXuServiceImpl xuatXuServiceImpl;
+	private TacGiaServiceImpl tacGiaServiceImpl = new  TacGiaServiceImpl();
+	private TheLoaiServiceImpl theLoaiServiceImpl = new TheLoaiServiceImpl();
+	private XuatXuServiceImpl xuatXuServiceImpl = new XuatXuServiceImpl();
 	private String loaiSanPham;
 
 	public WinQuanLyDanhMuc(String loai) {
@@ -104,6 +104,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 		txtMa.setBounds(237, 54, 233, 28);
 		getContentPane().add(txtMa);
 		txtMa.setColumns(10);
+
 
 		lblTitle = new JLabel("QUẢN LÝ DANH MỤC");
 		lblTitle.setVerticalAlignment(SwingConstants.TOP);
@@ -122,6 +123,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 		txtTen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtTen.setColumns(10);
 		txtTen.setBounds(237, 95, 233, 28);
+		txtTen.setEditable(true);
 		getContentPane().add(txtTen);
 
 		lblTen = new JLabel("Tên thể loại:");

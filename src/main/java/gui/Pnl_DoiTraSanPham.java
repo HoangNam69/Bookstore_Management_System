@@ -719,6 +719,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 				txtLoi.setEditable(true);
 				txtSoLuongSPLoi.setEditable(true);
 				txtSoLuongSPLoi.setEditable(true);
+				txtLoi.requestFocus();
 			}
 		}
 
@@ -955,7 +956,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	public void xuatHoaDon(String maHDDT) {
 		try {
 			Hashtable map = new Hashtable();
-			JasperReport report = JasperCompileManager.compileReport("src/gui/HoaDonDoiTra.jrxml");
+			JasperReport report = JasperCompileManager.compileReport("src/main/java/gui/HoaDonDoiTra.jrxml");
 			map.put("maHDDT", maHDDT);
 			JasperPrint p = JasperFillManager.fillReport(report, map, DBConnection.getInstance().getConnection());
 

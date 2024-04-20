@@ -549,7 +549,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 		lblImageSP.setIcon(setSizeImageIconString("..\\HieuSachTuNhan\\hinhAnhHieuSach\\bookUnknow.jpg",
 				lblImageSP.getWidth(), lblImageSP.getHeight()));
 		add(lblImageSP);
-		
+
 		btnXemSachLoi = new JButton("Xem sản phẩm lỗi");
 		btnXemSachLoi.setHorizontalAlignment(SwingConstants.LEFT);
 		btnXemSachLoi.setForeground(Color.WHITE);
@@ -915,15 +915,30 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 				break;
 			}
 		}
-		try {
-			if (!txtGiaTu.getText().trim().equals("Từ 0đ") && !txtGiaDen.getText().trim().equals("Đến 10,000,000đ")) {
-				giaTu = Long.parseLong(txtGiaTu.getText().trim());
-				giaDen = Long.parseLong(txtGiaDen.getText().trim());
+		else{
+			try {
+				if (!txtGiaTu.getText().trim().equals("Từ 0đ") && !txtGiaDen.getText().trim().equals("Đến 10,000,000đ")) {
+					if(Long.parseLong(txtGiaTu.getText().trim()) > Long.parseLong(txtGiaDen.getText().trim())) {
+						JOptionPane.showMessageDialog(null, "Giá từ bao nhiêu phải bé hơn giá nhập!!", "Báo lỗi",
+								JOptionPane.ERROR_MESSAGE);
+						txtGiaTu.requestFocus();
+						return;
+					}
+					if(Long.parseLong(txtGiaTu.getText().trim()) < 0 || Long.parseLong(txtGiaDen.getText().trim()) < 0) {
+						JOptionPane.showMessageDialog(null, "Giá từ bao nhiêu phải lớn hơn 0!!", "Báo lỗi",
+								JOptionPane.ERROR_MESSAGE);
+						txtGiaTu.requestFocus();
+						return;
+					}
+					giaTu = Long.parseLong(txtGiaTu.getText().trim());
+					giaDen = Long.parseLong(txtGiaDen.getText().trim());
+				}
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Giá từ bao nhiêu đến bao nhiêu phải nhập số!!!");
+				txtGiaTu.requestFocus();
+				return;
 			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Giá từ bao nhiêu đến bao nhiêu phải nhập số!!!");
-			txtGiaTu.requestFocus();
-			return;
 		}
 
 		String maTacGia = "";
@@ -1274,7 +1289,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 
 			Iterator<Cell> cellIterator = row.iterator();
 			Sach sach = new Sach();
-			
+
 			while (cellIterator.hasNext()) {
 				Cell cell = cellIterator.next();
 				Object cellValue = getCellValue(cell);
@@ -1282,7 +1297,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 				String ten = null;
 				if (cellValue == null || cellValue.toString().isEmpty())
 					continue;
-				
+
 				int columnIndex = cell.getColumnIndex();
 				switch (columnIndex) {
 				case soLuongTon:
@@ -1405,6 +1420,8 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 
 		return i;
 	}
+
+
 
 	public int importVPP(String excelFilePath) throws IOException, SQLException {
 		int i = 0;
