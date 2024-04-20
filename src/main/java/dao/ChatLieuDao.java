@@ -22,27 +22,34 @@ public class ChatLieuDao {
 		con = connection.getConnection();
 	}
 
-	public ArrayList<ChatLieu> getListChatLieu() throws Exception {
+	public ArrayList<ChatLieu> getListChatLieu() {
 		ArrayList<ChatLieu> list = new ArrayList<>();
-		query = "SELECT maChatLieu, tenChatLieu\r\n" + "FROM     ChatLieu";
-		ps = con.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			ChatLieu chatLieu = new ChatLieu(rs.getString("maChatLieu"), rs.getString("tenChatLieu"));
-			list.add(chatLieu);
+		query = "SELECT maChatLieu, tenChatLieu FROM ChatLieu";
+		try (PreparedStatement ps = con.prepareStatement(query);
+			 ResultSet rs = ps.executeQuery()) {
+			while (rs.next()) {
+				ChatLieu chatLieu = new ChatLieu(rs.getString("maChatLieu"), rs.getString("tenChatLieu"));
+				list.add(chatLieu);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace(); // Handle the exception more gracefully according to your application's needs
 		}
 		return list;
 	}
 
-	public boolean themChatLieu(ChatLieu l) throws Exception {
-		query = "INSERT [dbo].[ChatLieu] ([maChatLieu], [tenChatLieu]) VALUES ( ? , N'" + l.getTenChatLieu() + "')";
-		ps = con.prepareStatement(query);
-		ps.setString(1, l.getMaChatLieu());
-		rsCheck = ps.executeUpdate();
-		if (rsCheck != 0)
-			return true;
-		return false;
+	public boolean themChatLieu(ChatLieu l) {
+		query = "INSERT INTO ChatLieu (maChatLieu, tenChatLieu) VALUES (?, ?)";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, l.getMaChatLieu());
+			ps.setString(2, l.getTenChatLieu());
+			rsCheck = ps.executeUpdate();
+			return rsCheck != 0;
+		} catch (SQLException e) {
+			e.printStackTrace(); // Handle the exception more gracefully according to your application's needs
+			return false;
+		}
 	}
+
 
 	public ChatLieu timChatLieu(String tenChatLieu) throws SQLException {
 		query = "select * from ChatLieu where tenChatLieu = ?";

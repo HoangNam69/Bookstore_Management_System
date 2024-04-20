@@ -13,7 +13,7 @@ public class NhaXuatBanServiceImpl implements NhaXuatBanService {
 	@Override
 	public ArrayList<NhaXuatBan> getListNhaXuatBan() throws Exception {
 		// TODO Auto-generated method stub
-		return nhaXuatBanDao.getListNhaXuatBan();
+		return (ArrayList<NhaXuatBan>) nhaXuatBanDao.getListNhaXuatBan();
 	}
 
 	@Override

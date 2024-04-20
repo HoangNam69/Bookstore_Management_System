@@ -13,7 +13,6 @@ public class MauSacDao {
 	private Connection con;
 	private PreparedStatement ps = null;
 	private ResultSet rs;
-	private String query;
 	private int rsCheck;
 
 	public MauSacDao() {
@@ -21,44 +20,63 @@ public class MauSacDao {
 		con = connection.getConnection();
 	}
 
-	public ArrayList<MauSac> getListMauSac() throws Exception {
+	public ArrayList<MauSac> getListMauSac() {
 		ArrayList<MauSac> list = new ArrayList<>();
-		query = "SELECT maMauSac, tenMau\r\n" + "FROM     MauSac";
-		ps = con.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			MauSac mauSac = new MauSac(rs.getString("maMauSac"), rs.getString("tenMau"));
-			list.add(mauSac);
+		String query = "SELECT maMauSac, tenMau FROM MauSac";
+		try (PreparedStatement ps = con.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+			while (rs.next()) {
+				MauSac mauSac = new MauSac(rs.getString("maMauSac"), rs.getString("tenMau"));
+				list.add(mauSac);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return list;
 	}
 
-	public boolean themMauSac(MauSac mauSac) throws Exception {
-		query = "INSERT [dbo].[MauSac] ([maMauSac], [tenMau]) VALUES ( ? ,N'" + mauSac.getTenMau() + "')";
-		ps = con.prepareStatement(query);
-		ps.setString(1, mauSac.getMaMau());
-		rsCheck = ps.executeUpdate();
-		if (rsCheck != 0)
-			return true;
-		return false;
+	public boolean themMauSac(MauSac mauSac) {
+		try {
+			if (kiemTraTonTaiMauSac(mauSac.getTenMau())) {
+				System.out.println("Màu sắc đã tồn tại.");
+				return false;
+			}
+			String query = "INSERT INTO MauSac (maMauSac, tenMau) VALUES (?, ?)";
+			try (PreparedStatement ps = con.prepareStatement(query)) {
+				ps.setString(1, mauSac.getMaMau());
+				ps.setString(2, mauSac.getTenMau());
+				rsCheck = ps.executeUpdate();
+				return rsCheck != 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
-	public MauSac timMauSac(String Mau) throws SQLException {
-		query = "select * from MauSac where tenMau = ?";
-		ps = con.prepareStatement(query);
-		ps.setString(1, Mau);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			return new MauSac(rs.getString("maMauSac"), rs.getString("tenMau"));
+	public MauSac timMauSac(String mau) {
+		String query = "SELECT * FROM MauSac WHERE tenMau = ?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, mau);
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					return new MauSac(rs.getString("maMauSac"), rs.getString("tenMau"));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
-	public boolean kiemTraTonTaiMauSac(String ten) throws SQLException {
-		query = "select * from MauSac where tenMau = N'"+ten+"'";
-		ps = con.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			return true;
+
+	public boolean kiemTraTonTaiMauSac(String ten) {
+		String query = "SELECT * FROM MauSac WHERE tenMau = ?";
+		try (PreparedStatement ps = con.prepareStatement(query)) {
+			ps.setString(1, ten);
+			try (ResultSet rs = ps.executeQuery()) {
+				return rs.next();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return false;
 	}

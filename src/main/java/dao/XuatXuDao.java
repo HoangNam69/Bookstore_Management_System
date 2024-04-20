@@ -25,7 +25,7 @@ public class XuatXuDao {
 
 	public ArrayList<XuatXu> getListXuatXu() throws Exception {
 		ArrayList<XuatXu> list = new ArrayList<>();
-		query = "SELECT maXuatXu, tenXuatXu\r\n" + "FROM     XuatXu";
+		query = "SELECT maXuatXu, tenXuatXu FROM XuatXu";
 		ps = con.prepareStatement(query);
 		rs = ps.executeQuery();
 		while (rs.next()) {
@@ -36,9 +36,10 @@ public class XuatXuDao {
 	}
 
 	public boolean themXuatXu(XuatXu x) throws Exception {
-		query = "INSERT [dbo].[XuatXu] ([maXuatXu], [tenXuatXu]) VALUES ( ? , N'" + x.getTenXuatXu() + "')";
+		query = "INSERT INTO XuatXu (maXuatXu, tenXuatXu) VALUES (?, ?)";
 		ps = con.prepareStatement(query);
 		ps.setString(1, x.getMaXuatXu());
+		ps.setString(2, x.getTenXuatXu());
 		rsCheck = ps.executeUpdate();
 		if (rsCheck != 0)
 			return true;
@@ -48,7 +49,7 @@ public class XuatXuDao {
 	public List<XuatXu> getXuatXu(String maXuatXu) {
 		List<XuatXu> dsXX = new ArrayList<XuatXu>();
 		try {
-			String query = "Select * from XuatXu where maXuatXu = ?";
+			String query = "SELECT * FROM XuatXu WHERE maXuatXu = ?";
 			ps = con.prepareStatement(query);
 			ps.setString(1, maXuatXu);
 			rs = ps.executeQuery();
@@ -59,19 +60,18 @@ public class XuatXuDao {
 				dsXX.add(xx);
 			}
 		} catch (SQLException e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return dsXX;
 	}
 
 	public boolean xoaXuatXu(String maXuatXu) {
-
+		// Viết logic xóa ở đây
 		return false;
 	}
 
 	public XuatXu timXuatXu(String XuatXu) throws SQLException {
-		query = "select * from XuatXu where tenXuatXu = ?";
+		query = "SELECT * FROM XuatXu WHERE tenXuatXu = ?";
 		ps = con.prepareStatement(query);
 		ps.setString(1, XuatXu);
 		rs = ps.executeQuery();
@@ -80,9 +80,11 @@ public class XuatXuDao {
 		}
 		return null;
 	}
+
 	public boolean kiemTraTonTaiXuatXu(String ten) throws SQLException {
-		query = "select * from XuatXu where tenXuatXu = N'"+ten+"'";
+		query = "SELECT * FROM XuatXu WHERE tenXuatXu = ?";
 		ps = con.prepareStatement(query);
+		ps.setString(1, ten);
 		rs = ps.executeQuery();
 		while (rs.next()) {
 			return true;

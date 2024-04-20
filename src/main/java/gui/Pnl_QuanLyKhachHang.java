@@ -699,13 +699,8 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd");
 		String formattedString = myObj.format(formatter);
 		int length = 0;
-		try {
-			length = khachhang_dao.getDSKhachHang().size();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String finalId = idPrefix + formattedString + String.format("%04d", length + 1);
+        length = khachhang_dao.getDSKhachHang().size();
+        String finalId = idPrefix + formattedString + String.format("%04d", length + 1);
 		return finalId;
 	}
 

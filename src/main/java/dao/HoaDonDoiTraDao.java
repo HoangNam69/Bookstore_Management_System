@@ -173,43 +173,37 @@ public class HoaDonDoiTraDao {
 	}
 
 // Tim hóa đơn đổi trả theo tên nhân viên
-	public List<HoaDonDoiTra> getHoaDonDoiTraTheoTen(String tenNV) throws SQLException {
-		List<HoaDonDoiTra> dshddt = new ArrayList<HoaDonDoiTra>();
-		// System.out.println(maNV);
-		try {
-			String query = "select * from HoaDonDoiTra\r\n" + "  inner join NhanVien\r\n"
-					+ "  on HoaDonDoiTra.maNhanVien = NhanVien.maNhanVien\r\n" + "where NhanVien.hotenNhanVien like N'%"
-					+ tenNV + "%'";
-
-			PreparedStatement ps = con.prepareStatement(query);
-//			stmt.setString(1, tenNV);
-			ResultSet rs = ps.executeQuery();
-			;
-			while (rs.next()) {
-				HoaDonDoiTra hddt = new HoaDonDoiTra(rs.getString("maHoaDonDoiTra"),
-						nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
-						khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
-						rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
-						hoaDonDao.timHoaDonTheoMa(rs.getString("maHoaDon")), rs.getDouble("tienPhaiTru"));
-
-				dshddt.add(hddt);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+public List<HoaDonDoiTra> getHoaDonDoiTraTheoTen(String tenNV) throws SQLException {
+	List<HoaDonDoiTra> dshddt = new ArrayList<>();
+	try {
+		String query = "SELECT * FROM HoaDonDoiTra " +
+				"INNER JOIN NhanVien " +
+				"ON HoaDonDoiTra.maNhanVien = NhanVien.maNhanVien " +
+				"WHERE NhanVien.hotenNhanVien LIKE N'%" + tenNV + "%'";
+		ps = con.prepareStatement(query);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			HoaDonDoiTra hddt = new HoaDonDoiTra(rs.getString("maHoaDonDoiTra"),
+					nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
+					khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
+					rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
+					hoaDonDao.timHoaDonTheoMa(rs.getString("maHoaDon")), rs.getDouble("tienPhaiTru"));
+			dshddt.add(hddt);
 		}
-		return dshddt;
-
+	} catch (SQLException e) {
+		e.printStackTrace();
 	}
+	return dshddt;
+}
 
+	// Phương thức lấy danh sách hóa đơn đổi trả theo số điện thoại khách hàng
 	public List<HoaDonDoiTra> getHoaDonDoiTraTheoSDT(String sdt) {
-		// TODO Auto-generated method stub
-		List<HoaDonDoiTra> dshddt = new ArrayList<HoaDonDoiTra>();
-		// System.out.println(maNV);
+		List<HoaDonDoiTra> dshddt = new ArrayList<>();
 		try {
-			String query = " select * from HoaDonDoiTra\r\n"
-					+ "	  inner join KhachHang\r\n"
-					+ "	  on HoaDonDoiTra.maKhachHang = KhachHang.maKhachHang\r\n"
-					+ "  where khachhang.sdt = ?";
+			String query = "SELECT * FROM HoaDonDoiTra " +
+					"INNER JOIN KhachHang " +
+					"ON HoaDonDoiTra.maKhachHang = KhachHang.maKhachHang " +
+					"WHERE khachhang.sdt = ?";
 			ps = con.prepareStatement(query);
 			ps.setString(1, sdt);
 			rs = ps.executeQuery();
@@ -219,7 +213,6 @@ public class HoaDonDoiTraDao {
 						khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
 						rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
 						hoaDonDao.timHoaDonTheoMa(rs.getString("maHoaDon")), rs.getDouble("tienPhaiTru"));
-
 				dshddt.add(hddt);
 			}
 		} catch (SQLException e) {
@@ -229,15 +222,14 @@ public class HoaDonDoiTraDao {
 	}
 
 	public List<HoaDonDoiTra> getHoaDonDoiTraTheoTenKH(String tenKH) {
-		List<HoaDonDoiTra> dshddt = new ArrayList<HoaDonDoiTra>();
-		// System.out.println(maNV);
+		List<HoaDonDoiTra> dshddt = new ArrayList<>();
 		try {
-			String query = "select * from HoaDonDoiTra \r\n"
-					+"inner join NhanVien \r\n"
-					+"on HoaDonDoiTra.maNhanVien = NhanVien.maNhanVien \r\n"
-					+"inner join KhachHang \r\n"
-					+"on HoaDonDoiTra.maKhachHang = KhachHang.maKhachHang \r\n"
-					+ "where KhachHang.hotenKhachHang like N'%"+ tenKH +"%'";
+			String query = "SELECT * FROM HoaDonDoiTra " +
+					"INNER JOIN NhanVien " +
+					"ON HoaDonDoiTra.maNhanVien = NhanVien.maNhanVien " +
+					"INNER JOIN KhachHang " +
+					"ON HoaDonDoiTra.maKhachHang = KhachHang.maKhachHang " +
+					"WHERE KhachHang.hotenKhachHang LIKE N'%" + tenKH + "%'";
 			ps = con.prepareStatement(query);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -246,7 +238,6 @@ public class HoaDonDoiTraDao {
 						khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
 						rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
 						hoaDonDao.timHoaDonTheoMa(rs.getString("maHoaDon")), rs.getDouble("tienPhaiTru"));
-
 				dshddt.add(hddt);
 			}
 		} catch (SQLException e) {

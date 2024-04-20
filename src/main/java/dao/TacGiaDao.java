@@ -24,13 +24,12 @@ public class TacGiaDao {
 
 	public ArrayList<TacGia> getListTacGia() throws Exception {
 		ArrayList<TacGia> list = new ArrayList<>();
-		query = "SELECT maTacGia, tenTacGia\r\n" + "FROM     TacGia";
+		query = "SELECT maTacGia, tenTacGia FROM TacGia";
 		ps = con.prepareStatement(query);
 		rs = ps.executeQuery();
 		while (rs.next()) {
 			TacGia t = new TacGia(rs.getString("maTacGia"), rs.getString("tenTacGia"));
 			list.add(t);
-
 		}
 		return list;
 	}
@@ -38,7 +37,7 @@ public class TacGiaDao {
 	public List<TacGia> getTacGia(String maTacGia) {
 		List<TacGia> dsTG = new ArrayList<TacGia>();
 		try {
-			String query = "Select * from TacGia where maTacGia = ?";
+			String query = "SELECT * FROM TacGia WHERE maTacGia = ?";
 			ps = con.prepareStatement(query);
 			ps.setString(1, maTacGia);
 			rs = ps.executeQuery();
@@ -49,29 +48,28 @@ public class TacGiaDao {
 				dsTG.add(tg);
 			}
 		} catch (SQLException e) {
-			// TODO: handle exception
 			e.printStackTrace();
+			System.out.println("Error retrieving authors: " + e.getMessage());
 		}
 		return dsTG;
 	}
 
 	public boolean themTacGia(TacGia t) throws Exception {
-		query = "INSERT [dbo].[TacGia] ([maTacGia], [tenTacGia]) VALUES ( ? , N'" + t.getTenTacGia() + "')";
+		query = "INSERT INTO TacGia (maTacGia, tenTacGia) VALUES (?, ?)";
 		ps = con.prepareStatement(query);
 		ps.setString(1, t.getMaTacGia());
+		ps.setString(2, t.getTenTacGia());
 		rsCheck = ps.executeUpdate();
-		if (rsCheck != 0)
-			return true;
-		return false;
+		return rsCheck != 0;
 	}
 
 	public boolean xoaTacGia(String maTacGia) {
-
+		// Your implementation to delete author by ID
 		return false;
 	}
 
 	public TacGia timTacGia(String TacGia) throws SQLException {
-		query = "select * from TacGia where tenTacGia = ?";
+		query = "SELECT * FROM TacGia WHERE tenTacGia = ?";
 		ps = con.prepareStatement(query);
 		ps.setString(1, TacGia);
 		rs = ps.executeQuery();
@@ -80,13 +78,12 @@ public class TacGiaDao {
 		}
 		return null;
 	}
+
 	public boolean kiemTraTonTaiTacGia(String ten) throws SQLException {
-		query = "select * from TacGia where tenTacGia = N'"+ten+"'";
+		query = "SELECT * FROM TacGia WHERE tenTacGia = ?";
 		ps = con.prepareStatement(query);
+		ps.setString(1, ten);
 		rs = ps.executeQuery();
-		while (rs.next()) {
-			return true;
-		}
-		return false;
+		return rs.next();
 	}
 }
