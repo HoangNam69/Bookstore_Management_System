@@ -840,7 +840,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 	public void xuatHoaDonDoiTra(String maHDDT) {
 		try {
 			Hashtable map = new Hashtable();
-			JasperReport report = JasperCompileManager.compileReport("src/main/java/gui/HoaDonDoiTra.jrxml");
+			JasperReport report = JasperCompileManager.compileReport("../gui/HoaDonDoiTra.jrxml");
 			map.put("maHDDT", maHDDT);
 			JasperPrint p = JasperFillManager.fillReport(report, map, DBConnection.getInstance().getConnection());
 
@@ -854,7 +854,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 	public void xuatHoaDon(String maHD) {
 		try {
 			Hashtable map = new Hashtable();
-			JasperReport report = JasperCompileManager.compileReport("src/main/java/gui/HoaDonBanHang.jrxml");
+			JasperReport report = JasperCompileManager.compileReport("../gui/HoaDonBanHang.jrxml");
 			map.put("maHD", maHD);
 			JasperPrint p = JasperFillManager.fillReport(report, map, DBConnection.getInstance().getConnection());
 			JasperViewer.viewReport(p, false);
