@@ -6,14 +6,19 @@
 
 import dao.MauSacDao;
 import dao.NhaCungCapDao;
+import dao.NhanVienDao;
 import entities.MauSac;
 import entities.NhaCungCap;
+import entities.NhanVien;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @description:
@@ -67,7 +72,7 @@ public class Main {
 //        }
 
 //        ---------------------------------------------------- Nhà cung cấp ----------------------------------------------------
-        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
+//        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
 //        nhaCungCapDao.getListNhaCungCapTheoLoaiSanPham("Áo");
 //        NhaCungCap ncc = new NhaCungCap("NCC003", "Le Hoang Nam", "DQH-GV-HCM", "hoangnam@gmail.com", "0123456789");
 //        if (nhaCungCapDao.themNhaCungCap(ncc)) {
@@ -80,7 +85,71 @@ public class Main {
 //            System.out.println(nhaCungCap);
 //        }
 
-        NhaCungCap ncc = nhaCungCapDao.timNhaCungCapTheoTen("Nam");
-        System.out.println(ncc);
+//        NhaCungCap ncc = nhaCungCapDao.timNhaCungCapTheoTen("Nam");
+//        System.out.println(ncc);
+
+
+//        ---------------------------------------------------- Nhân viên ----------------------------------------------------
+        NhanVienDao nhanVienDao = new NhanVienDao();
+//        NhanVien nv = new NhanVien("NV002", "Nguyen Hong Duc",
+//                LocalDate.of(2003, 4, 30), "123456786",
+//                "416/23/17 DQH-GV-HCM", "0123456786", true, "hongduc@gmail.com", false,
+//                false, "hinh ne");
+//        if (nhanVienDao.themNhanvien(nv)) {
+//            System.out.println("Thêm thành công");
+//        } else {
+//            System.out.println("Thêm thất bại");
+//        }
+//        List<NhanVien> list = nhanVienDao.getDSNhanVien();
+//        for (NhanVien nhanVien : list) {
+//            System.out.println(nhanVien);
+//        }
+
+//        List<NhanVien> list = nhanVienDao.timDanhSachNhanVienTheoMa("NV0");
+//        for (NhanVien nhanVien : list) {
+//            System.out.println(nhanVien);
+//        }
+
+//        NhanVien nv = nhanVienDao.timNhanVienTheoMa("NV003");
+//        System.out.println(nv);
+
+//        List<NhanVien> list = nhanVienDao.timDSNhanVienTheoTen("L");
+//        for (NhanVien nhanVien : list) {
+//            System.out.println(nhanVien);
+//        }
+
+//        NhanVien nv = nhanVienDao.timNhanVienTheoTen("Le Hoang Nam");
+//        System.out.println(nv);
+
+//        List<NhanVien> nvs = nhanVienDao.timNhanVienTheoSDT("786");
+//        for (NhanVien nv : nvs) {
+//            System.out.println(nv);
+//        }
+
+//        List<NhanVien> nvs = nhanVienDao.getListNhanVienByNameAndSDT("V","786");
+//        for (NhanVien nv : nvs) {
+//            System.out.println(nv);
+//        }
+
+//        NhanVien nv = nhanVienDao.getNhanVienByEmail("hoangnam@gmail.com");
+//        System.out.println(nv);
+
+//        NhanVien nv = new NhanVien("NV002", "Nguyen Hong Duc",
+//                LocalDate.of(2003, 4, 30), "123456786",
+//                "416/23/17 DQH-GV-HCM", "0986030412", true, "ngduc6061@gmail.com", false,
+//                false, "hinh ne");
+//        if (nhanVienDao.suaNhanVien(nv)) {
+//            System.out.println("Cập nhật thành công");
+//        } else {
+//            System.out.println("Cập nhật thất bại");
+//        }
+
+//        if (nhanVienDao.xoaNhanVien("NV001")) {
+//            System.out.println("Xóa thành công");
+//        } else {
+//            System.out.println("Xóa thất bại");
+//        }
+
+
     }
 }

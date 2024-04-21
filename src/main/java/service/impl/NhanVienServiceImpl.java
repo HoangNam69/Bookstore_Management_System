@@ -20,37 +20,37 @@ public class NhanVienServiceImpl implements NhanVienService {
 	 * @author dell 1 Lỗi tên 2 Lỗi sdt 3 Lỗi cccd 4
 	 */
 	@Override
-	public int themNhanVien(NhanVien nv) throws SQLException {
+	public boolean themNhanVien(NhanVien nv) throws SQLException {
 		if (!(nv.getHoTenNhanVien().length() > 0 && nv.getHoTenNhanVien()
 				.matches("[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊ"
 						+ "ỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]*"))) {
 			errorsThem = 1;
-			return -1;
+			return false;
 		} else if (!(nv.getsDT().length() > 0 && nv.getsDT().matches("^[0-9]{10}$"))) {
 			errorsThem = 2;
-			return -1;
+			return false;
 
 		} else if (!(nv.getcCCD().length() > 0 && nv.getcCCD().matches("^[0-9]{12}$"))) {
 			errorsThem = 3;
-			return -1;
+			return false;
 		} else if (!(nv.getEmail().length() > 0 && nv.getEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$"))) {
 			errorsThem = 4;
-			return -1;
+			return false;
 		} else if (!(nv.getDiaChi().length() > 0 && nv.getDiaChi()
 				.matches("[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊ"
 						+ "ỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ,\\w\\s]*"))) {
 			errorsThem = 5;
-			return -1;
+			return false;
 		} else {
 			nhanVienDao.themNhanvien(nv);
-			return 1;
+			return true;
 
 		}
 
 	}
 
 	@Override
-	public int xoaNhanVien(String maNV) throws SQLException {
+	public boolean xoaNhanVien(String maNV) throws SQLException {
 		// TODO Auto-generated method stub
 		return nhanVienDao.xoaNhanVien(maNV);
 	}
@@ -68,31 +68,31 @@ public class NhanVienServiceImpl implements NhanVienService {
 	}
 
 	@Override
-	public int suaNhanVien(NhanVien nv) throws SQLException {
+	public boolean suaNhanVien(NhanVien nv) throws SQLException {
 		// TODO Auto-generated method stub
 		if (!(nv.getHoTenNhanVien().length() > 0 && nv.getHoTenNhanVien()
 				.matches("[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊ"
 						+ "ỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]*"))) {
 			errorsSua = 1;
-			return -1;
+			return false;
 		} else if (!(nv.getsDT().length() > 0 && nv.getsDT().matches("^[0-9]{10}$"))) {
 			errorsSua = 2;
-			return -1;
+			return false;
 
 		} else if (!(nv.getcCCD().length() > 0 && nv.getcCCD().matches("^[0-9]{12}$"))) {
 			errorsSua = 3;
-			return -1;
+			return false;
 		} else if (!(nv.getEmail().length() > 0 && nv.getEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$"))) {
 			errorsSua = 4;
-			return -1;
+			return false;
 		} else if (!(nv.getDiaChi().length() > 0 && nv.getDiaChi()
 				.matches("[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊ"
 						+ "ỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ,\\w\\s]*"))) {
 			errorsSua = 5;
-			return -1;
+			return false;
 		} else {
 			nhanVienDao.suaNhanVien(nv);
-			return 1;
+			return true;
 		}
 
 	}
@@ -145,11 +145,11 @@ public class NhanVienServiceImpl implements NhanVienService {
 		return nhanVienDao.getNhanVienByEmail(email);
 	}
 
-	@Override
-	public int updateOTP(String gmail, String OTP, Timestamp hetHanOTP) {
-		// TODO Auto-generated method stub
-		return nhanVienDao.updateOTP(gmail, OTP, hetHanOTP);
-	}
+//	@Override
+//	public boolean updateOTP(String gmail, String OTP, Timestamp hetHanOTP) {
+//		// TODO Auto-generated method stub
+//		return nhanVienDao.updateOTP(gmail, OTP, hetHanOTP);
+//	}
 
 	@Override
 	public List<NhanVien> thongKeDoanhThu10NVBanNhieuNhat(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
