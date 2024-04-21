@@ -20,14 +20,14 @@ public class SanPhamServiceImpl implements SanPhamService {
     public ArrayList<Sach> getListSach(String maSach, String tenSP, String maTheLoai, Long giaTu, Long giaDen,
                                        String maTacGia, String maNXB, String maNCC, boolean hetHang) throws Exception {
         // TODO Auto-generated method stub
-        return sanPhamDao.getListSach(maSach, tenSP, maTheLoai, giaTu, giaDen, maTacGia, maNXB, maNCC, hetHang);
+        return (ArrayList<Sach>) sanPhamDao.getListSachTheoYeuCau(maSach, tenSP, maTheLoai, giaTu, giaDen, maTacGia, maNXB, maNCC, hetHang);
     }
 
     @Override
     public ArrayList<VanPhongPham> getListVanPhongPham(String maVPP, String tenVPP, String theLoaiVPP, Long giaTu,
                                                        Long giaDen, String maChatLieu, String maXuatXu, String maNCC, boolean hetHang) throws Exception {
         // TODO Auto-generated method stub
-        return sanPhamDao.getListVanPhongPham(maVPP, tenVPP, theLoaiVPP, giaTu, giaDen, maChatLieu, maXuatXu, maNCC,
+        return (ArrayList<VanPhongPham>) sanPhamDao.getListVanPhongPhamTheoYeuCau(maVPP, tenVPP, theLoaiVPP, giaTu, giaDen, maChatLieu, maXuatXu, maNCC,
                 hetHang);
     }
 
@@ -173,13 +173,7 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     public SanPham timSanPhamTheoMa1(String maSP) {
         // TODO Auto-generated method stub
-        try {
-            return sanPhamDao.timSanPhamTheoMa1(maSP);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
+        return sanPhamDao.timSanPhamTheoMa1(maSP);
     }
 
 }
