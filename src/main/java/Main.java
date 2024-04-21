@@ -6,9 +6,11 @@
 
 import dao.MauSacDao;
 import dao.NhaCungCapDao;
+import dao.NhaXuatBanDao;
 import dao.NhanVienDao;
 import entities.MauSac;
 import entities.NhaCungCap;
+import entities.NhaXuatBan;
 import entities.NhanVien;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -90,7 +92,7 @@ public class Main {
 
 
 //        ---------------------------------------------------- Nhân viên ----------------------------------------------------
-        NhanVienDao nhanVienDao = new NhanVienDao();
+//        NhanVienDao nhanVienDao = new NhanVienDao();
 //        NhanVien nv = new NhanVien("NV002", "Nguyen Hong Duc",
 //                LocalDate.of(2003, 4, 30), "123456786",
 //                "416/23/17 DQH-GV-HCM", "0123456786", true, "hongduc@gmail.com", false,
@@ -150,6 +152,23 @@ public class Main {
 //            System.out.println("Xóa thất bại");
 //        }
 
+//
+//        ---------------------------------------------------- Nhà xuất bản ----------------------------------------------------
+        NhaXuatBanDao nhaXuatBanDao = new NhaXuatBanDao();
+//        List<NhaXuatBan> list = nhaXuatBanDao.getListNhaXuatBan();
+//        for (NhaXuatBan nhaXuatBan : list) {
+//            System.out.println(nhaXuatBan);
+//        }
+
+//        NhaXuatBan nxb = new NhaXuatBan("NXB003", "NXB Le Hoang Nam");
+//        if (nhaXuatBanDao.themNhaXuatBan(nxb)) {
+//            System.out.println("Thêm thành công");
+//        } else {
+//            System.out.println("Thêm thất bại");
+//        }
+
+//        NhaXuatBan nxb = nhaXuatBanDao.timNhaXuatBan("NXB Le Hoang Nam");
+//        System.out.println(nxb);
 
     }
 }
