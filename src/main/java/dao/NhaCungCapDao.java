@@ -13,9 +13,6 @@ import jakarta.persistence.Persistence;
 
 public class NhaCungCapDao {
 
-    private Connection con;
-    private int rsCheck;
-
     private EntityManager em;
 
     public NhaCungCapDao() {
@@ -24,11 +21,15 @@ public class NhaCungCapDao {
     }
 
     public ArrayList<NhaCungCap> getListNhaCungCapTheoLoaiSanPham(String loaiSanPham) {
-        return (ArrayList<NhaCungCap>) em.createNativeQuery("SELECT distinct NhaCungCap.maNCC, NhaCungCap.tenNCC FROM NhaCungCap " +
-                        "INNER JOIN SanPham ON NhaCungCap.maNCC = SanPham.maNCC " +
-                        "WHERE SanPham.loaiSanPham LIKE ?", NhaCungCap.class)
-                .setParameter(1, loaiSanPham)
-                .getResultList();
+        try {
+            return (ArrayList<NhaCungCap>) em.createNativeQuery("SELECT ncc.* FROM NhaCungCap as ncc " +
+                            "INNER JOIN SanPham as sp ON ncc.maNCC = sp.maNCC " +
+                            "WHERE sp.loaiSanPham LIKE ?", NhaCungCap.class)
+                    .setParameter(1, loaiSanPham)
+                    .getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public boolean themNhaCungCap(NhaCungCap ncc) {
@@ -53,9 +54,13 @@ public class NhaCungCapDao {
     }
 
     public NhaCungCap timNhaCungCapTheoTen(String tenNCC) {
-        return (NhaCungCap) em.createQuery("SELECT n FROM NhaCungCap n WHERE n.tenNCC LIKE :tenNCC", NhaCungCap.class)
-                .setParameter("tenNCC", "%" + tenNCC + "%")
-                .getSingleResult();
+        try {
+            return (NhaCungCap) em.createNativeQuery("SELECT * FROM NhaCungCap WHERE tenNCC = ?", NhaCungCap.class)
+                    .setParameter(1, tenNCC)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public boolean kiemTraTonTaiNCC(String ten) {

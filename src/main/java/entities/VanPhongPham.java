@@ -9,7 +9,6 @@ import java.io.Serializable;
 @DiscriminatorValue("VanPhongPham")
 @Entity
 public class VanPhongPham extends SanPham implements Serializable {
-    @Column(nullable = false)
     private String tenVanPhongPham;
 
     //    Moi quan he giua van phong pham voi loai van phong pham

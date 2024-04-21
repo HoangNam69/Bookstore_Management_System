@@ -4,14 +4,8 @@
  * Copyright (c) 2024 IUH. All rights reserved.
  */
 
-import dao.MauSacDao;
-import dao.NhaCungCapDao;
-import dao.NhaXuatBanDao;
-import dao.NhanVienDao;
-import entities.MauSac;
-import entities.NhaCungCap;
-import entities.NhaXuatBan;
-import entities.NhanVien;
+import dao.*;
+import entities.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -74,7 +68,7 @@ public class Main {
 //        }
 
 //        ---------------------------------------------------- Nhà cung cấp ----------------------------------------------------
-//        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
+        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
 //        nhaCungCapDao.getListNhaCungCapTheoLoaiSanPham("Áo");
 //        NhaCungCap ncc = new NhaCungCap("NCC003", "Le Hoang Nam", "DQH-GV-HCM", "hoangnam@gmail.com", "0123456789");
 //        if (nhaCungCapDao.themNhaCungCap(ncc)) {
@@ -87,7 +81,7 @@ public class Main {
 //            System.out.println(nhaCungCap);
 //        }
 
-//        NhaCungCap ncc = nhaCungCapDao.timNhaCungCapTheoTen("Nam");
+//        NhaCungCap ncc = nhaCungCapDao.timNhaCungCapTheoTen("Le Vu");
 //        System.out.println(ncc);
 
 
@@ -154,7 +148,7 @@ public class Main {
 
 //
 //        ---------------------------------------------------- Nhà xuất bản ----------------------------------------------------
-        NhaXuatBanDao nhaXuatBanDao = new NhaXuatBanDao();
+//        NhaXuatBanDao nhaXuatBanDao = new NhaXuatBanDao();
 //        List<NhaXuatBan> list = nhaXuatBanDao.getListNhaXuatBan();
 //        for (NhaXuatBan nhaXuatBan : list) {
 //            System.out.println(nhaXuatBan);
@@ -169,6 +163,33 @@ public class Main {
 
 //        NhaXuatBan nxb = nhaXuatBanDao.timNhaXuatBan("NXB Le Hoang Nam");
 //        System.out.println(nxb);
+//        ---------------------------------------------------- Sach Loi ----------------------------------------------------
+//        SachLoiDao sachLoiDao = new SachLoiDao();
 
+//        SachLoi sachLoi = new SachLoi(new Sach("SP00022"), "Bị Dính Trang", 5);
+//        if (sachLoiDao.themSachLoi(sachLoi)) {
+//            System.out.println("Thêm thành công");
+//        } else {
+//            System.out.println("Thêm thất bại");
+//        }
+
+//        List<SachLoi> list = sachLoiDao.getAllSachLoi();
+//        for (SachLoi sachLoi : list) {
+//            System.out.println(sachLoi);
+//        }
+
+
+//        SachLoi sachLoi = new SachLoi(new Sach("SP00022"), "Bị Dính Trang", 9);
+//        if (sachLoiDao.capNhatSoLuong(sachLoi)) {
+//            System.out.println("Cập nhật thành công");
+//        } else {
+//            System.out.println("Cập nhật thất bại");
+//        }
+
+//        if (sachLoiDao.xoaSachLoi("SP00022", "Bị Dính Trang")) {
+//            System.out.println("Xóa thành công");
+//        } else {
+//            System.out.println("Xóa thất bại");
+//        }
     }
 }
