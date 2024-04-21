@@ -43,7 +43,6 @@ public class ChiTietHoaDonDoiTraDaoTest {
         // Set properties for cthddt
         cthddt.setDonGia(1000);
         cthddt.setSoLuong(1);
-        //cthddt.setSanPham(new ConcreteSanPham("SP0001")); // Assuming ConcreteSanPham is a concrete subclass of SanPham
         cthddt.setHoaDonDoiTra(new HoaDonDoiTra("HD0001"));
         int result = chiTietHoaDonDoiTraService.themChiTietHoaDonDoiTra(cthddt);
         assertEquals(1, result);

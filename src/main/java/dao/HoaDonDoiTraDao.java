@@ -72,20 +72,21 @@ public class HoaDonDoiTraDao {
 	}
 
 	public List<HoaDonDoiTra> getHoaDonDoiTraTheoTen(String tenNV) {
-		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.nhanVien.hotenNhanVien LIKE :tenNV";
+		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.nhanVien.hoTenNhanVien LIKE :tenNV";
 		return em.createQuery(query, HoaDonDoiTra.class)
 				.setParameter("tenNV", "%" + tenNV + "%")
 				.getResultList();
 	}
 
 	public List<HoaDonDoiTra> getHoaDonDoiTraTheoSDT(String sdt) {
-		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.khachHang.sdt = :sdt";
+		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.khachHang.sDT = :sdt";
 		return em.createQuery(query, HoaDonDoiTra.class)
 				.setParameter("sdt", sdt)
 				.getResultList();
 	}
+
 	public List<HoaDonDoiTra> getHoaDonDoiTraTheoTenKH(String tenKH) {
-		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.khachHang.hotenKhachHang LIKE :tenKH";
+		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.khachHang.hoTenKhachHang LIKE :tenKH";
 		return em.createQuery(query, HoaDonDoiTra.class)
 				.setParameter("tenKH", "%" + tenKH + "%")
 				.getResultList();
