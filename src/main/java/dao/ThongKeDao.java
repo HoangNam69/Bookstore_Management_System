@@ -7,6 +7,10 @@ import java.util.List;
 
 import db.DBConnection;
 import entities.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 
 public class ThongKeDao {
@@ -20,636 +24,375 @@ public class ThongKeDao {
     private List<NhanVien> dsNV;
     private List<KhachHang> dsKH;
     private ArrayList<NhanVien> dsNV1;
+    private EntityManager em;
 
     public ThongKeDao() {
-        DBConnection connection = DBConnection.getInstance();
-        con = connection.getConnection();
+        this.em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
     }
+
 
     public List<NhanVien> getNhanVienBanNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
-        List<NhanVien> dsNV = new ArrayList<>();
         try {
-            String query = "SELECT NhanVien.maNhanVien " +
-                    "FROM ChiTietHoaDon " +
-                    "INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                    "INNER JOIN NhanVien ON HoaDon.maNhanVien = NhanVien.maNhanVien " +
-                    "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? " +
-                    "GROUP BY NhanVien.maNhanVien " +
-                    "HAVING COUNT(HoaDon.maHoaDon) >= ALL " +
-                    "(SELECT COUNT(HoaDon.maHoaDon) AS 'Tong so luong hoa don' " +
-                    " FROM ChiTietHoaDon " +
-                    " INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                    " INNER JOIN NhanVien ON HoaDon.maNhanVien = NhanVien.maNhanVien " +
-                    " WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? " +
-                    " GROUP BY NhanVien.maNhanVien)";
+            TypedQuery<NhanVien> query = em.createQuery(
+                    "SELECT DISTINCT h.nhanVien " +
+                            "FROM HoaDon h " +
+                            "WHERE h.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "GROUP BY h.nhanVien " +
+                            "HAVING COUNT(h) >= ALL(" +
+                            "    SELECT COUNT(h2) " +
+                            "    FROM HoaDon h2 " +
+                            "    WHERE h2.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "    GROUP BY h2.nhanVien)",
+                    NhanVien.class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
 
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setDate(1, Date.valueOf(ngayBatDau));
-            ps.setDate(2, Date.valueOf(ngayKetThuc));
-            ps.setDate(3, Date.valueOf(ngayBatDau));
-            ps.setDate(4, Date.valueOf(ngayKetThuc));
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                String maNV = rs.getString(1);
-                NhanVien nhanVien = new NhanVien(maNV);
-                dsNV.add(nhanVien);
-            }
-            return dsNV;
-
-        } catch (SQLException e) {
+            return query.getResultList();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
 
-    //    public List<SanPham> getSanPhamBanNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
-//        SanPham sp = null;
-//        dsSP = new ArrayList<SanPham>();
-//        try {
-//            String query = "SELECT SanPham.maSanPham\r\n" + "FROM     ChiTietHoaDon INNER JOIN\r\n"
-//                    + "HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon INNER JOIN\r\n"
-//                    + "					                SanPham ON ChiTietHoaDon.maSanPham = SanPham.maSanPham\r\n"
-//                    + "					WHERE  HoaDon.ngayLapHoaDon BETWEEN  ? and ?\r\n"
-//                    + "					GROUP BY SanPham.maSanPham\r\n"
-//                    + "					HAVING SUM(ChiTietHoaDon.soLuong) >= ALL(SELECT  SUM(ChiTietHoaDon.soLuong) AS 'TongSoLuongDaBan'\r\n"
-//                    + "					FROM     ChiTietHoaDon INNER JOIN\r\n"
-//                    + "			        HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon INNER JOIN\r\n"
-//                    + "					                SanPham ON ChiTietHoaDon.maSanPham = SanPham.maSanPham\r\n"
-//                    + "					WHERE  HoaDon.ngayLapHoaDon BETWEEN   ? AND ?\r\n"
-//                    + "					GROUP BY SanPham.maSanPham)";
-//
-//            ps = con.prepareStatement(query);
-//            int dayBD = ngayBatDau.getDayOfMonth();
-//            int monthBD = ngayBatDau.getMonthValue();
-//            int yearBD = ngayBatDau.getYear();
-//
-//            ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-//
-//            int dayKT = ngayKetThuc.getDayOfMonth();
-//            int monthKT = ngayKetThuc.getMonthValue();
-//            int yearKT = ngayKetThuc.getYear();
-//
-//            ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-//            ps.setString(3, yearBD + "-" + monthBD + "-" + dayBD);
-//            ps.setString(4, yearKT + "-" + monthKT + "-" + dayKT);
-//
-//            rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//                String maSanPham = rs.getString("maSanPham");
-//
-//
-//                SanPhamDao sanPhamDao = new SanPhamDao();
-//                sp = sanPhamDao.timSanPhamTheoMa(maSanPham);
-//                System.out.println(sp);
-//
-//
-//
-//                if (sp.getLoaiSanPham().equals("Sách")) {
-//                    sp = (Sach) sanPhamDao.timSanPhamTheoMa(maSanPham);
-//                } else {
-//                    sp = (VanPhongPham) sanPhamDao.timSanPhamTheoMa(maSanPham);
-//                }
-//                dsSP.add(sp);
-//            }
-//            return dsSP;
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
     public List<SanPham> getSanPhamBanNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
-        List<SanPham> dsSP = new ArrayList<>();
         try {
-            String query = "SELECT SanPham.maSanPham " +
-                    "FROM ChiTietHoaDon " +
-                    "INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                    "INNER JOIN SanPham ON ChiTietHoaDon.maSanPham = SanPham.maSanPham " +
-                    "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? " +
-                    "GROUP BY SanPham.maSanPham " +
-                    "HAVING SUM(ChiTietHoaDon.soLuong) >= ALL " +
-                    "(SELECT SUM(ChiTietHoaDon.soLuong) AS 'TongSoLuongDaBan' " +
-                    "FROM ChiTietHoaDon " +
-                    "INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                    "INNER JOIN SanPham ON ChiTietHoaDon.maSanPham = SanPham.maSanPham " +
-                    "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? " +
-                    "GROUP BY SanPham.maSanPham)";
+            String jpql = "SELECT s FROM SanPham s " +
+                    "JOIN s.chiTietHoaDons c " +
+                    "JOIN c.hoaDon h " +
+                    "WHERE h.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                    "GROUP BY s " +
+                    "HAVING SUM(c.soLuong) >= ALL(" +
+                    "   SELECT SUM(c1.soLuong) " +
+                    "   FROM ChiTietHoaDon c1 " +
+                    "   JOIN c1.hoaDon h1 " +
+                    "   WHERE h1.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                    "   GROUP BY c1.sanPham" +
+                    ")";
 
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setDate(1, Date.valueOf(ngayBatDau));
-            ps.setDate(2, Date.valueOf(ngayKetThuc));
-            ps.setDate(3, Date.valueOf(ngayBatDau));
-            ps.setDate(4, Date.valueOf(ngayKetThuc));
+            Query query = em.createQuery(jpql, SanPham.class);
+            query.setParameter("ngayBatDau", ngayBatDau);
+            query.setParameter("ngayKetThuc", ngayKetThuc);
 
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                String maSanPham = rs.getString("maSanPham");
-                SanPhamDao sanPhamDao = new SanPhamDao();
-                SanPham sp = sanPhamDao.timSanPhamTheoMa(maSanPham);
-
-                if (sp != null) {
-                    if (sp.getLoaiSanPham().equals("Sách")) {
-                        sp = (Sach) sp;
-                    } else {
-                        sp = (VanPhongPham) sp;
-                    }
-                    dsSP.add(sp);
-                }
-            }
-            return dsSP;
-
-        } catch (SQLException e) {
+            List<SanPham> sanPhams = query.getResultList();
+            return sanPhams;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
 
-    public int getSoLuongSachTon() throws SQLException {
-        int soLuongTon = 0;
-        String query = "SELECT SUM(soLuongTon) AS total FROM SanPham WHERE loaiSanPham LIKE N'Sách'";
-        ps = con.prepareStatement(query);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            soLuongTon = rs.getInt("total");
-            return soLuongTon;
+    public int getSoLuongSachTon() {
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT SUM(s.soLuongTon) FROM SanPham s WHERE s.loaiSanPham = 'Sách'",
+                    Long.class
+            );
+            Long result = query.getSingleResult();
+            return result != null ? result.intValue() : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getSoLuongVPPTon() {
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT SUM(s.soLuongTon) FROM SanPham s WHERE s.loaiSanPham = 'Văn phòng phẩm'",
+                    Long.class
+            );
+            Long result = query.getSingleResult();
+            return result != null ? result.intValue() : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getSoLuongSachLoi() {
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT SUM(s.soLuong) FROM SachLoi s",
+                    Long.class
+            );
+            Long result = query.getSingleResult();
+            return result != null ? result.intValue() : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+    public int getSoLuongHoaDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT COUNT(h) FROM HoaDon h " +
+                            "WHERE h.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc", Long.class);
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+
+            return Math.toIntExact(query.getSingleResult());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return 0;
     }
 
+    public double getDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+        try {
+            TypedQuery<Double> query = em.createQuery(
+                    "SELECT SUM(c.soLuong * c.donGia) FROM ChiTietHoaDon c " +
+                            "INNER JOIN c.hoaDon h " +
+                            "WHERE h.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc", Double.class);
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
 
-    public int getSoLuongVPPTon() throws SQLException {
-        int soLuongTon = 0;
-        String query = "SELECT SUM(soLuongTon) AS total FROM SanPham WHERE loaiSanPham LIKE N'Văn phòng phẩm'";
-        ps = con.prepareStatement(query);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            soLuongTon = rs.getInt("total");
-            return soLuongTon;
+            Double result = query.getSingleResult();
+            return result != null ? result : 0.0;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return 0;
-    }
-
-
-    public int getSoLuongSachLoi() throws SQLException {
-        int soLuongLoi = 0;
-        String query = "SELECT SUM(soLuongLoi) AS total FROM SachLoi";
-        ps = con.prepareStatement(query);
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            soLuongLoi = rs.getInt("total");
-            return soLuongLoi;
-        }
-        return 0;
-    }
-
-
-    //    public int getSoLuongHoaDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException {
-//        int soLuongHoaDon = 0;
-//        String query = "SELECT COUNT(*)\r\n" + "from HoaDon\r\n" + "WHERE  HoaDon.ngayLapHoaDon between ? and ?";
-//        ps = con.prepareStatement(query);
-//
-//        int dayBD = ngayBatDau.getDayOfMonth();
-//        int monthBD = ngayBatDau.getMonthValue();
-//        int yearBD = ngayBatDau.getYear();
-//
-//        ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-//
-//        int dayKT = ngayKetThuc.getDayOfMonth();
-//        int monthKT = ngayKetThuc.getMonthValue();
-//        int yearKT = ngayKetThuc.getYear();
-//
-//        ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-//        rs = ps.executeQuery();
-//        while (rs.next()) {
-//            soLuongHoaDon = rs.getInt("");
-//            return soLuongHoaDon;
-//        }
-//        return 0;
-//    }
-    public int getSoLuongHoaDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException {
-        int soLuongHoaDon = 0;
-        String query = "SELECT COUNT(*) AS total " +
-                "FROM HoaDon " +
-                "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ?";
-        ps = con.prepareStatement(query);
-
-        ps.setString(1, ngayBatDau.toString());
-        ps.setString(2, ngayKetThuc.toString());
-
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            soLuongHoaDon = rs.getInt("total");
-            return soLuongHoaDon;
-        }
-        return 0;
-    }
-
-    //    public double getDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException {
-//        double doanhThu = 0;
-//        String query = "SELECT SUM(ChiTietHoaDon.soLuong*ChiTietHoaDon.donGia)\r\n"
-//                + "	from ChiTietHoaDon   INNER JOIN\r\n" + "	HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon\r\n"
-//                + "WHERE  HoaDon.ngayLapHoaDon between  ? and ?";
-//        ps = con.prepareStatement(query);
-//
-//        int dayBD = ngayBatDau.getDayOfMonth();
-//        int monthBD = ngayBatDau.getMonthValue();
-//        int yearBD = ngayBatDau.getYear();
-//
-//        ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-//
-//        int dayKT = ngayKetThuc.getDayOfMonth();
-//        int monthKT = ngayKetThuc.getMonthValue();
-//        int yearKT = ngayKetThuc.getYear();
-//
-//        ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-//        rs = ps.executeQuery();
-//        while (rs.next()) {
-//            doanhThu = rs.getDouble("");
-//            return doanhThu;
-//        }
-//        return 0;
-//    }
-    public double getDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException {
-        double doanhThu = 0;
-        String query = "SELECT SUM(ChiTietHoaDon.soLuong * ChiTietHoaDon.donGia) AS total " +
-                "FROM ChiTietHoaDon INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ?";
-        ps = con.prepareStatement(query);
-
-        ps.setString(1, ngayBatDau.toString());
-        ps.setString(2, ngayKetThuc.toString());
-
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            doanhThu = rs.getDouble("total");
-            return doanhThu;
-        }
-        return 0;
+        return 0.0;
     }
 
 
     public List<KhachHang> getKhachHangMuaNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
-        dsKH = new ArrayList<KhachHang>();
+        List<KhachHang> dsKH = new ArrayList<>();
         try {
-            String query = "SELECT KhachHang.maKhachHang " +
-                    "FROM ChiTietHoaDon " +
-                    "INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                    "INNER JOIN KhachHang ON HoaDon.maKhachHang = KhachHang.maKhachHang " +
-                    "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? " +
-                    "GROUP BY KhachHang.maKhachHang " +
-                    "HAVING COUNT(HoaDon.maHoaDon) >= ALL(SELECT COUNT(HoaDon.maHoaDon) " +
-                    "FROM chitiethoadon " +
-                    "INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                    "INNER JOIN KhachHang ON HoaDon.maKhachHang = KhachHang.maKhachHang " +
-                    "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? " +
-                    "GROUP BY KhachHang.maKhachHang)";
+            TypedQuery<KhachHang> query = em.createQuery(
+                    "SELECT DISTINCT k FROM HoaDon h " +
+                            "JOIN h.khachHang k " +
+                            "WHERE h.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "GROUP BY k " +
+                            "HAVING COUNT(h) >= ALL(" +
+                            "    SELECT COUNT(h2) FROM HoaDon h2 " +
+                            "    JOIN h2.khachHang k2 " +
+                            "    WHERE h2.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "    GROUP BY k2)",
+                    KhachHang.class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
 
-            ps = con.prepareStatement(query);
-            int dayBD = ngayBatDau.getDayOfMonth();
-            int monthBD = ngayBatDau.getMonthValue();
-            int yearBD = ngayBatDau.getYear();
-
-            ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-
-            int dayKT = ngayKetThuc.getDayOfMonth();
-            int monthKT = ngayKetThuc.getMonthValue();
-            int yearKT = ngayKetThuc.getYear();
-
-            ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-            ps.setString(3, yearBD + "-" + monthBD + "-" + dayBD);
-            ps.setString(4, yearKT + "-" + monthKT + "-" + dayKT);
-
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                String maKH = rs.getString(1);
-                KhachHang khachHang = new KhachHang(maKH);
-                dsKH.add(khachHang);
-            }
-            return dsKH;
-
-        } catch (SQLException e) {
+            dsKH = query.getResultList();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return dsKH;
     }
 
 
-    public int getSoLuongBanCuaSanPhamChayNhat(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException {
-        int soLuongBan = 0;
-        String query = "SELECT SUM(ChiTietHoaDon.soLuong) AS TopSoLuong " +
-                "FROM SanPham " +
-                "INNER JOIN ChiTietHoaDon ON SanPham.maSanPham = ChiTietHoaDon.maSanPham " +
-                "INNER JOIN HoaDon ON HoaDon.maHoaDon = ChiTietHoaDon.maHoaDon " +
-                "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? " +
-                "GROUP BY SanPham.maSanPham " +
-                "ORDER BY TopSoLuong DESC " +
-                "LIMIT 1";
-
-        ps = con.prepareStatement(query);
-        int dayBD = ngayBatDau.getDayOfMonth();
-        int monthBD = ngayBatDau.getMonthValue();
-        int yearBD = ngayBatDau.getYear();
-
-        ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-
-        int dayKT = ngayKetThuc.getDayOfMonth();
-        int monthKT = ngayKetThuc.getMonthValue();
-        int yearKT = ngayKetThuc.getYear();
-
-        ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            soLuongBan = rs.getInt("TopSoLuong");
-            return soLuongBan;
-        }
-        return 0;
-    }
-
-
-    public double getTongTienCuaKhachHangTop1(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException {
-        double tongTien = 0;
-        String query = "SELECT SUM(ChiTietHoaDon.soLuong * ChiTietHoaDon.donGia) " +
-                "FROM ChiTietHoaDon " +
-                "INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                "INNER JOIN KhachHang ON HoaDon.maKhachHang = KhachHang.maKhachHang " +
-                "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? " +
-                "GROUP BY KhachHang.maKhachHang " +
-                "ORDER BY SUM(ChiTietHoaDon.soLuong * ChiTietHoaDon.donGia) DESC " +
-                "LIMIT 1";
-
-        ps = con.prepareStatement(query);
-        int dayBD = ngayBatDau.getDayOfMonth();
-        int monthBD = ngayBatDau.getMonthValue();
-        int yearBD = ngayBatDau.getYear();
-
-        ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-
-        int dayKT = ngayKetThuc.getDayOfMonth();
-        int monthKT = ngayKetThuc.getMonthValue();
-        int yearKT = ngayKetThuc.getYear();
-
-        ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            tongTien = rs.getDouble(1); // Lấy giá trị từ cột đầu tiên
-            return tongTien;
-        }
-        return 0;
-    }
-
-
-    public int getSoLuongHoaDonCuaKhachHangTheoMa(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maKH) throws SQLException {
-        int soLuong = 0;
-        String query = "SELECT COUNT(HoaDon.maHoaDon) " +
-                "FROM HoaDon " +
-                "INNER JOIN KhachHang ON HoaDon.maKhachHang = KhachHang.maKhachHang " +
-                "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? AND KhachHang.maKhachHang = ?";
-
-        ps = con.prepareStatement(query);
-
-        int dayBD = ngayBatDau.getDayOfMonth();
-        int monthBD = ngayBatDau.getMonthValue();
-        int yearBD = ngayBatDau.getYear();
-
-        ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-
-        int dayKT = ngayKetThuc.getDayOfMonth();
-        int monthKT = ngayKetThuc.getMonthValue();
-        int yearKT = ngayKetThuc.getYear();
-
-        ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-        ps.setString(3, maKH);
-
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            soLuong = rs.getInt(1); // Lấy giá trị từ cột đầu tiên
-            return soLuong;
-        }
-        return 0;
-    }
-
-
-    public double getTongTienCuaKhachHangTheoMa(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maKH) throws SQLException {
-        double tongTien = 0;
-        String query = "SELECT SUM(ChiTietHoaDon.soLuong * ChiTietHoaDon.donGia) " +
-                "FROM ChiTietHoaDon " +
-                "INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                "INNER JOIN KhachHang ON HoaDon.maKhachHang = KhachHang.maKhachHang " +
-                "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? AND KhachHang.maKhachHang = ?";
-
-        ps = con.prepareStatement(query);
-
-        int dayBD = ngayBatDau.getDayOfMonth();
-        int monthBD = ngayBatDau.getMonthValue();
-        int yearBD = ngayBatDau.getYear();
-
-        ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-
-        int dayKT = ngayKetThuc.getDayOfMonth();
-        int monthKT = ngayKetThuc.getMonthValue();
-        int yearKT = ngayKetThuc.getYear();
-
-        ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-        ps.setString(3, maKH);
-
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            tongTien = rs.getDouble(1); // Lấy giá trị từ cột đầu tiên
-            return tongTien;
-        }
-        return 0;
-    }
-
-
-    public double getDoanhThuTheoMaNhanVien(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maNV) throws SQLException {
-        double tongTien = 0;
-        String query = "SELECT SUM(ChiTietHoaDon.soLuong * ChiTietHoaDon.donGia) " +
-                "FROM ChiTietHoaDon " +
-                "INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? AND HoaDon.maNhanVien = ?";
-
-        ps = con.prepareStatement(query);
-
-        int dayBD = ngayBatDau.getDayOfMonth();
-        int monthBD = ngayBatDau.getMonthValue();
-        int yearBD = ngayBatDau.getYear();
-
-        ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-
-        int dayKT = ngayKetThuc.getDayOfMonth();
-        int monthKT = ngayKetThuc.getMonthValue();
-        int yearKT = ngayKetThuc.getYear();
-
-        ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-        ps.setString(3, maNV);
-
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            tongTien = rs.getDouble(1); // Lấy giá trị từ cột đầu tiên
-            return tongTien;
-        }
-        return 0;
-    }
-
-
-    public int getSoLuongHoaDonTheoMaNV(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maNV) throws SQLException {
-        int soLuongHoaDon = 0;
-        String query = "SELECT COUNT(*) " +
-                "FROM ChiTietHoaDon " +
-                "INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? AND HoaDon.maNhanVien = ?";
-
-        ps = con.prepareStatement(query);
-
-        int dayBD = ngayBatDau.getDayOfMonth();
-        int monthBD = ngayBatDau.getMonthValue();
-        int yearBD = ngayBatDau.getYear();
-
-        ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-
-        int dayKT = ngayKetThuc.getDayOfMonth();
-        int monthKT = ngayKetThuc.getMonthValue();
-        int yearKT = ngayKetThuc.getYear();
-
-        ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-        ps.setString(3, maNV);
-
-        rs = ps.executeQuery();
-        while (rs.next()) {
-            soLuongHoaDon = rs.getInt(1); // Lấy giá trị từ cột đầu tiên
-            return soLuongHoaDon;
-        }
-        return 0;
-    }
-
-
-    public List<NhanVien> getDoanhThuCuaNhanVien(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException {
-        dsNV = new ArrayList<NhanVien>();
+    public int getSoLuongBanCuaSanPhamChayNhat(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
         try {
-            String query = "SELECT DISTINCT NhanVien.maNhanVien " +
-                    "FROM NhanVien " +
-                    "INNER JOIN HoaDon ON NhanVien.maNhanVien = HoaDon.maNhanVien " +
-                    "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ?";
+            TypedQuery<Integer> query = em.createQuery(
+                    "SELECT SUM(cthd.soLuong) " +
+                            "FROM ChiTietHoaDon cthd " +
+                            "JOIN cthd.sanPham sp " +
+                            "JOIN cthd.hoaDon hd " +
+                            "WHERE hd.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "GROUP BY sp " +
+                            "ORDER BY SUM(cthd.soLuong) DESC",
+                    Integer.class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+            query.setMaxResults(1); // Limit to 1 result
 
-            ps = con.prepareStatement(query);
-
-            int dayBD = ngayBatDau.getDayOfMonth();
-            int monthBD = ngayBatDau.getMonthValue();
-            int yearBD = ngayBatDau.getYear();
-
-            ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-
-            int dayKT = ngayKetThuc.getDayOfMonth();
-            int monthKT = ngayKetThuc.getMonthValue();
-            int yearKT = ngayKetThuc.getYear();
-
-            ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                String maNV = rs.getString(1);
-                NhanVien nhanVien = new NhanVien(maNV);
-                dsNV.add(nhanVien);
-            }
-            return dsNV;
-        } catch (SQLException e) {
+            Integer soLuongBan = query.getSingleResult();
+            return soLuongBan != null ? soLuongBan : 0;
+        } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
-        return null;
     }
 
+    public double getTongTienCuaKhachHangTop1(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+        try {
+            TypedQuery<Double> query = em.createQuery(
+                    "SELECT SUM(cthd.soLuong * cthd.donGia) " +
+                            "FROM ChiTietHoaDon cthd " +
+                            "JOIN cthd.hoaDon hd " +
+                            "JOIN hd.khachHang kh " +
+                            "WHERE hd.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "GROUP BY kh " +
+                            "ORDER BY SUM(cthd.soLuong * cthd.donGia) DESC",
+                    Double.class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+            query.setMaxResults(1); // Limit to 1 result
+
+            Double tongTien = query.getSingleResult();
+            return tongTien != null ? tongTien : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+    public int getSoLuongHoaDonCuaKhachHangTheoMa(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maKH) {
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT COUNT(hd) " +
+                            "FROM HoaDon hd " +
+                            "WHERE hd.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "AND hd.khachHang.maKhachHang = :maKH",
+                    Long.class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+            query.setParameter("maKH", maKH);
+
+            Long soLuong = query.getSingleResult();
+            return soLuong != null ? soLuong.intValue() : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public double getTongTienCuaKhachHangTheoMa(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maKH) {
+        try {
+            TypedQuery<Double> query = em.createQuery(
+                    "SELECT SUM(cthd.soLuong * cthd.donGia) " +
+                            "FROM ChiTietHoaDon cthd " +
+                            "JOIN cthd.hoaDon hd " +
+                            "JOIN hd.khachHang kh " +
+                            "WHERE hd.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "AND kh.maKhachHang = :maKH",
+                    Double.class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+            query.setParameter("maKH", maKH);
+
+            Double tongTien = query.getSingleResult();
+            return tongTien != null ? tongTien : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+    public double getDoanhThuTheoMaNhanVien(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maNV) {
+        try {
+            TypedQuery<Double> query = em.createQuery(
+                    "SELECT SUM(cthd.soLuong * cthd.donGia) " +
+                            "FROM ChiTietHoaDon cthd " +
+                            "JOIN cthd.hoaDon hd " +
+                            "WHERE hd.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "AND hd.nhanVien.maNhanVien = :maNV",
+                    Double.class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+            query.setParameter("maNV", maNV);
+
+            Double tongTien = query.getSingleResult();
+            return tongTien != null ? tongTien : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int getSoLuongHoaDonTheoMaNV(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maNV) {
+        try {
+            TypedQuery<Long> query = em.createQuery(
+                    "SELECT COUNT(hd) " +
+                            "FROM HoaDon hd " +
+                            "WHERE hd.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "AND hd.nhanVien.maNhanVien = :maNV",
+                    Long.class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+            query.setParameter("maNV", maNV);
+
+            Long soLuong = query.getSingleResult();
+            return soLuong != null ? soLuong.intValue() : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+    public List<NhanVien> getDoanhThuCuaNhanVien(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+        try {
+            TypedQuery<NhanVien> query = em.createQuery(
+                    "SELECT DISTINCT hd.nhanVien " +
+                            "FROM HoaDon hd " +
+                            "WHERE hd.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc",
+                    NhanVien.class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+
+            return query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
 
     public List<NhanVien> thongKeDoanhThu10NVBanNhieuNhat(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
-        dsNV1 = new ArrayList<NhanVien>();
         try {
-            String query = "SELECT NhanVien.maNhanVien, SUM(ChiTietHoaDon.donGia*ChiTietHoaDon.soLuong) AS TongDoanhThu " +
-                    "FROM NhanVien " +
-                    "JOIN HoaDon ON NhanVien.maNhanVien = HoaDon.maNhanVien " +
-                    "JOIN ChiTietHoaDon ON HoaDon.maHoaDon = ChiTietHoaDon.maHoaDon " +
-                    "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? " +
-                    "GROUP BY NhanVien.maNhanVien " +
-                    "ORDER BY TongDoanhThu DESC " +
-                    "LIMIT 10";
+            TypedQuery<NhanVien> query = em.createQuery(
+                    "SELECT hd.nhanVien, SUM(cthd.donGia * cthd.soLuong) AS TongDoanhThu " +
+                            "FROM HoaDon hd " +
+                            "JOIN hd.chiTietHoaDons cthd " +
+                            "WHERE hd.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "GROUP BY hd.nhanVien " +
+                            "ORDER BY TongDoanhThu DESC",
+                    NhanVien.class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+            query.setMaxResults(10);
 
-            ps = con.prepareStatement(query);
-
-            int dayBD = ngayBatDau.getDayOfMonth();
-            int monthBD = ngayBatDau.getMonthValue();
-            int yearBD = ngayBatDau.getYear();
-
-            ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-
-            int dayKT = ngayKetThuc.getDayOfMonth();
-            int monthKT = ngayKetThuc.getMonthValue();
-            int yearKT = ngayKetThuc.getYear();
-
-            ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                String maNV = rs.getString(1);
-                NhanVien nhanVien = new NhanVien(maNV);
-                dsNV1.add(nhanVien);
-            }
-            return dsNV1;
-
-        } catch (SQLException e) {
+            return query.getResultList();
+        } catch (Exception e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-        return null;
     }
-
 
 
     public List<KhachHang> getTop10KHThanThiet(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
-        dsKH = new ArrayList<KhachHang>();
         try {
-            String query = "SELECT KhachHang.maKhachHang, SUM(ChiTietHoaDon.soLuong*ChiTietHoaDon.donGia) AS TongDoanhThu " +
-                    "FROM ChiTietHoaDon " +
-                    "INNER JOIN HoaDon ON ChiTietHoaDon.maHoaDon = HoaDon.maHoaDon " +
-                    "INNER JOIN KhachHang ON HoaDon.maKhachHang = KhachHang.maKhachHang " +
-                    "WHERE HoaDon.ngayLapHoaDon BETWEEN ? AND ? " +
-                    "GROUP BY KhachHang.maKhachHang " +
-                    "ORDER BY TongDoanhThu DESC " +
-                    "LIMIT 10";
+            TypedQuery<Object[]> query = em.createQuery(
+                    "SELECT hd.khachHang.maKhachHang, SUM(cthd.donGia * cthd.soLuong) AS TongDoanhThu " +
+                            "FROM HoaDon hd " +
+                            "JOIN hd.chiTietHoaDons cthd " +
+                            "WHERE hd.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc " +
+                            "GROUP BY hd.khachHang.maKhachHang " +
+                            "ORDER BY TongDoanhThu DESC",
+                    Object[].class
+            );
+            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
+            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+            query.setMaxResults(10);
 
-            ps = con.prepareStatement(query);
-
-            int dayBD = ngayBatDau.getDayOfMonth();
-            int monthBD = ngayBatDau.getMonthValue();
-            int yearBD = ngayBatDau.getYear();
-
-            ps.setString(1, yearBD + "-" + monthBD + "-" + dayBD);
-
-            int dayKT = ngayKetThuc.getDayOfMonth();
-            int monthKT = ngayKetThuc.getMonthValue();
-            int yearKT = ngayKetThuc.getYear();
-
-            ps.setString(2, yearKT + "-" + monthKT + "-" + dayKT);
-
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                String maKH = rs.getString(1);
+            List<Object[]> results = query.getResultList();
+            List<KhachHang> dsKH = new ArrayList<>();
+            for (Object[] result : results) {
+                String maKH = (String) result[0];
                 KhachHang khachHang = new KhachHang(maKH);
                 dsKH.add(khachHang);
             }
             return dsKH;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-        return null;
     }
 
 }

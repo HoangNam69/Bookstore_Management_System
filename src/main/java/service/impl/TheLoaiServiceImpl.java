@@ -15,13 +15,13 @@ public class TheLoaiServiceImpl implements TheLoaiService {
 	@Override
 	public ArrayList<TheLoaiSach> getListTheLoaiSach() throws Exception {
 		// TODO Auto-generated method stub
-		return theLoaiDao.getListTheLoaiSach();
+		return (ArrayList<TheLoaiSach>) theLoaiDao.getListTheLoaiSach();
 	}
 
 	@Override
 	public ArrayList<TheLoaiVanPhongPham> getListTheLoaiVanPhongPham() throws Exception {
 		// TODO Auto-generated method stub
-		return theLoaiDao.getListTheLoaiVanPhongPham();
+		return (ArrayList<TheLoaiVanPhongPham>) theLoaiDao.getListTheLoaiVanPhongPham();
 	}
 
 	@Override
