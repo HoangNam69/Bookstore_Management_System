@@ -42,33 +42,58 @@ public class NhanVienDao {
     }
 
     public List<NhanVien> timDanhSachNhanVienTheoMa(String maNV) {
-        return em.createQuery("SELECT nv FROM NhanVien nv WHERE nv.maNhanVien LIKE :maNV", NhanVien.class)
-                .setParameter("maNV", "%" + maNV + "%")
-                .getResultList();
+        try {
+            return em.createQuery("SELECT nv FROM NhanVien nv WHERE nv.maNhanVien LIKE :maNV", NhanVien.class)
+                    .setParameter("maNV", "%" + maNV + "%")
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public NhanVien timNhanVienTheoMa(String maNV) {
-        return (NhanVien) em.createNativeQuery("SELECT * FROM NhanVien WHERE maNhanVien=?", NhanVien.class)
-                .setParameter(1, maNV)
-                .getSingleResult();
+        try {
+            return (NhanVien) em.createNativeQuery("SELECT * FROM NhanVien WHERE maNhanVien=?", NhanVien.class)
+                    .setParameter(1, maNV)
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public List<NhanVien> timDSNhanVienTheoTen(String tenNV) {
-        return em.createQuery("SELECT nv FROM NhanVien nv WHERE nv.hoTenNhanVien LIKE :tenNV", NhanVien.class)
-                .setParameter("tenNV", "%" + tenNV + "%")
-                .getResultList();
+        try {
+            return em.createQuery("SELECT nv FROM NhanVien nv WHERE nv.hoTenNhanVien LIKE :tenNV", NhanVien.class)
+                    .setParameter("tenNV", "%" + tenNV + "%")
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public NhanVien timNhanVienTheoTen(String tenNV) {
-        return (NhanVien) em.createNativeQuery("SELECT * FROM NhanVien WHERE hoTenNhanVien = ?", NhanVien.class)
-                .setParameter(1, tenNV)
-                .getSingleResult();
+        try {
+            return (NhanVien) em.createNativeQuery("SELECT * FROM NhanVien WHERE hoTenNhanVien LIKE ?", NhanVien.class)
+                    .setParameter(1, tenNV)
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public List<NhanVien> timNhanVienTheoSDT(String sdt) {
-        return em.createQuery("SELECT nv FROM NhanVien nv WHERE nv.sDT LIKE :sdt", NhanVien.class)
-                .setParameter("sdt", "%" + sdt + "%")
-                .getResultList();
+        try {
+            return em.createQuery("SELECT nv FROM NhanVien nv WHERE nv.sDT LIKE :sdt", NhanVien.class)
+                    .setParameter("sdt", "%" + sdt + "%")
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
@@ -98,7 +123,8 @@ public class NhanVienDao {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.merge(nv);
+            NhanVien nv1 = em.find(NhanVien.class, nv.getMaNhanVien());
+            em.merge(nv1);
             tx.commit();
             return true;
         } catch (Exception e) {
@@ -109,9 +135,14 @@ public class NhanVienDao {
     }
 
     public NhanVien getNhanVienByEmail(String email) {
-        return (NhanVien) em.createNativeQuery("SELECT * FROM NhanVien WHERE email = ?", NhanVien.class)
-                .setParameter(1, email)
-                .getSingleResult();
+        try {
+            return (NhanVien) em.createNativeQuery("SELECT * FROM NhanVien WHERE email = ?", NhanVien.class)
+                    .setParameter(1, email)
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 //    public boolean updateOTP(String email, String OTP, Timestamp hetHanOTP) {

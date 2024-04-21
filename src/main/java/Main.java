@@ -68,7 +68,7 @@ public class Main {
 //        }
 
 //        ---------------------------------------------------- Nhà cung cấp ----------------------------------------------------
-        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
+//        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
 //        nhaCungCapDao.getListNhaCungCapTheoLoaiSanPham("Áo");
 //        NhaCungCap ncc = new NhaCungCap("NCC003", "Le Hoang Nam", "DQH-GV-HCM", "hoangnam@gmail.com", "0123456789");
 //        if (nhaCungCapDao.themNhaCungCap(ncc)) {
@@ -140,11 +140,6 @@ public class Main {
 //            System.out.println("Cập nhật thất bại");
 //        }
 
-//        if (nhanVienDao.xoaNhanVien("NV001")) {
-//            System.out.println("Xóa thành công");
-//        } else {
-//            System.out.println("Xóa thất bại");
-//        }
 
 //
 //        ---------------------------------------------------- Nhà xuất bản ----------------------------------------------------
