@@ -7,17 +7,17 @@ import java.util.List;
 import entities.NhanVien;
 
 public interface NhanVienService {
-	public int themNhanVien(NhanVien nv) throws SQLException;
+	public boolean themNhanVien(NhanVien nv) throws SQLException;
 
 	public NhanVien timNhanVienTheoMa(String maNV) throws SQLException;
 
-	public int xoaNhanVien(String maNV) throws SQLException;
+	public boolean xoaNhanVien(String maNV) throws SQLException;
 
 	public List<NhanVien> getDSNhanVien() throws SQLException;
 
 	public List<NhanVien> timDSNhanVienTheoTen(String tenNV) throws SQLException;
 
-	public int suaNhanVien(NhanVien nv) throws SQLException;
+	public boolean suaNhanVien(NhanVien nv) throws SQLException;
 
 	public List<NhanVien> getNhanVienBanNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc);
 
@@ -33,7 +33,7 @@ public interface NhanVienService {
 
 	public NhanVien getNhanVienByEmail(String email);
 
-	public int updateOTP(String gmail, String OTP, Timestamp hetHanOTP);
+//	public boolean updateOTP(String gmail, String OTP, Timestamp hetHanOTP);
 	
 	public List<NhanVien> thongKeDoanhThu10NVBanNhieuNhat(LocalDate ngayBatDau, LocalDate ngayKetThuc);
 }

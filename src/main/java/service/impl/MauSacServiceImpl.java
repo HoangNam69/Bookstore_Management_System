@@ -8,25 +8,33 @@ import entities.MauSac;
 import service.MauSacService;
 
 public class MauSacServiceImpl implements MauSacService {
-	MauSacDao mauSacDao = new MauSacDao();
+    MauSacDao mauSacDao = new MauSacDao();
 
-	@Override
-	public ArrayList<MauSac> getListMauSac() throws Exception {
-		// TODO Auto-generated method stub
-		return mauSacDao.getListMauSac();
-	}
+    @Override
+    public ArrayList<MauSac> getListMauSac() throws Exception {
+        return mauSacDao.getListMauSac();
+    }
 
-	@Override
-	public boolean themMauSac(MauSac mauSac) throws Exception {
-		if(mauSacDao.kiemTraTonTaiMauSac(mauSac.getTenMau()))
-			return false;
-		return mauSacDao.themMauSac(mauSac);
-	}
+    @Override
+    public boolean themMauSac(MauSac mauSac) throws Exception {
+        if (mauSacDao.kiemTraTonTaiMauSac(mauSac))
+            return false;
+        return mauSacDao.themMauSac(mauSac);
+    }
 
-	@Override
-	public MauSac timMauSac(String Mau) throws SQLException {
-		// TODO Auto-generated method stub
-		return mauSacDao.timMauSac(Mau);
-	}
+    @Override
+    public MauSac timMauSac(String mau) throws SQLException {
+        return mauSacDao.timMauSac(mau);
+    }
+
+    @Override
+    public boolean capNhatMauSac(MauSac mauSac) throws SQLException {
+        return mauSacDao.capNhatMauSac(mauSac);
+    }
+
+    @Override
+    public boolean xoaMauSac(String maMauSac) throws SQLException {
+        return mauSacDao.xoaMauSac(maMauSac);
+    }
 
 }

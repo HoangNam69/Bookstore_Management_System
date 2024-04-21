@@ -6,10 +6,10 @@ import java.util.List;
 import entities.SachLoi;
 
 public interface SachLoiService {
-	public int themSachLoi(SachLoi sl) throws SQLException;
+	public boolean themSachLoi(SachLoi sl) throws SQLException;
 
-	public int capNhatSoLuong(SachLoi sl);
+	public boolean capNhatSoLuong(SachLoi sl);
 
 	public List<SachLoi> getAllSachLoi() throws SQLException;
-	public void xoaSachLoi(String maSach, String loi);
+	public boolean xoaSachLoi(String maSach, String loi);
 }

@@ -10,64 +10,65 @@ import java.util.List;
 import db.DBConnection;
 import entities.Sach;
 import entities.SachLoi;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 
 public class SachLoiDao {
-	private Connection con;
+    private EntityManager em;
 
-	public SachLoiDao() {
-		DBConnection connection = DBConnection.getInstance();
-		con = connection.getConnection();
-	}
+    public SachLoiDao() {
+        this.em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB")
+                .createEntityManager();
+    }
 
-	public int themSachLoi(SachLoi sl) {
-		String insert = "INSERT INTO SachLoi VALUES (?, ?, ?)";
-		try (PreparedStatement stmt = con.prepareStatement(insert)) {
-			stmt.setString(1, sl.getSach().getMaSanPham());
-			stmt.setString(2, sl.getLoiSanPham());
-			stmt.setInt(3, sl.getSoLuong());
-			return stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
+    public boolean themSachLoi(SachLoi sl) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.persist(sl);
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-	public int capNhatSoLuong(SachLoi sl) {
-		String sql = "UPDATE SachLoi SET soLuongLoi = ? WHERE maSanPham = ? AND loiSanPham = ?";
-		try (PreparedStatement ps = con.prepareStatement(sql)) {
-			ps.setInt(1, sl.getSoLuong());
-			ps.setString(2, sl.getSach().getMaSanPham());
-			ps.setString(3, sl.getLoiSanPham());
-			return ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
+    public boolean capNhatSoLuong(SachLoi sl) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.merge(sl);
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return false;
+        }
+    }
 
-	public List<SachLoi> getAllSachLoi() {
-		List<SachLoi> dssl = new ArrayList<>();
-		String query = "SELECT * FROM SachLoi";
-		try (PreparedStatement ps = con.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
-			while (rs.next()) {
-				SachLoi sl = new SachLoi(new Sach(rs.getString("maSanPham")), rs.getString("loiSanPham"),
-						rs.getInt("soLuongLoi"));
-				dssl.add(sl);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return dssl;
-	}
+    public List<SachLoi> getAllSachLoi() {
+        return em.createNativeQuery("SELECT * FROM SachLoi", SachLoi.class)
+                .getResultList();
+    }
 
-	public void xoaSachLoi(String maSach, String loi) {
-		String query = "DELETE FROM SachLoi WHERE maSanPham = ? AND loiSanPham = ?";
-		try (PreparedStatement ps = con.prepareStatement(query)) {
-			ps.setString(1, maSach);
-			ps.setString(2, loi);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+    public boolean xoaSachLoi(String maSach, String loi) {
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.createNativeQuery("DELETE FROM SachLoi WHERE maSach = ? AND loiSanPham = ?")
+                    .setParameter(1, maSach)
+                    .setParameter(2, loi)
+                    .executeUpdate();
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            tx.rollback();
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
