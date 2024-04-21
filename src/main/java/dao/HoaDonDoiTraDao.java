@@ -11,239 +11,84 @@ import db.DBConnection;
 import entities.HoaDonDoiTra;
 import entities.KhachHang;
 import entities.NhanVien;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
 
 public class HoaDonDoiTraDao {
-	private Connection con;
-	private PreparedStatement ps = null;
-	private ResultSet rs;
-	private String query;
-	private int rsCheck;
-	private NhanVienDao nhanVienDao = new NhanVienDao();
-	private KhachHangDao khachHangDao = new KhachHangDao();
-	private HoaDonDao hoaDonDao = new HoaDonDao();
+	private EntityManager em;
 
 	public HoaDonDoiTraDao() {
-		DBConnection connection = DBConnection.getInstance();
-		con = connection.getConnection();
+		this.em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
 	}
 
-	public int themHoaDonDoiTra(HoaDonDoiTra hddt) throws SQLException {
-		String insert = "Insert into HoaDonDoiTra values (?, ?, ?, ?, ?, ?,?,?)";
-		PreparedStatement stmt = con.prepareStatement(insert);
-		stmt.setString(1, hddt.getMaHoaDonDoiTra());
-		stmt.setString(2, hddt.getNhanVien().getMaNhanVien());
-		stmt.setString(3, hddt.getKhachHang().getMaKhachHang());
-		int day = hddt.getNgayLapHoaDon().getDayOfMonth();
-		int month = hddt.getNgayLapHoaDon().getMonthValue();
-		int year = hddt.getNgayLapHoaDon().getYear();
-		stmt.setString(4, year + "-" + month + "-" + day);
-		stmt.setString(5, hddt.getGhiChu());
-		stmt.setDouble(6, hddt.getTienKhachDua());
-		stmt.setString(7, hddt.getHoaDon().getMaHoaDon());
-		stmt.setDouble(8, hddt.getTienPhaiTru());
-		stmt.executeUpdate();
+	public int themHoaDonDoiTra(HoaDonDoiTra hddt) {
+		em.getTransaction().begin();
+		em.persist(hddt);
+		em.getTransaction().commit();
 		return 1;
 	}
 
 	public List<HoaDonDoiTra> getHoaDonDoiTraTheoMa(String maHDDT) {
-		List<HoaDonDoiTra> dshddt = new ArrayList<HoaDonDoiTra>();
-		try {
-			String query = "Select * from HoaDonDoiTra where maHoaDonDoiTra =?";
-			ps = con.prepareStatement(query);
-			ps.setString(1, maHDDT);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				HoaDonDoiTra hddt = new HoaDonDoiTra(rs.getString(1), nhanVienDao.timNhanVienTheoMa(rs.getString(2)),
-						khachHangDao.timKhachHangTheoMa(rs.getString(3)), rs.getDate(4).toLocalDate(), rs.getString(5),
-						rs.getDouble(6), hoaDonDao.getHoaDonTheoMa(rs.getString(7)).get(0), rs.getDouble(8));
-				dshddt.add(hddt);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return dshddt;
-
+		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.maHoaDonDoiTra = :maHDDT";
+		return em.createQuery(query, HoaDonDoiTra.class)
+				.setParameter("maHDDT", maHDDT)
+				.getResultList();
 	}
 
-	public List<HoaDonDoiTra> getDSHoaDonDoiTra() throws SQLException {
-		List<HoaDonDoiTra> dshddt = new ArrayList<>();
-		String query = "Select * from HoaDonDoiTra";
-		ps = con.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			HoaDonDoiTra hddt = new HoaDonDoiTra(rs.getString("maHoaDonDoiTra"),
-					new NhanVien(rs.getString("maNhanVien")), new KhachHang(rs.getString("maKhachHang")),
-					rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
-					hoaDonDao.getHoaDonTheoMa(rs.getString(7)).get(0), rs.getDouble(8));
-			dshddt.add(hddt);
-		}
-
-		return dshddt;
+	public List<HoaDonDoiTra> getDSHoaDonDoiTra() {
+		String query = "SELECT h FROM HoaDonDoiTra h";
+		return em.createQuery(query, HoaDonDoiTra.class).getResultList();
 	}
 
 	public int editTienKhachTra(HoaDonDoiTra hddt) {
-		String query = "update HoaDonDoiTra set tienKhachDua =? where maHoaDonDoiTra=?";
-		try {
-
-			ps = con.prepareStatement(query);
-			ps.setDouble(1, hddt.getTienKhachDua());
-
-			ps.setString(2, hddt.getMaHoaDonDoiTra());
-
-			// rs = ps.executeQuery();
-
-			return ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return 0;
+		em.getTransaction().begin();
+		hddt = em.merge(hddt);
+		em.getTransaction().commit();
+		return 1;
 	}
 
 	public int editTienPhaiTru(HoaDonDoiTra hddt) {
-		String query = "update HoaDonDoiTra set tienPhaiTru =? where maHoaDonDoiTra=?";
-		try {
-
-			ps = con.prepareStatement(query);
-			ps.setDouble(1, hddt.getTienPhaiTru());
-
-			ps.setString(2, hddt.getMaHoaDonDoiTra());
-
-			// rs = ps.executeQuery();
-
-			return ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return 0;
+		em.getTransaction().begin();
+		hddt = em.merge(hddt);
+		em.getTransaction().commit();
+		return 1;
 	}
 
 	public List<HoaDonDoiTra> getMaHoaDonDoiTraByMaHDCu(String maHDCu) {
-		List<HoaDonDoiTra> dsMaHoaDonDoiTra = new ArrayList<>();
-		try {
-
-			String query = "select * from HoaDonDoiTra where maHoaDon = ?";
-			ps = con.prepareStatement(query);
-			ps.setString(1, maHDCu);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				HoaDonDoiTra hddt = new HoaDonDoiTra(rs.getString(1), nhanVienDao.timNhanVienTheoMa(rs.getString(2)),
-						khachHangDao.timKhachHangTheoMa(rs.getString(3)), rs.getDate(4).toLocalDate(), rs.getString(5),
-						rs.getDouble(6), hoaDonDao.getHoaDonTheoMa(rs.getString(7)).get(0), rs.getDouble(8));
-				dsMaHoaDonDoiTra.add(hddt);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return dsMaHoaDonDoiTra;
-	}
-	
-	public List<HoaDonDoiTra> getToanBoDSHoaDonDoiTra() throws SQLException {
-		List<HoaDonDoiTra> dshddt = new ArrayList<>();
-		String query = "Select * from HoaDonDoiTra";
-		ps = con.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			HoaDonDoiTra hddt = new HoaDonDoiTra(rs.getString("maHoaDonDoiTra"),
-					nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
-					khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
-					rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
-					hoaDonDao.getHoaDonTheoMa(rs.getString(7)).get(0), rs.getDouble(8));
-			dshddt.add(hddt);
-		}
-
-		return dshddt;
+		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.hoaDon.maHoaDon = :maHDCu";
+		return em.createQuery(query, HoaDonDoiTra.class)
+				.setParameter("maHDCu", maHDCu)
+				.getResultList();
 	}
 
-	// Tim hoa don doi tra theo ma
-	public HoaDonDoiTra timHoaDonDoiTraTheoMa(String maHoaDon) throws SQLException {
-		HoaDonDoiTra hoaDonDT = null;
-		// System.out.println(maNV);
-		String query = "Select * from HoaDonDoiTra where maHoaDonDoiTra=?";
-		ps = con.prepareStatement(query);
-		ps.setString(1, maHoaDon);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			hoaDonDT = new HoaDonDoiTra(rs.getString("maHoaDonDoiTra"),
-					nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
-					khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
-					rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
-					hoaDonDao.timHoaDonTheoMa(rs.getString("maHoaDon")), rs.getDouble("tienPhaiTru"));
-		}
+	public List<HoaDonDoiTra> getToanBoDSHoaDonDoiTra() {
+		String query = "SELECT h FROM HoaDonDoiTra h";
+		return em.createQuery(query, HoaDonDoiTra.class).getResultList();
+	}
+
+	public HoaDonDoiTra timHoaDonDoiTraTheoMa(String maHoaDon) {
+		HoaDonDoiTra hoaDonDT = em.find(HoaDonDoiTra.class, maHoaDon);
 		return hoaDonDT;
 	}
 
-// Tim hóa đơn đổi trả theo tên nhân viên
-public List<HoaDonDoiTra> getHoaDonDoiTraTheoTen(String tenNV) throws SQLException {
-	List<HoaDonDoiTra> dshddt = new ArrayList<>();
-	try {
-		String query = "SELECT * FROM HoaDonDoiTra " +
-				"INNER JOIN NhanVien " +
-				"ON HoaDonDoiTra.maNhanVien = NhanVien.maNhanVien " +
-				"WHERE NhanVien.hotenNhanVien LIKE N'%" + tenNV + "%'";
-		ps = con.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			HoaDonDoiTra hddt = new HoaDonDoiTra(rs.getString("maHoaDonDoiTra"),
-					nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
-					khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
-					rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
-					hoaDonDao.timHoaDonTheoMa(rs.getString("maHoaDon")), rs.getDouble("tienPhaiTru"));
-			dshddt.add(hddt);
-		}
-	} catch (SQLException e) {
-		e.printStackTrace();
+	public List<HoaDonDoiTra> getHoaDonDoiTraTheoTen(String tenNV) {
+		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.nhanVien.hotenNhanVien LIKE :tenNV";
+		return em.createQuery(query, HoaDonDoiTra.class)
+				.setParameter("tenNV", "%" + tenNV + "%")
+				.getResultList();
 	}
-	return dshddt;
-}
 
-	// Phương thức lấy danh sách hóa đơn đổi trả theo số điện thoại khách hàng
 	public List<HoaDonDoiTra> getHoaDonDoiTraTheoSDT(String sdt) {
-		List<HoaDonDoiTra> dshddt = new ArrayList<>();
-		try {
-			String query = "SELECT * FROM HoaDonDoiTra " +
-					"INNER JOIN KhachHang " +
-					"ON HoaDonDoiTra.maKhachHang = KhachHang.maKhachHang " +
-					"WHERE khachhang.sdt = ?";
-			ps = con.prepareStatement(query);
-			ps.setString(1, sdt);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				HoaDonDoiTra hddt = new HoaDonDoiTra(rs.getString("maHoaDonDoiTra"),
-						nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
-						khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
-						rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
-						hoaDonDao.timHoaDonTheoMa(rs.getString("maHoaDon")), rs.getDouble("tienPhaiTru"));
-				dshddt.add(hddt);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return dshddt;
+		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.khachHang.sdt = :sdt";
+		return em.createQuery(query, HoaDonDoiTra.class)
+				.setParameter("sdt", sdt)
+				.getResultList();
 	}
-
 	public List<HoaDonDoiTra> getHoaDonDoiTraTheoTenKH(String tenKH) {
-		List<HoaDonDoiTra> dshddt = new ArrayList<>();
-		try {
-			String query = "SELECT * FROM HoaDonDoiTra " +
-					"INNER JOIN NhanVien " +
-					"ON HoaDonDoiTra.maNhanVien = NhanVien.maNhanVien " +
-					"INNER JOIN KhachHang " +
-					"ON HoaDonDoiTra.maKhachHang = KhachHang.maKhachHang " +
-					"WHERE KhachHang.hotenKhachHang LIKE N'%" + tenKH + "%'";
-			ps = con.prepareStatement(query);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				HoaDonDoiTra hddt = new HoaDonDoiTra(rs.getString("maHoaDonDoiTra"),
-						nhanVienDao.timNhanVienTheoMa(rs.getString("maNhanVien")),
-						khachHangDao.timKhachHangTheoMa(rs.getString("maKhachHang")),
-						rs.getDate("ngayLapHoaDon").toLocalDate(), rs.getString("ghiChu"), rs.getFloat("tienKhachDua"),
-						hoaDonDao.timHoaDonTheoMa(rs.getString("maHoaDon")), rs.getDouble("tienPhaiTru"));
-				dshddt.add(hddt);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return dshddt;
+		String query = "SELECT h FROM HoaDonDoiTra h WHERE h.khachHang.hotenKhachHang LIKE :tenKH";
+		return em.createQuery(query, HoaDonDoiTra.class)
+				.setParameter("tenKH", "%" + tenKH + "%")
+				.getResultList();
 	}
 
 }
