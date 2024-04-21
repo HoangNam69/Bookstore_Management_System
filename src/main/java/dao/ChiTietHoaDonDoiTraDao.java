@@ -27,6 +27,8 @@ public class ChiTietHoaDonDoiTraDao {
 		return query.getResultList();
 	}
 
+
+
 	public int themChiTietHoaDonDoiTra(ChiTietHoaDonDoiTra cthddt) {
 		try {
 			em.getTransaction().begin();
