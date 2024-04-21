@@ -5,7 +5,9 @@
  */
 
 import dao.MauSacDao;
+import dao.NhaCungCapDao;
 import entities.MauSac;
+import entities.NhaCungCap;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -37,8 +39,8 @@ public class Main {
 //
 //        em.close();
 //        emf.close();
-
-        MauSacDao mauSacDao = new MauSacDao();
+//        ---------------------------------------------------- Màu sắc ----------------------------------------------------
+//        MauSacDao mauSacDao = new MauSacDao();
 //        ArrayList<MauSac> list = mauSacDao.getListMauSac();
 //        for (MauSac mauSac : list) {
 //            System.out.println(mauSac);
@@ -58,10 +60,27 @@ public class Main {
 //            System.out.println("Cập nhật thất bại");
 //        }
 
-        if (mauSacDao.xoaMauSac("MS003s")) {
-            System.out.println("Xóa thành công");
-        } else {
-            System.out.println("Xóa thất bại");
-        }
+//        if (mauSacDao.xoaMauSac("MS003s")) {
+//            System.out.println("Xóa thành công");
+//        } else {
+//            System.out.println("Xóa thất bại");
+//        }
+
+//        ---------------------------------------------------- Nhà cung cấp ----------------------------------------------------
+        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
+//        nhaCungCapDao.getListNhaCungCapTheoLoaiSanPham("Áo");
+//        NhaCungCap ncc = new NhaCungCap("NCC003", "Le Hoang Nam", "DQH-GV-HCM", "hoangnam@gmail.com", "0123456789");
+//        if (nhaCungCapDao.themNhaCungCap(ncc)) {
+//            System.out.println("Thêm thành công");
+//        } else {
+//            System.out.println("Thêm thất bại");
+//        }
+//        ArrayList<NhaCungCap> listNCC = nhaCungCapDao.getAllListNhaCungCap();
+//        for (NhaCungCap nhaCungCap : listNCC) {
+//            System.out.println(nhaCungCap);
+//        }
+
+        NhaCungCap ncc = nhaCungCapDao.timNhaCungCapTheoTen("Nam");
+        System.out.println(ncc);
     }
 }

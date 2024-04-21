@@ -11,28 +11,28 @@ public class NhaCungCapServiceImpl implements NhaCungCapService {
 	NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
 
 	@Override
-	public ArrayList<NhaCungCap> getListNhaCungCap(String loaiSanPham) throws Exception {
+	public ArrayList<NhaCungCap> getListNhaCungCap(String loaiSanPham) {
 		// TODO Auto-generated method stub
-		return nhaCungCapDao.getListNhaCungCap(loaiSanPham);
+		return nhaCungCapDao.getListNhaCungCapTheoLoaiSanPham(loaiSanPham);
 	}
 
 	@Override
-	public boolean themNhaCungCap(NhaCungCap t) throws Exception {
+	public boolean themNhaCungCap(NhaCungCap t) {
 		if(nhaCungCapDao.kiemTraTonTaiNCC(t.getTenNCC()))
 			return false;
 		return nhaCungCapDao.themNhaCungCap(t);
 	}
 
 	@Override
-	public ArrayList<NhaCungCap> getAllListNhaCungCap() throws Exception {
+	public ArrayList<NhaCungCap> getAllListNhaCungCap()  {
 		// TODO Auto-generated method stub
 		return nhaCungCapDao.getAllListNhaCungCap();
 	}
 
 	@Override
-	public NhaCungCap timNhaCungCap(String NCC) throws SQLException {
+	public NhaCungCap timNhaCungCap(String NCC) {
 		// TODO Auto-generated method stub
-		return nhaCungCapDao.timNhaCungCap(NCC);
+		return nhaCungCapDao.timNhaCungCapTheoTen(NCC);
 	}
 
 }
