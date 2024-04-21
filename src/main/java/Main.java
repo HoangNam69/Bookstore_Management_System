@@ -4,10 +4,6 @@
  * Copyright (c) 2024 IUH. All rights reserved.
  */
 
-import dao.MauSacDao;
-import dao.NhaCungCapDao;
-import entities.MauSac;
-import entities.NhaCungCap;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -25,20 +21,20 @@ public class Main {
     public static void main(String[] args) {
 //        JPA_ORM_MARIADB
 //        JPA_ORM_MSSQL
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
-//        EntityManager em = emf.createEntityManager();
-//        EntityTransaction tx = em.getTransaction();
-//
-//        try {
-//            tx.begin();
-//            tx.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            tx.rollback();
-//        }
-//
-//        em.close();
-//        emf.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            tx.begin();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+
+        em.close();
+        emf.close();
 //        ---------------------------------------------------- Màu sắc ----------------------------------------------------
 //        MauSacDao mauSacDao = new MauSacDao();
 //        ArrayList<MauSac> list = mauSacDao.getListMauSac();
@@ -67,7 +63,7 @@ public class Main {
 //        }
 
 //        ---------------------------------------------------- Nhà cung cấp ----------------------------------------------------
-        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
+//        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
 //        nhaCungCapDao.getListNhaCungCapTheoLoaiSanPham("Áo");
 //        NhaCungCap ncc = new NhaCungCap("NCC003", "Le Hoang Nam", "DQH-GV-HCM", "hoangnam@gmail.com", "0123456789");
 //        if (nhaCungCapDao.themNhaCungCap(ncc)) {
@@ -80,7 +76,7 @@ public class Main {
 //            System.out.println(nhaCungCap);
 //        }
 
-        NhaCungCap ncc = nhaCungCapDao.timNhaCungCapTheoTen("Nam");
-        System.out.println(ncc);
+//        NhaCungCap ncc = nhaCungCapDao.timNhaCungCapTheoTen("Nam");
+//        System.out.println(ncc);
     }
 }

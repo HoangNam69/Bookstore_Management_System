@@ -1,0 +1,191 @@
+INSERT INTO ChatLieu (maChatLieu, tenChatLieu) VALUES ('CL001', N'Nhựa');
+INSERT INTO ChatLieu (maChatLieu, tenChatLieu) VALUES ('CL002', N'Giấy');
+INSERT INTO ChatLieu (maChatLieu, tenChatLieu) VALUES ('CL003', N'Tẩy');
+INSERT INTO ChatLieu (maChatLieu, tenChatLieu) VALUES ('CL004', N'Màu');
+INSERT INTO ChatLieu (maChatLieu, tenChatLieu) VALUES ('CL005', N'Vải');
+
+
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH110001', N'Nguyễn Van An', TRUE, '0337098734', N'Hóc Môn');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH120002', N'Nguyễn Thị Khánh', FALSE, '0914712039', N'Gò Vấp');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH120003', N'Lê Thị Hồng', FALSE, '0961410277', N'Bình Thạnh');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH140004', N'Bùi Ngọc Dươnng', FALSE, '0366365911', N'Gò Vấp');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH140005', N'Ðinh Huy Tùng', TRUE,'0909393964', N'Gò Vấp');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH150006', N'Phạm Ngọc Minh', TRUE,'0366387511', N'Bình Chánh');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH150007', N'Ðinh Thị Tôn', FALSE, '0909354542', N'Quận 7');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH150008', N'Phạm Hoàng Sơn', TRUE, '0323575911', N'Quận 4');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH170009', N'Lê Thị Linh', FALSE, '0909393543', N'Quận 2');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH180010', N'Bùi Thị Nhật Vy', FALSE, '0366355478', N'Quận 1');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH180013', N'Nguyễn Tấn Vũ', TRUE, '0155858651', N'Hóc Môn');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH180014', N'Nguyễn Anh Tuấn', TRUE, '015584351', N'Gò Vấp');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH190011', N'Nguyễn Phạm Công Nguyên', TRUE, '0909411616', N'Quận 12');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH190014', N'Nguyễn Tuấn Dũng', TRUE, '0944861616', N'Quận 12');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH200012', N'Trần Thanh Phát',TRUE, '0916161515', N'Thủ Đức');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH200015', N'Phan Nguyễn Trung Thành', TRUE, '0955551616', N'Quận 12');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH200016', N'Nguyễn Việt Hoàng', TRUE, '0955448816', N'Quận 7');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH200017', N'Trần Minh Trí', TRUE, '0955551616', N'Quận 7');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH200018', N'Vũ Thái Dương', TRUE, '0944558484',N'Gò Vấp');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH200019', N'Nguyễn Huyền Nhi', FALSE, '096868686', N'Tân Bình');
+INSERT INTO KhachHang (maKhachHang, hotenKhachHang, gioiTinh, sdt, diaChi) VALUES ('KH200021', N'Nguyễn Thái Cường', TRUE, '093525164', N'Quận 12');
+
+INSERT INTO LoaiVanPhongPham (maLoaiVanPhongPham, tenTheLoai) VALUES ('TL001', N'Dụng cụ học sinh');
+INSERT INTO LoaiVanPhongPham (maLoaiVanPhongPham, tenTheLoai) VALUES ('TL002', N'Thiết bị văn phòng');
+INSERT INTO LoaiVanPhongPham (maLoaiVanPhongPham, tenTheLoai) VALUES ('TL003', N'Thiết bị trường học');
+
+INSERT INTO MauSac (maMauSac, tenMau) VALUES ('MS001', N'Đen');
+INSERT INTO MauSac (maMauSac, tenMau) VALUES ('MS002', N'Đỏ');
+INSERT INTO MauSac (maMauSac, tenMau) VALUES ('MS003', N'Trắng');
+INSERT INTO MauSac (maMauSac, tenMau) VALUES ('MS004', N'Xanh');
+INSERT INTO MauSac (maMauSac, tenMau) VALUES ('MS005', N'Hồng');
+
+
+INSERT INTO TheLoaiSach (maTheLoai, tenTheLoai) VALUES ('L001', N'SGK');
+INSERT INTO TheLoaiSach (maTheLoai, tenTheLoai) VALUES ('L002', N'Truyện');
+INSERT INTO TheLoaiSach (maTheLoai, tenTheLoai) VALUES ('L003', N'Tiểu thuyết');
+INSERT INTO TheLoaiSach (maTheLoai, tenTheLoai) VALUES ('L004', N'Kĩ năng sống');
+INSERT INTO TheLoaiSach (maTheLoai, tenTheLoai) VALUES ('L005', N'Kinh doanh');
+INSERT INTO TheLoaiSach (maTheLoai, tenTheLoai) VALUES ('L006', N'Thiếu nhi');
+
+
+INSERT INTO XuatXu (maXuatXu, tenXuatXu) VALUES ('XX001', N'Việt Nam');
+INSERT INTO XuatXu (maXuatXu, tenXuatXu) VALUES ('XX002', N'Hoa Kì');
+INSERT INTO XuatXu (maXuatXu, tenXuatXu) VALUES ('XX003', N'Trung Quốc');
+
+INSERT INTO NhaCungCap (maNCC, tenNCC, diaChi, email, sdt) VALUES ('NCC01', N'Công Ty TNHH SX Và TM Khang Thịnh', N'K14 Đường Ngọc Hồi, Thanh Trì, Hà Nội', 'infokhangthinh@gmail.com', '02438235235');
+INSERT INTO NhaCungCap (maNCC, tenNCC, diaChi, email, sdt) VALUES ('NCC02', N'Công Ty TCPTM & XNK Việt Hồng Chinh', N'Ðông Lường, TP Ðông Hà,  Quảng Trị', 'viethongchinh@gmail.com', '02333571777');
+INSERT INTO NhaCungCap (maNCC, tenNCC, diaChi, email, sdt) VALUES ('NCC03', N'Công Ty TNHH Hướng Tuyết', N'Tiểu khu Phú Mỹ,Thị trấn Phú Xuyên, Huyện Phú Xuyên, Hà Nội', 'tnhhhuongtuyet@gmail.com', '0500462073');
+INSERT INTO NhaCungCap (maNCC, tenNCC, diaChi, email, sdt) VALUES ('NCC04', N'Công Ty TNHH Hoa Bình Minh', N'Lô 8A, Đường Đồng Khởi, P.Tân Hiệp, Tp.Biên Hòa, Ðồng Nai', 'dhp_honda@gmail.com', '0613675522');
+INSERT INTO NhaCungCap (maNCC, tenNCC, diaChi, email, sdt) VALUES ('NCC05', N'Công Ty TNHH thương mại và dịch vụ Hiệp Gia Phát', N' 76 Ðiện Biên Phủ, P. Chính Gian, Q. Thanh Khê, Tp. Ðà Nẵng', 'hiepgiaphat2012@gmail.com', '05113649993');
+
+INSERT IGNORE INTO NhanVien (maNhanVien, hoTenNhanVien, ngaySinh, cCCD, diaChi, sdt, gioiTinh, email, chucVu, caLamViec, hinhAnh, OTP, hanOTP)
+VALUES ('NV000001', N'Hà Hữu Vinh','2002-12-12', '02012320462', N'TP. Hồ Chí Minh', '0967628711', 1, 'ngduc0106@gmail.com', N' Nhân Viên', '2', 'nvtri.jpg', null, null);
+
+INSERT IGNORE INTO NhanVien (maNhanVien, hoTenNhanVien, ngaySinh, cCCD, diaChi, sdt, gioiTinh, email, chucVu, caLamViec, hinhAnh, OTP, hanOTP)
+VALUES ('NV000002', N'Lê Hoàng Nam', '2002-11-09', '02120120462', N'TP. Cà Mau', '0969828711', 1, 'pxcpaze@gmail.com', N' Nhân Viên', '1', 'nvduy.jpg', null, null);
+
+INSERT IGNORE INTO NhanVien (maNhanVien, hoTenNhanVien, ngaySinh, cCCD, diaChi, sdt, gioiTinh, email, chucVu, caLamViec, hinhAnh, OTP, hanOTP)
+VALUES ('QL000003', N'Nguyễn Hồng Đức', '2003-06-01', '02120120463', N'TP. Hồng Ngự', '0929438043', 1, 'avcas@gmail.com', N' Quản lý', '1', 'nvduc.jpg', null, null);
+
+INSERT INTO NhaXuatBan (maNXB, tenNXB) VALUES ('NXB001', N'Kim Ðồng');
+INSERT INTO NhaXuatBan (maNXB, tenNXB) VALUES ('NXB002', N'Giáo dục');
+INSERT INTO NhaXuatBan (maNXB, tenNXB) VALUES ('NXB003', N'Dân Trí');
+
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG001', N'Nguyễn Nhật Ánh');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG002', N'Robin Sharma');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG003', N'Nguyễn Văn Thiện');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG004', N'Reberacca Weerasekera');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG005', N'Trương Ðông Triết');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG006', N'Kent Keith');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG007', N'John Vu');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG008', N'The Windy');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG009', N'Nguyễn Thanh Hương');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG012', N'Lý Quang Diệu');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG013', N'Eric Rickstad');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG014', N'Actéon Ariane');
+INSERT INTO TacGia (maTacGia, tenTacGia) VALUES ('TG015', N'Kateo Hearn');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00001', N'Sách',N'Sách', 100, 0.5, 'NCC01', 20000, N'Không', N'Cuốn', 'sanpham1.jpg', N'Làm bạn với bầu trời', 'TG001', 'NXB001', 1990, 100, 'L003', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00002', N'Sách', N'Sách', 53, 0.5, 'NCC02', 23000, N'Không', N'Cuốn', 'sanpham2.jpg', N'Vị tu sĩ bán chiếc ferrari', 'TG002', 'NXB003', 2000, 100, 'L003', null, null, null, null, null);
+
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00003', N'Văn phòng phẩm', N'Văn phòng phẩm',60, 0.5, 'NCC01', 3000, N'Không', N'Cái', 'sanpham3.jpg', null, null, null, null, null, null, N'Bút bi', 'TL001', 'MS001', 'CL001', 'XX001');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00004', N'Văn phòng phẩm', N'Văn phòng phẩm', 54, 0.5, 'NCC01', 4000, N'Không', N'Cái', 'sanpham4.jpg', null, null, null, null, null, null, N'Cục tẩy', 'TL001', 'MS002', 'CL003', 'XX001');
+INSERT INTO SanPham (maSanPham, loaiSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00005', N'Sách', 32, 0.5, 'NCC02', 15000, N'Không', N'Cuốn', 'sanpham5.jpg', N'Chơi Trò Ðồng Xanh', 'TG003', 'NXB003', 2011, 100, 'L003', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00006', N'Sách', N'Sách', 65, 0.5, 'NCC03', 20000, N'Không', N'Cuốn', 'sanpham6.jpg', N'Sách Letsgo 1', 'TG004', 'NXB002', 2012, 100, 'L001', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00007', N'Sách', N'Sách', 43, 0.5, 'NCC05', 27000, N'Không', N'Cuốn', 'sanpham7.jpg', N'Bậc thầy kinh doanh', 'TG005', 'NXB003', 2011, 129, 'L005', null, null, null, null, null);
+INSERT INTO SanPham (maSanPham, loaiSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00008', N'Văn phòng phẩm', 32, 0.5, 'NCC05', 5000, N'Không', N'Cái', 'sanpham8.jpg', null, null, null, null, null, null, N'Gọt bút chì', 'TL001', 'MS003', 'CL001', 'XX001');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00009', N'Văn phòng phẩm', N'Văn phòng phẩm', 65, 0.5, 'NCC05', 10000, N'Không', N'Cái', 'sanpham9.jpg', null, null, null, null, null, null, N'Bút chì ngòi', 'TL001', 'MS001', 'CL001', 'XX001');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00010', N'Sách', N'Sách', 54, 0.5, 'NCC02', 15000, N'Không', N'Cuốn', 'sanpham10.jpg', N'Nghịch lý cuộc sống', 'TG006', 'NXB003', 2022, 100, 'L004', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00011', N'Sách', N'Sách', 54, 0.5, 'NCC03', 2000, N'Không', N'Cuốn', 'sanpham11.jpg', N'Muôn kiếp nhân sinh', 'TG007', 'NXB003', 2009, 143, 'L004', null, null, null, null, null);
+INSERT INTO SanPham (maSanPham, loaiSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00012', N'Sách', N'Sách', 76, 0.5, 'NCC03', 27000, N'Không', N'Cuốn', 'sanpham12.jpg', N'Từ điển Anh-Việt', 'TG008', 'NXB002', 2004, 930, 'L004', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00013', N'Văn phòng phẩm', N'Văn phòng phẩm', 87, 0.5, 'NCC01', 15000, N'Không', N'Cái', 'sanpham13.jpg', null, null, null, null, null, null, N'Compa', 'TL002', 'MS004', 'CL001', 'XX001');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00014', N'Văn phòng phẩm', N'Văn phòng phẩm', 43, 0.5, 'NCC01', 10000, N'Không', N'Cái', 'sanpham14.jpg', null, null, null, null, null, null, N'Nhãn vở', 'TL001', 'MS005', 'CL002', 'XX001');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00015', N'Sách', N'Sách', 43, 0.5, 'NCC04', 150000, N'Không', N'Cuốn', 'sanpham15.jpg', N'Tư duy sâu', 'TG009', 'NXB003', 2000, 132, 'L004', null, null, null, null, null);
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00016', N'Sách', N'Sách', 65, 0.5, 'NCC04', 20000, N'Không', N'Cuốn', 'sanpham16.jpg', N'Bé làm họa sĩ', null, 'NXB002', 2007, 154, 'L006', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00017', N'Sách', N'Sách', 43, 0.5, 'NCC01', 27000, N'Không', N'Cuốn', 'sanpham17.jpg', N'Bé tập tô', null, 'NXB002', 1999, 100, 'L006', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00018', N'Văn phòng phẩm', N'Văn phòng phẩm', 76, 0.5, 'NCC02', 15000, N'Không', N'Cái', 'sanpham18.jpg', null, null, null, null, null, null, N'Bao bì', 'TL001', 'MS005', 'CL002', 'XX001');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00019', N'Văn phòng phẩm', N'Văn phòng phẩm', 65, 0.5, 'NCC02', 20000, N'Không', N'Hộp', 'sanpham19.jpg',  null, null, null, null, null, null,N'Bút chì màu', 'TL003', 'MS004', 'CL004', 'XX001');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00020', N'Sách', N'Sách', 54, 0.5, 'NCC02', 15000, N'Không', N'Cuốn', 'sanpham20.jpg', N'Bộ sách giáo khoa lớp 6', null, 'NXB002', 2009, 129, 'L001', null, null, null, null, null);
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00021', N'Sách', N'Sách', 87, 0.5, 'NCC02', 20000, N'Không', N'Cuốn', 'sanpham21.jpg', N'Sách toán nâng cao lớp 7', null, 'NXB002', 2012, 129, 'L001', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00022', N'Sách', N'Sách', 54, 0.5, 'NCC03', 27000, N'Không', N'Cuốn', 'sanpham22.jpg', N'Sách văn mẫu tiểu học', null, 'NXB002', 2013, 200, 'L001', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00023', N'Văn phòng phẩm', N'Văn phòng phẩm', 43, 0.5, 'NCC02', 150000, N'Không', N'Cái', 'sanpham23.jpg', null, null, null, null, null, null, N'Cặp', 'TL003', 'MS003', 'CL005', 'XX001');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00024', N'Văn phòng phẩm', N'Văn phòng phẩm', 76, 0.5, 'NCC03', 10000, N'Không', N'Cái', 'sanpham24.jpg', null, null, null, null, null, null, N'Khăn quàng', 'TL001', 'MS002', 'CL005', 'XX001');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00025', N'Sách', N'Sách', 12, 0.5, 'NCC04', 15000, N'Không', N'Cuốn', 'sanpham25.jpg', N'Bí quyết hóa rồng', 'TG012', 'NXB003', 2014, 132, 'L004', null, null, null, null, null);
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00026', N'Sách', N'Sách', 45, 0.5, 'NCC04', 25000, N'Không', N'Cuốn', 'sanpham26.jpg', N'Câm lặng', 'TG013', 'NXB003', 2015, 203, 'L002', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00027', N'Sách', N'Sách', 54, 0.5, 'NCC05', 27000, N'Không', N'Cuốn', 'sanpham27.jpg', N'Thần thoại Hy Lạp', 'TG014', 'NXB003', 2017, 400, 'L002', null, null, null, null, null);
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00028', N'Văn phòng phẩm', 20, 0.5, 'NCC01', 350000, N'Không', N'Cái', 'sanpham28.jpg', null, null, null, null, null, null, N'Máy tính 520ES', 'TL002', 'MS001', 'CL001', 'XX003');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00029', N'Văn phòng phẩm', N'Văn phòng phẩm', 30, 0.5, 'NCC04', 520000, N'Không', N'Cái', 'sanpham29.jpg', null, null, null, null, null, null, N'Máy tính 570VN', 'TL002', 'MS002', 'CL001', 'XX003');
+
+INSERT INTO SanPham (maSanPham, loaiSanPham, phanBietSanPham, soLuongTon, trongLuong, maNCC, giaNhap, ghiChu, donViSanPham, hinhAnh, tenSach, maTacGia, maNXB, namXB, soTrang, maTheLoai, tenVanPhongPham, maLoaiVanPhongPham, maMauSac, maChatLieu, maXuatXu)
+VALUES ('SP00030', N'Sách', N'Sách', 40, 0.5, 'NCC01', 50000, N'Không', N'Cuốn', 'sanpham30.jpg', N'Pegasus', 'TG015', 'NXB003', 2011, 300, 'L002', null, null, null, null, null);
+
+INSERT INTO SachLoi (maSach, loiSanPham, soLuong) VALUES ('SP00002', N'Rách bìa', 1);
+INSERT INTO SachLoi (maSach, loiSanPham, soLuong) VALUES ('SP00003', N'Thiếu trang', 2);
+INSERT INTO SachLoi (maSach, loiSanPham, soLuong) VALUES ('SP00004', N'Rách bìa', 3);
+INSERT INTO SachLoi (maSach, loiSanPham, soLuong) VALUES ('SP00006', N'Thiếu trang', 1);
+INSERT INTO SachLoi (maSach, loiSanPham, soLuong) VALUES ('SP00007', N'Rách bìa', 2);
+
+INSERT INTO TaiKhoan (tenDangNhap, matKhau, maNhanVien, quyen) VALUES ('Nam', '123456', 'NV000001', 1);
+INSERT INTO TaiKhoan (tenDangNhap, matKhau, maNhanVien, quyen) VALUES ('Vinh', '123456', 'NV000002', 1);
+INSERT INTO TaiKhoan (tenDangNhap, matKhau, maNhanVien, quyen) VALUES ('Duc', '123456', 'QL000003', 1);
+
+INSERT INTO HoaDon (maHoaDon, maNhanVien, maKhachHang, ngayLapHoaDon, ghiChu, tienKhachDua, tinhTrang) VALUES ('HD1300001', 'NV000001', 'KH110001', '2022-10-30', N'Không', 500000, 1);
+INSERT INTO HoaDon (maHoaDon, maNhanVien, maKhachHang, ngayLapHoaDon, ghiChu, tienKhachDua, tinhTrang) VALUES ('HD1400002', 'NV000001', 'KH120002','2022-10-28', N'Không',  300000, 0);
+INSERT INTO HoaDon (maHoaDon, maNhanVien, maKhachHang, ngayLapHoaDon, ghiChu, tienKhachDua, tinhTrang) VALUES ('HD1400003', 'NV000002', 'KH120002', '2022-10-29', N'Không', 400000, 0);
+INSERT INTO HoaDon (maHoaDon, maNhanVien, maKhachHang, ngayLapHoaDon, ghiChu, tienKhachDua, tinhTrang) VALUES ('HD1500004', 'QL000003', 'KH140004', '2022-09-18', N'Không',  300000, 1);
+
+INSERT INTO ChiTietHoaDon (maHoaDon, maSanPham, soLuong, donGia) VALUES ('HD1300001', 'SP00001', 2, 50000);
+INSERT INTO ChiTietHoaDon (maHoaDon, maSanPham, soLuong, donGia) VALUES ('HD1300001', 'SP00002', 3, 75000);
+INSERT INTO ChiTietHoaDon (maHoaDon, maSanPham, soLuong, donGia) VALUES ('HD1400002', 'SP00003', 2, 25000);
+INSERT INTO ChiTietHoaDon (maHoaDon, maSanPham, soLuong, donGia) VALUES ('HD1400002', 'SP00004', 2, 20000);
+INSERT INTO ChiTietHoaDon (maHoaDon, maSanPham, soLuong, donGia) VALUES ('HD1400003', 'SP00002', 2, 200000);
+INSERT INTO ChiTietHoaDon (maHoaDon, maSanPham, soLuong, donGia) VALUES ('HD1500004', 'SP00001', 2, 150000);
