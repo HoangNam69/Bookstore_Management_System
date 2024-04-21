@@ -597,7 +597,6 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 					String maHoaDonDoiTra = modelHoaDon.getValueAt(row, 1).toString();
 					hoaDonDoiTraDao = new HoaDonDoiTraDao();
 					HoaDonDoiTra hoaDonDT = new HoaDonDoiTra();
-					try {
 						hoaDonDT = hoaDonDoiTraDao.timHoaDonDoiTraTheoMa(maHoaDonDoiTra);
 						String maHoaDonDT = hoaDonDT.getMaHoaDonDoiTra();
 						String maHDCu = hoaDonDT.getHoaDon().getMaHoaDon();
@@ -610,11 +609,6 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 						System.out.println("Ma hd cu: " + maHDCu);
 						new WinXemChiTietHoaDonDoiTra(maHoaDonDT, maHDCu, tenNV, tenKH, ngayLapHD, ghiChu,
 								tienKhachDua, tienPhaiTru).setVisible(true);
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
 				}
 			} else if (obj.equals(btnRefresh)) {
 				xoaHetDuLieu();
