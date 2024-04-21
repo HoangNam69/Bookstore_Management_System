@@ -3,6 +3,9 @@ package test;
 import entities.ChiTietHoaDon;
 import entities.HoaDon;
 import entities.SanPham;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,10 +21,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ChiTietHoaDonDaoTest {
     private ChiTietHoaDonServiceImpl chiTietHoaDonService;
-
+    private EntityManager em;
     @BeforeAll
     public void setUp() {
         chiTietHoaDonService = new ChiTietHoaDonServiceImpl();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
+        em = emf.createEntityManager();
     }
 
     @Test
@@ -51,9 +56,11 @@ public class ChiTietHoaDonDaoTest {
 //    @Test
 //    public void testAddChiTietHoaDon() {
 //        ChiTietHoaDon chiTietHoaDon = new ChiTietHoaDon();
-//        chiTietHoaDon.setHoaDon(new HoaDon("HD1300001"));
-//        chiTietHoaDon.setSanPham(new SanPham("SP00001"));
-//        chiTietHoaDon.setSoLuong(2);
+//        chiTietHoaDon.setHoaDon(new HoaDon("HD1300006"));
+//        String maSanPham = "SP00001";
+//        SanPham sanPham = em.find(SanPham.class, maSanPham);
+//        chiTietHoaDon.setSanPham(sanPham);
+//        chiTietHoaDon.setSoLuong(3);
 //        chiTietHoaDon.setDonGia(50000);
 //        boolean result = chiTietHoaDonService.addChiTietHoaDon(chiTietHoaDon);
 //        assertTrue(result, "Expected true when adding a valid ChiTietHoaDon");
