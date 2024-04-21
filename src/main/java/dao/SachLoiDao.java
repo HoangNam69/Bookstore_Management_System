@@ -59,10 +59,8 @@ public class SachLoiDao {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.createNativeQuery("DELETE FROM SachLoi WHERE maSach = ? AND loiSanPham = ?")
-                    .setParameter(1, maSach)
-                    .setParameter(2, loi)
-                    .executeUpdate();
+            SachLoi sl = em.find(SachLoi.class, new SachLoi(new Sach(maSach), loi));
+            em.remove(sl);
             tx.commit();
             return true;
         } catch (Exception e) {
