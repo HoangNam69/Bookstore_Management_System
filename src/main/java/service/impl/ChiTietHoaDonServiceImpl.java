@@ -10,36 +10,35 @@ import entities.HoaDon;
 import service.ChiTietHoaDonService;
 
 public class ChiTietHoaDonServiceImpl implements ChiTietHoaDonService {
-	ChiTietHoaDonDao chiTietHoaDonDao = new ChiTietHoaDonDao();
+	private ChiTietHoaDonDao chiTietHoaDonDao;
+
+	public ChiTietHoaDonServiceImpl() {
+		this.chiTietHoaDonDao = new ChiTietHoaDonDao();
+	}
+
 
 	@Override
 	public List<ChiTietHoaDon> getCTHoaDonTheoMaHoaDon(String maHD) {
-		// TODO Auto-generated method stub
 		return chiTietHoaDonDao.getCTHoaDonTheoMaHoaDon(maHD);
 	}
 
 	@Override
 	public ArrayList<ChiTietHoaDon> getCTHDTheoHoaDon(HoaDon hoaDon) {
-		// TODO Auto-generated method stub
 		return chiTietHoaDonDao.getCTHDTheoHoaDon(hoaDon);
 	}
 
 	@Override
-	public List<ChiTietHoaDon> getAllCTHD() throws SQLException {
-		// TODO Auto-generated method stub
+	public List<ChiTietHoaDon> getAllCTHD() {
 		return chiTietHoaDonDao.getAllCTHD();
 	}
 
 	@Override
-	public int addChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
-		// TODO Auto-generated method stub
-		return chiTietHoaDonDao.addChiTietHoaDon(chiTietHoaDon);
+	public boolean addChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
+		return  chiTietHoaDonDao.addChiTietHoaDon(chiTietHoaDon);
 	}
 
 	@Override
 	public double getTien(String maHD) {
-		// TODO Auto-generated method stub
 		return chiTietHoaDonDao.getTien(maHD);
 	}
-
 }

@@ -15,7 +15,7 @@ public class DBConnection {
 		String pass = "Password123";
 		try {
 			con = DriverManager.getConnection(url, user, pass);
-//			System.out.println("Connected");
+			System.out.println("Connected");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

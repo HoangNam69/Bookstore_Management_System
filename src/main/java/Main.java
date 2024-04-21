@@ -4,17 +4,12 @@
  * Copyright (c) 2024 IUH. All rights reserved.
  */
 
-import dao.*;
-import entities.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @description:

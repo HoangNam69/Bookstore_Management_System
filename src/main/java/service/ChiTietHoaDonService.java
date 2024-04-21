@@ -14,7 +14,7 @@ public interface ChiTietHoaDonService {
 
 	public List<ChiTietHoaDon> getAllCTHD() throws SQLException;
 
-	public int addChiTietHoaDon(ChiTietHoaDon chiTietHoaDon);
+	public boolean addChiTietHoaDon(ChiTietHoaDon chiTietHoaDon);
 	
 	public double getTien(String maHD);
 }
