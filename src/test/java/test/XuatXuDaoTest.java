@@ -39,11 +39,8 @@ public class XuatXuDaoTest {
     //getXuatXy by ma
     @Test
     void testGetXuatXu() {
-        ArrayList<XuatXu> list = (ArrayList<XuatXu>) xuatXuDao.getXuatXu("XX009");
-        for (XuatXu xuatXu : list) {
-            assertNotNull(xuatXu);
-        }
-        assertTrue(list.size() > 0);
+        XuatXu xuatXu = (XuatXu) xuatXuDao.getXuatXu("XX009");
+        assertNotNull(xuatXu);
     }
 
     //timXuatXu by ten

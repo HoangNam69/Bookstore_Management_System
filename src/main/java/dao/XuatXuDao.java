@@ -25,7 +25,7 @@ public class XuatXuDao {
 	private EntityManager em;
 
 	public XuatXuDao() {
-		this.em = Persistence.createEntityManagerFactory("JPA_ORM_MSSQL").createEntityManager();
+		this.em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
 	}
 
 	public List<XuatXu> getListXuatXu() {
