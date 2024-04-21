@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
 //        JPA_ORM_MARIADB
 //        JPA_ORM_MSSQL
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MSSQL");
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
