@@ -76,19 +76,23 @@ public class TaiKhoanDao {
 	public int doiMatKhau(String passMoi, String maNV) {
 		try {
 			em.getTransaction().begin();
-			TypedQuery<TaiKhoan> query = em.createQuery("UPDATE TaiKhoan t SET t.matKhau = :passMoi WHERE t.nhanVien.maNhanVien = :maNV", TaiKhoan.class);
-			query.setParameter("passMoi", passMoi);
+			// Lấy thông tin tài khoản dựa trên mã nhân viên
+			TypedQuery<TaiKhoan> query = em.createQuery("SELECT t FROM TaiKhoan t WHERE t.nhanVien.maNhanVien = :maNV", TaiKhoan.class);
 			query.setParameter("maNV", maNV);
-			int updatedCount = query.executeUpdate();
+			TaiKhoan taiKhoan = query.getSingleResult();
+
+			// Cập nhật mật khẩu
+			taiKhoan.setMatKhau(passMoi);
 			em.getTransaction().commit();
-			return updatedCount;
+
+			return 1; // Hoàn thành thành công
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
 			e.printStackTrace();
 			System.out.println("Error updating password: " + e.getMessage());
-			return -1;
+			return -1; // Gặp lỗi
 		}
 	}
 }
