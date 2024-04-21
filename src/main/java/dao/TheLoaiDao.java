@@ -80,14 +80,19 @@ public class TheLoaiDao {
 		return em.createNativeQuery("SELECT * FROM TheLoaiSach WHERE maTheLoai = ?", TheLoaiSach.class).setParameter(1, maTL).getResultList();
 	}
 
-	public boolean kiemTraTonTaiTheLoaiVPP(String ten) {
-		//neu ton tai thi tra ve true
-		return em.createNativeQuery("SELECT COUNT(*) FROM TheLoaiVanPhongPham WHERE tenTheLoai = ?", TheLoaiVanPhongPham.class).setParameter(1, ten).getSingleResult() != null;
-	}
+    public boolean kiemTraTonTaiTheLoaiVPP(String ten) {
+        Long count = (Long) em.createQuery("SELECT COUNT(t) FROM TheLoaiVanPhongPham t WHERE t.tenLoai = :ten")
+                .setParameter("ten", ten)
+                .getSingleResult();
+        return count > 0;
+    }
 
-	public boolean kiemTraTonTaiTheLoaiSach(String ten) {
-		//neu ton tai thi tra ve true
-		return em.createNativeQuery("SELECT COUNT(*) FROM TheLoaiSach WHERE tenTheLoai = ?", TheLoaiSach.class).setParameter(1, ten).getSingleResult() != null;
-	}
+    public boolean kiemTraTonTaiTheLoaiSach(String ten) {
+        Long count = (Long) em.createQuery("SELECT COUNT(t) FROM TheLoaiSach t WHERE t.tenLoai = :ten")
+                .setParameter("ten", ten)
+                .getSingleResult();
+        return count > 0;
+    }
+
 
 }
