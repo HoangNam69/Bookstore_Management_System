@@ -469,15 +469,11 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 					String ghiChu = "";
 					String tongTienHoaDon = "";
 					hoaDonDao_TimTheoMa = new HoaDonDao();
-					try {
 						HoaDon hd = hoaDonDao_TimTheoMa.timHoaDonTheoMa(maHoaDon);
 						tienKhachDua = hd.getTienKhachDua() + "";
 						tongTienHoaDon = tongTienHoaDon(maHoaDon) + "";
 						ghiChu = hd.getGhiChu();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+
 
 					new WinXemChiTietHoaDon(maHoaDon, tenNhanVien, ngayLap, tenKhachHang, tienKhachDua, tongTienHoaDon,
 							ghiChu).setVisible(true);
