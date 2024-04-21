@@ -505,7 +505,7 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
 			nhanVienServiceImpl = new NhanVienServiceImpl();
 			try {
 
-				if (nhanVienServiceImpl.themNhanVien(nv) > 0) {
+				if (nhanVienServiceImpl.themNhanVien(nv)) {
 					updateTableData(nv);
 					// bentaotaikhoanbaothanhcong
 					JOptionPane.showMessageDialog(this, "Thêm thành công 1 nhân viên");
@@ -557,7 +557,7 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
 			NhanVien nv = revertNhanVienFromTextfields();
 			nhanVienServiceImpl = new NhanVienServiceImpl();
 			try {
-				if (nhanVienServiceImpl.suaNhanVien(nv) > 0) {
+				if (nhanVienServiceImpl.suaNhanVien(nv)) {
 					JOptionPane.showMessageDialog(this, "Sửa thành công 1 nhân viên");
 					btnLuu.setEnabled(false);
 					btnSuaNV.setText("   Sửa");
@@ -617,7 +617,7 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
 						System.exit(0);
 
 					else {
-						if (nhanVienServiceImpl.xoaNhanVien(maXoa) > 0) {
+						if (nhanVienServiceImpl.xoaNhanVien(maXoa)) {
 
 							JOptionPane.showMessageDialog(this,
 									"Xóa thành công 1 nhân viên và tài khoản của nhân viên đó");

@@ -230,8 +230,8 @@ public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListe
 			String OTP = String.format("%06d", new Random().nextInt(999999));
 
 			Timestamp hetHanOTP = new Timestamp(System.currentTimeMillis() + 5 * 60 * 1000);
-			if (iNhanVien.updateOTP(toEmail, OTP, hetHanOTP) == -1)
-				return;
+//			if (!iNhanVien.updateOTP(toEmail, OTP, hetHanOTP))
+//				return;
 
 			body = "Mã OTP: " + OTP + "  Lưu ý: OTP hết hạn sau 5 phút";
 
