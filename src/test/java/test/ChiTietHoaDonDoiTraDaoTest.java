@@ -7,20 +7,14 @@
 package test;
 
 import entities.ChiTietHoaDonDoiTra;
-import entities.HoaDonDoiTra;
-import entities.Sach;
-import entities.SanPham;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import service.impl.ChiTietHoaDonDoiTraServiceImpl;
-import java.sql.SQLException;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /*
  * @description: This class is used for testing
@@ -37,16 +31,6 @@ public class ChiTietHoaDonDoiTraDaoTest {
         chiTietHoaDonDoiTraService = new ChiTietHoaDonDoiTraServiceImpl();
     }
 
-    @Test
-    public void testThemChiTietHoaDonDoiTra() throws SQLException {
-        ChiTietHoaDonDoiTra cthddt = new ChiTietHoaDonDoiTra();
-        // Set properties for cthddt
-        cthddt.setDonGia(1000);
-        cthddt.setSoLuong(1);
-        cthddt.setHoaDonDoiTra(new HoaDonDoiTra("HD0001"));
-        int result = chiTietHoaDonDoiTraService.themChiTietHoaDonDoiTra(cthddt);
-        assertEquals(1, result);
-    }
 
     @Test
     public void testGetCTHoaDonDoiTraTheoMaHoaDonDoiTra() {

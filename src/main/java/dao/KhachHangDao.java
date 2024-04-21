@@ -31,7 +31,7 @@ public class KhachHangDao {
 	}
 
 	public ArrayList<KhachHang> timKhachHangTheoTen(String tenKH) {
-		String query = "SELECT k FROM KhachHang k WHERE k.hotenKhachHang LIKE :tenKH";
+		String query = "SELECT k FROM KhachHang k WHERE k.hoTenKhachHang LIKE :tenKH";
 		return (ArrayList<KhachHang>) em.createQuery(query, KhachHang.class)
 				.setParameter("tenKH", "%" + tenKH + "%")
 				.getResultList();
@@ -45,24 +45,24 @@ public class KhachHangDao {
 	}
 
 	public ArrayList<KhachHang> timKhachHangTheoSDT(String sDT) {
-		String query = "SELECT k FROM KhachHang k WHERE k.sdt LIKE :sDT";
+		String query = "SELECT k FROM KhachHang k WHERE k.sDT LIKE :sDT";
 		return (ArrayList<KhachHang>) em.createQuery(query, KhachHang.class)
 				.setParameter("sDT", "%" + sDT + "%")
 				.getResultList();
 	}
 
-	public ArrayList<KhachHang> getListKhachHangByNameAndSDT(String tenKH, String sdt) {
-		String query = "SELECT k FROM KhachHang k WHERE k.hotenKhachHang LIKE :tenKH OR k.sdt LIKE :sdt";
+	public ArrayList<KhachHang> getListKhachHangByNameAndSDT(String tenKH, String sDT) {
+		String query = "SELECT k FROM KhachHang k WHERE k.hoTenKhachHang LIKE :tenKH OR k.sDT LIKE :sDT";
 		return (ArrayList<KhachHang>) em.createQuery(query, KhachHang.class)
 				.setParameter("tenKH", "%" + tenKH + "%")
-				.setParameter("sdt", "%" + sdt + "%")
+				.setParameter("sDT", "%" + sDT + "%")
 				.getResultList();
 	}
 
-	public KhachHang timKhachHangBangSDT(String sdt) {
-		String query = "SELECT k FROM KhachHang k WHERE k.sdt = :sdt";
+	public KhachHang timKhachHangBangSDT(String sDT) {
+		String query = "SELECT k FROM KhachHang k WHERE k.sDT = :sDT";
 		List<KhachHang> results = em.createQuery(query, KhachHang.class)
-				.setParameter("sdt", sdt)
+				.setParameter("sDT", sDT)
 				.getResultList();
 		return results.isEmpty() ? null : results.get(0);
 	}

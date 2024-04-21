@@ -27,15 +27,20 @@ public class ChiTietHoaDonDoiTraDao {
 		return query.getResultList();
 	}
 
-	public int themChiTietHoaDonDoiTra(ChiTietHoaDonDoiTra cthddt) throws SQLException {
+	public int themChiTietHoaDonDoiTra(ChiTietHoaDonDoiTra cthddt) {
 		try {
 			em.getTransaction().begin();
 			em.persist(cthddt);
 			em.getTransaction().commit();
 			return 1; // return 1 if the operation is successful
 		} catch (Exception e) {
-			throw new SQLException(e); // rethrow the exception as SQLException
-		}
+			e.printStackTrace(); // print detailed information about the exception
+            try {
+                throw new SQLException(e); // rethrow the exception as SQLException
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
 	}
-
 }
+
