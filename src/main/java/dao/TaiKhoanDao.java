@@ -5,9 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import db.DBConnection;
 import entities.TaiKhoan;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
 public class TaiKhoanDao {
 
@@ -16,91 +20,75 @@ public class TaiKhoanDao {
 	private ResultSet rs;
 	private String query;
 	private int rsCheck;
+	private EntityManager em;
 
 	public TaiKhoanDao() {
-		DBConnection connection = DBConnection.getInstance();
-		con = connection.getConnection();
+		this.em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
 	}
 
-	public ArrayList<TaiKhoan> getList() {
-		try {
-			query = "SELECT * FROM TaiKhoan";
-			ps = con.prepareStatement(query);
-			rs = ps.executeQuery();
-			NhanVienDao nhanVienDao = new NhanVienDao();
-			ArrayList<TaiKhoan> listAcc = new ArrayList<>();
-			while (rs.next()) {
-				TaiKhoan a = new TaiKhoan(rs.getString(1), rs.getString(2),
-						nhanVienDao.timNhanVienTheoMa(rs.getString(3)), rs.getBoolean(4));
-				listAcc.add(a);
-			}
-			return listAcc;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Error retrieving account list: " + e.getMessage());
-		}
-		return null;
+	public List<TaiKhoan> getList() {
+		TypedQuery<TaiKhoan> query = em.createQuery("SELECT t FROM TaiKhoan t", TaiKhoan.class);
+		return query.getResultList();
 	}
 
 	public int insertAccount(TaiKhoan taiKhoan) {
 		try {
-			query = "INSERT INTO TaiKhoan VALUES(?,?,?,?)";
-			ps = con.prepareStatement(query);
-			ps.setString(1, taiKhoan.getTenDangNhap());
-			ps.setString(2, taiKhoan.getMatKhau());
-			ps.setString(3, taiKhoan.getNhanVien().getMaNhanVien());
-			ps.setBoolean(4, taiKhoan.isQuyen());
-			return ps.executeUpdate();
-		} catch (SQLException e) {
+			em.getTransaction().begin();
+			em.persist(taiKhoan);
+			em.getTransaction().commit();
+			return 1;
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
 			e.printStackTrace();
 			System.out.println("Error inserting account: " + e.getMessage());
+			return -1;
 		}
-		return -1;
 	}
 
 	public int xoaTaiKhoan(String maNhanVien) {
-		query = "DELETE FROM TaiKhoan WHERE maNhanVien = ?";
 		try {
-			ps = con.prepareStatement(query);
-			ps.setString(1, maNhanVien);
-			return ps.executeUpdate();
-		} catch (SQLException e) {
+			em.getTransaction().begin();
+			TaiKhoan taiKhoan = em.find(TaiKhoan.class, maNhanVien);
+			if (taiKhoan != null) {
+				em.remove(taiKhoan);
+				em.getTransaction().commit();
+				return 1;
+			}
+			return 0; // Không tìm thấy tài khoản để xóa
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
 			e.printStackTrace();
 			System.out.println("Error deleting account: " + e.getMessage());
+			return -1;
 		}
-		return -1;
 	}
 
 	public TaiKhoan getTaiKhoanTheoMaNV(String maNV) {
-		TaiKhoan tk = new TaiKhoan();
-		NhanVienDao nhanVienDao = new NhanVienDao();
-		query = "SELECT * FROM TaiKhoan WHERE maNhanVien =?";
-		try {
-			ps = con.prepareStatement(query);
-			ps.setString(1, maNV);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				tk = new TaiKhoan(rs.getString(1), rs.getString(2), nhanVienDao.timNhanVienTheoMa(rs.getString(3)),
-						rs.getBoolean(4));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Error retrieving account: " + e.getMessage());
-		}
-		return tk;
+		TypedQuery<TaiKhoan> query = em.createQuery("SELECT t FROM TaiKhoan t WHERE t.nhanVien.maNhanVien = :maNV", TaiKhoan.class);
+		query.setParameter("maNV", maNV);
+		return query.getSingleResult();
 	}
 
 	public int doiMatKhau(String passMoi, String maNV) {
 		try {
-			query = "UPDATE TaiKhoan SET matKhau = ? WHERE maNhanVien = ?";
-			ps = con.prepareStatement(query);
-			ps.setString(1, passMoi);
-			ps.setString(2, maNV);
-			return ps.executeUpdate();
-		} catch (SQLException e) {
+			em.getTransaction().begin();
+			TypedQuery<TaiKhoan> query = em.createQuery("UPDATE TaiKhoan t SET t.matKhau = :passMoi WHERE t.nhanVien.maNhanVien = :maNV", TaiKhoan.class);
+			query.setParameter("passMoi", passMoi);
+			query.setParameter("maNV", maNV);
+			int updatedCount = query.executeUpdate();
+			em.getTransaction().commit();
+			return updatedCount;
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
 			e.printStackTrace();
 			System.out.println("Error updating password: " + e.getMessage());
+			return -1;
 		}
-		return -1;
 	}
 }
