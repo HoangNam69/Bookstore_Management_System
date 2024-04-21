@@ -4,6 +4,8 @@
  * Copyright (c) 2024 IUH. All rights reserved.
  */
 
+import dao.SanPhamDao;
+import entities.SanPham;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -21,19 +23,25 @@ public class Main {
     public static void main(String[] args) {
 //        JPA_ORM_MARIADB
 //        JPA_ORM_MSSQL
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
+//        EntityManager em = emf.createEntityManager();
+//        EntityTransaction tx = em.getTransaction();
+//
+//        try {
+//            tx.begin();
+//            tx.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            tx.rollback();
+//        }
+//
+//        em.close();
+//        emf.close();
 
-        try {
-            tx.begin();
-            tx.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            tx.rollback();
-        }
+        SanPhamDao sanPhamDao = new SanPhamDao();
+        SanPham sp = sanPhamDao.timSanPhamTheoMa("SP00019");
 
-        em.close();
-        emf.close();
+        System.out.println(sp);
+
     }
 }
