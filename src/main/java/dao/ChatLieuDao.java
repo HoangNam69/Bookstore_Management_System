@@ -7,6 +7,7 @@ import jakarta.persistence.TypedQuery;
 
 import entities.ChatLieu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatLieuDao {
@@ -16,9 +17,9 @@ public class ChatLieuDao {
 		em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
 	}
 
-	public List<ChatLieu> getListChatLieu() {
+	public ArrayList<ChatLieu> getListChatLieu() {
 		TypedQuery<ChatLieu> query = em.createQuery("SELECT c FROM ChatLieu c", ChatLieu.class);
-		return query.getResultList();
+		return new ArrayList<>(query.getResultList());
 	}
 
 	public boolean themChatLieu(ChatLieu l) {
