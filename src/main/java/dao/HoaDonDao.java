@@ -46,11 +46,15 @@ public class HoaDonDao {
 
 
 	public int themHoaDon(HoaDon hd) {
-		EntityTransaction transaction = em.getTransaction();
-		transaction.begin();
-		em.persist(hd);
-		transaction.commit();
-		return 1;
+		try {
+			EntityTransaction transaction = em.getTransaction();
+			transaction.begin();
+			em.persist(hd);
+			transaction.commit();
+			return 1;
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	public List<HoaDon> getHoaDonTheoMa(String maHD) {
@@ -69,19 +73,19 @@ public class HoaDonDao {
 	}
 
 	public List<HoaDon> getHoaDonTheoTen(String tenNV) {
-		TypedQuery<HoaDon> query = em.createQuery("SELECT h FROM HoaDon h WHERE h.nhanVien.hotenNhanVien LIKE :tenNV", HoaDon.class);
+		TypedQuery<HoaDon> query = em.createQuery("SELECT h FROM HoaDon h JOIN h.nhanVien n WHERE n.hoTenNhanVien LIKE :tenNV", HoaDon.class);
 		query.setParameter("tenNV", "%" + tenNV + "%");
 		return query.getResultList();
 	}
 
 	public List<HoaDon> timHoaDonTheoSDT(String sdt) {
-		TypedQuery<HoaDon> query = em.createQuery("SELECT h FROM HoaDon h WHERE h.khachHang.sdt = :sdt", HoaDon.class);
+		TypedQuery<HoaDon> query = em.createQuery("SELECT h FROM HoaDon h WHERE h.khachHang.sDT = :sdt", HoaDon.class);
 		query.setParameter("sdt", sdt);
 		return query.getResultList();
 	}
 
 	public List<HoaDon> timHoaDonTheoTenKH(String ten) {
-		TypedQuery<HoaDon> query = em.createQuery("SELECT h FROM HoaDon h JOIN h.nhanVien n JOIN h.khachHang k WHERE k.hotenKhachHang LIKE :ten", HoaDon.class);
+		TypedQuery<HoaDon> query = em.createQuery("SELECT h FROM HoaDon h JOIN h.khachHang k WHERE k.hoTenKhachHang LIKE :ten", HoaDon.class);
 		query.setParameter("ten", "%" + ten + "%");
 		return query.getResultList();
 	}

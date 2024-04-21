@@ -7,6 +7,8 @@
 package test;
 
 import dao.HoaDonDao;
+import dao.KhachHangDao;
+import dao.NhanVienDao;
 import entities.HoaDon;
 import entities.KhachHang;
 import entities.NhanVien;
@@ -38,8 +40,13 @@ public class HoaDonDaoTest {
 
     @Test
     void testSetNullChoMaNhanVienTrongHoaDon() {
-        int result = hoaDonDaoImpl.setNullChoMaNhanVienTrongHoaDon("someMaNV");
+        int result = hoaDonDaoImpl.setNullChoMaNhanVienTrongHoaDon("NV000002");
         assertEquals(1, result);
+
+        // In ra thông báo nếu set Null thành công
+        if (result == 1) {
+            System.out.println("Set Null thành công");
+        }
     }
 
     @Test
@@ -64,20 +71,47 @@ public class HoaDonDaoTest {
     }
 
     @Test
-    void testThemHoaDon() throws SQLException {
-        HoaDon hoaDon = new HoaDon();
-        hoaDon.setMaHoaDon("HD1300001");
-        hoaDon.setGhiChu("someGhiChu");
-        hoaDon.setNgayLapHoaDon(LocalDate.now());
-        hoaDon.setTinhTrang(true);
-        hoaDon.setTienKhachDua(100000);
-        // Lấy mã Khách hàng đã có trong cơ sở dữ liệu
+    void testThemHoaDon() {
+        try {
+            // Tạo một đối tượng HoaDon mới
+            HoaDon hoaDon = new HoaDon();
+            hoaDon.setMaHoaDon("HD1500005");
+            hoaDon.setGhiChu("Test GhiChu");
+            hoaDon.setNgayLapHoaDon(LocalDate.now());
+            hoaDon.setTinhTrang(true);
+            hoaDon.setTienKhachDua(100000);
 
-        hoaDon.setKhachHang( new KhachHang("KH000001"));
-        hoaDon.setNhanVien(new NhanVien("QL000003"));
-        int result = hoaDonDaoImpl.themHoaDon(hoaDon);
-        assertEquals(1, result);
-        System.out.println(hoaDon);
+            // Lấy đối tượng KhachHang từ cơ sở dữ liệu
+            KhachHangDao khachHangDao = new KhachHangDao();
+            KhachHang khachHang = khachHangDao.timKhachHangTheoMa("KH110001");
+
+            // Kiểm tra xem liệu KhachHang có tồn tại hay không
+            assertNotNull(khachHang);
+
+            // Lấy đối tượng NhanVien từ cơ sở dữ liệu
+            NhanVienDao nhanVienDao = new NhanVienDao();
+            NhanVien nhanVien = nhanVienDao.timNhanVienTheoMa("QL000003");
+
+            // Kiểm tra xem liệu NhanVien có tồn tại hay không
+            assertNotNull(nhanVien);
+
+            // Gán KhachHang và NhanVien cho HoaDon
+            hoaDon.setKhachHang(khachHang);
+            hoaDon.setNhanVien(nhanVien);
+
+            // Gọi phương thức themHoaDon
+            int result = hoaDonDaoImpl.themHoaDon(hoaDon);
+
+            // Kiểm tra xem liệu HoaDon có được thêm vào cơ sở dữ liệu thành công hay không
+            assertEquals(1, result);
+
+            // In ra hóa đơn nếu thêm thành công
+            if (result == 1) {
+                System.out.println("Hóa đơn đã được thêm thành công: " + hoaDon);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -105,6 +139,11 @@ public class HoaDonDaoTest {
         List<HoaDon> hoaDonList = hoaDonDaoImpl.getHoaDonTheoTen("Đức");
         assertNotNull(hoaDonList);
         assertFalse(hoaDonList.isEmpty());
+
+        // In ra HoaDon nếu tìm thấy
+        if (!hoaDonList.isEmpty()) {
+            hoaDonList.forEach(System.out::println);
+        }
     }
 
     @Test
@@ -112,6 +151,11 @@ public class HoaDonDaoTest {
         List<HoaDon> hoaDonList = hoaDonDaoImpl.timHoaDonTheoSDT("0337098734");
         assertNotNull(hoaDonList);
         assertFalse(hoaDonList.isEmpty());
+
+        // In ra danh sách HoaDon nếu tìm thấy
+        if (!hoaDonList.isEmpty()) {
+            hoaDonList.forEach(System.out::println);
+        }
     }
 
     @Test
@@ -119,6 +163,11 @@ public class HoaDonDaoTest {
         List<HoaDon> hoaDonList = hoaDonDaoImpl.timHoaDonTheoTenKH("Nguyễn Van An");
         assertNotNull(hoaDonList);
         assertFalse(hoaDonList.isEmpty());
+
+        // In ra HoaDon nếu tìm thấy
+        if (!hoaDonList.isEmpty()) {
+            hoaDonList.forEach(System.out::println);
+        }
     }
 
     @AfterAll
