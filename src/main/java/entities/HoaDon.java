@@ -104,12 +104,7 @@ public class HoaDon implements Serializable {
         LocalDate myObj = LocalDate.now();
         String ngayHD = String.valueOf(myObj.getDayOfMonth());
         int length = 0;
-        try {
-            length = hoadon_dao.getDSHoaDon().size();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        length = hoadon_dao.getDSHoaDon().size();
         String finalId = idPrefix + ngayHD + String.format("%05d", length + 1);
         return finalId;
     }
@@ -121,6 +116,17 @@ public class HoaDon implements Serializable {
         String nam = String.valueOf(myObj.getYear());
         String finalDate = ngay + "-" + thang + "-" + nam;
         return finalDate;
+    }
+
+    public HoaDon(String maHoaDon, String ghiChu, double tienKhachDua, boolean tinhTrang, NhanVien nhanVien, KhachHang khachHang, Set<ChiTietHoaDon> chiTietHoaDons, Set<HoaDonDoiTra> hoaDonDoiTras) {
+        this.maHoaDon = maHoaDon;
+        this.ghiChu = ghiChu;
+        this.tienKhachDua = tienKhachDua;
+        this.tinhTrang = tinhTrang;
+        this.nhanVien = nhanVien;
+        this.khachHang = khachHang;
+        this.chiTietHoaDons = chiTietHoaDons;
+        this.hoaDonDoiTras = hoaDonDoiTras;
     }
 
     public HoaDon(String maHoaDon, NhanVien nhanVien, KhachHang khachHang, LocalDate ngayLapHoaDon, String ghiChu,

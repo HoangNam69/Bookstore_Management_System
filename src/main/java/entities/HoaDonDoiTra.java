@@ -36,6 +36,10 @@ public class HoaDonDoiTra implements Serializable {
 	@JoinColumn(name = "maHoaDon")
 	private HoaDon hoaDon;
 
+	public HoaDonDoiTra(String maHoaDonDoiTra) {
+		this.maHoaDonDoiTra = maHoaDonDoiTra;
+	}
+
 	public String getMaHoaDonDoiTra() {
 		return maHoaDonDoiTra;
 	}

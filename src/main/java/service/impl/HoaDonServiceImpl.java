@@ -76,50 +76,23 @@ public class HoaDonServiceImpl implements HoaDonService {
 
 	@Override
 	public HoaDon timHoaDonTheoMa(String maHoaDon) {
-		// TODO Auto-generated method stub
-		try {
-			return hoaDonDao.timHoaDonTheoMa(maHoaDon);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return hoaDonDao.timHoaDonTheoMa(maHoaDon);
 	}
 
 	@Override
 	public List<HoaDon> getHoaDonTheoTen(String tenNV) {
-		// TODO Auto-generated method stub
-		try {
 			return hoaDonDao.getHoaDonTheoTen(tenNV);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	@Override
 	public List<HoaDon> timHoaDonTheoSDT(String sdt) {
-		// TODO Auto-generated method stub
-		try {
-			return hoaDonDao.timHoaDonTheoSDT(sdt);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return hoaDonDao.timHoaDonTheoSDT(sdt);
 	}
 
 	@Override
 	public List<HoaDon> timHoaDonTheoTenKH(String ten) {
-		// TODO Auto-generated method stub
-		try {
 			return hoaDonDao.timHoaDonTheoTenKH(ten);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
+
 
 }
