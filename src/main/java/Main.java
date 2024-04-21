@@ -23,20 +23,60 @@ public class Main {
     public static void main(String[] args) {
 //        JPA_ORM_MARIADB
 //        JPA_ORM_MSSQL
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
-//        EntityManager em = emf.createEntityManager();
-//        EntityTransaction tx = em.getTransaction();
-//
-//        try {
-//            tx.begin();
-//            tx.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            tx.rollback();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            tx.begin();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+
+        em.close();
+        emf.close();
+//        ---------------------------------------------------- Màu sắc ----------------------------------------------------
+//        MauSacDao mauSacDao = new MauSacDao();
+//        ArrayList<MauSac> list = mauSacDao.getListMauSac();
+//        for (MauSac mauSac : list) {
+//            System.out.println(mauSac);
 //        }
-//
-//        em.close();
-//        emf.close();
+
+//        MauSac mauSac = new MauSac("MS003", "Màu đỏ");
+//        if (mauSacDao.themMauSac(mauSac)) {
+//            System.out.println("Thêm thành công");
+//        } else {
+//            System.out.println("Thêm thất bại");
+//        }
+
+//        MauSac mauSacCapNhat = new MauSac("MS003", "Màu khùng");
+//        if (mauSacDao.capNhatMauSac(mauSacCapNhat)) {
+//            System.out.println("Cập nhật thành công");
+//        } else {
+//            System.out.println("Cập nhật thất bại");
+//        }
+
+//        if (mauSacDao.xoaMauSac("MS003s")) {
+//            System.out.println("Xóa thành công");
+//        } else {
+//            System.out.println("Xóa thất bại");
+//        }
+
+//        ---------------------------------------------------- Nhà cung cấp ----------------------------------------------------
+//        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
+//        nhaCungCapDao.getListNhaCungCapTheoLoaiSanPham("Áo");
+//        NhaCungCap ncc = new NhaCungCap("NCC003", "Le Hoang Nam", "DQH-GV-HCM", "hoangnam@gmail.com", "0123456789");
+//        if (nhaCungCapDao.themNhaCungCap(ncc)) {
+//            System.out.println("Thêm thành công");
+//        } else {
+//            System.out.println("Thêm thất bại");
+//        }
+//        ArrayList<NhaCungCap> listNCC = nhaCungCapDao.getAllListNhaCungCap();
+//        for (NhaCungCap nhaCungCap : listNCC) {
+//            System.out.println(nhaCungCap);
+//        }
 
         SanPhamDao sanPhamDao = new SanPhamDao();
         SanPham sp = sanPhamDao.timSanPhamTheoMa("SP00019");
