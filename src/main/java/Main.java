@@ -26,20 +26,20 @@ public class Main {
     public static void main(String[] args) {
 //        JPA_ORM_MARIADB
 //        JPA_ORM_MSSQL
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
-//        EntityManager em = emf.createEntityManager();
-//        EntityTransaction tx = em.getTransaction();
-//
-//        try {
-//            tx.begin();
-//            tx.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            tx.rollback();
-//        }
-//
-//        em.close();
-//        emf.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            tx.begin();
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        }
+
+        em.close();
+        emf.close();
 //        ---------------------------------------------------- Màu sắc ----------------------------------------------------
 //        MauSacDao mauSacDao = new MauSacDao();
 //        ArrayList<MauSac> list = mauSacDao.getListMauSac();
@@ -68,7 +68,7 @@ public class Main {
 //        }
 
 //        ---------------------------------------------------- Nhà cung cấp ----------------------------------------------------
-        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
+//        NhaCungCapDao nhaCungCapDao = new NhaCungCapDao();
 //        nhaCungCapDao.getListNhaCungCapTheoLoaiSanPham("Áo");
 //        NhaCungCap ncc = new NhaCungCap("NCC003", "Le Hoang Nam", "DQH-GV-HCM", "hoangnam@gmail.com", "0123456789");
 //        if (nhaCungCapDao.themNhaCungCap(ncc)) {
