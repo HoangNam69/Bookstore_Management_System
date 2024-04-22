@@ -5,30 +5,30 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-	private static DBConnection instance;
-	private Connection con;
+    private static DBConnection instance;
+    private Connection con;
 
-	private DBConnection() {
-		String url = "jdbc:sqlserver://localhost:1433;databaseName=QUANLYHIEUSACH;trustServerCertificate=true";
+    private DBConnection() {
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=hieusachdb;trustServerCertificate=true";
 
-		String user = "sa";
-		String pass = "Password123";
-		try {
-			con = DriverManager.getConnection(url, user, pass);
-			System.out.println("Connected");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+        String user = "sa";
+        String pass = "12345678";
+        try {
+            con = DriverManager.getConnection(url, user, pass);
+            System.out.println("Connected");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-	public synchronized static DBConnection getInstance() {
-		if (instance == null)
-			instance = new DBConnection();
-		return instance;
-	}
+    public synchronized static DBConnection getInstance() {
+        if (instance == null)
+            instance = new DBConnection();
+        return instance;
+    }
 
-	public Connection getConnection() {
-		return con;
-	}
+    public Connection getConnection() {
+        return con;
+    }
 
 }

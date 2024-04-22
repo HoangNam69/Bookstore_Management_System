@@ -61,7 +61,6 @@ public class WinQuanLy extends JFrame implements MouseListener {
     private JLabel lblTenNV;
     private Pnl_QuanLyNhanVien pnl_QuanLyNhanVien;
     private Pnl_TrangChu pnl_TrangChu;
-    private Connection con = DBConnection.getInstance().getConnection();
     private NhanVienServiceImpl nhanVienServiceImpl;
     private List<NhanVien> dsNhanVien;
     private NhanVien nv;
