@@ -54,14 +54,7 @@ public class HoaDonDoiTraServiceImpl implements HoaDonDoiTraService {
 
 	@Override
 	public HoaDonDoiTra timHoaDonDoiTraTheoMa(String maHoaDon) {
-		// TODO Auto-generated method stub
-		try {
-			return hoaDonDoiTraDao.timHoaDonDoiTraTheoMa(maHoaDon);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		return hoaDonDoiTraDao.timHoaDonDoiTraTheoMa(maHoaDon);
 	}
 
 	@Override

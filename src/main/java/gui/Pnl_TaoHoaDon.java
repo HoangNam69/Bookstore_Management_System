@@ -1497,12 +1497,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd");
         String formattedString = myObj.format(formatter);
         int length = 0;
-        try {
-            length = hoadon_dao.getDSHoaDon().size();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        length = hoadon_dao.getDSHoaDon().size();
         String finalId = idPrefix + formattedString + String.format("%05d", length + 1);
         return finalId;
     }
