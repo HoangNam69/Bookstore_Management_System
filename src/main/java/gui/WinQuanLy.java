@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.Naming;
 import java.sql.Connection;
 import java.util.List;
 
@@ -11,9 +12,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import db.DBConnection;
 import entities.NhanVien;
 import entities.TaiKhoan;
+import service.*;
 import service.impl.NhanVienServiceImpl;
 
 import javax.swing.JLabel;
@@ -61,12 +62,19 @@ public class WinQuanLy extends JFrame implements MouseListener {
     private JLabel lblTenNV;
     private Pnl_QuanLyNhanVien pnl_QuanLyNhanVien;
     private Pnl_TrangChu pnl_TrangChu;
-    private NhanVienServiceImpl nhanVienServiceImpl;
     private List<NhanVien> dsNhanVien;
     private NhanVien nv;
     private Pnl_TaoHoaDon pnl_TaoHoaDon;
     private WinDoiMatKhau win_DoiMatKhau;
     private WinLogin winLogin = new WinLogin();
+
+
+    private static final String URL = "rmi://192.168.40.54:7878/";
+    private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+    private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
+    private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
+    private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
+    private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
 
     /**
      * Launch the application.
@@ -336,13 +344,8 @@ public class WinQuanLy extends JFrame implements MouseListener {
         TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
         System.out.println(taiKhoan);
 
-        nhanVienServiceImpl = new NhanVienServiceImpl();
         nv = new NhanVien();
-        nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
-
-        nhanVienServiceImpl = new NhanVienServiceImpl();
-        nv = new NhanVien();
-        nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
+        nv = nhanVienService.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
         lblTenNV.setIcon(new ImageIcon(WinQuanLy.class.getResource("/gui/icon/user.png")));
         lblTenNV.setBackground(Color.CYAN);
         lblTenNV.setFont(new Font("Tahoma", Font.BOLD, 11));

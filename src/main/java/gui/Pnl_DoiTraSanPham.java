@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.Naming;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -29,7 +30,6 @@ import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import db.DBConnection;
 import entities.ChiTietHoaDon;
 import entities.ChiTietHoaDonDoiTra;
 import entities.HoaDon;
@@ -42,12 +42,16 @@ import entities.SanPham;
 import entities.TaiKhoan;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
+import lombok.SneakyThrows;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+import service.HoaDonDoiTraService;
+import service.SachLoiService;
+import service.SanPhamService;
 import service.impl.ChiTietHoaDonDoiTraServiceImpl;
 import service.impl.ChiTietHoaDonServiceImpl;
 import service.impl.HoaDonDoiTraServiceImpl;
@@ -133,13 +137,16 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	private List<SachLoi> dsSachLoi;
 	private HoaDon hoaDon;
 	private double tienPhaiTru = 0;
-	private EntityManager em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
+	private static final String URL = "rmi://192.168.40.54:7878/";
+	private SanPhamService sanPhamService = (SanPhamService)Naming.lookup(URL + "sanPham");
+	private SachLoiService sachLoiService = (SachLoiService)Naming.lookup(URL + "sachLoi");
+	private HoaDonDoiTraService hoaDonDoiTraService = (HoaDonDoiTraService)Naming.lookup(URL + "hoaDonDoiTra");
 
 
 	/**
 	 * Create the panel.
 	 */
-	public Pnl_DoiTraSanPham() {
+	public Pnl_DoiTraSanPham() throws Exception{
 		setBackground(new Color(0, 206, 209));
 		setFont(new Font("Dialog", Font.BOLD, 16));
 		setSize(1800, 900);
@@ -431,13 +438,14 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 
 		cmbSP.addItemListener(new ItemListener() {
 
-			@Override
+			@SneakyThrows
+            @Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
-				sanPhamServiceImpl = new SanPhamServiceImpl();
+
 				if (cmbSP.getItemCount() > 0) {
 					lblGiaTriGiaSP.setText(
-							sanPhamServiceImpl.getSachTheoTen(String.valueOf(cmbSP.getSelectedItem())).getGiaNhap() + "");
+							sanPhamService.getSachTheoTen(String.valueOf(cmbSP.getSelectedItem())).getGiaNhap() + "");
 				} else {
 					return;
 				}
@@ -597,9 +605,8 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		}
 	}
 
-	public void truSLSachKhiDoi() {
-		sanPhamServiceImpl = new SanPhamServiceImpl();
-		Sach sach = sanPhamServiceImpl.getSachTheoTen(cmbSP.getSelectedItem().toString());
+	public void truSLSachKhiDoi() throws Exception {
+		Sach sach = sanPhamService.getSachTheoTen(cmbSP.getSelectedItem().toString());
 		sach.setSoLuongTon(sach.getSoLuongTon() - Integer.valueOf(txtSoLuongSPLoi.getText().toString()).intValue());
 
 		try {
@@ -611,12 +618,11 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 
 	}
 
-	public void addVaoSachLoi() {
-		sachLoiSviceImpl = new SachLoiServiceImpl();
+	public void addVaoSachLoi() throws Exception {
 		Sach sach = new Sach();
 
 		try {
-			dsSachLoi = sachLoiSviceImpl.getAllSachLoi();
+			dsSachLoi = sachLoiService.getAllSachLoi();
 			for (SachLoi sachLoi : dsSachLoi) {
 				if (txtMaSPDoi.getText().equals(sachLoi.getSach().getMaSanPham())
 						&& txtLoi.getText().equals(sachLoi.getLoiSanPham())) {
@@ -642,15 +648,14 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		}
 	}
 
-	public void addHoaDonDoiTraMoi() throws SQLException {
+	public void addHoaDonDoiTraMoi() throws Exception {
 
 		String maHDDT = "HDDT";
 		LocalDate ngayLapHoaDon = LocalDate.now();
 		String ngayLapHD = String.valueOf(ngayLapHoaDon.getDayOfMonth());
 		int length = 0;
-		hoaDonDoiTraServiceImpl = new HoaDonDoiTraServiceImpl();
 
-		if (hoaDonDoiTraServiceImpl.getMaHoaDonDoiTraByMaHDCu(txtMaHoaDonCu.getText().toString()).size() > 0) {
+		if (hoaDonDoiTraService.getMaHoaDonDoiTraByMaHDCu(txtMaHoaDonCu.getText().toString()).size() > 0) {
 			JOptionPane.showMessageDialog(this, "Hóa đơn này đã đổi trả rồi");
 			btnXacNhanDoi.setEnabled(true);
 			return;
@@ -710,6 +715,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		}
 	}
 
+	@SneakyThrows
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -960,20 +966,20 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	}
 
 	public void xuatHoaDon(String maHDDT) {
-		try {
-			Hashtable map = new Hashtable();
-			JasperReport report = JasperCompileManager.compileReport("src/main/java/gui/HoaDonBanHang.jrxml");
-			map.put("maHDDT", maHDDT);
-			//fix thanh enitymanager ket noi
-
-			JasperPrint p = JasperFillManager.fillReport(report, map, DBConnection.getInstance().getConnection());
-
-
-			JasperViewer.viewReport(p, false);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Hashtable map = new Hashtable();
+//			JasperReport report = JasperCompileManager.compileReport("src/main/java/gui/HoaDonBanHang.jrxml");
+//			map.put("maHDDT", maHDDT);
+//			//fix thanh enitymanager ket noi
+//
+//			JasperPrint p = JasperFillManager.fillReport(report, map, DBConnection.getInstance().getConnection());
+//
+//
+//			JasperViewer.viewReport(p, false);
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 

@@ -1,6 +1,5 @@
 package gui;
 
-import javax.sql.DataSource;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,13 +15,13 @@ import dao.ChiTietHoaDonDao;
 import dao.ChiTietHoaDonDoiTraDao;
 import dao.HoaDonDao;
 import dao.HoaDonDoiTraDao;
-import db.DBConnection;
 import entities.ChiTietHoaDon;
 import entities.HoaDon;
 import entities.HoaDonDoiTra;
 import entities.KhachHang;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Persistence;
+import lombok.SneakyThrows;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -30,6 +29,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
+import service.*;
 import service.impl.ChiTietHoaDonServiceImpl;
 import service.impl.HoaDonServiceImpl;
 import service.impl.KhachHangServiceImpl;
@@ -47,7 +47,10 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Connection;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.List;
@@ -61,9 +64,9 @@ import javax.swing.JRadioButton;
 
 public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseListener {
 
-    /**
-     * Create the panel.
-     */
+	/**
+	 * Create the panel.
+	 */
 
     private static final long serialVersionUID = 1L;
     private DefaultTableModel modelHoaDon;
@@ -85,8 +88,6 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     ButtonGroup btnGroup;
     JRadioButton radHoaDonDoiTra;
     JRadioButton radHoaDonThuong;
-    private KhachHangServiceImpl khachHangServiceImpl;
-    private HoaDonServiceImpl hoaDonServiceImpl;
     private JTextField txtTenKHTim;
     private JLabel lblMaHoaDon;
     private JTextField txtMahoaDonTim;
@@ -94,19 +95,17 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     private JTextField txtSDTTim;
     //	Flag loại hóa đơn
     int flag = 1; // Mặc định là hóa đơn thường
-    private ChiTietHoaDonServiceImpl chiTietHoaDonServiceImpl;
-    private ChiTietHoaDonDao chiTietHoaDonDao;
+
     private HoaDonDoiTra hoaDonDoiTra;
-    private HoaDonDao hoaDonDao_TimTheoMa;
     private HoaDonDoiTraDao hoaDonDoiTraDao;
-    private ChiTietHoaDonDoiTraDao chiTietHoaDonDoiTra;
-    private SanPhamServiceImpl sanPhamServiceImpl;
-    private List<ChiTietHoaDon> dsChiTietHoaDon;
     private List<HoaDonDoiTra> dsHoaDonDoiTra;
-    private EntityManager em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
+    private static final String URL = "rmi://192.168.40.54:7878/";
+    private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+    private HoaDonService hoaDonDao_TimTheoMa = (HoaDonService)Naming.lookup(URL + "hoaDon");
+    private ChiTietHoaDonService chiTietHoaDondao = (ChiTietHoaDonService)Naming.lookup(URL + "chiTietHoaDon");
 
 
-    public Pnl_QuanLyHoaDon() {
+    public Pnl_QuanLyHoaDon() throws Exception {
         setBackground(new Color(0, 206, 209));
         setFont(new Font("Dialog", Font.BOLD, 16));
         setSize(1800, 900);
@@ -457,6 +456,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
     }
 
+    @SneakyThrows
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
@@ -476,7 +476,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
                     String tienKhachDua = "";
                     String ghiChu = "";
                     String tongTienHoaDon = "";
-                    hoaDonDao_TimTheoMa = new HoaDonDao();
+
                     HoaDon hd = hoaDonDao_TimTheoMa.timHoaDonTheoMa(maHoaDon);
                     tienKhachDua = hd.getTienKhachDua() + "";
                     tongTienHoaDon = tongTienHoaDon(maHoaDon) + "";
@@ -652,29 +652,28 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
         tblHoaDon.getTableHeader().repaint();
     }
 
-    public double tongTienHoaDon(String maHoaDon) {
-        chiTietHoaDonDao = new ChiTietHoaDonDao();
-        double tongTien = chiTietHoaDonDao.getTien(maHoaDon);
+    public double tongTienHoaDon(String maHoaDon) throws Exception {
+        double tongTien = chiTietHoaDondao.getTien(maHoaDon);
         return tongTien;
 
     }
 
-    public void docDuLieuTuArrayListVaoModel() throws Exception {
-        hoaDonDao = new HoaDonDao();
-        dsHoaDon = hoaDonDao.getHoaDonThuong();
-        int i = 1;
-        for (HoaDon hoaDon : dsHoaDon) {
-            if (hoaDon.getNhanVien() == null) {
-                modelHoaDon.addRow(new Object[]{i++, hoaDon.getMaHoaDon(), "Đã nghỉ việc", hoaDon.getNgayLapHoaDon(),
-                        hoaDon.getKhachHang().getHoTenKhachHang(), tongTienHoaDon(hoaDon.getMaHoaDon())});
-            } else {
-                modelHoaDon.addRow(new Object[]{i++, hoaDon.getMaHoaDon(), hoaDon.getNhanVien().getHoTenNhanVien(),
-                        hoaDon.getNgayLapHoaDon(), hoaDon.getKhachHang().getHoTenKhachHang(),
-                        tongTienHoaDon(hoaDon.getMaHoaDon())});
-            }
-        }
-
-    }
+	public void docDuLieuTuArrayListVaoModel() throws Exception {
+		hoaDonDao = new HoaDonDao();
+		dsHoaDon = hoaDonDao.getHoaDonThuong();
+		int i = 1;
+		for (HoaDon hoaDon : dsHoaDon) {
+			String khachHangName = (hoaDon.getKhachHang() != null) ? hoaDon.getKhachHang().getHoTenKhachHang() : "No associated customer";
+			if (hoaDon.getNhanVien() == null) {
+				modelHoaDon.addRow(new Object[] { i++, hoaDon.getMaHoaDon(), "Đã nghỉ việc", hoaDon.getNgayLapHoaDon(),
+						khachHangName, tongTienHoaDon(hoaDon.getMaHoaDon()) });
+			} else {
+				modelHoaDon.addRow(new Object[] { i++, hoaDon.getMaHoaDon(), hoaDon.getNhanVien().getHoTenNhanVien(),
+						hoaDon.getNgayLapHoaDon(), khachHangName,
+						tongTienHoaDon(hoaDon.getMaHoaDon()) });
+			}
+		}
+	}
 
     public void docDuLieuTimKiemTuArrayListVaoModelTheoMa(String maHoaDon) throws Exception {
         hoaDonDao = new HoaDonDao();
@@ -836,31 +835,31 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     }
 
         public void xuatHoaDonDoiTra(String maHDDT) {
-        try {
-            Hashtable map = new Hashtable();
-            JasperReport report = JasperCompileManager.compileReport("src/main/java/gui/HoaDonBanHang.jrxml");
-            map.put("maHDDT", maHDDT);
-            JasperPrint p = JasperFillManager.fillReport(report, map, DBConnection.getInstance().getConnection());
-
-            JasperViewer.viewReport(p, false);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Hashtable map = new Hashtable();
+//            JasperReport report = JasperCompileManager.compileReport("src/main/java/gui/HoaDonBanHang.jrxml");
+//            map.put("maHDDT", maHDDT);
+//            JasperPrint p = JasperFillManager.fillReport(report, map, DBConnection.getInstance().getConnection());
+//
+//            JasperViewer.viewReport(p, false);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 
 
     public void xuatHoaDon(String maHD) {
-        try {
-            Hashtable map = new Hashtable();
-            JasperReport report = JasperCompileManager.compileReport("src/main/java/gui/HoaDonBanHang.jrxml");
-            map.put("maHD", maHD);
-            JasperPrint p = JasperFillManager.fillReport(report, map, DBConnection.getInstance().getConnection());
-            JasperViewer.viewReport(p, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Hashtable map = new Hashtable();
+//            JasperReport report = JasperCompileManager.compileReport("src/main/java/gui/HoaDonBanHang.jrxml");
+//            map.put("maHD", maHD);
+//            JasperPrint p = JasperFillManager.fillReport(report, map, DBConnection.getInstance().getConnection());
+//            JasperViewer.viewReport(p, false);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 

@@ -10,6 +10,10 @@ import javax.swing.JPasswordField;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -17,9 +21,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import dao.TaiKhoanDao;
-import db.DBConnection;
 import entities.NhanVien;
 import entities.TaiKhoan;
+import service.*;
 import service.impl.TaiKhoanServiceImpl;
 
 import java.awt.Color;
@@ -37,11 +41,16 @@ public class WinThemTaiKhoan extends JFrame implements ActionListener {
 	private JComboBox cmbQuyen;
 	private JLabel lblLoaiTaiKhoan;
 	private NhanVien nv;
-	private TaiKhoanDao taiKhoanDao;
-	private TaiKhoanServiceImpl taiKhoanServiceImpl;
 
 	private String matKhau;
 	private ArrayList<TaiKhoan> dsTaiKhoan;
+
+	private static final String URL = "rmi://192.168.40.54:7878/";
+	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+	private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
+	private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
+	private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
+	private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
 
 	/**
 	 * Launch the application.
@@ -62,7 +71,7 @@ public class WinThemTaiKhoan extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public WinThemTaiKhoan(NhanVien nv) {
+	public WinThemTaiKhoan(NhanVien nv) throws Exception {
 		//
 		setResizable(false);
 		this.nv = nv;
@@ -132,9 +141,8 @@ public class WinThemTaiKhoan extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
 		if (obj.equals(btnTaoTaiKhoan)) {
-			taiKhoanServiceImpl = new TaiKhoanServiceImpl();
 			try {
-				if (taiKhoanServiceImpl.insertAccount(revertTaiKhoanFromTextfields()) > 0)
+				if (taiKhoanService.insertAccount(revertTaiKhoanFromTextfields()) > 0)
 					this.setVisible(false);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -145,9 +153,8 @@ public class WinThemTaiKhoan extends JFrame implements ActionListener {
 	}
 
 	public TaiKhoan revertTaiKhoanFromTextfields() throws Exception {
-		taiKhoanServiceImpl = new TaiKhoanServiceImpl();
-		if (taiKhoanServiceImpl.getList() != null) {
-			dsTaiKhoan = taiKhoanServiceImpl.getList();
+		if (taiKhoanService.getList() != null) {
+			dsTaiKhoan = taiKhoanService.getList();
 			String tenDN = txtTenDangNhap.getText();
 			if (tenDN.isEmpty()) {
 				JOptionPane.showMessageDialog(this, "Tên đăng nhập không được rỗng");

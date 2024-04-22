@@ -29,6 +29,7 @@ import entities.TacGia;
 import entities.TaiKhoan;
 import entities.VanPhongPham;
 import lombok.SneakyThrows;
+import service.*;
 import service.impl.ChiTietHoaDonServiceImpl;
 import service.impl.HoaDonServiceImpl;
 import service.impl.KhachHangServiceImpl;
@@ -44,6 +45,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.Naming;
 import java.sql.SQLException;
 import java.text.Normalizer;
 import java.time.LocalDate;
@@ -98,39 +100,41 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
     private JTable tableVPP;
     private DefaultTableModel modelVPP;
     private JScrollPane scrVPP;
-    private SanPhamDao sanPhamDao;
-    private SanPhamServiceImpl sanPhamServiceImpl_GetConent;
     private List<Sach> dsSach;
     private TheLoaiDao theLoaiSach;
     private List<VanPhongPham> dsVPP;
     private JTextField txtMaVPP;
     private DefaultTableModel modelHoaDon;
     private JScrollPane scrHoaDon;
-    private NhanVienServiceImpl nhanVienServiceImpl;
+
     private NhanVien nv;
     private JButton btnThemSach;
-    private KhachHangServiceImpl khachHangServiceImpl;
     private String sdt;
     private JButton btnLamMoiBang;
-    private ChiTietHoaDonDao chiTietHoaDonDao;
     private List<ChiTietHoaDon> dsChiTietHoaDon;
-    private HoaDonServiceImpl hoaDonServiceImpl;
-    private ChiTietHoaDonServiceImpl chiTietHoaDonServiceImpl;
-    private TacGiaDao tacgiaDao;
     private List<TacGia> dsTacGia;
     private static HashMap<String, ArrayList<SanPham>> dsHoaDonCho = new HashMap<String, ArrayList<SanPham>>();
     WinHangCho winHangCho;
-    SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
     private JLabel lblMaHD;
     private JTextField txtTimKiemMaSP;
     private JTextField txtTimKiemTenSP;
     private JTextField txtXoa;
 
+    private static final String URL = "rmi://192.168.40.54:7878/";
+    private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+    private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
+    private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
+    private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
+    private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
+    private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(URL + "chiTietHoaDon");
+    private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
+    private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
+
     /**
      * Create the panel.
      */
 
-    public Pnl_TaoHoaDon() {
+    public Pnl_TaoHoaDon() throws Exception {
         setBackground(new Color(0, 206, 209));
         setFont(new Font("Dialog", Font.BOLD, 16));
         setSize(1493, 650);
@@ -325,10 +329,10 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
         WinLogin dangNhap = new WinLogin();
         TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
-        nhanVienServiceImpl = new NhanVienServiceImpl();
+
         nv = new NhanVien();
         try {
-            nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
+            nv = nhanVienService.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
         } catch (SQLException e2) {
             // TODO Auto-generated catch block
             e2.printStackTrace();
@@ -448,6 +452,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
         tabSanPham.addChangeListener(new ChangeListener() {
 
+
             @Override
             public void stateChanged(ChangeEvent e) {
                 // TODO Auto-generated method stub
@@ -466,6 +471,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
                         }
 
+                        @SneakyThrows
                         @Override
                         public void keyReleased(KeyEvent e) {
                             // TODO Auto-generated method stub
@@ -485,7 +491,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
                             // TODO Auto-generated method stub
 
                         }
-
+                        @SneakyThrows
                         @Override
                         public void keyReleased(KeyEvent e) {
                             // TODO Auto-generated method stub
@@ -534,9 +540,9 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
         cmbTacGia = new JComboBox();
         cmbTacGia.setFont(new Font("Tahoma", Font.PLAIN, 12));
-        tacgiaDao = new TacGiaDao();
+
         try {
-            dsTacGia = tacgiaDao.getListTacGia();
+            dsTacGia = tacGiaService.getListTacGia();
         } catch (Exception e2) {
             // TODO Auto-generated catch block
             e2.printStackTrace();
@@ -886,11 +892,10 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         if (obj.equals(btnRefresh)) {
             clearTxtFieldsSDT();
         } else if (obj.equals(btnTimKhachHang)) {
-            khachHangServiceImpl = new KhachHangServiceImpl();
             KhachHang kh = new KhachHang();
             sdt = txtSDT.getText().toString();
             try {
-                kh = khachHangServiceImpl.timKhachHangBangSDT(sdt);
+                kh = khachHangService.timKhachHangBangSDT(sdt);
             } catch (Exception e2) {
                 // TODO: handle exception
                 e2.printStackTrace();
@@ -1026,7 +1031,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
 //					lấy được sản phẩm qua mã sp lọc kiểm tra sách hay văn phòng phẩm khởi tạo constructor tương ứng và gán giá trị
 
-                    SanPham spTimDuoc = sanPhamDao.timSanPhamTheoMa(modelHoaDon.getValueAt(i, 1).toString());
+                    SanPham spTimDuoc = sanPhamService.timSanPhamTheoMa(modelHoaDon.getValueAt(i, 1).toString());
                     SanPham sp;
                     if (spTimDuoc.getLoaiSanPham().equals("Sách")) {
                         sp = new Sach(modelHoaDon.getValueAt(i, 1).toString(), Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString()));
@@ -1052,7 +1057,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
                 // chưa có người dùng trong hàng chờ
                 ArrayList<SanPham> dsSanPhamCho = new ArrayList<>();
                 for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
-                    SanPham spTimDuoc = sanPhamDao.timSanPhamTheoMa(modelHoaDon.getValueAt(i, 1).toString());
+                    SanPham spTimDuoc = sanPhamService.timSanPhamTheoMa(modelHoaDon.getValueAt(i, 1).toString());
                     SanPham sp;
                     if (spTimDuoc.getLoaiSanPham().equals("Sách")) {
                         sp = new Sach(modelHoaDon.getValueAt(i, 1).toString(), Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString()));
@@ -1107,9 +1112,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
     public void docDuLieuSach() throws Exception {
         clearTableSach();
-        sanPhamDao = new SanPhamDao();
-        theLoaiSach = new TheLoaiDao();
-        dsSach = sanPhamDao.getAllSach();
+
+        dsSach = sanPhamService.getAllSach();
         String tacGia = "";
         int i = 1;
         for (Sach sach : dsSach) {
@@ -1123,10 +1127,9 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         }
     }
 
-    public void docDuLieuVPP() {
+    public void docDuLieuVPP() throws Exception {
         clearTableVPP();
-        sanPhamDao = new SanPhamDao();
-        dsVPP = sanPhamDao.getAllVPP();
+        dsVPP = sanPhamService.getAllVPP();
         int i = 1;
         for (VanPhongPham vpp : dsVPP) {
             modelVPP.addRow(new Object[]{i++, vpp.getMaSanPham(), vpp.getTenVanPhongPham(),
@@ -1136,24 +1139,21 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
     }
 
     public void docDuLieuHoaDon() throws Exception {
-        hoaDonServiceImpl = new HoaDonServiceImpl();
-        chiTietHoaDonServiceImpl = new ChiTietHoaDonServiceImpl();
-        sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
-        if (hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDon.getText()).size() == 0) {
+        if (hoaDonService.getHoaDonTheoMa(txtMaHoaDon.getText()).size() == 0) {
             return;
         } else {
-            HoaDon hd = hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDon.getText()).get(0);
-            dsChiTietHoaDon = chiTietHoaDonServiceImpl.getCTHoaDonTheoMaHoaDon(txtMaHoaDon.getText());
+            HoaDon hd = hoaDonService.getHoaDonTheoMa(txtMaHoaDon.getText()).get(0);
+            dsChiTietHoaDon = chiTietHoaDonService.getCTHoaDonTheoMaHoaDon(txtMaHoaDon.getText());
             if (dsChiTietHoaDon.size() == 0) {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn");
                 return;
             } else {
                 int i = 1;
                 for (ChiTietHoaDon cthd : dsChiTietHoaDon) {
-                    if (sanPhamServiceImpl_GetConent.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() != null) {
+                    if (sanPhamService.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() != null) {
                         modelHoaDon.addRow(new Object[]{i++,
-                                sanPhamServiceImpl_GetConent.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getMaSanPham(),
-                                sanPhamServiceImpl_GetConent.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach(),
+                                sanPhamService.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getMaSanPham(),
+                                sanPhamService.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach(),
                                 cthd.getSoLuong(), cthd.getDonGia()});
                     } else {
                         JOptionPane.showMessageDialog(this, "Hóa đơn này không có sách để đổi");
@@ -1166,13 +1166,12 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
     }
 
-    public void truSLSachKhiDoi() {
-        sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
-        Sach s = sanPhamServiceImpl_GetConent.getSachTheoTen(txtTenSach.getText());
+    public void truSLSachKhiDoi() throws Exception {
+        Sach s = sanPhamService.getSachTheoTen(txtTenSach.getText());
         s.setSoLuongTon(s.getSoLuongTon() - Integer.parseInt(txtSoLuongSach.getText().toString()));
 
         try {
-            sanPhamServiceImpl_GetConent.capNhatSanPham(s.getMaSanPham(), s);
+            sanPhamService.capNhatSanPham(s.getMaSanPham(), s);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -1203,13 +1202,11 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         return false;
     }
 
-    public void truSLVPPKhiDoi() {
-        sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
-        VanPhongPham v = sanPhamServiceImpl_GetConent.getVPPTheoTen(txtTenVPP.getText());
+    public void truSLVPPKhiDoi() throws Exception {
+        VanPhongPham v = sanPhamService.getVPPTheoTen(txtTenVPP.getText());
         v.setSoLuongTon(v.getSoLuongTon() - Integer.parseInt(txtSoLuongVPP.getText().toString()));
-
         try {
-            sanPhamServiceImpl_GetConent.capNhatSanPham(v.getMaSanPham(), v);
+            sanPhamService.capNhatSanPham(v.getMaSanPham(), v);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -1217,53 +1214,48 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
 
     }
 
-    public void themHoaDon() throws SQLException {
+    public void themHoaDon() throws Exception {
         String mahd = txtMaHoaDon.getText();
         WinLogin dangNhap = new WinLogin();
         TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
-        nhanVienServiceImpl = new NhanVienServiceImpl();
-        khachHangServiceImpl = new KhachHangServiceImpl();
-        nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
-        KhachHang kh = khachHangServiceImpl.timKhachHangBangSDT(txtSDT.getText());
+
+        nv = nhanVienService.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
+        KhachHang kh = khachHangService.timKhachHangBangSDT(txtSDT.getText());
         String sdt = txtSDT.getText();
         LocalDate ngayLapHoaDon = LocalDate.now();
         String ghiChu = "Không";
         Long tienKhachDua = Long.parseLong(txtTienKhachDua.getText().trim());
         Boolean tinhTrang = true;
         HoaDon hd = new HoaDon(mahd, nv, kh, ngayLapHoaDon, ghiChu, tienKhachDua, tinhTrang);
-        hoaDonServiceImpl = new HoaDonServiceImpl();
-        hoaDonServiceImpl.themHoaDon(hd);
+        hoaDonService.themHoaDon(hd);
 
     }
 
-    public void themCTHD() throws SQLException {
-        chiTietHoaDonServiceImpl = new ChiTietHoaDonServiceImpl();
-        hoaDonServiceImpl = new HoaDonServiceImpl();
-        chiTietHoaDonDao = new ChiTietHoaDonDao();
-        HoaDon hd = hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDon.getText()).get(0);
+    public void themCTHD() throws Exception {
+
+        HoaDon hd = hoaDonService.getHoaDonTheoMa(txtMaHoaDon.getText()).get(0);
         List<ChiTietHoaDon> listCTHD = new ArrayList<ChiTietHoaDon>();
         for (int i = 0; i < tblHoaDon.getRowCount(); i++) {
-            sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
+            sanPhamService = new SanPhamServiceImpl();
             String masp = tblHoaDon.getValueAt(i, 1).toString();
-            SanPham sp = sanPhamServiceImpl_GetConent.getSanPhamTheoMa(masp);
+            SanPham sp = sanPhamService.getSanPhamTheoMa(masp);
             int soLuong = Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString());
             long giaBan = Long.parseLong(modelHoaDon.getValueAt(i, 3).toString());
             ChiTietHoaDon cthd = new ChiTietHoaDon(hd, sp, soLuong, giaBan);
             listCTHD.add(cthd);
-            if (chiTietHoaDonDao.addChiTietHoaDon(cthd))
+            if (chiTietHoaDonService.addChiTietHoaDon(cthd))
                 return;
         }
 
     }
 
-    public void themSachVaoGioHang() throws SQLException {
+    public void themSachVaoGioHang() throws Exception {
         int soLuongSach = Integer.parseInt(txtSoLuongSach.getText());
         dsChiTietHoaDon = new ArrayList<ChiTietHoaDon>();
         modelSach = (DefaultTableModel) tblSach.getModel();
-        sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
         int row = tblSach.getSelectedRow();
         String maS = modelSach.getValueAt(row, 1).toString();
-        Sach s = sanPhamServiceImpl_GetConent.getSachTheoMaSP(maS);
+        Sach s = sanPhamService.getSachTheoMaSP(maS);
         if (s != null) {
             if (!tonTaiSanPhamTrongCTHD(s)) {
                 modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
@@ -1275,14 +1267,13 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         tongTienVAT();
     }
 
-    public void themHDVPP() throws SQLException {
+    public void themHDVPP() throws Exception {
         int soLuongV = Integer.parseInt(txtSoLuongVPP.getText());
         dsChiTietHoaDon = new ArrayList<ChiTietHoaDon>();
         modelVPP = (DefaultTableModel) tableVPP.getModel();
-        sanPhamServiceImpl_GetConent = new SanPhamServiceImpl();
         int row = tableVPP.getSelectedRow();
         String maV = modelVPP.getValueAt(row, 1).toString();
-        VanPhongPham v = sanPhamServiceImpl_GetConent.getVPPTheoMaSP(maV);
+        VanPhongPham v = sanPhamService.getVPPTheoMaSP(maV);
         if (v != null) {
             if (!tonTaiSanPhamTrongCTHD(v)) {
                 modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
@@ -1357,7 +1348,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         String maSach = txtTimKiemMaSP.getText().trim();
         String tenSach = txtTimKiemTenSP.getText().trim();
 
-        List<Sach> dsSach = sanPhamServiceImpl.getAllSach();
+        List<Sach> dsSach = sanPhamService.getAllSach();
         String tacGia = "";
         int i = 0;
 
@@ -1377,7 +1368,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         }
     }
 
-    public void tableDanhSachVPPWithFilter() {
+    public void tableDanhSachVPPWithFilter() throws Exception{
         tableVPP.clearSelection();
         clearTableVPP();
         DefaultTableModel model = (DefaultTableModel) tableVPP.getModel();
@@ -1385,7 +1376,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         String tenvpp = txtTimKiemTenSP.getText().trim();
 
 
-        List<VanPhongPham> dsVPP = sanPhamDao.getAllVPP();
+        List<VanPhongPham> dsVPP = sanPhamService.getAllVPP();
         int i = 1;
 
         for (VanPhongPham v : dsVPP) {
@@ -1443,9 +1434,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
                     if (shareData.isThanhToan()) {
                         modelHoaDon.setRowCount(0);
                         String sdt = shareData.getSdtThanhToan();
-                        KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
                         try {
-                            KhachHang khachHang = khachHangServiceImpl.timKhachHangBangSDT(sdt);
+                            KhachHang khachHang = khachHangService.timKhachHangBangSDT(sdt);
                             txtSDT.setText(khachHang.getsDT());
                             txtTenKhachHang.setText(khachHang.getHoTenKhachHang());
                             ArrayList<SanPham> dsSanPham = new ArrayList<>();
@@ -1453,8 +1443,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
                             for (int i = 0; i < dsSanPham.size(); i++) {
                                 Sach sach = null;
                                 VanPhongPham vanPhongPham = null;
-                                sach = sanPhamServiceImpl.timSanPhamTheoMaSach(dsSanPham.get(i).getMaSanPham());
-                                vanPhongPham = sanPhamServiceImpl
+                                sach = sanPhamService.timSanPhamTheoMaSach(dsSanPham.get(i).getMaSanPham());
+                                vanPhongPham = sanPhamService
                                         .timSanPhamTheoMaVPP(dsSanPham.get(i).getMaSanPham());
 
                                 if (sach != null) {
@@ -1480,6 +1470,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
             }
         }).start();
@@ -1490,14 +1482,14 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         txtVAT.setText("");
     }
 
-    public static String auto_ID() {
-        HoaDonDao hoadon_dao = new HoaDonDao();
+    public String auto_ID() throws Exception {
+
         String idPrefix = "HD";
         LocalDate myObj = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd");
         String formattedString = myObj.format(formatter);
         int length = 0;
-        length = hoadon_dao.getDSHoaDon().size();
+        length = hoaDonService.getDSHoaDon().size();
         String finalId = idPrefix + formattedString + String.format("%05d", length + 1);
         return finalId;
     }
@@ -1549,7 +1541,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         }
     }
 
-    public void themSoLuongSanPhamVaoKho() throws SQLException {
+    public void themSoLuongSanPhamVaoKho() throws Exception {
         int soLuongCanXoa = Integer.parseInt(txtXoa.getText());
         modelSach = (DefaultTableModel) tblSach.getModel();
         modelVPP = (DefaultTableModel) tableVPP.getModel();
@@ -1557,27 +1549,27 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         int row = tblHoaDon.getSelectedRow();
         for (int i = 0; i < modelSach.getRowCount(); i++) {
             if (modelSach.getValueAt(i, 1).toString().equals(modelHoaDon.getValueAt(row, 1).toString())) {
-                SanPham sp = sanPhamServiceImpl.timSanPhamTheoMa(modelHoaDon.getValueAt(row, 1).toString());
+                SanPham sp = sanPhamService.timSanPhamTheoMa(modelHoaDon.getValueAt(row, 1).toString());
                 int soLuongBanDau = sp.getSoLuongTon();
                 sp.setSoLuongTon(soLuongBanDau + soLuongCanXoa);
-                sanPhamServiceImpl.capNhatSoLuongSanPham(sp);
+                sanPhamService.capNhatSoLuongSanPham(sp);
             }
             if (modelVPP.getValueAt(i, 1).toString().equals(modelHoaDon.getValueAt(row, 1).toString())) {
-                SanPham sp = sanPhamServiceImpl.timSanPhamTheoMa(modelHoaDon.getValueAt(row, 1).toString());
+                SanPham sp = sanPhamService.timSanPhamTheoMa(modelHoaDon.getValueAt(row, 1).toString());
                 int soLuongBanDau = sp.getSoLuongTon();
                 sp.setSoLuongTon(soLuongBanDau + soLuongCanXoa);
-                sanPhamServiceImpl.capNhatSoLuongSanPham(sp);
+                sanPhamService.capNhatSoLuongSanPham(sp);
             }
         }
     }
 
-    public void truSoLuongKhiThanhToan() throws SQLException {
+    public void truSoLuongKhiThanhToan() throws Exception {
         modelHoaDon = (DefaultTableModel) tblHoaDon.getModel();
         for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
-            SanPham sp = sanPhamServiceImpl.timSanPhamTheoMa(modelHoaDon.getValueAt(i, 1).toString());
+            SanPham sp = sanPhamService.timSanPhamTheoMa(modelHoaDon.getValueAt(i, 1).toString());
             int soLuongBanDau = sp.getSoLuongTon();
             sp.setSoLuongTon(soLuongBanDau - Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString()));
-            sanPhamServiceImpl.capNhatSoLuongSanPham(sp);
+            sanPhamService.capNhatSoLuongSanPham(sp);
         }
 
     }
