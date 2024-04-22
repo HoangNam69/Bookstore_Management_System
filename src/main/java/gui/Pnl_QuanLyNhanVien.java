@@ -44,6 +44,7 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 import com.toedter.calendar.JDateChooser;
+import util.Constants;
 
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
@@ -97,7 +98,7 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
     private JFileChooser fch;
     private JLabel lblHinhAnh;
 
-    private static final String URL = "rmi://192.168.40.54:7878/";
+    private static final String URL = "rmi://"+ Constants.ipv4 + ":"+ Constants.port + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
     private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
     private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");

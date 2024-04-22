@@ -27,6 +27,7 @@ import entities.KhachHang;
 import lombok.SneakyThrows;
 import service.*;
 import service.impl.KhachHangServiceImpl;
+import util.Constants;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -59,7 +60,7 @@ public class Pnl_QuanLyKhachHang extends JPanel implements MouseListener, Action
     private JButton btnFind;
     private JButton btnLuu;
 
-    private static final String URL = "rmi://192.168.40.54:7878/";
+    private static final String URL = "rmi://"+ Constants.ipv4 + ":"+ Constants.port + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
     private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
     private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");

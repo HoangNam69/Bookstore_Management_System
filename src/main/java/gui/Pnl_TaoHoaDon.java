@@ -35,6 +35,7 @@ import service.impl.HoaDonServiceImpl;
 import service.impl.KhachHangServiceImpl;
 import service.impl.NhanVienServiceImpl;
 import service.impl.SanPhamServiceImpl;
+import util.Constants;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -120,7 +121,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
     private JTextField txtTimKiemTenSP;
     private JTextField txtXoa;
 
-    private static final String URL = "rmi://192.168.40.54:7878/";
+    private static final String URL = "rmi://"+ Constants.ipv4 + ":"+ Constants.port + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
     private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
     private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");

@@ -60,6 +60,7 @@ import service.impl.KhachHangServiceImpl;
 import service.impl.NhanVienServiceImpl;
 import service.impl.SachLoiServiceImpl;
 import service.impl.SanPhamServiceImpl;
+import util.Constants;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -137,7 +138,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	private List<SachLoi> dsSachLoi;
 	private HoaDon hoaDon;
 	private double tienPhaiTru = 0;
-	private static final String URL = "rmi://192.168.40.54:7878/";
+	private static final String URL = "rmi://"+ Constants.ipv4 + ":"+ Constants.port + "/";
 	private SanPhamService sanPhamService = (SanPhamService)Naming.lookup(URL + "sanPham");
 	private SachLoiService sachLoiService = (SachLoiService)Naming.lookup(URL + "sachLoi");
 	private HoaDonDoiTraService hoaDonDoiTraService = (HoaDonDoiTraService)Naming.lookup(URL + "hoaDonDoiTra");

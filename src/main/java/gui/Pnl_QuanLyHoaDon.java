@@ -34,6 +34,7 @@ import service.impl.ChiTietHoaDonServiceImpl;
 import service.impl.HoaDonServiceImpl;
 import service.impl.KhachHangServiceImpl;
 import service.impl.SanPhamServiceImpl;
+import util.Constants;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -99,7 +100,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     private HoaDonDoiTra hoaDonDoiTra;
     private HoaDonDoiTraDao hoaDonDoiTraDao;
     private List<HoaDonDoiTra> dsHoaDonDoiTra;
-    private static final String URL = "rmi://192.168.40.54:7878/";
+    private static final String URL = "rmi://"+ Constants.ipv4 + ":"+ Constants.port + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
     private HoaDonService hoaDonDao_TimTheoMa = (HoaDonService)Naming.lookup(URL + "hoaDon");
     private ChiTietHoaDonService chiTietHoaDondao = (ChiTietHoaDonService)Naming.lookup(URL + "chiTietHoaDon");

@@ -101,6 +101,7 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
     private String tenNV;
     private String maNV;
 
+
     public static JFreeChart createChart() {
         JFreeChart barChart = ChartFactory.createBarChart("BIỂU ĐỒ DOANH THU", "Tháng", "Doanh thu", createDataset(),
                 PlotOrientation.VERTICAL, false, false, false);
