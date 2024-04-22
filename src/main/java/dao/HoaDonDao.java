@@ -15,9 +15,13 @@ import jakarta.persistence.*;
 
 public class HoaDonDao {
 	private EntityManager em;
+	private EntityManager em2;
+	private Connection con = DBConnection.getInstance().getConnection();
 
 	public HoaDonDao() {
 		em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
+		em2 = Persistence.createEntityManagerFactory("JPA_ORM_MSSQL").createEntityManager();
+
 	}
 
 	public int setNullChoMaNhanVienTrongHoaDon(String maNV) {
@@ -51,11 +55,19 @@ public class HoaDonDao {
 			transaction.begin();
 			em.persist(hd);
 			transaction.commit();
+
+			EntityTransaction transaction2 = em2.getTransaction();
+			transaction2.begin();
+			em2.persist(hd);
+			transaction2.commit();
+
 			return 1;
 		} catch (Exception e) {
 			return -1;
 		}
 	}
+
+
 
 	public List<HoaDon> getHoaDonTheoMa(String maHD) {
 		TypedQuery<HoaDon> query = em.createQuery("SELECT h FROM HoaDon h WHERE h.maHoaDon = :maHD", HoaDon.class);
