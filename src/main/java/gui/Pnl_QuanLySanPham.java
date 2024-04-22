@@ -58,7 +58,6 @@ import org.jfree.data.json.impl.JSONObject;
 
 import entities.*;
 import service.*;
-import service.impl.*;
 import util.Constants;
 
 public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseListener {
@@ -131,14 +130,8 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
     private int tongSoMauTin;
     private JCheckBox chkHetHang;
 
-    private static final String URL = "rmi://"+ Constants.ipv4 + ":"+ Constants.port + "/";
+    private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
-    private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
-    private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
-    private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
-    private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
-    private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(URL + "chiTietHoaDon");
-    private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
     private TheLoaiService theLoaiService = (TheLoaiService) Naming.lookup(URL + "theLoai");
     private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
     private NhaXuatBanService nhaXuatBanService = (NhaXuatBanService) Naming.lookup(URL + "nhaXuatBan");

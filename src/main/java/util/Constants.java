@@ -12,6 +12,6 @@ package util;
  * @version: 1.0
  */
 public final class Constants {
-    public static final String ipv4 = "172.20.34.194";
-    public static final String port = "7878";
+    public static final String IPV4 = "172.20.34.194";
+    public static final String PORT = "7878";
 }
