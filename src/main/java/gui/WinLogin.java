@@ -7,11 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import dao.TaiKhoanDao;
 import entities.TaiKhoan;
 import lombok.SneakyThrows;
 import service.TaiKhoanService;
-import service.impl.TaiKhoanServiceImpl;
 import util.Constants;
 
 import javax.swing.JOptionPane;
@@ -26,7 +24,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.rmi.Naming;
 import java.util.ArrayList;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -48,7 +45,7 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
     private JLabel lblBackground;
     public static TaiKhoan taiKhoan;
     public WinQuenMatKhau winQuenMatKhau = new WinQuenMatKhau();
-    private static final String URL = "rmi://"+ Constants.ipv4 + ":"+ Constants.port + "/";
+    private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
 
 
     public static void main(String[] args) {
