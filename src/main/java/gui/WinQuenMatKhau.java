@@ -7,8 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import entities.NhanVien;
+import lombok.SneakyThrows;
+import service.*;
 import service.impl.NhanVienServiceImpl;
 import service.impl.TaiKhoanServiceImpl;
+import util.Constants;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -29,6 +32,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.UnsupportedEncodingException;
 
+import java.rmi.Naming;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Properties;
@@ -66,6 +70,11 @@ public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListe
 	private NhanVienServiceImpl iNhanVien;
 	private TaiKhoanServiceImpl iTaiKhoan;
 
+
+	private static final String URL = "rmi://"+ Constants.ipv4 + ":"+ Constants.port + "/";
+	private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
+	private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
+
 	/**
 	 * Launch the application.
 	 */
@@ -85,7 +94,7 @@ public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListe
 	/**
 	 * Create the frame.
 	 */
-	public WinQuenMatKhau() {
+	public WinQuenMatKhau() throws Exception {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 602, 466);
@@ -191,6 +200,7 @@ public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListe
 
 	}
 
+	@SneakyThrows
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -208,9 +218,8 @@ public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListe
 		}
 	}
 
-	private boolean kiemTraEmail() {
-		iNhanVien = new NhanVienServiceImpl();
-		if (iNhanVien.getNhanVienByEmail(txtEmail.getText()) == null) {
+	private boolean kiemTraEmail() throws Exception{
+		if (nhanVienService.getNhanVienByEmail(txtEmail.getText()) == null) {
 			JOptionPane.showMessageDialog(null, "Không có email nhân viên");
 			return false;
 		}
@@ -218,7 +227,7 @@ public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListe
 	}
 
 	private void sendEmail() {
-		iNhanVien = new NhanVienServiceImpl();
+
 		try {
 			String fromEmail = "canhmail292@gmail.com";
 			String password = "ebrhrjedapdtovof";
@@ -281,9 +290,9 @@ public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListe
 		btnXong.setEnabled(true);
 	}
 
-	private void checkOTP() {
-		iNhanVien = new NhanVienServiceImpl();
-		NhanVien nhanVien = iNhanVien.getNhanVienByEmail(txtEmail.getText());
+	private void checkOTP() throws Exception{
+
+		NhanVien nhanVien = nhanVienService.getNhanVienByEmail(txtEmail.getText());
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 
 		if (nhanVien.getOTP().equals(txtOTP.getText())) {
@@ -318,9 +327,8 @@ public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListe
 		pwdConfirm.setText("");
 	}
 
-	private void doiPass() {
-		iNhanVien = new NhanVienServiceImpl();
-		iTaiKhoan = new TaiKhoanServiceImpl();
+	private void doiPass() throws Exception {
+
 		char[] pfMoi = pwdPassMoi.getPassword();
 
 		String valueMoi = new String(pfMoi);
@@ -334,11 +342,11 @@ public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListe
 		}
 
 		if (valueXacNhan.trim().equals(valueMoi.trim())) {
-			NhanVien nv = iNhanVien.getNhanVienByEmail(txtEmail.getText());
+			NhanVien nv = nhanVienService.getNhanVienByEmail(txtEmail.getText());
 			if (nv == null)
 				return;
 
-			if (iTaiKhoan.doiMatKhau(valueMoi, nv.getMaNhanVien()) == -1)
+			if (taiKhoanService.doiMatKhau(valueMoi, nv.getMaNhanVien()) == -1)
 				return;
 			else {
 				JOptionPane.showMessageDialog(null, "Đổi mật khẩu mới thành công");

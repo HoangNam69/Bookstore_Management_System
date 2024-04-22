@@ -12,6 +12,7 @@ import entities.TaiKhoan;
 import lombok.SneakyThrows;
 import service.TaiKhoanService;
 import service.impl.TaiKhoanServiceImpl;
+import util.Constants;
 
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
@@ -47,7 +48,7 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
     private JLabel lblBackground;
     public static TaiKhoan taiKhoan;
     public WinQuenMatKhau winQuenMatKhau = new WinQuenMatKhau();
-    private static final String URL = "rmi://192.168.40.54:7878/";
+    private static final String URL = "rmi://"+ Constants.ipv4 + ":"+ Constants.port + "/";
 
 
     public static void main(String[] args) {
@@ -76,7 +77,7 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 
     // set the MAXIMUM size....
 
-    public WinLogin() {
+    public WinLogin() throws Exception {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // setSize();
