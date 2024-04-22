@@ -44,6 +44,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import dao.SanPhamDao;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -55,6 +56,7 @@ import org.jfree.data.json.impl.JSONArray;
 import org.jfree.data.json.impl.JSONObject;
 
 import entities.*;
+import service.SanPhamService;
 import service.impl.*;
 
 public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseListener {
@@ -146,6 +148,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 	private File file;
 	private ArrayList<Sach> dsSach;
 	private ArrayList<VanPhongPham> dsVanPhongPham;
+	private SanPhamDao spd = new SanPhamDao();
 
 	public Pnl_QuanLySanPham() throws Exception {
 		setSize(1900, 900);
@@ -661,6 +664,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 					loai = "Văn phòng phẩm";
 				}
 				new WinCapNhatSP(maSP, loai).setVisible(true);
+
 
 			}
 		}

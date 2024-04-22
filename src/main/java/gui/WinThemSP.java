@@ -428,6 +428,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		}
 		if (o.equals(btnThemSp)) {
 			themSP();
+			setVisible(false);
 
 		}
 		if (o.equals(btnChooser)) {
