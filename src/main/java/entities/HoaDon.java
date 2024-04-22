@@ -38,6 +38,10 @@ public class HoaDon implements Serializable {
     @OneToMany(mappedBy = "hoaDon", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<HoaDonDoiTra> hoaDonDoiTras;
 
+    public HoaDon(String maHoaDon) {
+        this.maHoaDon = maHoaDon;
+    }
+
     public String getMaHoaDon() {
         return maHoaDon;
     }

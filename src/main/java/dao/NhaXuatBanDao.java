@@ -39,9 +39,14 @@ public class NhaXuatBanDao {
     }
 
     public NhaXuatBan timNhaXuatBan(String nxb) {
-        return (NhaXuatBan) em.createNativeQuery("SELECT * FROM NhaXuatBan WHERE tenNXB = ?", NhaXuatBan.class)
-                .setParameter(1, nxb)
-                .getSingleResult();
+        try {
+            return (NhaXuatBan) em.createNativeQuery("SELECT * FROM NhaXuatBan WHERE tenNXB = ?", NhaXuatBan.class)
+                    .setParameter(1, nxb)
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public boolean kiemTraTonTaiNXB(String ten) {

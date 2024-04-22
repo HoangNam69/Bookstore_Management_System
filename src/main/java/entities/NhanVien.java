@@ -19,9 +19,9 @@ public class NhanVien implements Serializable {
     private String hoTenNhanVien;
     @Column(columnDefinition = "date", nullable = false)
     private LocalDate ngaySinh;
-    @Column(nullable = false)
-    private String cCCD;
     @Column(unique = true, nullable = false)
+    private String cCCD;
+    @Column(nullable = false)
     private String diaChi;
     @Column(name = "sdt", unique = true, nullable = false)
     private String sDT;

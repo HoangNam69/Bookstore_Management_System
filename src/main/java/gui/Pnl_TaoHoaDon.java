@@ -1250,7 +1250,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
             long giaBan = Long.parseLong(modelHoaDon.getValueAt(i, 3).toString());
             ChiTietHoaDon cthd = new ChiTietHoaDon(hd, sp, soLuong, giaBan);
             listCTHD.add(cthd);
-            if (chiTietHoaDonDao.addChiTietHoaDon(cthd) == -1)
+            if (chiTietHoaDonDao.addChiTietHoaDon(cthd))
                 return;
         }
 

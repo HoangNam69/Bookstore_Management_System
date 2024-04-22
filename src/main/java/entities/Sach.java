@@ -17,7 +17,7 @@ public class Sach extends SanPham implements Serializable {
     @JoinColumn(name = "maTacGia")
     private TacGia tacGia;
 
-    @Column(name = "namXB", nullable = false)
+    @Column(name = "namXB", nullable = true)
     private int namXuatBan;
     private int soTrang;
     //    Moi quan he giua san pham voi the loai sach
