@@ -79,7 +79,6 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     private HoaDonDoiTra hoaDonDoiTra;
     private List<HoaDonDoiTra> dsHoaDonDoiTra;
     private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
-    private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
     private HoaDonService hoaDonService = (HoaDonService)Naming.lookup(URL + "hoaDon");
     private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService)Naming.lookup(URL + "chiTietHoaDon");
     private HoaDonDoiTraService hoaDonDoiTraService = (HoaDonDoiTraService)Naming.lookup(URL + "hoaDonDoiTra");

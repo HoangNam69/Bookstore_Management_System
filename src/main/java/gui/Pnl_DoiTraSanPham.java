@@ -135,6 +135,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	private HoaDon hoaDon;
 	private double tienPhaiTru = 0;
 	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
+
 	private SanPhamService sanPhamService = (SanPhamService)Naming.lookup(URL + "sanPham");
 	private SachLoiService sachLoiService = (SachLoiService)Naming.lookup(URL + "sachLoi");
 	private HoaDonDoiTraService hoaDonDoiTraService = (HoaDonDoiTraService)Naming.lookup(URL + "hoaDonDoiTra");
