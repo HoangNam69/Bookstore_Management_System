@@ -148,8 +148,8 @@ public class ThongKeDao {
                     "SELECT SUM(c.soLuong * c.donGia) FROM ChiTietHoaDon c " +
                             "INNER JOIN c.hoaDon h " +
                             "WHERE h.ngayLapHoaDon BETWEEN :ngayBatDau AND :ngayKetThuc", Double.class);
-            query.setParameter("ngayBatDau", ngayBatDau.atStartOfDay());
-            query.setParameter("ngayKetThuc", ngayKetThuc.atStartOfDay());
+            query.setParameter("ngayBatDau", ngayBatDau);
+            query.setParameter("ngayKetThuc", ngayKetThuc);
 
             Double result = query.getSingleResult();
             return result != null ? result : 0.0;

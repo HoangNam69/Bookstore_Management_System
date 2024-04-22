@@ -656,16 +656,16 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 		dsHoaDon = hoaDonDao.getHoaDonThuong();
 		int i = 1;
 		for (HoaDon hoaDon : dsHoaDon) {
+			String khachHangName = (hoaDon.getKhachHang() != null) ? hoaDon.getKhachHang().getHoTenKhachHang() : "No associated customer";
 			if (hoaDon.getNhanVien() == null) {
 				modelHoaDon.addRow(new Object[] { i++, hoaDon.getMaHoaDon(), "Đã nghỉ việc", hoaDon.getNgayLapHoaDon(),
-						hoaDon.getKhachHang().getHoTenKhachHang(), tongTienHoaDon(hoaDon.getMaHoaDon()) });
+						khachHangName, tongTienHoaDon(hoaDon.getMaHoaDon()) });
 			} else {
 				modelHoaDon.addRow(new Object[] { i++, hoaDon.getMaHoaDon(), hoaDon.getNhanVien().getHoTenNhanVien(),
-						hoaDon.getNgayLapHoaDon(), hoaDon.getKhachHang().getHoTenKhachHang(),
+						hoaDon.getNgayLapHoaDon(), khachHangName,
 						tongTienHoaDon(hoaDon.getMaHoaDon()) });
 			}
 		}
-
 	}
 
 	public void docDuLieuTimKiemTuArrayListVaoModelTheoMa(String maHoaDon) throws Exception {

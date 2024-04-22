@@ -5,11 +5,15 @@
  */
 package server;
 
-import java.io.DataInputStream;
-import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.List;
+import service.*;
+import service.impl.*;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import java.rmi.registry.LocateRegistry;
+import java.util.Hashtable;
+
 
 /**
  * @description:
@@ -18,74 +22,49 @@ import java.util.List;
  * @version: 1.0
  */
 public class Server {
-    public static void main(String[] args) {
-//        Port vào thi hoặc kiểm tra sẽ là 4 số cuối mã số sinh viên
-//        Nếu có lỗi báo ngay với giảng viên
+    private static final String URL = "rmi://172.20.35.98:8080/";
+    public static void main(String[] args) throws Exception, NamingException {
 
-        try (ServerSocket serverSocket = new ServerSocket(2211)) {
-//            Server luôn chạy và chờ client connect
-//            khi server chạy thì sẽ tạo ra 1 server socket và chờ client connect
-//            Khi client connect sẽ đợi server accept
-            while (true) {
-                // mỗi socket tương ứng với 1 client khi được accept
-                Socket socket = serverSocket.accept();
-                // in ra thông tin client
-                System.out.println("Client connected: " + socket.getInetAddress().getHostName());
-//                Với mỗi client sẽ tạo ra 1 thread để xử lý
-                // khởi tạo task
-                Server server = new Server(); // Nested class
-                ClientHandler clientHandler = server.new ClientHandler(socket);
-                Thread thread = new Thread(clientHandler);
-                thread.start();
+        Hashtable<String, String> env = new Hashtable<String, String>();
+        env.put("java.security.policy", "rmi/policy.policy");
+        System.out.println("Server started on port 8080.");
+        Context ctx = new InitialContext(env);
+        LocateRegistry.createRegistry(8080);
+        //
+        ChatLieuService chatLieuService = new ChatLieuServiceImpl();
+        ChiTietHoaDonDoiTraService chiTietHoaDonDoiTraService = new ChiTietHoaDonDoiTraServiceImpl();
+        ChiTietHoaDonService chiTietHoaDonService = new ChiTietHoaDonServiceImpl();
+        HoaDonDoiTraService hoaDonDoiTraService = new HoaDonDoiTraServiceImpl();
+        HoaDonService hoaDonService = new HoaDonServiceImpl();
+        KhachHangService khachHangService = new KhachHangServiceImpl();
+        MauSacService mauSacService = new MauSacServiceImpl();
+        NhaCungCapService nhaCungCapService = new NhaCungCapServiceImpl();
+        NhanVienService nhanVienService = new NhanVienServiceImpl();
+        NhaXuatBanService nhaXuatBanService = new NhaXuatBanServiceImpl();
+        SachLoiService sachLoiService = new SachLoiServiceImpl();
+        SanPhamService sanPhamService = new SanPhamServiceImpl();
+        TacGiaService tacGiaService = new TacGiaServiceImpl();
+        TaiKhoanService taiKhoanService = new TaiKhoanServiceImpl();
+        TheLoaiService theLoaiService = new TheLoaiServiceImpl();
+        XuatXuService xuatXuService = new XuatXuServiceImpl();
+        // ThieuThongKe
+        ctx.bind(URL + "chatLieu", chatLieuService);
+        ctx.bind(URL + "chiTietHoaDonDoiTra", chiTietHoaDonDoiTraService);
+        ctx.bind(URL + "chiTietHoaDon", chiTietHoaDonService);
+        ctx.bind(URL + "hoaDonDoiTra", hoaDonDoiTraService);
+        ctx.bind(URL + "hoaDon", hoaDonService);
+        ctx.bind(URL + "khachHang", khachHangService);
+        ctx.bind(URL + "mauSac", mauSacService);
+        ctx.bind(URL + "nhaCungCap", nhaCungCapService);
+        ctx.bind(URL + "nhanVien", nhanVienService);
+        ctx.bind(URL + "nhaXuatBan", nhaXuatBanService);
+        ctx.bind(URL + "sachLoi", sachLoiService);
+        ctx.bind(URL + "sanPham", sanPhamService);
+        ctx.bind(URL + "tacGia", tacGiaService);
+        ctx.bind(URL + "taiKhoan", taiKhoanService);
+        ctx.bind(URL + "theLoai", theLoaiService);
+        ctx.bind(URL + "xuatXu", xuatXuService);
 
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private class ClientHandler implements Runnable {
-        private Socket socket;
-
-
-        public ClientHandler(Socket socket) {
-            this.socket = socket;
-
-        }
-
-        @Override
-        public void run() {
-//            Các công việc cần làm với client sẽ được xử lý ở đây
-            try {
-                DataInputStream dis = new DataInputStream(socket.getInputStream());
-                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                int choose;
-                while (true) {
-                    // xử lý dữ liệu từ client
-                    choose = dis.readInt();
-                    switch (choose) {
-                        case 1:
-                            // xử lý tìm kiếm theo title
-                            String title = dis.readUTF();
-//                            List<Course> courses = this.courseImpl.findCourseByTitle(title);
-//                            oos.writeObject(courses);
-                            break;
-                        case 2:
-                            // xử lý tìm kiếm theo id
-                            break;
-                        case 3:
-                            // xử lý lấy ra danh sách các course có số tín chỉ lớn nhất
-                            break;
-                        default:
-                            System.out.println("Invalid choose - Server");
-                            break;
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
+        System.out.println("Connected to server");
     }
 }
