@@ -16,6 +16,7 @@ import entities.NhanVien;
 import entities.TaiKhoan;
 import service.*;
 import service.impl.NhanVienServiceImpl;
+import util.Constants;
 
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
@@ -69,7 +70,7 @@ public class WinQuanLy extends JFrame implements MouseListener {
     private WinLogin winLogin = new WinLogin();
 
 
-    private static final String URL = "rmi://192.168.40.54:7878/";
+    private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
     private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
     private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");

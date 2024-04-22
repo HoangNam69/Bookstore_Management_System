@@ -12,6 +12,7 @@ import lombok.SneakyThrows;
 import service.*;
 import service.impl.NhanVienServiceImpl;
 import service.impl.TaiKhoanServiceImpl;
+import util.Constants;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -55,7 +56,7 @@ public class WinDoiMatKhau extends JFrame implements ActionListener, MouseListen
     public WinLogin dangNhap = new WinLogin();
     public TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
 
-    private static final String URL = "rmi://192.168.40.54:7878/";
+    private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
     private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
     private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");

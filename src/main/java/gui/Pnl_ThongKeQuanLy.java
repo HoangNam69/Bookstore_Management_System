@@ -11,6 +11,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.rmi.Naming;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -39,10 +40,12 @@ import com.toedter.calendar.JDateChooser;
 import entities.KhachHang;
 import entities.NhanVien;
 import entities.SanPham;
+import service.*;
 import service.impl.HoaDonServiceImpl;
 import service.impl.KhachHangServiceImpl;
 import service.impl.NhanVienServiceImpl;
 import service.impl.SanPhamServiceImpl;
+import util.Constants;
 
 import javax.swing.ImageIcon;
 import javax.swing.border.LineBorder;
@@ -101,10 +104,13 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
     private JLabel lblSoTienKhachDaMua;
     private JLabel lblTieuDe;
     private JLabel lblLocKH;
-    private NhanVienServiceImpl nhanVienServiceImpl;
-    private SanPhamServiceImpl sanPhamServiceImpl;
-    private HoaDonServiceImpl hoaDonSerrviceImpl;
-    private KhachHangServiceImpl khachHangServiceImpl;
+
+    private static final String URL = "rmi://" + Constants.IPV4 + ":" + Constants.PORT + "/";
+    private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+    private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
+    private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
+    private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
+
     private JLabel lblValueSoLuongSach;
     private JLabel lblValueSoLuongVPP;
     private JLabel lblValueSoLuongSachLoi;
@@ -592,26 +598,26 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
             }
         });
 
-        sanPhamServiceImpl = new SanPhamServiceImpl();
+
         try {
-            if (sanPhamServiceImpl.getSoLuongSachLoi() > 0) {
-                lblValueSoLuongSachLoi.setText(String.valueOf(sanPhamServiceImpl.getSoLuongSachLoi()));
+            if (sanPhamService.getSoLuongSachLoi() > 0) {
+                lblValueSoLuongSachLoi.setText(String.valueOf(sanPhamService.getSoLuongSachLoi()));
             }
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         try {
-            if (sanPhamServiceImpl.getSoLuongSachTon() > 0) {
-                lblValueSoLuongSach.setText(String.valueOf(sanPhamServiceImpl.getSoLuongSachTon()));
+            if (sanPhamService.getSoLuongSachTon() > 0) {
+                lblValueSoLuongSach.setText(String.valueOf(sanPhamService.getSoLuongSachTon()));
             }
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         try {
-            if (sanPhamServiceImpl.getSoLuongVPPTon() > 0) {
-                lblValueSoLuongVPP.setText(String.valueOf(sanPhamServiceImpl.getSoLuongVPPTon()));
+            if (sanPhamService.getSoLuongVPPTon() > 0) {
+                lblValueSoLuongVPP.setText(String.valueOf(sanPhamService.getSoLuongVPPTon()));
             }
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
@@ -656,34 +662,34 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         // TODO Auto-generated method stub
         Object obj = e.getSource();
         if (obj.equals(btnLocSP)) {
-            sanPhamServiceImpl = new SanPhamServiceImpl();
+
             if (getNgayFromJDateChooser(dateChooserFromThongKeSP) != null
                     && getNgayFromJDateChooser(dateChooserToThongKeSP) != null) {
-                if (sanPhamServiceImpl.getSanPhamBanNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromThongKeSP),
+                if (sanPhamService.getSanPhamBanNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromThongKeSP),
                         getNgayFromJDateChooser(dateChooserToThongKeSP)) != null) {
-                    dsSanPham = sanPhamServiceImpl.getSanPhamBanNhieuNhatTheoNgayTuChon(
+                    dsSanPham = sanPhamService.getSanPhamBanNhieuNhatTheoNgayTuChon(
                             getNgayFromJDateChooser(dateChooserFromThongKeSP),
                             getNgayFromJDateChooser(dateChooserToThongKeSP));
                     for (SanPham sp : dsSanPham) {
                         File file = new File("");
-                        sanPhamServiceImpl = new SanPhamServiceImpl();
+
                         try {
-                            lblmaSPTop1.setText(sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getMaSanPham());
+                            lblmaSPTop1.setText(sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getMaSanPham());
                         } catch (SQLException e1) {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
 
                         try {
-                            lblloaiSpTop1.setText(sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham());
+                            lblloaiSpTop1.setText(sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham());
                         } catch (SQLException e1) {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
                         try {
                             lblGiaBanTop1.setText(String
-                                    .valueOf(sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getGiaNhap()
-                                            + sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getGiaNhap() * 10 / 100)
+                                    .valueOf(sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getGiaNhap()
+                                            + sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getGiaNhap() * 10 / 100)
                                     + "đ");
                         } catch (SQLException e1) {
                             // TODO Auto-generated catch block
@@ -691,7 +697,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
                         }
 
                         try {
-                            lblSoLuongBanTop1.setText(String.valueOf(sanPhamServiceImpl.getSoLuongBanCuaSanPhamChayNhat(
+                            lblSoLuongBanTop1.setText(String.valueOf(sanPhamService.getSoLuongBanCuaSanPhamChayNhat(
                                     getNgayFromJDateChooser(dateChooserFromThongKeSP),
                                     getNgayFromJDateChooser(dateChooserToThongKeSP))));
                         } catch (SQLException e1) {
@@ -700,13 +706,13 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
                         }
 
                         try {
-                            if (sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham().equals("Sách")) {
+                            if (sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham().equals("Sách")) {
                                 // System.out.println("dc");
-                                lblTenSPTop1.setText(sanPhamServiceImpl.getSachTheoMaSP(sp.getMaSanPham()).getTenSach());
-                            } else if (sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham()
+                                lblTenSPTop1.setText(sanPhamService.getSachTheoMaSP(sp.getMaSanPham()).getTenSach());
+                            } else if (sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham()
                                     .equals("Văn phòng phẩm")) {
                                 // System.out.println("dc");
-                                lblTenSPTop1.setText(sanPhamServiceImpl.getVPPTheoMaSP(sp.getMaSanPham()).getTenVanPhongPham());
+                                lblTenSPTop1.setText(sanPhamService.getVPPTheoMaSP(sp.getMaSanPham()).getTenVanPhongPham());
                             }
                         } catch (SQLException e1) {
                             // TODO Auto-generated catch block
@@ -717,7 +723,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
                         String hinhAnh;
                         try {
                             hinhAnh = file.getAbsolutePath() + "\\hinhAnhHieuSach\\"
-                                    + sanPhamServiceImpl.getSachTheoMaSP(sp.getMaSanPham()).getHinhAnh();
+                                    + sanPhamService.getSachTheoMaSP(sp.getMaSanPham()).getHinhAnh();
                             lblHinhAnhTop1.setIcon(setSizeImageIconString(hinhAnh, lblHinhAnhTop1.getWidth(),
                                     lblHinhAnhTop1.getHeight()));
                         } catch (SQLException e1) {
@@ -730,19 +736,18 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
             }
         }
         if (obj.equals(btnLocDT)) {
-            nhanVienServiceImpl = new NhanVienServiceImpl();
-            hoaDonSerrviceImpl = new HoaDonServiceImpl();
+
             if (getNgayFromJDateChooser(dateChooserFromDoanhThu) != null
                     && getNgayFromJDateChooser(dateChooserToDoanhThu) != null) {
-                if (nhanVienServiceImpl.getNhanVienBanNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromDoanhThu),
+                if (nhanVienService.getNhanVienBanNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromDoanhThu),
                         getNgayFromJDateChooser(dateChooserToDoanhThu)) != null) {
-                    dsNhanVien = nhanVienServiceImpl.getNhanVienBanNhieuNhatTheoNgayTuChon(
+                    dsNhanVien = nhanVienService.getNhanVienBanNhieuNhatTheoNgayTuChon(
                             getNgayFromJDateChooser(dateChooserFromDoanhThu),
                             getNgayFromJDateChooser(dateChooserToDoanhThu));
                     for (NhanVien nv : dsNhanVien) {
-                        nhanVienServiceImpl = new NhanVienServiceImpl();
+                        nhanVienService = new NhanVienServiceImpl();
                         try {
-                            lblValueTop1NV.setText(nhanVienServiceImpl.timNhanVienTheoMa(nv.getMaNhanVien()).getHoTenNhanVien());
+                            lblValueTop1NV.setText(nhanVienService.timNhanVienTheoMa(nv.getMaNhanVien()).getHoTenNhanVien());
                         } catch (SQLException e1) {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
@@ -751,10 +756,10 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
                     }
                 }
                 try {
-                    if (hoaDonSerrviceImpl.getDoanhThu(getNgayFromJDateChooser(dateChooserFromDoanhThu),
+                    if (hoaDonService.getDoanhThu(getNgayFromJDateChooser(dateChooserFromDoanhThu),
                             getNgayFromJDateChooser(dateChooserToDoanhThu)) > 0) {
                         lblGiaTriDoanhThu.setText(
-                                String.valueOf(hoaDonSerrviceImpl.getDoanhThu(getNgayFromJDateChooser(dateChooserFromDoanhThu),
+                                String.valueOf(hoaDonService.getDoanhThu(getNgayFromJDateChooser(dateChooserFromDoanhThu),
                                         getNgayFromJDateChooser(dateChooserToDoanhThu))) + "đ");
                     }
                 } catch (SQLException e1) {
@@ -762,10 +767,10 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
                     e1.printStackTrace();
                 }
                 try {
-                    if (hoaDonSerrviceImpl.getSoLuongHoaDon(getNgayFromJDateChooser(dateChooserFromDoanhThu),
+                    if (hoaDonService.getSoLuongHoaDon(getNgayFromJDateChooser(dateChooserFromDoanhThu),
                             getNgayFromJDateChooser(dateChooserToDoanhThu)) > 0) {
                         lblGiaTriTongHoaDon.setText(String
-                                .valueOf(hoaDonSerrviceImpl.getSoLuongHoaDon(getNgayFromJDateChooser(dateChooserFromDoanhThu),
+                                .valueOf(hoaDonService.getSoLuongHoaDon(getNgayFromJDateChooser(dateChooserFromDoanhThu),
                                         getNgayFromJDateChooser(dateChooserToDoanhThu))));
                     }
                 } catch (SQLException e1) {
@@ -777,23 +782,23 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         if (obj.equals(btnLocKH)) {
             if (getNgayFromJDateChooser(dateChooserFromKH) != null
                     && getNgayFromJDateChooser(dateChooserToKH) != null) {
-                khachHangServiceImpl = new KhachHangServiceImpl();
-                if (khachHangServiceImpl.getKhachHangMuaNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromKH),
+                khachHangService = new KhachHangServiceImpl();
+                if (khachHangService.getKhachHangMuaNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromKH),
                         getNgayFromJDateChooser(dateChooserToKH)) != null) {
-                    dsKhachHang = khachHangServiceImpl.getKhachHangMuaNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromKH),
+                    dsKhachHang = khachHangService.getKhachHangMuaNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromKH),
                             getNgayFromJDateChooser(dateChooserToKH));
                     for (KhachHang kh : dsKhachHang) {
-                        khachHangServiceImpl = new KhachHangServiceImpl();
+                        khachHangService = new KhachHangServiceImpl();
                         try {
                             lblTenKHValue
-                                    .setText(khachHangServiceImpl.timKhachHangTheoMa(kh.getMaKhachHang()).getHoTenKhachHang());
+                                    .setText(khachHangService.timKhachHangTheoMa(kh.getMaKhachHang()).getHoTenKhachHang());
                         } catch (SQLException e1) {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
                         try {
                             lblSoTienDaMuaValue.setText(String.valueOf(
-                                    khachHangServiceImpl.getTongTienCuaKhachHangTop1(getNgayFromJDateChooser(dateChooserFromKH),
+                                    khachHangService.getTongTienCuaKhachHangTop1(getNgayFromJDateChooser(dateChooserFromKH),
                                             getNgayFromJDateChooser(dateChooserToKH)))
                                     + "đ");
                         } catch (SQLException e1) {
@@ -817,8 +822,8 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
             xoaHetDuLieuTableTop10NV();
             if (getNgayFromJDateChooser(dateChooserFromThongKeNV) != null
                     && getNgayFromJDateChooser(dateChooserToThongKeNV) != null) {
-                nhanVienServiceImpl = new NhanVienServiceImpl();
-                hoaDonSerrviceImpl = new HoaDonServiceImpl();
+//                nhanVienService = new NhanVienServiceImpl();
+//                hoaDonSerrviceImpl = new HoaDonServiceImpl();
                 docDuLieuTuArrayListTop10NVVaoModel();
             }
         }
@@ -846,34 +851,34 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
     }
 
     public void docDuLieuTuArrayListTop10VaoModel() throws Exception {
-        khachHangServiceImpl = new KhachHangServiceImpl();
-        dsKhachHang = khachHangServiceImpl.getTop10KHThanThiet(getNgayFromJDateChooser(dateChooserFromKH),
+
+        dsKhachHang = khachHangService.getTop10KHThanThiet(getNgayFromJDateChooser(dateChooserFromKH),
                 getNgayFromJDateChooser(dateChooserToKH));
         int i = 1;
         for (KhachHang kh : dsKhachHang) {
             // System.out.println(kh.getHoTenKhachHang());
             modelTop10KH.addRow(new Object[]{i++, kh.getMaKhachHang(),
-                    khachHangServiceImpl.timKhachHangTheoMa(kh.getMaKhachHang()).getHoTenKhachHang(),
-                    khachHangServiceImpl.getTongTienCuaKhachHangTheoMa(getNgayFromJDateChooser(dateChooserFromKH),
+                    khachHangService.timKhachHangTheoMa(kh.getMaKhachHang()).getHoTenKhachHang(),
+                    khachHangService.getTongTienCuaKhachHangTheoMa(getNgayFromJDateChooser(dateChooserFromKH),
                             getNgayFromJDateChooser(dateChooserToKH), kh.getMaKhachHang()),
-                    khachHangServiceImpl.getSoLuongHoaDonCuaKhachHangTheoMa(getNgayFromJDateChooser(dateChooserFromKH),
+                    khachHangService.getSoLuongHoaDonCuaKhachHangTheoMa(getNgayFromJDateChooser(dateChooserFromKH),
                             getNgayFromJDateChooser(dateChooserToKH), kh.getMaKhachHang())});
         }
     }
 
     // Thong ke top 10 nv
     public void docDuLieuTuArrayListTop10NVVaoModel() throws Exception {
-        nhanVienServiceImpl = new NhanVienServiceImpl();
-        dsNhanVien = nhanVienServiceImpl.thongKeDoanhThu10NVBanNhieuNhat(getNgayFromJDateChooser(dateChooserFromThongKeNV),
+
+        dsNhanVien = nhanVienService.thongKeDoanhThu10NVBanNhieuNhat(getNgayFromJDateChooser(dateChooserFromThongKeNV),
                 getNgayFromJDateChooser(dateChooserToThongKeNV));
         int i = 1;
         for (NhanVien nv : dsNhanVien) {
             try {
                 tableModel_NV.addRow(new Object[]{i++, nv.getMaNhanVien(),
-                        nhanVienServiceImpl.timNhanVienTheoMa(nv.getMaNhanVien()).getHoTenNhanVien(),
-                        hoaDonSerrviceImpl.getDoanhThuTheoMaNhanVien(getNgayFromJDateChooser(dateChooserFromThongKeNV),
+                        nhanVienService.timNhanVienTheoMa(nv.getMaNhanVien()).getHoTenNhanVien(),
+                        hoaDonService.getDoanhThuTheoMaNhanVien(getNgayFromJDateChooser(dateChooserFromThongKeNV),
                                 getNgayFromJDateChooser(dateChooserToThongKeNV), nv.getMaNhanVien()),
-                        hoaDonSerrviceImpl.getSoLuongHoaDonTheoMaNV(getNgayFromJDateChooser(dateChooserFromThongKeNV),
+                        hoaDonService.getSoLuongHoaDonTheoMaNV(getNgayFromJDateChooser(dateChooserFromThongKeNV),
                                 getNgayFromJDateChooser(dateChooserToThongKeNV), nv.getMaNhanVien())});
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
@@ -894,7 +899,6 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
 
     public void setChart() throws Exception {
         int count = 0;
-        hoaDonSerrviceImpl = new HoaDonServiceImpl();
         LocalDate nowMinus = null;
         LocalDate now = getNgayHienTai();
         if (cmbTieuChiDoanhThu.getSelectedIndex() == 0) {
@@ -902,7 +906,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
             while (count > 0) {
                 nowMinus = now.minusMonths(1);
                 try {
-                    dataset.setValue(hoaDonSerrviceImpl.getDoanhThu(nowMinus, now), "Doanh thu",
+                    dataset.setValue(hoaDonService.getDoanhThu(nowMinus, now), "Doanh thu",
                             String.valueOf(nowMinus.getMonthValue()));
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
@@ -916,7 +920,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
             while (count > 0) {
                 nowMinus = now.minusMonths(1);
                 try {
-                    dataset.setValue(hoaDonSerrviceImpl.getDoanhThu(nowMinus, now), "Doanh thu",
+                    dataset.setValue(hoaDonService.getDoanhThu(nowMinus, now), "Doanh thu",
                             String.valueOf(nowMinus.getMonthValue()));
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
@@ -930,7 +934,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
             while (count > 0) {
                 nowMinus = now.minusMonths(1);
                 try {
-                    dataset.setValue(hoaDonSerrviceImpl.getDoanhThu(nowMinus, now), "Doanh thu",
+                    dataset.setValue(hoaDonService.getDoanhThu(nowMinus, now), "Doanh thu",
                             String.valueOf(nowMinus.getMonthValue()));
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block

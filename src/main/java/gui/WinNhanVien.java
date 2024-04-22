@@ -11,13 +11,16 @@ import javax.swing.border.EmptyBorder;
 
 import entities.NhanVien;
 import entities.TaiKhoan;
+import service.NhanVienService;
 import service.impl.NhanVienServiceImpl;
+import util.Constants;
 
 import javax.swing.JLabel;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.rmi.Naming;
 
 public class WinNhanVien extends JFrame implements MouseListener {
 	private boolean flag_TK = false;
@@ -50,7 +53,6 @@ public class WinNhanVien extends JFrame implements MouseListener {
 	private Pnl_QuanLySanPham pnl_QuanLySanPham;
 	private JPanel pnlTaoXuLyDoiTra;
 	private JLabel lblXuLyDoiTra;
-	private NhanVienServiceImpl nhanVienServiceImpl;
 	private NhanVien nv;
 	private Pnl_TrangChu pnl_TrangChu;
 	private Pnl_ThongKeNhanVien pnl_ThongKeNhanVien;
@@ -61,6 +63,9 @@ public class WinNhanVien extends JFrame implements MouseListener {
 	// private static FrmNhanVien frame;
 	private JPanel pnlMenuTaiKhoan;
 	private Pnl_DoiTraSanPham pnl_DoiTraSanPham;
+
+	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
+	private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
 
 	/**
 	 * Launch the application.
@@ -307,9 +312,9 @@ public class WinNhanVien extends JFrame implements MouseListener {
 		WinLogin dangNhap = new WinLogin();
 		TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
 		System.out.println(taiKhoan);
-		nhanVienServiceImpl = new NhanVienServiceImpl();
+
 		nv = new NhanVien();
-		nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
+		nv = nhanVienService.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
 		lblTenNV.setBackground(Color.CYAN);
 		lblTenNV.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTenNV.setHorizontalAlignment(SwingConstants.CENTER);

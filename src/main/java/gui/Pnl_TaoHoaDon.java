@@ -102,7 +102,6 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
     private DefaultTableModel modelVPP;
     private JScrollPane scrVPP;
     private List<Sach> dsSach;
-    private TheLoaiDao theLoaiSach;
     private List<VanPhongPham> dsVPP;
     private JTextField txtMaVPP;
     private DefaultTableModel modelHoaDon;

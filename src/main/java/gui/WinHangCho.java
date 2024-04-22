@@ -13,6 +13,7 @@ import entities.KhachHang;
 import entities.SanPham;
 import service.KhachHangService;
 import service.impl.KhachHangServiceImpl;
+import util.Constants;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -63,7 +64,7 @@ public class WinHangCho extends JFrame implements ActionListener, MouseListener 
     // Other objects
     private ShareData shareData;
     Pnl_TaoHoaDon pnl_TaoHoaDon;
-    private static final String URL = "rmi://192.168.40.54:7878/";
+    private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
     private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
 
     public WinHangCho(HashMap<String, ArrayList<SanPham>> dsHoaDonCho, ShareData data) throws Exception {

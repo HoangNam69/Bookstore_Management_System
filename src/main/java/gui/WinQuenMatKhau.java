@@ -66,11 +66,6 @@ public class WinQuenMatKhau extends JFrame implements ActionListener, MouseListe
 	private JLabel lblOTP;
 	private JLabel lblTitle;
 
-	// Other objects
-	private NhanVienServiceImpl iNhanVien;
-	private TaiKhoanServiceImpl iTaiKhoan;
-
-
 	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
 	private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
 	private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");

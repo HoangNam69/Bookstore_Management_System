@@ -49,9 +49,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-import service.HoaDonDoiTraService;
-import service.SachLoiService;
-import service.SanPhamService;
+import service.*;
 import service.impl.ChiTietHoaDonDoiTraServiceImpl;
 import service.impl.ChiTietHoaDonServiceImpl;
 import service.impl.HoaDonDoiTraServiceImpl;
@@ -108,18 +106,16 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	private JLabel lblChitiet;
 	private JPanel pnlDoi;
 	private JButton btnXacNhanDoi;
-	private NhanVienServiceImpl nhanVienServiceImpl;
-	private ChiTietHoaDonServiceImpl chiTietHoaDonServiceImpl;
-	private HoaDonServiceImpl hoaDonServiceImpl;
-	private SanPhamServiceImpl sanPhamServiceImpl;
+
+
+
 	private List<ChiTietHoaDon> dsCTHD;
 	private List<SanPham> dsSP;
 	private List<Sach> dsSach;
 	private JLabel lblNhapLoi;
 	private JTextField txtLoi;
 	private JTextField txtSoLuongSPLoi;
-	private SachLoiServiceImpl sachLoiSviceImpl;
-	private KhachHangServiceImpl khachHangServiceImpl;
+
 	private JLabel lblMaSPLoi;
 	private JTextField txtMaSPDoi;
 	private SachLoi sachLoi;
@@ -127,10 +123,10 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	private JLabel txtGiaTriMaHDDT;
 	private NhanVien nv;
 	private KhachHang kh;
-	private HoaDonDoiTraServiceImpl hoaDonDoiTraServiceImpl;
+
 	private JButton btnXong;
 	private SanPham sp;
-	private ChiTietHoaDonDoiTraServiceImpl chiTietHoaDonDoiTraServiceImpl;
+
 	private JButton btnLamMoiTatCa;
 	private JButton btnTaoHDDoiTra;
 	private JButton btnLamMoiHoaDon;
@@ -142,6 +138,11 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	private SanPhamService sanPhamService = (SanPhamService)Naming.lookup(URL + "sanPham");
 	private SachLoiService sachLoiService = (SachLoiService)Naming.lookup(URL + "sachLoi");
 	private HoaDonDoiTraService hoaDonDoiTraService = (HoaDonDoiTraService)Naming.lookup(URL + "hoaDonDoiTra");
+	private ChiTietHoaDonDoiTraService chiTietHoaDonDoiTraService = (ChiTietHoaDonDoiTraService)Naming.lookup(URL + "chiTietHoaDonDoiTra");
+	private KhachHangService khachHangService = (KhachHangService)Naming.lookup(URL + "khachHang");
+	private HoaDonService hoaDonService = (HoaDonService)Naming.lookup(URL + "hoaDon");
+	private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService)Naming.lookup(URL + "chiTietHoaDon");
+	private NhanVienService nhanVienService = (NhanVienService)Naming.lookup(URL + "nhanVien");
 
 
 	/**
@@ -489,15 +490,11 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	}
 
 	public void DocDuLieuTuArrayListVaoModel() throws Exception {
-		hoaDonServiceImpl = new HoaDonServiceImpl();
-		chiTietHoaDonServiceImpl = new ChiTietHoaDonServiceImpl();
-		sanPhamServiceImpl = new SanPhamServiceImpl();
-
-		if (hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDonCu.getText()).size() == 0) {
+		if (hoaDonService.getHoaDonTheoMa(txtMaHoaDonCu.getText()).size() == 0) {
 			return;
 		} else {
 
-			HoaDon hd = hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDonCu.getText()).get(0);
+			HoaDon hd = hoaDonService.getHoaDonTheoMa(txtMaHoaDonCu.getText()).get(0);
 
 			long dayGap = ChronoUnit.DAYS.between(hd.getNgayLapHoaDon(), LocalDate.now());
 
@@ -507,7 +504,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 			}
 
 			else {
-				dsCTHD = chiTietHoaDonServiceImpl.getCTHoaDonTheoMaHoaDon(txtMaHoaDonCu.getText());
+				dsCTHD = chiTietHoaDonService.getCTHoaDonTheoMaHoaDon(txtMaHoaDonCu.getText());
 				if (dsCTHD.size() == 0) {
 
 					return;
@@ -515,16 +512,16 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 					int count = 0;
 					int i = 1;
 					for (ChiTietHoaDon cthd : dsCTHD) {
-						if (sanPhamServiceImpl.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() == null) {
+						if (sanPhamService.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() == null) {
 							count++;
 						}
 					}
 					if (count < dsCTHD.size()) {
 						for (ChiTietHoaDon cthd : dsCTHD) {
-							if (sanPhamServiceImpl.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() != null) {
+							if (sanPhamService.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach() != null) {
 								modelChiTietHoaDon.addRow(new Object[] { i++,
-										sanPhamServiceImpl.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getMaSanPham(),
-										sanPhamServiceImpl.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach(),
+										sanPhamService.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getMaSanPham(),
+										sanPhamService.getSachTheoMaSP(cthd.getSanPham().getMaSanPham()).getTenSach(),
 										cthd.getSoLuong(), cthd.getDonGia() });
 							}
 						}
@@ -541,14 +538,13 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 
 	private void DocDuLieuHoaDon() throws SQLException {
 		try {
-			hoaDonServiceImpl = new HoaDonServiceImpl();
-			nhanVienServiceImpl = new NhanVienServiceImpl();
-			if (hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDonCu.getText()).size() == 0) {
+
+			if (hoaDonService.getHoaDonTheoMa(txtMaHoaDonCu.getText()).size() == 0) {
 				JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn");
 				return;
 			} else {
 
-				HoaDon hd = hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDonCu.getText()).get(0);
+				HoaDon hd = hoaDonService.getHoaDonTheoMa(txtMaHoaDonCu.getText()).get(0);
 
 				long dayGap = ChronoUnit.DAYS.between(hd.getNgayLapHoaDon(), LocalDate.now());
 
@@ -566,9 +562,9 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 					}
 
 					lblGiaTriMaKH.setText(hd.getKhachHang().getMaKhachHang().toString());
-					chiTietHoaDonServiceImpl = new ChiTietHoaDonServiceImpl();
+					chiTietHoaDonService = new ChiTietHoaDonServiceImpl();
 					long tongTien = 0;
-					dsCTHD = chiTietHoaDonServiceImpl.getCTHoaDonTheoMaHoaDon(txtMaHoaDonCu.getText());
+					dsCTHD = chiTietHoaDonService.getCTHoaDonTheoMaHoaDon(txtMaHoaDonCu.getText());
 
 					for (ChiTietHoaDon cthd : dsCTHD) {
 						tongTien += cthd.tinhThanhTien();
@@ -586,8 +582,8 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 
 	public void DocDuLieuVaoCombobox() {
 		try {
-			sanPhamServiceImpl = new SanPhamServiceImpl();
-			dsSach = sanPhamServiceImpl.getAllSach();
+
+			dsSach = sanPhamService.getAllSach();
 			int row = 0;
 			row = tblChiTietHoaDon.getSelectedRow();
 
@@ -611,7 +607,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		sach.setSoLuongTon(sach.getSoLuongTon() - Integer.valueOf(txtSoLuongSPLoi.getText().toString()).intValue());
 
 		try {
-			sanPhamServiceImpl.capNhatSanPham(sach.getMaSanPham(), sach);
+			sanPhamService.capNhatSanPham(sach.getMaSanPham(), sach);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -628,16 +624,16 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 				if (txtMaSPDoi.getText().equals(sachLoi.getSach().getMaSanPham())
 						&& txtLoi.getText().equals(sachLoi.getLoiSanPham())) {
 					sachLoi.setSoLuong(sachLoi.getSoLuong() + Integer.parseInt(txtSoLuongSPLoi.getText().toString()));
-					sachLoiSviceImpl.capNhatSoLuong(sachLoi);
+					sachLoiService.capNhatSoLuong(sachLoi);
 					return;
 				}
 			}
 
 			try {
-				sach = sanPhamServiceImpl.timSanPhamTheoMaSach(txtMaSPDoi.getText());
+				sach = sanPhamService.timSanPhamTheoMaSach(txtMaSPDoi.getText());
 				sachLoi = new SachLoi(sach, txtLoi.getText().toString(),
 						Integer.parseInt(txtSoLuongSPLoi.getText().toString()));
-				sachLoiSviceImpl.themSachLoi(sachLoi);
+				sachLoiService.themSachLoi(sachLoi);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -663,7 +659,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		} else {
 			JOptionPane.showMessageDialog(this, "Nhập thông tin hóa đơn đổi trả");
 			try {
-				length = hoaDonDoiTraServiceImpl.getDSHoaDonDoiTra().size();
+				length = hoaDonDoiTraService.getDSHoaDonDoiTra().size();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -673,36 +669,33 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 
 			WinLogin dangNhap = new WinLogin();
 			TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
-			nhanVienServiceImpl = new NhanVienServiceImpl();
-			khachHangServiceImpl = new KhachHangServiceImpl();
 
-			nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
-			kh = khachHangServiceImpl.timKhachHangTheoMa(lblGiaTriMaKH.getText());
+
+			nv = nhanVienService.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
+			kh = khachHangService.timKhachHangTheoMa(lblGiaTriMaKH.getText());
 			Double tienKhachDua = (double) 0;
 			tienPhaiTru = (double) 0;
 			String ghiChu = "Không";
-			hoaDon = hoaDonServiceImpl.getHoaDonTheoMa(txtMaHoaDonCu.getText().toString()).get(0);
+			hoaDon = hoaDonService.getHoaDonTheoMa(txtMaHoaDonCu.getText().toString()).get(0);
 			HoaDonDoiTra hdDoiTra = new HoaDonDoiTra(finalId, nv, kh, ngayLapHoaDon, ghiChu, tienKhachDua, hoaDon,
 					tienPhaiTru);
-			hoaDonDoiTraServiceImpl = new HoaDonDoiTraServiceImpl();
-			hoaDonDoiTraServiceImpl.themHoaDonDoiTra(hdDoiTra);
+
+			hoaDonDoiTraService.themHoaDonDoiTra(hdDoiTra);
 		}
 
 	}
 
 	public void addCTHDDoiTraMoi() throws SQLException {
 		try {
-			chiTietHoaDonDoiTraServiceImpl = new ChiTietHoaDonDoiTraServiceImpl();
-			hoaDonDoiTraServiceImpl = new HoaDonDoiTraServiceImpl();
-			HoaDonDoiTra hddt = hoaDonDoiTraServiceImpl.getHoaDonDoiTraTheoMa(txtGiaTriMaHDDT.getText()).get(0);
 
-			sanPhamServiceImpl = new SanPhamServiceImpl();
-			sp = sanPhamServiceImpl.getSachTheoTen(cmbSP.getSelectedItem().toString());
+			HoaDonDoiTra hddt = hoaDonDoiTraService.getHoaDonDoiTraTheoMa(txtGiaTriMaHDDT.getText()).get(0);
+
+			sp = sanPhamService.getSachTheoTen(cmbSP.getSelectedItem().toString());
 
 			int soLuong = Integer.parseInt(txtSoLuongSPLoi.getText().toString().trim());
 			long donGia = Long.parseLong(lblGiaTriGiaSP.getText().toString().trim());
 			ChiTietHoaDonDoiTra cthddt = new ChiTietHoaDonDoiTra(hddt, sp, soLuong, donGia);
-			chiTietHoaDonDoiTraServiceImpl.themChiTietHoaDonDoiTra(cthddt);
+			chiTietHoaDonDoiTraService.themChiTietHoaDonDoiTra(cthddt);
 			int row = 0;
 			row = tblChiTietHoaDon.getSelectedRow();
 			row = 0;
@@ -826,15 +819,13 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 					JOptionPane.showMessageDialog(this, "Tiền khách đưa phải lớn hơn 0");
 				} else {
 					try {
-						hoaDonDoiTraServiceImpl = new HoaDonDoiTraServiceImpl();
-
-						HoaDonDoiTra hoaDonDoiTra = hoaDonDoiTraServiceImpl
+						HoaDonDoiTra hoaDonDoiTra = hoaDonDoiTraService
 								.getHoaDonDoiTraTheoMa(txtGiaTriMaHDDT.getText().toString()).get(0);
 						hoaDonDoiTra.setTienKhachDua(Double.parseDouble(txtTienKhachTra.getText().toString()));
 						System.out.println(tienPhaiTru);
 						hoaDonDoiTra.setTienPhaiTru(tienPhaiTru);
-						hoaDonDoiTraServiceImpl.editTienPhaiTru(hoaDonDoiTra);
-						hoaDonDoiTraServiceImpl.editTienKhachTra(hoaDonDoiTra);
+						hoaDonDoiTraService.editTienPhaiTru(hoaDonDoiTra);
+						hoaDonDoiTraService.editTienKhachTra(hoaDonDoiTra);
 						JOptionPane.showMessageDialog(this, "Thanh toán thành công");
 						btnThanhToan.setEnabled(false);
 						txtMaHoaDonCu.setText("");
@@ -872,8 +863,8 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 		}
 		if (o.equals(btnXong)) {
 
-			chiTietHoaDonDoiTraServiceImpl = new ChiTietHoaDonDoiTraServiceImpl();
-			dsChiTietHoaDonDoiTRa = chiTietHoaDonDoiTraServiceImpl.getCTHoaDonDoiTraTheoMaHoaDonDoiTra(txtGiaTriMaHDDT.getText().toString());
+			chiTietHoaDonDoiTraService = new ChiTietHoaDonDoiTraServiceImpl();
+			dsChiTietHoaDonDoiTRa = chiTietHoaDonDoiTraService.getCTHoaDonDoiTraTheoMaHoaDonDoiTra(txtGiaTriMaHDDT.getText().toString());
 			double tongTien = 0;
 			for (ChiTietHoaDonDoiTra chiTietHoaDonDoiTra : dsChiTietHoaDonDoiTRa) {
 				tongTien += (chiTietHoaDonDoiTra.getDonGia() * 1.2 * chiTietHoaDonDoiTra.getSoLuong());

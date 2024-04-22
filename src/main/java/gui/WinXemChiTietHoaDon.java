@@ -27,6 +27,7 @@ import entities.Sach;
 import entities.SanPham;
 import entities.VanPhongPham;
 import service.*;
+import util.Constants;
 
 import java.awt.SystemColor;
 
@@ -82,7 +83,7 @@ public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 	private List<ChiTietHoaDon> dsHoaDon;
 
 
-	private static final String URL = "rmi://192.168.40.54:7878/";
+	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
 	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
 	private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
 	private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");

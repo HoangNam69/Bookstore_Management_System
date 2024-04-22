@@ -41,7 +41,6 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 	private JTable tblChiTietHD;
 	private DefaultTableModel tableModelChiTietHoaDonDao;
 	private JScrollPane scrChiTietHD;
-	private SanPhamDao sanPhamDao;
 	private JButton btnDoi;
 
 	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
@@ -128,14 +127,14 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 
 	// Doc du lieu sach loi
 	public void docDuLieuSachLoi() throws Exception {
-		sanPhamDao = new SanPhamDao();
+
 		dsSachLoi =  sachLoiService.getAllSachLoi();
 		if (dsSachLoi.size() == 0) {
 			JOptionPane.showMessageDialog(this, "Không tìm thấy sách lỗi");
 		} else {
 			int i = 1;
 			for (SachLoi sachLoi : dsSachLoi) {
-				Sach sach = sanPhamDao.timSanPhamTheoMaSach(sachLoi.getSach().getMaSanPham());
+				Sach sach = sanPhamService.timSanPhamTheoMaSach(sachLoi.getSach().getMaSanPham());
 				System.out.println(new Sach(sachLoi.getSach().getMaSanPham()).getTenSach());
 				tableModelChiTietHoaDonDao.addRow(new Object[] { i++, sachLoi.getSach().getMaSanPham(),
 						sach.getTenSach(), sachLoi.getLoiSanPham(), sachLoi.getSoLuong() });

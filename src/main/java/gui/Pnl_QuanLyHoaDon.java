@@ -11,29 +11,13 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import dao.ChiTietHoaDonDao;
-import dao.ChiTietHoaDonDoiTraDao;
 import dao.HoaDonDao;
 import dao.HoaDonDoiTraDao;
-import entities.ChiTietHoaDon;
 import entities.HoaDon;
 import entities.HoaDonDoiTra;
 import entities.KhachHang;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Persistence;
 import lombok.SneakyThrows;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
-import org.hibernate.Session;
-import org.hibernate.jdbc.Work;
 import service.*;
-import service.impl.ChiTietHoaDonServiceImpl;
-import service.impl.HoaDonServiceImpl;
-import service.impl.KhachHangServiceImpl;
-import service.impl.SanPhamServiceImpl;
 import util.Constants;
 
 import java.awt.Color;
@@ -48,12 +32,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.net.MalformedURLException;
 import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.sql.SQLException;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -77,7 +56,6 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     private JTextField txtNgayLap;
     private JTextField txtTenNhanVien;
     private JTextField txtTenNVTim;
-    private HoaDonDao hoaDonDao;
     private List<HoaDon> dsHoaDon;
     private List<KhachHang> dsKhachHang;
     private WinXemChiTietHoaDon winXemChiTietHoaDon;
@@ -97,13 +75,14 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     //	Flag loại hóa đơn
     int flag = 1; // Mặc định là hóa đơn thường
 
+
     private HoaDonDoiTra hoaDonDoiTra;
-    private HoaDonDoiTraDao hoaDonDoiTraDao;
     private List<HoaDonDoiTra> dsHoaDonDoiTra;
     private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
-    private HoaDonService hoaDonDao_TimTheoMa = (HoaDonService)Naming.lookup(URL + "hoaDon");
-    private ChiTietHoaDonService chiTietHoaDondao = (ChiTietHoaDonService)Naming.lookup(URL + "chiTietHoaDon");
+    private HoaDonService hoaDonService = (HoaDonService)Naming.lookup(URL + "hoaDon");
+    private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService)Naming.lookup(URL + "chiTietHoaDon");
+    private HoaDonDoiTraService hoaDonDoiTraService = (HoaDonDoiTraService)Naming.lookup(URL + "hoaDonDoiTra");
 
 
     public Pnl_QuanLyHoaDon() throws Exception {
@@ -478,7 +457,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
                     String ghiChu = "";
                     String tongTienHoaDon = "";
 
-                    HoaDon hd = hoaDonDao_TimTheoMa.timHoaDonTheoMa(maHoaDon);
+                    HoaDon hd = hoaDonService.timHoaDonTheoMa(maHoaDon);
                     tienKhachDua = hd.getTienKhachDua() + "";
                     tongTienHoaDon = tongTienHoaDon(maHoaDon) + "";
                     ghiChu = hd.getGhiChu();
@@ -604,9 +583,8 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
                             JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     String maHoaDonDoiTra = modelHoaDon.getValueAt(row, 1).toString();
-                    hoaDonDoiTraDao = new HoaDonDoiTraDao();
                     HoaDonDoiTra hoaDonDT = new HoaDonDoiTra();
-                    hoaDonDT = hoaDonDoiTraDao.timHoaDonDoiTraTheoMa(maHoaDonDoiTra);
+                    hoaDonDT = hoaDonDoiTraService.timHoaDonDoiTraTheoMa(maHoaDonDoiTra);
                     String maHoaDonDT = hoaDonDT.getMaHoaDonDoiTra();
                     String maHDCu = hoaDonDT.getHoaDon().getMaHoaDon();
                     String tenNV = hoaDonDT.getNhanVien().getHoTenNhanVien();
@@ -654,14 +632,14 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     }
 
     public double tongTienHoaDon(String maHoaDon) throws Exception {
-        double tongTien = chiTietHoaDondao.getTien(maHoaDon);
+        double tongTien = chiTietHoaDonService.getTien(maHoaDon);
         return tongTien;
 
     }
 
 	public void docDuLieuTuArrayListVaoModel() throws Exception {
-		hoaDonDao = new HoaDonDao();
-		dsHoaDon = hoaDonDao.getHoaDonThuong();
+
+		dsHoaDon = hoaDonService.getHoaDonThuong();
 		int i = 1;
 		for (HoaDon hoaDon : dsHoaDon) {
 			String khachHangName = (hoaDon.getKhachHang() != null) ? hoaDon.getKhachHang().getHoTenKhachHang() : "No associated customer";
@@ -677,8 +655,8 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 	}
 
     public void docDuLieuTimKiemTuArrayListVaoModelTheoMa(String maHoaDon) throws Exception {
-        hoaDonDao = new HoaDonDao();
-        dsHoaDon = hoaDonDao.getHoaDonTheoMa(maHoaDon);
+
+        dsHoaDon = hoaDonService.getHoaDonTheoMa(maHoaDon);
         if (dsHoaDon.size() == 0) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
         } else {
@@ -694,8 +672,8 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     }
 
     public void docDuLieuTimKiemTuArrayListVaoModelTheoTen(String tenNV) throws Exception {
-        hoaDonDao = new HoaDonDao();
-        dsHoaDon = hoaDonDao.getHoaDonTheoTen(tenNV);
+
+        dsHoaDon = hoaDonService.getHoaDonTheoTen(tenNV);
         if (dsHoaDon.size() == 0) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
         } else {
@@ -711,8 +689,8 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     }
 
     public void docDuLieuTimKiemTuArrayListVaoModelTheoTenKH(String tenKH) throws Exception {
-        hoaDonDao = new HoaDonDao();
-        dsHoaDon = hoaDonDao.timHoaDonTheoTenKH(tenKH);
+
+        dsHoaDon = hoaDonService.timHoaDonTheoTenKH(tenKH);
         if (dsHoaDon.size() == 0) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
         } else {
@@ -730,8 +708,8 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     }
 
     public void docDuLieuTimKiemTuArrayListVaoModelTheoSDT(String sdt) throws Exception {
-        hoaDonDao = new HoaDonDao();
-        dsHoaDon = hoaDonDao.timHoaDonTheoSDT(sdt);
+
+        dsHoaDon = hoaDonService.timHoaDonTheoSDT(sdt);
         if (dsHoaDon.size() == 0) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
         } else {
@@ -747,9 +725,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     }
 
     public void docDuLieuHoaDonDoiTraTuArrayListVaoModel() throws Exception {
-        hoaDonDoiTraDao = new HoaDonDoiTraDao();
-
-        dsHoaDonDoiTra = hoaDonDoiTraDao.getToanBoDSHoaDonDoiTra();
+        dsHoaDonDoiTra = hoaDonDoiTraService.getToanBoDSHoaDonDoiTra();
         int i = 1;
         for (HoaDonDoiTra hd : dsHoaDonDoiTra) {
             System.out.println(hd);
@@ -760,8 +736,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     }
 
     public void docDuLieuHoaDonDoiTraVaoModelTheoMa(String maHoaDon) throws Exception {
-        hoaDonDoiTraDao = new HoaDonDoiTraDao();
-        hoaDonDoiTra = hoaDonDoiTraDao.timHoaDonDoiTraTheoMa(maHoaDon);
+        hoaDonDoiTra = hoaDonDoiTraService.timHoaDonDoiTraTheoMa(maHoaDon);
         if (hoaDonDoiTra == null) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
         } else {
@@ -776,8 +751,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     }
 
     public void docDuLieuHoaDonDoiTraVaoModelTheoTenNV(String ten) throws Exception {
-        hoaDonDoiTraDao = new HoaDonDoiTraDao();
-        dsHoaDonDoiTra = hoaDonDoiTraDao.getHoaDonDoiTraTheoTen(ten);
+        dsHoaDonDoiTra = hoaDonDoiTraService.getHoaDonDoiTraTheoTen(ten);
         if (dsHoaDonDoiTra.size() == 0) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
         } else {
@@ -792,8 +766,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     }
 
     public void docDuLieuHoaDonDoiTraVaoModelTheoSDT(String sdt) throws Exception {
-        hoaDonDoiTraDao = new HoaDonDoiTraDao();
-        dsHoaDonDoiTra = hoaDonDoiTraDao.getHoaDonDoiTraTheoSDT(sdt);
+        dsHoaDonDoiTra = hoaDonDoiTraService.getHoaDonDoiTraTheoSDT(sdt);
         if (dsHoaDonDoiTra.size() == 0) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
         } else {
@@ -808,8 +781,7 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
     }
 
     public void docDuLieuHoaDonDoiTraVaoModelTheoTenKH(String tenKH) throws Exception {
-        hoaDonDoiTraDao = new HoaDonDoiTraDao();
-        dsHoaDonDoiTra = hoaDonDoiTraDao.getHoaDonDoiTraTheoTenKH(tenKH);
+        dsHoaDonDoiTra = hoaDonDoiTraService.getHoaDonDoiTraTheoTenKH(tenKH);
         if (dsHoaDonDoiTra.size() == 0) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy hóa đơn phù hợp");
         } else {
