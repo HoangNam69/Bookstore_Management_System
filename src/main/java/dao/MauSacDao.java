@@ -45,9 +45,14 @@ public class MauSacDao {
     }
 
     public MauSac timMauSac(String mau) {
-        return (MauSac) em.createNativeQuery("SELECT * FROM MauSac WHERE tenMau = ?", MauSac.class)
-                .setParameter(1, mau)
-                .getSingleResult();
+        try {
+            return (MauSac) em.createNativeQuery("SELECT * FROM MauSac WHERE tenMau = ?", MauSac.class)
+                    .setParameter(1, mau)
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  null;
+        }
     }
 
     public boolean kiemTraTonTaiMauSac(MauSac mauSac) {

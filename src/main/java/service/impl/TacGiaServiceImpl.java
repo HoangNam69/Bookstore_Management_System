@@ -14,7 +14,7 @@ public class TacGiaServiceImpl implements TacGiaService {
 	@Override
 	public ArrayList<TacGia> getListTacGia() throws Exception {
 		// TODO Auto-generated method stub
-		return tacGiaDao.getListTacGia();
+		return (ArrayList<TacGia>) tacGiaDao.getListTacGia();
 	}
 
 	@Override

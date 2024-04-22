@@ -14,7 +14,7 @@ public class XuatXuServiceImpl implements XuatXuService {
 	@Override
 	public ArrayList<XuatXu> getListXuatXu() throws Exception {
 		// TODO Auto-generated method stub
-		return xuatXuDao.getListXuatXu();
+		return (ArrayList<XuatXu>) xuatXuDao.getListXuatXu();
 	}
 
 	@Override

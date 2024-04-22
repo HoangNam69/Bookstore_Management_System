@@ -10,6 +10,10 @@ import java.util.List;
 import db.DBConnection;
 
 import entities.XuatXu;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 
 public class XuatXuDao {
 	private Connection con;
@@ -18,77 +22,67 @@ public class XuatXuDao {
 	private String query;
 	private int rsCheck;
 
+	private EntityManager em;
+
 	public XuatXuDao() {
-		DBConnection connection = DBConnection.getInstance();
-		con = connection.getConnection();
+		this.em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
 	}
 
-	public ArrayList<XuatXu> getListXuatXu() throws Exception {
-		ArrayList<XuatXu> list = new ArrayList<>();
-		query = "SELECT maXuatXu, tenXuatXu FROM XuatXu";
-		ps = con.prepareStatement(query);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			XuatXu xuatXu = new XuatXu(rs.getString("maXuatXu"), rs.getString("tenXuatXu"));
-			list.add(xuatXu);
-		}
-		return list;
+	public List<XuatXu> getListXuatXu() {
+		return em.createQuery("SELECT xx FROM XuatXu xx", XuatXu.class).getResultList();
 	}
 
-	public boolean themXuatXu(XuatXu x) throws Exception {
-		query = "INSERT INTO XuatXu (maXuatXu, tenXuatXu) VALUES (?, ?)";
-		ps = con.prepareStatement(query);
-		ps.setString(1, x.getMaXuatXu());
-		ps.setString(2, x.getTenXuatXu());
-		rsCheck = ps.executeUpdate();
-		if (rsCheck != 0)
+	public boolean themXuatXu(XuatXu x) {
+		try {
+			em.getTransaction().begin();
+			em.persist(x);
+			em.getTransaction().commit();
 			return true;
-		return false;
+		} catch (Exception e) {
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public List<XuatXu> getXuatXu(String maXuatXu) {
-		List<XuatXu> dsXX = new ArrayList<XuatXu>();
-		try {
-			String query = "SELECT * FROM XuatXu WHERE maXuatXu = ?";
-			ps = con.prepareStatement(query);
-			ps.setString(1, maXuatXu);
-			rs = ps.executeQuery();
-			while (rs.next()) {
-				String maxx = rs.getString("maXuatXu");
-				String tenxx = rs.getString("tenXuatXu");
-				XuatXu xx = new XuatXu(maxx, tenxx);
-				dsXX.add(xx);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return dsXX;
+		Query query = em.createQuery("SELECT xx FROM XuatXu xx WHERE xx.maXuatXu = :maXuatXu", XuatXu.class);
+		query.setParameter("maXuatXu", maXuatXu);
+		return query.getResultList();
 	}
 
 	public boolean xoaXuatXu(String maXuatXu) {
-		// Viết logic xóa ở đây
-		return false;
+		try {
+			em.getTransaction().begin();
+			XuatXu xuatXu = em.find(XuatXu.class, maXuatXu);
+			if (xuatXu != null) {
+				em.remove(xuatXu);
+				em.getTransaction().commit();
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			if (em.getTransaction().isActive())
+				em.getTransaction().rollback();
+			e.printStackTrace();
+			return false;
+		}
 	}
 
-	public XuatXu timXuatXu(String XuatXu) throws SQLException {
-		query = "SELECT * FROM XuatXu WHERE tenXuatXu = ?";
-		ps = con.prepareStatement(query);
-		ps.setString(1, XuatXu);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			return new XuatXu(rs.getString("maXuatXu"), rs.getString("tenXuatXu"));
-		}
-		return null;
+	public XuatXu timXuatXu(String tenXuatXu) {
+		Query query = em.createQuery("SELECT xx FROM XuatXu xx WHERE xx.tenXuatXu = :tenXuatXu", XuatXu.class);
+		query.setParameter("tenXuatXu", tenXuatXu);
+		List<XuatXu> resultList = query.getResultList();
+		return resultList.isEmpty() ? null : resultList.get(0);
 	}
 
-	public boolean kiemTraTonTaiXuatXu(String ten) throws SQLException {
-		query = "SELECT * FROM XuatXu WHERE tenXuatXu = ?";
-		ps = con.prepareStatement(query);
-		ps.setString(1, ten);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			return true;
-		}
-		return false;
+
+	public boolean kiemTraTonTaiXuatXu(String ten) {
+		Query query = em.createQuery("SELECT COUNT(xx) FROM XuatXu xx WHERE xx.tenXuatXu = :tenXuatXu");
+		query.setParameter("tenXuatXu", ten);
+		long count = (Long) query.getSingleResult();
+		return count > 0;
 	}
 }

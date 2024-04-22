@@ -23,7 +23,7 @@ public class TaiKhoanServiceImpl implements TaiKhoanService {
 	@Override
 	public ArrayList<TaiKhoan> getList() {
 		// TODO Auto-generated method stub
-		return taiKhoanDao.getList();
+		return (ArrayList<TaiKhoan>) taiKhoanDao.getList();
 	}
 
 	@Override

@@ -28,6 +28,12 @@ public class SachLoi implements Serializable {
 		this.soLuong = soLuong;
 	}
 
+	public SachLoi(Sach sach, String loiSanPham) {
+		super();
+		this.sach = sach;
+		this.loiSanPham = loiSanPham;
+	}
+
 	public Sach getSach() {
 		return sach;
 	}
