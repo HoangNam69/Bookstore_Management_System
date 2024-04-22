@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.SanPhamDao;
-import dao.ThongKeDao;
 import entities.Sach;
 import entities.SanPham;
 import entities.VanPhongPham;
@@ -14,7 +13,7 @@ import service.SanPhamService;
 
 public class SanPhamServiceImpl implements SanPhamService {
     SanPhamDao sanPhamDao = new SanPhamDao();
-    ThongKeDao thongKeDao = new ThongKeDao();
+    ThongKeServiceImpl thongKeServiceImpl = new ThongKeServiceImpl();
 
     @Override
     public ArrayList<Sach> getListSach(String maSach, String tenSP, String maTheLoai, Long giaTu, Long giaDen,
@@ -60,27 +59,27 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public int getSoLuongSachLoi() throws SQLException {
+    public int getSoLuongSachLoi() throws Exception {
         // TODO Auto-generated method stub
-        return thongKeDao.getSoLuongSachLoi();
+        return thongKeServiceImpl.getSoLuongSachLoi();
     }
 
     @Override
-    public int getSoLuongVPPTon() throws SQLException {
+    public int getSoLuongVPPTon() throws Exception {
         // TODO Auto-generated method stub
-        return thongKeDao.getSoLuongVPPTon();
+        return thongKeServiceImpl.getSoLuongVPPTon();
     }
 
     @Override
-    public int getSoLuongSachTon() throws SQLException {
+    public int getSoLuongSachTon() throws Exception {
         // TODO Auto-generated method stub
-        return thongKeDao.getSoLuongSachTon();
+        return thongKeServiceImpl.getSoLuongSachTon();
     }
 
     @Override
-    public List<SanPham> getSanPhamBanNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+    public List<SanPham> getSanPhamBanNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws Exception {
         // TODO Auto-generated method stub
-        return thongKeDao.getSanPhamBanNhieuNhatTheoNgayTuChon(ngayBatDau, ngayKetThuc);
+        return thongKeServiceImpl.getSanPhamBanNhieuNhatTheoNgayTuChon(ngayBatDau, ngayKetThuc);
     }
 
     @Override
@@ -90,9 +89,9 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public int getSoLuongBanCuaSanPhamChayNhat(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException {
+    public int getSoLuongBanCuaSanPhamChayNhat(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws Exception {
         // TODO Auto-generated method stub
-        return thongKeDao.getSoLuongBanCuaSanPhamChayNhat(ngayBatDau, ngayKetThuc);
+        return thongKeServiceImpl.getSoLuongBanCuaSanPhamChayNhat(ngayBatDau, ngayKetThuc);
     }
 
     @Override

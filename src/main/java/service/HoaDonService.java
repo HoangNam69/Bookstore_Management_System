@@ -7,10 +7,10 @@ import java.util.List;
 import entities.HoaDon;
 
 public interface HoaDonService {
-	public int getSoLuongHoaDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException;
-	public double getDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException;
-	public double getDoanhThuTheoMaNhanVien(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maNV) throws SQLException;
-	public int getSoLuongHoaDonTheoMaNV(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maNV) throws SQLException;
+	public int getSoLuongHoaDon(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws Exception;
+	public double getDoanhThu(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws Exception;
+	public double getDoanhThuTheoMaNhanVien(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maNV) throws Exception;
+	public int getSoLuongHoaDonTheoMaNV(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maNV) throws Exception;
 	public int setNullChoMaNhanVienTrongHoaDon(String maNV);
 	public List<HoaDon> getHoaDonTheoMa(String maHD);
 	public List<HoaDon> getDSHoaDon() throws SQLException;

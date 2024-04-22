@@ -21,7 +21,11 @@ import java.util.List;
  * @version: 1.0
  */
 public class ThongKeServiceImpl implements ThongKeService {
-    private ThongKeDao thongKeDao = new ThongKeDao();
+    private ThongKeDao thongKeDao;
+
+    public ThongKeServiceImpl() {
+        this.thongKeDao = new ThongKeDao();
+    }
 
     @Override
     public List<NhanVien> getNhanVienBanNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws Exception {
