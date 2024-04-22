@@ -16,8 +16,10 @@ import jakarta.persistence.Persistence;
 
 public class HoaDonDoiTraDao {
 	private EntityManager em;
+	private EntityManager em2;
 
 	public HoaDonDoiTraDao() {
+		this.em2 = Persistence.createEntityManagerFactory("JPA_ORM_MSSQL").createEntityManager();
 		this.em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
 	}
 
@@ -25,6 +27,10 @@ public class HoaDonDoiTraDao {
 		em.getTransaction().begin();
 		em.persist(hddt);
 		em.getTransaction().commit();
+
+		em2.getTransaction().begin();
+		em2.persist(hddt);
+		em2.getTransaction().commit();
 		return 1;
 	}
 

@@ -15,8 +15,10 @@ import jakarta.persistence.TypedQuery;
 
 public class ChiTietHoaDonDoiTraDao {
 	private EntityManager em;
+	private EntityManager em2;
 
 	public ChiTietHoaDonDoiTraDao() {
+		em2 = Persistence.createEntityManagerFactory("JPA_ORM_MSSQL").createEntityManager();
 		em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
 	}
 	public List<ChiTietHoaDonDoiTra> getCTHoaDonDoiTraTheoMaHoaDonDoiTra(String maHD) {
@@ -34,6 +36,10 @@ public class ChiTietHoaDonDoiTraDao {
 			em.getTransaction().begin();
 			em.persist(cthddt);
 			em.getTransaction().commit();
+
+			em2.getTransaction().begin();
+			em2.persist(cthddt);
+			em2.getTransaction().commit();
 			return 1; // return 1 if the operation is successful
 		} catch (Exception e) {
 			e.printStackTrace(); // print detailed information about the exception

@@ -9,8 +9,10 @@ import jakarta.persistence.*;
 
 public class ChiTietHoaDonDao {
     private EntityManager em;
+    private EntityManager em2;
 
     public ChiTietHoaDonDao() {
+        em2 = Persistence.createEntityManagerFactory("JPA_ORM_MSSQL").createEntityManager();
         em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
     }
 
@@ -33,10 +35,16 @@ public class ChiTietHoaDonDao {
 
     public boolean addChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
         EntityTransaction tx = em.getTransaction();
+        EntityTransaction tx2 = em2.getTransaction();
         try {
             tx.begin();
             em.persist(chiTietHoaDon);
             tx.commit();
+
+
+            tx2.begin();
+            em2.persist(chiTietHoaDon);
+            tx2.commit();
             return true;
         } catch (Exception e) {
             if (tx.isActive()) tx.rollback();
