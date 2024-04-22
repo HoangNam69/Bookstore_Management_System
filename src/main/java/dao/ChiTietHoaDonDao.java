@@ -57,6 +57,7 @@ public class ChiTietHoaDonDao {
         TypedQuery<Long> query = em.createQuery("SELECT SUM(c.soLuong * c.donGia) FROM ChiTietHoaDon c WHERE c.hoaDon.maHoaDon = :maHD", Long.class);
         query.setParameter("maHD", maHD);
         Long tong = query.getSingleResult();
+        tong = (tong == null) ? 0L : tong;
         double vat = 0.08;
         double tongTien = tong + tong * vat;
         System.out.println("Tong tien" + tongTien);

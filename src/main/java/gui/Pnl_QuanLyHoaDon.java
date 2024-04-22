@@ -1,6 +1,5 @@
 package gui;
 
-import javax.sql.DataSource;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -47,7 +46,6 @@ import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Hashtable;
 import java.util.List;
@@ -61,9 +59,9 @@ import javax.swing.JRadioButton;
 
 public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseListener {
 
-    /**
-     * Create the panel.
-     */
+	/**
+	 * Create the panel.
+	 */
 
     private static final long serialVersionUID = 1L;
     private DefaultTableModel modelHoaDon;
@@ -659,22 +657,22 @@ public class Pnl_QuanLyHoaDon extends JPanel implements ActionListener, MouseLis
 
     }
 
-    public void docDuLieuTuArrayListVaoModel() throws Exception {
-        hoaDonDao = new HoaDonDao();
-        dsHoaDon = hoaDonDao.getHoaDonThuong();
-        int i = 1;
-        for (HoaDon hoaDon : dsHoaDon) {
-            if (hoaDon.getNhanVien() == null) {
-                modelHoaDon.addRow(new Object[]{i++, hoaDon.getMaHoaDon(), "Đã nghỉ việc", hoaDon.getNgayLapHoaDon(),
-                        hoaDon.getKhachHang().getHoTenKhachHang(), tongTienHoaDon(hoaDon.getMaHoaDon())});
-            } else {
-                modelHoaDon.addRow(new Object[]{i++, hoaDon.getMaHoaDon(), hoaDon.getNhanVien().getHoTenNhanVien(),
-                        hoaDon.getNgayLapHoaDon(), hoaDon.getKhachHang().getHoTenKhachHang(),
-                        tongTienHoaDon(hoaDon.getMaHoaDon())});
-            }
-        }
-
-    }
+	public void docDuLieuTuArrayListVaoModel() throws Exception {
+		hoaDonDao = new HoaDonDao();
+		dsHoaDon = hoaDonDao.getHoaDonThuong();
+		int i = 1;
+		for (HoaDon hoaDon : dsHoaDon) {
+			String khachHangName = (hoaDon.getKhachHang() != null) ? hoaDon.getKhachHang().getHoTenKhachHang() : "No associated customer";
+			if (hoaDon.getNhanVien() == null) {
+				modelHoaDon.addRow(new Object[] { i++, hoaDon.getMaHoaDon(), "Đã nghỉ việc", hoaDon.getNgayLapHoaDon(),
+						khachHangName, tongTienHoaDon(hoaDon.getMaHoaDon()) });
+			} else {
+				modelHoaDon.addRow(new Object[] { i++, hoaDon.getMaHoaDon(), hoaDon.getNhanVien().getHoTenNhanVien(),
+						hoaDon.getNgayLapHoaDon(), khachHangName,
+						tongTienHoaDon(hoaDon.getMaHoaDon()) });
+			}
+		}
+	}
 
     public void docDuLieuTimKiemTuArrayListVaoModelTheoMa(String maHoaDon) throws Exception {
         hoaDonDao = new HoaDonDao();
