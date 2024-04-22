@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -39,10 +40,13 @@ import entities.Sach;
 import entities.SachLoi;
 import entities.SanPham;
 import entities.TaiKhoan;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Persistence;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import service.impl.ChiTietHoaDonDoiTraServiceImpl;
 import service.impl.ChiTietHoaDonServiceImpl;
@@ -129,6 +133,8 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	private List<SachLoi> dsSachLoi;
 	private HoaDon hoaDon;
 	private double tienPhaiTru = 0;
+	private EntityManager em = Persistence.createEntityManagerFactory("JPA_ORM_MARIADB").createEntityManager();
+
 
 	/**
 	 * Create the panel.
@@ -958,7 +964,10 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 			Hashtable map = new Hashtable();
 			JasperReport report = JasperCompileManager.compileReport("src/main/java/gui/HoaDonBanHang.jrxml");
 			map.put("maHDDT", maHDDT);
+			//fix thanh enitymanager ket noi
+
 			JasperPrint p = JasperFillManager.fillReport(report, map, DBConnection.getInstance().getConnection());
+
 
 			JasperViewer.viewReport(p, false);
 
@@ -966,5 +975,7 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 			e.printStackTrace();
 		}
 	}
+
+
 
 }

@@ -11,9 +11,9 @@ public interface ChatLieuService {
 
 	public boolean themChatLieu(ChatLieu l) throws Exception;
 
-	public boolean xoaChatLieu(String maChatLieu);
+	public boolean xoaChatLieu(String maChatLieu) throws Exception;
 
-	public List<ChatLieu> getChatLieu(String maChatLieu);
+	public List<ChatLieu> getChatLieu(String maChatLieu) throws Exception;
 
 	public ChatLieu timChatLieu(String tenChatLieu) throws SQLException;
 }

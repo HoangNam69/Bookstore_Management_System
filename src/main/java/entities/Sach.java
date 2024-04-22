@@ -9,7 +9,7 @@ import java.util.Set;
 
 @NoArgsConstructor
 @Entity
-@DiscriminatorValue("Sach")
+@DiscriminatorValue("Sách")
 public class Sach extends SanPham implements Serializable {
     private String tenSach;
     //    Moi quan he giua san pham voi tac gia

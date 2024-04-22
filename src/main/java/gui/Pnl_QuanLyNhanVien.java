@@ -84,7 +84,6 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
 	private JButton btnChonAnh;
 	private JDateChooser dateChooserNgaySinh;
 
-	private Connection con = DBConnection.getInstance().getConnection();
 	private NhanVienServiceImpl nhanVienServiceImpl;
 	private TaiKhoanServiceImpl taiKhoanServiceImpl;
 	private HoaDonServiceImpl hoaDonServiceImpl;

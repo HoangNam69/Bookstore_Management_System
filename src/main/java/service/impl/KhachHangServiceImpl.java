@@ -6,14 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.KhachHangDao;
-import dao.ThongKeDao;
 import entities.KhachHang;
 import service.KhachHangService;
 
 public class KhachHangServiceImpl implements KhachHangService {
 	public static int errors = 0;
 	public static int errorsThem = 0;
-	ThongKeDao thongKeDao = new ThongKeDao();
+	ThongKeServiceImpl thongKeServiceImpl = new ThongKeServiceImpl();
 	KhachHangDao khachhang_dao = new KhachHangDao();
 
 	public KhachHangServiceImpl() {
@@ -65,35 +64,35 @@ public class KhachHangServiceImpl implements KhachHangService {
 	}
 
 	@Override
-	public List<KhachHang> getKhachHangMuaNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+	public List<KhachHang> getKhachHangMuaNhieuNhatTheoNgayTuChon(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws Exception {
 		// TODO Auto-generated method stub
-		return thongKeDao.getKhachHangMuaNhieuNhatTheoNgayTuChon(ngayBatDau, ngayKetThuc);
+		return thongKeServiceImpl.getKhachHangMuaNhieuNhatTheoNgayTuChon(ngayBatDau, ngayKetThuc);
 	}
 
 	@Override
-	public double getTongTienCuaKhachHangTop1(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws SQLException {
+	public double getTongTienCuaKhachHangTop1(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws Exception {
 		// TODO Auto-generated method stub
-		return thongKeDao.getTongTienCuaKhachHangTop1(ngayBatDau, ngayKetThuc);
+		return thongKeServiceImpl.getTongTienCuaKhachHangTop1(ngayBatDau, ngayKetThuc);
 	}
 
 	@Override
-	public List<KhachHang> getTop10KHThanThiet(LocalDate ngayBatDau, LocalDate ngayKetThuc) {
+	public List<KhachHang> getTop10KHThanThiet(LocalDate ngayBatDau, LocalDate ngayKetThuc) throws Exception {
 		// TODO Auto-generated method stub
-		return thongKeDao.getTop10KHThanThiet(ngayBatDau, ngayKetThuc);
+		return thongKeServiceImpl.getTop10KHThanThiet(ngayBatDau, ngayKetThuc);
 	}
 
 	@Override
 	public int getSoLuongHoaDonCuaKhachHangTheoMa(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maKH)
-			throws SQLException {
+			throws Exception {
 		// TODO Auto-generated method stub
-		return thongKeDao.getSoLuongHoaDonCuaKhachHangTheoMa(ngayBatDau, ngayKetThuc, maKH);
+		return thongKeServiceImpl.getSoLuongHoaDonCuaKhachHangTheoMa(ngayBatDau, ngayKetThuc, maKH);
 	}
 
 	@Override
 	public double getTongTienCuaKhachHangTheoMa(LocalDate ngayBatDau, LocalDate ngayKetThuc, String maKH)
-			throws SQLException {
+			throws Exception {
 		// TODO Auto-generated method stub
-		return thongKeDao.getTongTienCuaKhachHangTheoMa(ngayBatDau, ngayKetThuc, maKH);
+		return thongKeServiceImpl.getTongTienCuaKhachHangTheoMa(ngayBatDau, ngayKetThuc, maKH);
 	}
 
 	@Override

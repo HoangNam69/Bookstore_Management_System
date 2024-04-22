@@ -39,7 +39,7 @@ public class WinThemTaiKhoan extends JFrame implements ActionListener {
 	private NhanVien nv;
 	private TaiKhoanDao taiKhoanDao;
 	private TaiKhoanServiceImpl taiKhoanServiceImpl;
-	private Connection con = DBConnection.getInstance().getConnection();
+
 	private String matKhau;
 	private ArrayList<TaiKhoan> dsTaiKhoan;
 
