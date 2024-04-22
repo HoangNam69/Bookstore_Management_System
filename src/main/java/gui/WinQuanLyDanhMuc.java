@@ -18,6 +18,7 @@ import entities.TacGia;
 import entities.TheLoaiSach;
 import entities.TheLoaiVanPhongPham;
 import entities.XuatXu;
+import service.*;
 import service.impl.ChatLieuServiceImpl;
 import service.impl.MauSacServiceImpl;
 import service.impl.NhaCungCapServiceImpl;
@@ -26,6 +27,7 @@ import service.impl.SanPhamServiceImpl;
 import service.impl.TacGiaServiceImpl;
 import service.impl.TheLoaiServiceImpl;
 import service.impl.XuatXuServiceImpl;
+import util.Constants;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -34,6 +36,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import javax.swing.JRadioButton;
@@ -79,19 +85,22 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 	private ArrayList<TheLoaiVanPhongPham> theLoaiVanPhongPhams;
 	private ArrayList<XuatXu> xuatXus;
 	private ButtonGroup group;
-	private ChatLieuServiceImpl chatLieuServiceImpl = new ChatLieuServiceImpl() ;
 	private DefaultTableModel mdlThuocTinh;
-	private MauSacServiceImpl mauSacServiceImpl = new MauSacServiceImpl();
-	private NhaCungCapServiceImpl nhaCungCapServiceImpl = new NhaCungCapServiceImpl();
-	private NhaXuatBanServiceImpl nhaXuatBanServiceImpl = new NhaXuatBanServiceImpl();
 	private JScrollPane scrThuocTinh;
 	private JTable tblThuocTinh;
-	private TacGiaServiceImpl tacGiaServiceImpl = new  TacGiaServiceImpl();
-	private TheLoaiServiceImpl theLoaiServiceImpl = new TheLoaiServiceImpl();
-	private XuatXuServiceImpl xuatXuServiceImpl = new XuatXuServiceImpl();
 	private String loaiSanPham;
 
-	public WinQuanLyDanhMuc(String loai) {
+	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
+	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+	private TheLoaiService theLoaiService = (TheLoaiService) Naming.lookup(URL + "theLoai");
+	private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
+	private NhaXuatBanService nhaXuatBanService = (NhaXuatBanService) Naming.lookup(URL + "nhaXuatBan");
+	private NhaCungCapService nhaCungCapService = (NhaCungCapService) Naming.lookup(URL + "nhaCungCap");
+	private ChatLieuService chatLieuService = (ChatLieuService) Naming.lookup(URL + "chatLieu");
+	private XuatXuService xuatXuService = (XuatXuService) Naming.lookup(URL + "xuatXu");
+	private MauSacService mauSacService = (MauSacService) Naming.lookup(URL + "mauSac");
+
+	public WinQuanLyDanhMuc(String loai) throws Exception {
 		loaiSanPham = loai;
 		setResizable(false);
 		setSize(1000, 600);
@@ -453,7 +462,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 								if (!checkDuLieuRong(txtTen, "Tên thể loại sản phẩm không được để trống")) {
 									return;
 								}
-								theLoaiServiceImpl.themTheLoaiSach(
+								theLoaiService.themTheLoaiSach(
 										new TheLoaiSach(txtMa.getText().trim(), txtTen.getText().trim()));
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -483,7 +492,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 											JOptionPane.ERROR_MESSAGE);
 									return;
 								}
-								nhaCungCapServiceImpl.themNhaCungCap(new NhaCungCap(txtMa.getText().trim(),
+								nhaCungCapService.themNhaCungCap(new NhaCungCap(txtMa.getText().trim(),
 										txtTen.getText().trim(), txtDiaChi.getText().trim(), txtEmail.getText().trim(),
 										txtSdt.getText().trim()));
 							} catch (Exception e1) {
@@ -495,7 +504,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 								if (!checkDuLieuRong(txtTen, "Tên nhà xuất bản không được để trống")) {
 									return;
 								}
-								nhaXuatBanServiceImpl.themNhaXuatBan(
+								nhaXuatBanService.themNhaXuatBan(
 										new NhaXuatBan(txtMa.getText().trim(), txtTen.getText().trim()));
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -506,7 +515,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 								if (!checkDuLieuRong(txtTen, "Tên tác giả không được để trống")) {
 									return;
 								}
-								tacGiaServiceImpl
+								tacGiaService
 										.themTacGia(new TacGia(txtMa.getText().trim(), txtTen.getText().trim()));
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -524,7 +533,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 								if (!checkDuLieuRong(txtTen, "Tên thể loại sản phẩm không được để trống")) {
 									return;
 								}
-								theLoaiServiceImpl.themTheLoaiVanPhongPham(
+								theLoaiService.themTheLoaiVanPhongPham(
 										new TheLoaiVanPhongPham(txtMa.getText().trim(), txtTen.getText().trim()));
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -553,7 +562,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 											JOptionPane.ERROR_MESSAGE);
 									return;
 								}
-								nhaCungCapServiceImpl.themNhaCungCap(new NhaCungCap(txtMa.getText().trim(),
+								nhaCungCapService.themNhaCungCap(new NhaCungCap(txtMa.getText().trim(),
 										txtTen.getText().trim(), txtDiaChi.getText().trim(), txtEmail.getText().trim(),
 										txtSdt.getText().trim()));
 							} catch (Exception e1) {
@@ -565,7 +574,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 								if (!checkDuLieuRong(txtTen, "Tên xuất xứ sản phẩm không được để trống")) {
 									return;
 								}
-								xuatXuServiceImpl
+								xuatXuService
 										.themXuatXu(new XuatXu(txtMa.getText().trim(), txtTen.getText().trim()));
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -576,7 +585,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 								if (!checkDuLieuRong(txtTen, "Tên chất liệu không được để trống")) {
 									return;
 								}
-								chatLieuServiceImpl
+								chatLieuService
 										.themChatLieu(new ChatLieu(txtMa.getText().trim(), txtTen.getText().trim()));
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -587,7 +596,7 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 								if (!checkDuLieuRong(txtTen, "Tên màu sản phẩm không được để trống")) {
 									return;
 								}
-								mauSacServiceImpl
+								mauSacService
 										.themMauSac(new MauSac(txtMa.getText().trim(), txtTen.getText().trim()));
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -636,13 +645,13 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 	public void loadThuocTinhSach() throws Exception {
 		lblTitle.setText("QUẢN LÝ THUỘC TÍNH SÁCH");
 		theLoaiSachs = new ArrayList<>();
-		theLoaiSachs = theLoaiServiceImpl.getListTheLoaiSach();
+		theLoaiSachs = theLoaiService.getListTheLoaiSach();
 		nhaXuatBans = new ArrayList<>();
-		nhaXuatBans = nhaXuatBanServiceImpl.getListNhaXuatBan();
+		nhaXuatBans = nhaXuatBanService.getListNhaXuatBan();
 		tacGias = new ArrayList<>();
-		tacGias = tacGiaServiceImpl.getListTacGia();
+		tacGias = tacGiaService.getListTacGia();
 		nhaCungCaps = new ArrayList<>();
-		nhaCungCaps = nhaCungCapServiceImpl.getAllListNhaCungCap();
+		nhaCungCaps = nhaCungCapService.getAllListNhaCungCap();
 		radMauSac.setVisible(false);
 		radNxbOrXuatXu.setText("Nhà xuất bản");
 		radTacGiaOrChatLieu.setText("Tác giả");
@@ -652,15 +661,15 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 	public void loadThuocTinhVPP() throws Exception {
 		lblTitle.setText("QUẢN LÝ THUỘC TÍNH VĂN PHÒNG PHẨM");
 		theLoaiVanPhongPhams = new ArrayList<>();
-		theLoaiVanPhongPhams = theLoaiServiceImpl.getListTheLoaiVanPhongPham();
+		theLoaiVanPhongPhams = theLoaiService.getListTheLoaiVanPhongPham();
 		xuatXus = new ArrayList<>();
-		xuatXus = xuatXuServiceImpl.getListXuatXu();
+		xuatXus = xuatXuService.getListXuatXu();
 		chatLieus = new ArrayList<>();
-		chatLieus = chatLieuServiceImpl.getListChatLieu();
+		chatLieus = chatLieuService.getListChatLieu();
 		nhaCungCaps = new ArrayList<>();
-		nhaCungCaps = nhaCungCapServiceImpl.getAllListNhaCungCap();
+		nhaCungCaps = nhaCungCapService.getAllListNhaCungCap();
 		mauSacs = new ArrayList<>();
-		mauSacs = mauSacServiceImpl.getListMauSac();
+		mauSacs = mauSacService.getListMauSac();
 		radMauSac.setVisible(true);
 		radNxbOrXuatXu.setText("Xuất xứ");
 		radTacGiaOrChatLieu.setText("Chất liệu");

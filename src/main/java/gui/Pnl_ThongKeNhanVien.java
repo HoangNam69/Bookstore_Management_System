@@ -7,6 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.Naming;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -36,9 +37,11 @@ import java.awt.Color;
 import entities.NhanVien;
 import entities.SanPham;
 import entities.TaiKhoan;
+import service.*;
 import service.impl.HoaDonServiceImpl;
 import service.impl.NhanVienServiceImpl;
 import service.impl.SanPhamServiceImpl;
+import util.Constants;
 
 import javax.swing.border.LineBorder;
 
@@ -83,8 +86,6 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
     private JLabel lblSoLuongDaBan;
     private JPanel pnlHinhAnh;
     private JLabel lblHinhAnh;
-    private SanPhamServiceImpl sanPhamServiceImpl;
-    private HoaDonServiceImpl hoaDonServiceImpl;
     private List<SanPham> dsSanPham;
     private JLabel lblMaSPTop1;
     private JLabel lblLoaiSPTop1;
@@ -96,11 +97,19 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
     private JLabel lblValueSoLuongVPP;
     private JLabel lblGiaTriDoanhThu;
     private JLabel lblGiaTriTongHoaDon;
-    private NhanVienServiceImpl nhanVienServiceImpl;
     private NhanVien nv;
     private String tenNV;
     private String maNV;
 
+    private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
+    private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+    private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
+    private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
+    private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
+    private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
+    private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(URL + "chiTietHoaDon");
+    private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
+    private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
 
     public static JFreeChart createChart() {
         JFreeChart barChart = ChartFactory.createBarChart("BIỂU ĐỒ DOANH THU", "Tháng", "Doanh thu", createDataset(),
@@ -380,12 +389,11 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
 
         WinLogin dangNhap = new WinLogin();
         TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
-        nhanVienServiceImpl = new NhanVienServiceImpl();
         nv = new NhanVien();
-        nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
+        nv = nhanVienService.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
         tenNV = nv.getHoTenNhanVien();
 
-        maNV = (nhanVienServiceImpl.timNhanVienTheoTen(tenNV)).getMaNhanVien();
+        maNV = (nhanVienService.timNhanVienTheoTen(tenNV)).getMaNhanVien();
         setChart();
         cmbTieuChiDoanhThu.addItemListener(new ItemListener() {
 
@@ -398,26 +406,25 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
             }
         });
         // System.out.println(maNV);
-        sanPhamServiceImpl = new SanPhamServiceImpl();
         try {
-            if (sanPhamServiceImpl.getSoLuongSachLoi() > 0) {
-                lblValueSoLuongSachLoi.setText(String.valueOf(sanPhamServiceImpl.getSoLuongSachLoi()));
+            if (sanPhamService.getSoLuongSachLoi() > 0) {
+                lblValueSoLuongSachLoi.setText(String.valueOf(sanPhamService.getSoLuongSachLoi()));
             }
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         try {
-            if (sanPhamServiceImpl.getSoLuongSachTon() > 0) {
-                lblValueSoLuongSach.setText(String.valueOf(sanPhamServiceImpl.getSoLuongSachTon()));
+            if (sanPhamService.getSoLuongSachTon() > 0) {
+                lblValueSoLuongSach.setText(String.valueOf(sanPhamService.getSoLuongSachTon()));
             }
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
         try {
-            if (sanPhamServiceImpl.getSoLuongVPPTon() > 0) {
-                lblValueSoLuongVPP.setText(String.valueOf(sanPhamServiceImpl.getSoLuongVPPTon()));
+            if (sanPhamService.getSoLuongVPPTon() > 0) {
+                lblValueSoLuongVPP.setText(String.valueOf(sanPhamService.getSoLuongVPPTon()));
             }
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
@@ -462,33 +469,31 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
         // TODO Auto-generated method stub
         Object obj = e.getSource();
         if (obj.equals(btnLocSanPham)) {
-            sanPhamServiceImpl = new SanPhamServiceImpl();
             if (getNgayFromJDateChooser(dateChooserFromThongKeSP) != null
                     && getNgayFromJDateChooser(dateChooserToThongKeSP) != null) {
-                if (sanPhamServiceImpl.getSanPhamBanNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromThongKeSP),
+                if (sanPhamService.getSanPhamBanNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromThongKeSP),
                         getNgayFromJDateChooser(dateChooserToThongKeSP)) != null) {
-                    dsSanPham = sanPhamServiceImpl.getSanPhamBanNhieuNhatTheoNgayTuChon(
+                    dsSanPham = sanPhamService.getSanPhamBanNhieuNhatTheoNgayTuChon(
                             getNgayFromJDateChooser(dateChooserFromThongKeSP),
                             getNgayFromJDateChooser(dateChooserToThongKeSP));
                     for (SanPham sp : dsSanPham) {
-                        sanPhamServiceImpl = new SanPhamServiceImpl();
                         try {
-                            lblMaSPTop1.setText(sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getMaSanPham());
+                            lblMaSPTop1.setText(sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getMaSanPham());
                         } catch (SQLException e1) {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
 
                         try {
-                            lblLoaiSPTop1.setText(sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham());
+                            lblLoaiSPTop1.setText(sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham());
                         } catch (SQLException e1) {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
                         try {
                             lblGiaSPTop1.setText(String
-                                    .valueOf(sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getGiaNhap()
-                                            + sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getGiaNhap() * 10 / 100)
+                                    .valueOf(sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getGiaNhap()
+                                            + sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getGiaNhap() * 10 / 100)
                                     + "đ");
                         } catch (SQLException e1) {
                             // TODO Auto-generated catch block
@@ -496,7 +501,7 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
                         }
 
                         try {
-                            lblSoLuongSPTop1.setText(String.valueOf(sanPhamServiceImpl.getSoLuongBanCuaSanPhamChayNhat(
+                            lblSoLuongSPTop1.setText(String.valueOf(sanPhamService.getSoLuongBanCuaSanPhamChayNhat(
                                     getNgayFromJDateChooser(dateChooserFromThongKeSP),
                                     getNgayFromJDateChooser(dateChooserToThongKeSP))));
                         } catch (SQLException e1) {
@@ -505,13 +510,13 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
                         }
 
                         try {
-                            if (sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham().equals("Sách")) {
+                            if (sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham().equals("Sách")) {
                                 // System.out.println("dc");
-                                lblTenSPTop1.setText(sanPhamServiceImpl.getSachTheoMaSP(sp.getMaSanPham()).getTenSach());
-                            } else if (sanPhamServiceImpl.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham()
+                                lblTenSPTop1.setText(sanPhamService.getSachTheoMaSP(sp.getMaSanPham()).getTenSach());
+                            } else if (sanPhamService.timSanPhamTheoMa(sp.getMaSanPham()).getLoaiSanPham()
                                     .equals("Văn phòng phẩm")) {
                                 // System.out.println("dc");
-                                lblTenSPTop1.setText(sanPhamServiceImpl.getVPPTheoMaSP(sp.getMaSanPham()).getTenVanPhongPham());
+                                lblTenSPTop1.setText(sanPhamService.getVPPTheoMaSP(sp.getMaSanPham()).getTenVanPhongPham());
                             }
                         } catch (SQLException e1) {
                             // TODO Auto-generated catch block
@@ -523,19 +528,17 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
             }
         }
         if (obj.equals(btnLocDoanhThuNV)) {
-            hoaDonServiceImpl = new HoaDonServiceImpl();
-            nhanVienServiceImpl = new NhanVienServiceImpl();
             if (getNgayFromJDateChooser(dateChooserFromDoanhThu) != null
                     && getNgayFromJDateChooser(dateChooserToDoanhThu) != null) {
 
                 try {
-                    if (hoaDonServiceImpl.getDoanhThuTheoMaNhanVien(getNgayFromJDateChooser(dateChooserFromDoanhThu),
+                    if (hoaDonService.getDoanhThuTheoMaNhanVien(getNgayFromJDateChooser(dateChooserFromDoanhThu),
                             getNgayFromJDateChooser(dateChooserToDoanhThu),
-                            ((NhanVien) nhanVienServiceImpl.timNhanVienTheoTen(tenNV)).getMaNhanVien()) > 0) {
+                            ((NhanVien) nhanVienService.timNhanVienTheoTen(tenNV)).getMaNhanVien()) > 0) {
                         lblGiaTriDoanhThu.setText(String.valueOf(
-                                hoaDonServiceImpl.getDoanhThuTheoMaNhanVien(getNgayFromJDateChooser(dateChooserFromDoanhThu),
+                                hoaDonService.getDoanhThuTheoMaNhanVien(getNgayFromJDateChooser(dateChooserFromDoanhThu),
                                         getNgayFromJDateChooser(dateChooserToDoanhThu),
-                                        ((NhanVien) nhanVienServiceImpl.timNhanVienTheoTen(tenNV)).getMaNhanVien()))
+                                        ((NhanVien) nhanVienService.timNhanVienTheoTen(tenNV)).getMaNhanVien()))
                                 + "đ");
                     }
                 } catch (SQLException e1) {
@@ -543,13 +546,13 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
                     e1.printStackTrace();
                 }
                 try {
-                    if (hoaDonServiceImpl.getSoLuongHoaDonTheoMaNV(getNgayFromJDateChooser(dateChooserFromDoanhThu),
+                    if (hoaDonService.getSoLuongHoaDonTheoMaNV(getNgayFromJDateChooser(dateChooserFromDoanhThu),
                             getNgayFromJDateChooser(dateChooserToDoanhThu),
-                            ((NhanVien) nhanVienServiceImpl.timNhanVienTheoTen(tenNV)).getMaNhanVien()) > 0) {
+                            ((NhanVien) nhanVienService.timNhanVienTheoTen(tenNV)).getMaNhanVien()) > 0) {
                         lblGiaTriTongHoaDon.setText(String.valueOf(
-                                hoaDonServiceImpl.getSoLuongHoaDonTheoMaNV(getNgayFromJDateChooser(dateChooserFromDoanhThu),
+                                hoaDonService.getSoLuongHoaDonTheoMaNV(getNgayFromJDateChooser(dateChooserFromDoanhThu),
                                         getNgayFromJDateChooser(dateChooserToDoanhThu),
-                                        ((NhanVien) nhanVienServiceImpl.timNhanVienTheoTen(tenNV)).getMaNhanVien())));
+                                        ((NhanVien) nhanVienService.timNhanVienTheoTen(tenNV)).getMaNhanVien())));
                     }
                 } catch (SQLException e1) {
                     // TODO Auto-generated catch block
@@ -581,7 +584,6 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
 
     public void setChart() throws Exception {
         int count = 0;
-        hoaDonServiceImpl = new HoaDonServiceImpl();
         LocalDate nowMinus = null;
         LocalDate now = getNgayHienTai();
         if (cmbTieuChiDoanhThu.getSelectedIndex() == 0) {
@@ -589,7 +591,7 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
             while (count > 0) {
                 nowMinus = now.minusMonths(1);
                 try {
-                    dataset.setValue(hoaDonServiceImpl.getDoanhThuTheoMaNhanVien(nowMinus, now, maNV), "Doanh thu",
+                    dataset.setValue(hoaDonService.getDoanhThuTheoMaNhanVien(nowMinus, now, maNV), "Doanh thu",
                             String.valueOf(nowMinus.getMonthValue()));
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
@@ -603,7 +605,7 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
             while (count > 0) {
                 nowMinus = now.minusMonths(1);
                 try {
-                    dataset.setValue(hoaDonServiceImpl.getDoanhThuTheoMaNhanVien(nowMinus, now, maNV), "Doanh thu",
+                    dataset.setValue(hoaDonService.getDoanhThuTheoMaNhanVien(nowMinus, now, maNV), "Doanh thu",
                             String.valueOf(nowMinus.getMonthValue()));
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
@@ -617,7 +619,7 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
             while (count > 0) {
                 nowMinus = now.minusMonths(1);
                 try {
-                    dataset.setValue(hoaDonServiceImpl.getDoanhThuTheoMaNhanVien(nowMinus, now, maNV), "Doanh thu",
+                    dataset.setValue(hoaDonService.getDoanhThuTheoMaNhanVien(nowMinus, now, maNV), "Doanh thu",
                             String.valueOf(nowMinus.getMonthValue()));
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block

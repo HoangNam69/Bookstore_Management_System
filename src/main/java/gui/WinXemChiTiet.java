@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.rmi.Naming;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,7 +21,9 @@ import entities.Sach;
 
 import entities.VanPhongPham;
 
+import service.*;
 import service.impl.SanPhamServiceImpl;
+import util.Constants;
 
 public class WinXemChiTiet extends JFrame implements ActionListener {
 
@@ -72,10 +75,18 @@ public class WinXemChiTiet extends JFrame implements ActionListener {
 	VanPhongPham vanPhongPham;
 
 	// SanPhamServiceImpl
-	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
 
+	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
+	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+	private TheLoaiService theLoaiService = (TheLoaiService) Naming.lookup(URL + "theLoai");
+	private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
+	private NhaXuatBanService nhaXuatBanService = (NhaXuatBanService) Naming.lookup(URL + "nhaXuatBan");
+	private NhaCungCapService nhaCungCapService = (NhaCungCapService) Naming.lookup(URL + "nhaCungCap");
+	private ChatLieuService chatLieuService = (ChatLieuService) Naming.lookup(URL + "chatLieu");
+	private XuatXuService xuatXuService = (XuatXuService) Naming.lookup(URL + "xuatXu");
+	private MauSacService mauSacService = (MauSacService) Naming.lookup(URL + "mauSac");
 	@SuppressWarnings("deprecation")
-	public WinXemChiTiet (String maSanPham, String loaiSanPham) {
+	public WinXemChiTiet (String maSanPham, String loaiSanPham) throws Exception {
 		this.loaiSanPham = loaiSanPham;
 		this.maSanPham = maSanPham;
 		setTitle("Thêm Sản Phẩm");
@@ -307,7 +318,7 @@ public class WinXemChiTiet extends JFrame implements ActionListener {
 
 	@SuppressWarnings("deprecation")
 	public void setRadSach() throws Exception {
-		sach = sanPhamServiceImpl.timSanPhamTheoMaSach(maSanPham);
+		sach = sanPhamService.timSanPhamTheoMaSach(maSanPham);
 		lblLoai.setText(sach.getTheLoaiSach().getTenLoai());
 		lblTacGiaOrChatLieu.setText(sach.getTacGia().getTenTacGia());
 		lblNhaXBOrXuatXu.setText(sach.getNhaXuatBan().getTenNXB());
@@ -334,7 +345,7 @@ public class WinXemChiTiet extends JFrame implements ActionListener {
 
 	@SuppressWarnings("deprecation")
 	public void setRadVPP() throws Exception {
-		vanPhongPham = sanPhamServiceImpl.timSanPhamTheoMaVPP(maSanPham);
+		vanPhongPham = sanPhamService.timSanPhamTheoMaVPP(maSanPham);
 		lblLoai.setText(vanPhongPham.getLoaiVanPhongPham().getTenLoai());
 		lblTacGiaOrChatLieu.setText(vanPhongPham.getChatLieu().getTenChatLieu());
 		lblNhaXBOrXuatXu.setText(vanPhongPham.getXuatXu().getTenXuatXu());

@@ -3,6 +3,7 @@ package gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.Naming;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,7 +23,11 @@ import entities.Sach;
 import entities.SachLoi;
 import entities.SanPham;
 
+import lombok.SneakyThrows;
+import service.*;
 import service.impl.SanPhamServiceImpl;
+import util.Constants;
+
 import java.awt.SystemColor;
 
 public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener {
@@ -31,19 +36,23 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 	 */
 	private static final long serialVersionUID = 1L;
 	private JLabel lblSoTrang;
-
 	private JButton btnThoat;
-	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
 	private List<SachLoi> dsSachLoi;
-
 	private JTable tblChiTietHD;
 	private DefaultTableModel tableModelChiTietHoaDonDao;
-
-	private SachLoiDao sachLoiDao;
 	private JScrollPane scrChiTietHD;
 	private SanPhamDao sanPhamDao;
 	private JButton btnDoi;
 
+	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
+	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+	private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
+	private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
+	private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
+	private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
+	private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(URL + "chiTietHoaDon");
+	private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
+	private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
 //	@SuppressWarnings("deprecation")
 	public WinXemChiTietHoaDonSachLoi() throws Exception {
 
@@ -119,9 +128,8 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 
 	// Doc du lieu sach loi
 	public void docDuLieuSachLoi() throws Exception {
-		sachLoiDao = new SachLoiDao();
 		sanPhamDao = new SanPhamDao();
-		dsSachLoi =  sachLoiDao.getAllSachLoi();
+		dsSachLoi =  sachLoiService.getAllSachLoi();
 		if (dsSachLoi.size() == 0) {
 			JOptionPane.showMessageDialog(this, "Không tìm thấy sách lỗi");
 		} else {
@@ -135,7 +143,8 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 		}
 	}
 
-	@Override
+	@SneakyThrows
+    @Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		if (o.equals(btnThoat)) {
@@ -149,13 +158,13 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 				if (row == -1) {
 					JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm cần đổi");
 				} else {
-					SanPham sanPham = sanPhamServiceImpl.timSanPhamTheoMa(
+					SanPham sanPham = sanPhamService.timSanPhamTheoMa(
 							tblChiTietHD.getValueAt(tblChiTietHD.getSelectedRow(), 1).toString());
 					sanPham.setSoLuongTon(sanPham.getSoLuongTon() + Integer
 							.parseInt(tblChiTietHD.getValueAt(tblChiTietHD.getSelectedRow(), 4).toString()));
-					sanPhamServiceImpl.capNhatSoLuongSanPham(sanPham);
+					sanPhamService.capNhatSoLuongSanPham(sanPham);
 					// Hàm xóa sản phẩm lỗi theo mã
-					sachLoiDao.xoaSachLoi(sanPham.getMaSanPham(), tblChiTietHD.getValueAt(row, 3).toString());
+					sachLoiService.xoaSachLoi(sanPham.getMaSanPham(), tblChiTietHD.getValueAt(row, 3).toString());
 					JOptionPane.showMessageDialog(this, "Sản phẩm đã được đổi");
 					try {
 						tableModelChiTietHoaDonDao.setRowCount(0);

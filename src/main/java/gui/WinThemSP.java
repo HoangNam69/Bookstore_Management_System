@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.Naming;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import entities.TheLoaiSach;
 import entities.TheLoaiVanPhongPham;
 import entities.VanPhongPham;
 import entities.XuatXu;
+import service.*;
 import service.impl.ChatLieuServiceImpl;
 import service.impl.MauSacServiceImpl;
 import service.impl.NhaCungCapServiceImpl;
@@ -42,6 +44,7 @@ import service.impl.SanPhamServiceImpl;
 import service.impl.TacGiaServiceImpl;
 import service.impl.TheLoaiServiceImpl;
 import service.impl.XuatXuServiceImpl;
+import util.Constants;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -116,21 +119,21 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 	private ArrayList<XuatXu> xuatXus;
 	private ArrayList<MauSac> mauSacs;
 
-	// ServiceImpl
-	SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
-	TheLoaiServiceImpl theLoaiServiceImpl = new TheLoaiServiceImpl();
-	TacGiaServiceImpl tacGiaServiceImpl = new TacGiaServiceImpl();
-	NhaXuatBanServiceImpl nhaXuatBanServiceImpl = new NhaXuatBanServiceImpl();
-	NhaCungCapServiceImpl nhaCungCapServiceImpl = new NhaCungCapServiceImpl();
-	ChatLieuServiceImpl chatLieuServiceImpl = new ChatLieuServiceImpl();
-	XuatXuServiceImpl xuatXuServiceImpl = new XuatXuServiceImpl();
-	MauSacServiceImpl mauSacServiceImpl = new MauSacServiceImpl();
 
+	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
+	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+	private TheLoaiService theLoaiService = (TheLoaiService) Naming.lookup(URL + "theLoai");
+	private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
+	private NhaXuatBanService nhaXuatBanService = (NhaXuatBanService) Naming.lookup(URL + "nhaXuatBan");
+	private NhaCungCapService nhaCungCapService = (NhaCungCapService) Naming.lookup(URL + "nhaCungCap");
+	private ChatLieuService chatLieuService = (ChatLieuService) Naming.lookup(URL + "chatLieu");
+	private XuatXuService xuatXuService = (XuatXuService) Naming.lookup(URL + "xuatXu");
+	private MauSacService mauSacService = (MauSacService) Naming.lookup(URL + "mauSac");
 	// JYearChooser
 	private JYearChooser chooserNamXB;
 
 	@SuppressWarnings("deprecation")
-	public WinThemSP() {
+	public WinThemSP() throws Exception {
 		setTitle("Thêm Sản Phẩm");
 		setResizable(false);
 		setSize(800, 700);
@@ -469,7 +472,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 				return;
 			}
 			try {
-				boolean kt = sanPhamServiceImpl.themSanPham(s);
+				boolean kt = sanPhamService.themSanPham(s);
 				if (kt == true) {
 					JOptionPane.showMessageDialog(null, "Thêm thành công !!!");
 					lamMoi();
@@ -491,7 +494,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 				if (v == null) {
 					return;
 				}
-				boolean kt = sanPhamServiceImpl.themSanPham(v);
+				boolean kt = sanPhamService.themSanPham(v);
 				if (kt == true) {
 					JOptionPane.showMessageDialog(null, "Thêm thành công !!!");
 					lamMoi();
@@ -523,7 +526,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		// the loai
 		theLoaiSachs = new ArrayList<TheLoaiSach>();
 		try {
-			theLoaiSachs = theLoaiServiceImpl.getListTheLoaiSach();
+			theLoaiSachs = theLoaiService.getListTheLoaiSach();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -536,7 +539,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		// tac gia
 		tacGias = new ArrayList<TacGia>();
 		try {
-			tacGias = tacGiaServiceImpl.getListTacGia();
+			tacGias = tacGiaService.getListTacGia();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -549,7 +552,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		// nxb
 		nhaXuatBans = new ArrayList<NhaXuatBan>();
 		try {
-			nhaXuatBans = nhaXuatBanServiceImpl.getListNhaXuatBan();
+			nhaXuatBans = nhaXuatBanService.getListNhaXuatBan();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -562,7 +565,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		// ncc
 		nhaCungCaps = new ArrayList<NhaCungCap>();
 		try {
-			nhaCungCaps = nhaCungCapServiceImpl.getListNhaCungCap("Sách");
+			nhaCungCaps = nhaCungCapService.getListNhaCungCap("Sách");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -583,7 +586,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		// the loai
 		theLoaiVanPhongPhams = new ArrayList<TheLoaiVanPhongPham>();
 		try {
-			theLoaiVanPhongPhams = theLoaiServiceImpl.getListTheLoaiVanPhongPham();
+			theLoaiVanPhongPhams = theLoaiService.getListTheLoaiVanPhongPham();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -596,7 +599,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		// chat lieu
 		chatLieus = new ArrayList<ChatLieu>();
 		try {
-			chatLieus = chatLieuServiceImpl.getListChatLieu();
+			chatLieus = chatLieuService.getListChatLieu();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -609,7 +612,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		// Xuat xu
 		xuatXus = new ArrayList<XuatXu>();
 		try {
-			xuatXus = xuatXuServiceImpl.getListXuatXu();
+			xuatXus = xuatXuService.getListXuatXu();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -622,7 +625,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		// ncc
 		nhaCungCaps = new ArrayList<NhaCungCap>();
 		try {
-			nhaCungCaps = nhaCungCapServiceImpl.getListNhaCungCap("Văn phòng phẩm");
+			nhaCungCaps = nhaCungCapService.getListNhaCungCap("Văn phòng phẩm");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -634,7 +637,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		// mau sac
 		mauSacs = new ArrayList<MauSac>();
 		try {
-			mauSacs = mauSacServiceImpl.getListMauSac();
+			mauSacs = mauSacService.getListMauSac();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -791,8 +794,8 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 		return v;
 	}
 
-	public String tangMa() throws SQLException {
-		String s = sanPhamServiceImpl.getMaSPMax();
+	public String tangMa() throws Exception {
+		String s = sanPhamService.getMaSPMax();
 		int n = Integer.parseInt(s.substring(2));
 		if ((n + 1) % 10 == 0) {
 			s = s.replaceAll("0" + n + "", n + 1 + "");

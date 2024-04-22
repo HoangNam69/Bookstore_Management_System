@@ -5,7 +5,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import entities.KhachHang;
+import lombok.SneakyThrows;
+import service.*;
 import service.impl.KhachHangServiceImpl;
+import util.Constants;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -14,6 +17,7 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -54,7 +58,10 @@ public class WinThemKH extends JFrame implements ActionListener{
 
 	// Other objects
 	private List<KhachHang> dsKhachHang;
-	private KhachHangServiceImpl khachHangServiceImpl = new KhachHangServiceImpl();
+
+
+	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
+	private KhachHangService khachHangServiceImpl = (KhachHangService) Naming.lookup(URL + "khachHang");
 
 
 	/**
@@ -62,7 +69,7 @@ public class WinThemKH extends JFrame implements ActionListener{
 	 * @throws SQLException 
 	 * @throws RemoteException 
 	 */
-	public WinThemKH(){
+	public WinThemKH() throws Exception{
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
@@ -158,7 +165,8 @@ public class WinThemKH extends JFrame implements ActionListener{
 		}
 	}
 
-	@Override
+	@SneakyThrows
+    @Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object obj = e.getSource();
@@ -219,7 +227,7 @@ public class WinThemKH extends JFrame implements ActionListener{
 		cmbDiaChi.setSelectedIndex(0);
 		cmbGioiTinh.setSelectedIndex(0);
 	}
-	public  String auto_ID() throws SQLException {
+	public  String auto_ID() throws Exception {
 		String idPrefix = "KH";
 		LocalDate myObj = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd");

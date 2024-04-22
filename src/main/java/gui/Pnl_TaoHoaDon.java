@@ -121,7 +121,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
     private JTextField txtTimKiemTenSP;
     private JTextField txtXoa;
 
-    private static final String URL = "rmi://"+ Constants.ipv4 + ":"+ Constants.port + "/";
+    private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
     private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
     private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
