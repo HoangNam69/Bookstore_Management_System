@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.rmi.Naming;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ import entities.TheLoaiSach;
 import entities.TheLoaiVanPhongPham;
 import entities.VanPhongPham;
 import entities.XuatXu;
+import service.*;
 import service.impl.ChatLieuServiceImpl;
 import service.impl.MauSacServiceImpl;
 import service.impl.NhaCungCapServiceImpl;
@@ -98,14 +100,22 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 	private JTextArea txaGhiChu;
 
 	// Service Implementations
-	private SanPhamServiceImpl sanPhamServiceImpl = new SanPhamServiceImpl();
-	private TheLoaiServiceImpl theLoaiServiceImpl = new TheLoaiServiceImpl();
-	private TacGiaServiceImpl tacGiaServiceImpl = new TacGiaServiceImpl();
-	private NhaXuatBanServiceImpl nhaXuatBanServiceImpl = new NhaXuatBanServiceImpl();
-	private NhaCungCapServiceImpl nhaCungCapServiceImpl = new NhaCungCapServiceImpl();
-	private ChatLieuServiceImpl chatLieuServiceImpl = new ChatLieuServiceImpl();
-	private XuatXuServiceImpl xuatXuServiceImpl = new XuatXuServiceImpl();
-	private MauSacServiceImpl mauSacServiceImpl = new MauSacServiceImpl();
+
+	private static final String URL = "rmi://192.168.40.54:7878/";
+	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+	private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
+	private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
+	private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
+	private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
+	private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(URL + "chiTietHoaDon");
+	private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
+	private TheLoaiService theLoaiService = (TheLoaiService) Naming.lookup(URL + "theLoai");
+	private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
+	private NhaXuatBanService nhaXuatBanService = (NhaXuatBanService) Naming.lookup(URL + "nhaXuatBan");
+	private NhaCungCapService nhaCungCapService = (NhaCungCapService) Naming.lookup(URL + "nhaCungCap");
+	private ChatLieuService chatLieuService = (ChatLieuService) Naming.lookup(URL + "chatLieu");
+	private XuatXuService xuatXuService = (XuatXuService) Naming.lookup(URL + "xuatXu");
+	private MauSacService mauSacService = (MauSacService) Naming.lookup(URL + "mauSac");
 
 	// ArrayLists
 	private ArrayList<TheLoaiSach> theLoaiSachs;
@@ -125,7 +135,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 	private String hinhAnh;
 
 	@SuppressWarnings("deprecation")
-	public WinCapNhatSP(String maSanPham, String loaiSanPham) {
+	public WinCapNhatSP(String maSanPham, String loaiSanPham) throws Exception {
 		this.loaiSanPham = loaiSanPham;
 		this.maSanPham = maSanPham;
 		setTitle("Thêm Sản Phẩm");
@@ -400,7 +410,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 					return;
 				}
 				try {
-					boolean kt = sanPhamServiceImpl.capNhatSanPham(s.getMaSanPham(), s);
+					boolean kt = sanPhamService.capNhatSanPham(s.getMaSanPham(), s);
 					if (kt == true) {
 						JOptionPane.showMessageDialog(null, "Cập nhật thành công !!!");
 						setVisible(false);
@@ -418,7 +428,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 				if (v == null)
 					return;
 				try {
-					boolean kt = sanPhamServiceImpl.capNhatSanPham(v.getMaSanPham(), v);
+					boolean kt = sanPhamService.capNhatSanPham(v.getMaSanPham(), v);
 					if (kt == true) {
 						JOptionPane.showMessageDialog(null, "Cập nhật thành công !!!");
 					} else {
@@ -450,12 +460,12 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 
 	@SuppressWarnings("deprecation")
 	public void setRadSach() throws Exception {
-		sach = sanPhamServiceImpl.timSanPhamTheoMaSach(maSanPham);
+		sach = sanPhamService.timSanPhamTheoMaSach(maSanPham);
 		txtTenSp.setText(sach.getTenSach());
 		// the loai
 		theLoaiSachs = new ArrayList<TheLoaiSach>();
 		try {
-			theLoaiSachs = theLoaiServiceImpl.getListTheLoaiSach();
+			theLoaiSachs = theLoaiService.getListTheLoaiSach();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -470,7 +480,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 		// tac gia
 		tacGias = new ArrayList<TacGia>();
 		try {
-			tacGias = tacGiaServiceImpl.getListTacGia();
+			tacGias = tacGiaService.getListTacGia();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -484,7 +494,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 		// nxb
 		nhaXuatBans = new ArrayList<NhaXuatBan>();
 		try {
-			nhaXuatBans = nhaXuatBanServiceImpl.getListNhaXuatBan();
+			nhaXuatBans = nhaXuatBanService.getListNhaXuatBan();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -498,7 +508,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 		// ncc
 		nhaCungCaps = new ArrayList<NhaCungCap>();
 		try {
-			nhaCungCaps = nhaCungCapServiceImpl.getListNhaCungCap("Sách");
+			nhaCungCaps = nhaCungCapService.getListNhaCungCap("Sách");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -529,11 +539,11 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 	@SuppressWarnings("deprecation")
 	public void setRadVPP() throws Exception {
 		// the loai
-		vanPhongPham = sanPhamServiceImpl.timSanPhamTheoMaVPP(maSanPham);
+		vanPhongPham = sanPhamService.timSanPhamTheoMaVPP(maSanPham);
 		txtTenSp.setText(vanPhongPham.getTenVanPhongPham());
 		theLoaiVanPhongPhams = new ArrayList<TheLoaiVanPhongPham>();
 		try {
-			theLoaiVanPhongPhams = theLoaiServiceImpl.getListTheLoaiVanPhongPham();
+			theLoaiVanPhongPhams = theLoaiService.getListTheLoaiVanPhongPham();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -547,7 +557,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 		// chat lieu
 		chatLieus = new ArrayList<ChatLieu>();
 		try {
-			chatLieus = chatLieuServiceImpl.getListChatLieu();
+			chatLieus = chatLieuService.getListChatLieu();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -561,7 +571,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 		// Xuat xu
 		xuatXus = new ArrayList<XuatXu>();
 		try {
-			xuatXus = xuatXuServiceImpl.getListXuatXu();
+			xuatXus = xuatXuService.getListXuatXu();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -575,7 +585,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 		// ncc
 		nhaCungCaps = new ArrayList<NhaCungCap>();
 		try {
-			nhaCungCaps = nhaCungCapServiceImpl.getListNhaCungCap("Văn phòng phẩm");
+			nhaCungCaps = nhaCungCapService.getListNhaCungCap("Văn phòng phẩm");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -588,7 +598,7 @@ public class WinCapNhatSP extends JFrame implements ActionListener {
 		// mau sac
 		mauSacs = new ArrayList<MauSac>();
 		try {
-			mauSacs = mauSacServiceImpl.getListMauSac();
+			mauSacs = mauSacService.getListMauSac();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 
 import dao.TaiKhoanDao;
 import entities.TaiKhoan;
+import lombok.SneakyThrows;
+import service.TaiKhoanService;
+import service.impl.TaiKhoanServiceImpl;
 
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
@@ -20,6 +23,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.Naming;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -41,8 +46,9 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
     private JLabel lblIconPassword;
     private JLabel lblBackground;
     public static TaiKhoan taiKhoan;
-    public TaiKhoanDao taiKhoanDao;
     public WinQuenMatKhau winQuenMatKhau = new WinQuenMatKhau();
+    private static final String URL = "rmi://192.168.40.54:7878/";
+
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -273,6 +279,7 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
 
     }
 
+    @SneakyThrows
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
@@ -281,9 +288,13 @@ public class WinLogin extends JFrame implements ActionListener, MouseListener {
         char[] chPassWord = ((JPasswordField) txtMatKhau).getPassword();
         String password = new String(chPassWord);
         boolean status = false;
-        TaiKhoanDao accControl = new TaiKhoanDao();
+//        TaiKhoanDao accControl = new TaiKhoanDao();
+        TaiKhoanService accControl = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
 
-        List<TaiKhoan> list = accControl.getList();
+        ArrayList<TaiKhoan> list = accControl.getList();
+        for (TaiKhoan acc : list) {
+            System.out.println(acc);
+        }
 
         if (obj.equals(btnDangNhap)) {
             for (TaiKhoan account : list) {

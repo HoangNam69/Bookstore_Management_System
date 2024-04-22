@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 
 import entities.NhanVien;
 import entities.TaiKhoan;
+import lombok.SneakyThrows;
+import service.*;
 import service.impl.NhanVienServiceImpl;
 import service.impl.TaiKhoanServiceImpl;
 
@@ -19,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.Naming;
 import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
@@ -49,10 +52,18 @@ public class WinDoiMatKhau extends JFrame implements ActionListener, MouseListen
 
     // Other objects
     private NhanVien nv;
-    private NhanVienServiceImpl nhanVienServiceImpl;
-    private TaiKhoanServiceImpl taiKhoanServiceImpl;
     public WinLogin dangNhap = new WinLogin();
     public TaiKhoan taiKhoan = dangNhap.getTaiKhoanDangNhapThanhCong();
+
+    private static final String URL = "rmi://192.168.40.54:7878/";
+    private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+    private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
+    private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
+    private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
+    private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
+    private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(URL + "chiTietHoaDon");
+    private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
+    private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -73,7 +84,7 @@ public class WinDoiMatKhau extends JFrame implements ActionListener, MouseListen
      *
      * @throws SQLException
      */
-    public WinDoiMatKhau() throws SQLException {
+    public WinDoiMatKhau() throws Exception {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 541, 337);
         pnlContentPane = new JPanel();
@@ -135,10 +146,9 @@ public class WinDoiMatKhau extends JFrame implements ActionListener, MouseListen
         lblTenNV = new JLabel();
         pnlContentPane.add(lblTenNV);
 
-        nhanVienServiceImpl = new NhanVienServiceImpl();
         nv = new NhanVien();
 
-        nv = nhanVienServiceImpl.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
+        nv = nhanVienService.timNhanVienTheoMa(taiKhoan.getNhanVien().getMaNhanVien());
         lblTenNV.setText(nv.getHoTenNhanVien());
         lblTenNV.setVisible(false);
 
@@ -173,7 +183,7 @@ public class WinDoiMatKhau extends JFrame implements ActionListener, MouseListen
         // TODO Auto-generated method stub
 
     }
-
+    @SneakyThrows
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
@@ -182,7 +192,6 @@ public class WinDoiMatKhau extends JFrame implements ActionListener, MouseListen
             this.setVisible(false);
         }
         if (o.equals(btnDoi)) {
-            taiKhoanServiceImpl = new TaiKhoanServiceImpl();
             char[] pfCu = txtPasswordFieldCu.getPassword();
             String valueCU = new String(pfCu);
 
@@ -196,7 +205,7 @@ public class WinDoiMatKhau extends JFrame implements ActionListener, MouseListen
             if (passCu.equals(valueCU)) {
                 if (!valueMoi.isEmpty()) {
                     if (valueMoi.equals(valueXacNhan)) {
-                        taiKhoanServiceImpl.doiMatKhau(valueMoi, taiKhoan.getNhanVien().getMaNhanVien());
+                        taiKhoanService.doiMatKhau(valueMoi, taiKhoan.getNhanVien().getMaNhanVien());
                         JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công");
                         this.setVisible(false);
                     } else {

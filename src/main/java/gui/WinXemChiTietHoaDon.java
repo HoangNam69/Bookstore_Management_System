@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.Naming;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import entities.ChiTietHoaDon;
 import entities.Sach;
 import entities.SanPham;
 import entities.VanPhongPham;
+import service.*;
 
 import java.awt.SystemColor;
 
@@ -76,18 +78,22 @@ public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 	// SanPham
 	private SanPham sanPham;
 
-	// SanPhamDao
-	private SanPhamDao daoSanPham;
-
-	// ChiTietHoaDonDao
-	private ChiTietHoaDonDao chiTietHoaDonDao;
-
 	// List of ChiTietHoaDon
 	private List<ChiTietHoaDon> dsHoaDon;
 
+
+	private static final String URL = "rmi://192.168.40.54:7878/";
+	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
+	private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
+	private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
+	private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
+	private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
+	private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(URL + "chiTietHoaDon");
+
+
 	@SuppressWarnings("deprecation")
 	public WinXemChiTietHoaDon(String maHoaDon, String tenNhanVien, String ngayLap, String tenKhachHang,
-								String tienKhachDua, String tongTienHoaDon, String ghiChu) {
+								String tienKhachDua, String tongTienHoaDon, String ghiChu) throws Exception {
 
 		this.maHoaDon = maHoaDon;
 		this.tenNhanVien = tenNhanVien;
@@ -262,21 +268,20 @@ public class WinXemChiTietHoaDon extends JFrame implements ActionListener {
 		lblTongTienHoaDon.setText(tongTienHoaDon);
 	}
 
-	private void docDLVaoTableModel() throws SQLException {
-		chiTietHoaDonDao = new ChiTietHoaDonDao();
-		dsHoaDon = chiTietHoaDonDao.getCTHoaDonTheoMaHoaDon(maHoaDon);
+	private void docDLVaoTableModel() throws Exception {
+
+		dsHoaDon = chiTietHoaDonService.getCTHoaDonTheoMaHoaDon(maHoaDon);
 		int i = 1;
 
 		for (ChiTietHoaDon chiTietHoaDon : dsHoaDon) {
 			String masanPham = chiTietHoaDon.getSanPham().getMaSanPham();
-			daoSanPham = new SanPhamDao();
-			sanPham = daoSanPham.timSanPhamTheoMa1(masanPham);
+			sanPham = sanPhamService.timSanPhamTheoMa1(masanPham);
 			if (sanPham.getLoaiSanPham().equals("Sách")) {
-				Sach s = daoSanPham.getSachTheoMaSP(masanPham);
+				Sach s = sanPhamService.getSachTheoMaSP(masanPham);
 				modelChiTietHoaDonDao.addRow(new Object[] { i++, s.getMaSanPham(), s.getTenSach(),
 						chiTietHoaDon.getDonGia(), chiTietHoaDon.getSoLuong() });
 			} else {
-				VanPhongPham vvp = daoSanPham.getVPPTheoMaSP(masanPham);
+				VanPhongPham vvp = sanPhamService.getVPPTheoMaSP(masanPham);
 				modelChiTietHoaDonDao.addRow(new Object[] { i++, vvp.getMaSanPham(), vvp.getTenVanPhongPham(),
 						chiTietHoaDon.getDonGia(), chiTietHoaDon.getSoLuong() });
 			}
