@@ -174,7 +174,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         setSize(1900, 900);
         tabThongKe = new JTabbedPane(JTabbedPane.TOP);
         tabThongKe.setFont(new Font("Tahoma", Font.BOLD, 14));
-        tabThongKe.setBounds(27, 79, 1450, 610);
+        tabThongKe.setBounds(27, 79, 1850, 800);
         add(tabThongKe);
 
         pnlThongKeDoanhThu = new JPanel();
@@ -270,13 +270,13 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         pnlThongKeKhachHang.setLayout(null);
 
         pnlTop10 = new JPanel();
-        pnlTop10.setBounds(798, 57, 547, 477);
+        pnlTop10.setBounds(798, 57, 1000, 700);
         pnlThongKeKhachHang.add(pnlTop10);
         pnlTop10.setLayout(null);
 
         lblTitleDSKHThanThiet = new JLabel("Danh sách top 10 khách hàng thân thiết:");
         lblTitleDSKHThanThiet.setHorizontalAlignment(SwingConstants.CENTER);
-        lblTitleDSKHThanThiet.setBounds(0, 0, 547, 34);
+        lblTitleDSKHThanThiet.setBounds(200, 0, 547, 34);
         pnlTop10.add(lblTitleDSKHThanThiet);
         lblTitleDSKHThanThiet.setFont(new Font("Tahoma", Font.BOLD, 13));
 
@@ -286,7 +286,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         tblTop10KH = new JTable(modelTop10KH);
         scrTop10KH = new JScrollPane(tblTop10KH, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrTop10KH.setBounds(0, 45, 547, 421);
+        scrTop10KH.setBounds(0, 45, 1000, 700);
         pnlTop10.add(scrTop10KH);
         tblTop10KH.getColumnModel().getColumn(0).setPreferredWidth(20);
 
