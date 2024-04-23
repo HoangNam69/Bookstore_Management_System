@@ -1313,7 +1313,6 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
                         break;
                     case trongLuong:
                         sach.setTrongLuong((double) getCellValue(cell));
-                        ;
                         break;
                     case tenNhaCungCap:
                         ten = getCellValue(cell).toString().trim();
