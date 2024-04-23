@@ -120,7 +120,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
     private JTextField txtTimKiemTenSP;
     private JTextField txtXoa;
 
-    private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
+    private static final String URL = "rmi://" + Constants.IPV4 + ":" + Constants.PORT + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
     private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
     private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
@@ -489,6 +489,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
                             // TODO Auto-generated method stub
 
                         }
+
                         @SneakyThrows
                         @Override
                         public void keyReleased(KeyEvent e) {
@@ -996,6 +997,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
                 try {
                     themHoaDon();
                     themCTHD();
+
+
                     JOptionPane.showMessageDialog(this, "Thanh toán hoàn tất!");
                     clearTableCTHD();
                     clearTxtFieldsSDT();
@@ -1238,6 +1241,8 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
             long giaBan = Long.parseLong(modelHoaDon.getValueAt(i, 3).toString());
             ChiTietHoaDon cthd = new ChiTietHoaDon(hd, sp, soLuong, giaBan);
             listCTHD.add(cthd);
+            sp.setSoLuongTon(sp.getSoLuongTon() - soLuong);
+            sanPhamService.capNhatSanPham(sp.getMaSanPham(), sp);
             if (chiTietHoaDonService.addChiTietHoaDon(cthd))
                 return;
         }
@@ -1363,7 +1368,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         }
     }
 
-    public void tableDanhSachVPPWithFilter() throws Exception{
+    public void tableDanhSachVPPWithFilter() throws Exception {
         tableVPP.clearSelection();
         clearTableVPP();
         DefaultTableModel model = (DefaultTableModel) tableVPP.getModel();
