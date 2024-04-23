@@ -278,7 +278,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         txtMaHoaDon = new JTextField();
         txtMaHoaDon.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
         txtMaHoaDon.setText(auto_ID());
-        txtMaHoaDon.setEditable(false);
+        txtMaHoaDon.setEditable(true);
         txtMaHoaDon.setForeground(Color.RED);
         txtMaHoaDon.setBounds(110, 75, 150, 20);
         pnlHoaDon.add(txtMaHoaDon);
