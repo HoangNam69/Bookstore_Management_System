@@ -78,13 +78,6 @@ public class WinXemChiTiet extends JFrame implements ActionListener {
 
 	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
 	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
-	private TheLoaiService theLoaiService = (TheLoaiService) Naming.lookup(URL + "theLoai");
-	private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
-	private NhaXuatBanService nhaXuatBanService = (NhaXuatBanService) Naming.lookup(URL + "nhaXuatBan");
-	private NhaCungCapService nhaCungCapService = (NhaCungCapService) Naming.lookup(URL + "nhaCungCap");
-	private ChatLieuService chatLieuService = (ChatLieuService) Naming.lookup(URL + "chatLieu");
-	private XuatXuService xuatXuService = (XuatXuService) Naming.lookup(URL + "xuatXu");
-	private MauSacService mauSacService = (MauSacService) Naming.lookup(URL + "mauSac");
 	@SuppressWarnings("deprecation")
 	public WinXemChiTiet (String maSanPham, String loaiSanPham) throws Exception {
 		this.loaiSanPham = loaiSanPham;

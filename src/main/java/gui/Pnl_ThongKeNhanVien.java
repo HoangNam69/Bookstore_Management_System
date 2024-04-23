@@ -47,9 +47,6 @@ import javax.swing.border.LineBorder;
 
 public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, MouseListener {
 
-    /**
-     * Create the panel.
-     */
     private static DefaultCategoryDataset dataset;
     private JTabbedPane tabThongKe;
     private JPanel pnlThongKeSanPham;
@@ -103,13 +100,8 @@ public class Pnl_ThongKeNhanVien extends JPanel implements ActionListener, Mouse
 
     private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
     private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
-    private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
     private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
-    private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
     private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
-    private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(URL + "chiTietHoaDon");
-    private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
-    private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
 
     public static JFreeChart createChart() {
         JFreeChart barChart = ChartFactory.createBarChart("BIỂU ĐỒ DOANH THU", "Tháng", "Doanh thu", createDataset(),

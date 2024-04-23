@@ -52,10 +52,6 @@ import javax.swing.border.LineBorder;
 
 public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionListener {
     private static DefaultCategoryDataset dataset;
-    /**
-     * Create the panel.
-     */
-
     private JScrollPane scrTop10KH;
     private JTable tblTop10KH;
     private DefaultTableModel modelTop10KH;

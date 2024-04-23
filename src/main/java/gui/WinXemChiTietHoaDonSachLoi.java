@@ -44,13 +44,6 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
 	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
 	private SachLoiService sachLoiService = (SachLoiService) Naming.lookup(URL + "sachLoi");
-	private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
-	private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
-	private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
-	private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(URL + "chiTietHoaDon");
-	private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
-	private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
-	//	@SuppressWarnings("deprecation")
 	public WinXemChiTietHoaDonSachLoi() throws Exception {
 
 		setTitle("Chi tiết hóa đơn");

@@ -91,7 +91,6 @@ public class WinQuanLyDanhMuc extends JFrame implements ActionListener, MouseLis
 	private String loaiSanPham;
 
 	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
-	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
 	private TheLoaiService theLoaiService = (TheLoaiService) Naming.lookup(URL + "theLoai");
 	private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
 	private NhaXuatBanService nhaXuatBanService = (NhaXuatBanService) Naming.lookup(URL + "nhaXuatBan");

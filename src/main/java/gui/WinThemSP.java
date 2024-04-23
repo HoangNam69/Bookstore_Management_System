@@ -119,6 +119,8 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 	private ArrayList<XuatXu> xuatXus;
 	private ArrayList<MauSac> mauSacs;
 
+	// JYearChooser
+	private JYearChooser chooserNamXB;
 
 	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
 	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
@@ -129,8 +131,7 @@ public class WinThemSP extends JFrame implements ActionListener, MouseListener {
 	private ChatLieuService chatLieuService = (ChatLieuService) Naming.lookup(URL + "chatLieu");
 	private XuatXuService xuatXuService = (XuatXuService) Naming.lookup(URL + "xuatXu");
 	private MauSacService mauSacService = (MauSacService) Naming.lookup(URL + "mauSac");
-	// JYearChooser
-	private JYearChooser chooserNamXB;
+
 
 	@SuppressWarnings("deprecation")
 	public WinThemSP() throws Exception {
