@@ -92,7 +92,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
 
     private JTextField txtGiaTu;
     private JButton btnThemSP;
-    private JButton btnImportFile;
+//    private JButton btnImportFile;
     private JButton btnXuatFile;
     private JButton btnTImKiem;
     private JButton btnDau;
@@ -459,15 +459,15 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
         btnThemSP.setForeground(new Color(255, 255, 255));
         btnThemSP.setFont(new Font("Dialog", Font.BOLD, 16));
 
-        btnImportFile = new JButton("Import File");
-        btnImportFile
-                .setIcon(setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/download.png"), 25, 25));
-        btnImportFile.setHorizontalAlignment(SwingConstants.LEFT);
-        btnImportFile.setBounds(1060, 173, 176, 40);
-        add(btnImportFile);
-        btnImportFile.setForeground(Color.WHITE);
-        btnImportFile.setBackground(Color.decode("#E761EA"));
-        btnImportFile.setFont(new Font("Dialog", Font.BOLD, 16));
+//        btnImportFile = new JButton("Import File");
+//        btnImportFile
+//                .setIcon(setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/download.png"), 25, 25));
+//        btnImportFile.setHorizontalAlignment(SwingConstants.LEFT);
+//        btnImportFile.setBounds(1060, 173, 176, 40);
+//        add(btnImportFile);
+//        btnImportFile.setForeground(Color.WHITE);
+//        btnImportFile.setBackground(Color.decode("#E761EA"));
+//        btnImportFile.setFont(new Font("Dialog", Font.BOLD, 16));
 
         btnXuatFile = new JButton("Export File");
         btnXuatFile.setIcon(setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/share.png"), 25, 25));
@@ -509,7 +509,8 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
         btnXemChiTiet.setForeground(Color.WHITE);
         btnXemChiTiet.setFont(new Font("Tahoma", Font.BOLD, 15));
         btnXemChiTiet.setBackground(new Color(88, 86, 214));
-        btnXemChiTiet.setBounds(1248, 123, 176, 40);
+//        btnXemChiTiet.setBounds(1248, 123, 176, 40);
+        btnXemChiTiet.setBounds(1060, 173, 176, 40);
         btnXemChiTiet
                 .setIcon(setSizeImageIconURL(Pnl_QuanLySanPham.class.getResource("/gui/icon/DetailBook.png"), 25, 25));
         add(btnXemChiTiet);
@@ -579,7 +580,7 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
         btnThemSP.addActionListener(this);
         btnCapNhat.addActionListener(this);
         btnXuatFile.addActionListener(this);
-        btnImportFile.addActionListener(this);
+//        btnImportFile.addActionListener(this);
         btnTImKiem.addActionListener(this);
         btnDau.addActionListener(this);
         btnCuoi.addActionListener(this);
@@ -716,46 +717,46 @@ public class Pnl_QuanLySanPham extends JPanel implements ActionListener, MouseLi
             else
                 new WinQuanLyDanhMuc("Văn phòng phẩm").setVisible(true);
         }
-        if (o.equals(btnImportFile)) {
-            fch = new JFileChooser("../HieuSachTuNhan/Script");
-            fch.setMultiSelectionEnabled(false);
-            String filePath = "";
-            int x = fch.showDialog(this, "Chọn File");
-            if (x == JFileChooser.APPROVE_OPTION) {
-                file = fch.getSelectedFile();
-                filePath = file.getAbsolutePath();
-            }
-            if (!filePath.endsWith(".xlsx")) {
-                return;
-            }
-            if (radSach.isSelected()) {
-                int count = 0;
-                try {
-                    count = importSach(filePath);
-                } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                } catch (SQLException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-                String s = "Import thành công " + count + " cuốn sách!!";
-                JOptionPane.showMessageDialog(null, s, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                int count = 0;
-                try {
-                    count = importVPP(filePath);
-                } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                } catch (SQLException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-                String s = "Import thành công " + count + " văn phòng phẩm!!";
-                JOptionPane.showMessageDialog(null, s, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
+//        if (o.equals(btnImportFile)) {
+//            fch = new JFileChooser("../HieuSachTuNhan/Script");
+//            fch.setMultiSelectionEnabled(false);
+//            String filePath = "";
+//            int x = fch.showDialog(this, "Chọn File");
+//            if (x == JFileChooser.APPROVE_OPTION) {
+//                file = fch.getSelectedFile();
+//                filePath = file.getAbsolutePath();
+//            }
+//            if (!filePath.endsWith(".xlsx")) {
+//                return;
+//            }
+//            if (radSach.isSelected()) {
+//                int count = 0;
+//                try {
+//                    count = importSach(filePath);
+//                } catch (IOException e1) {
+//                    // TODO Auto-generated catch block
+//                    e1.printStackTrace();
+//                } catch (SQLException e1) {
+//                    // TODO Auto-generated catch block
+//                    e1.printStackTrace();
+//                }
+//                String s = "Import thành công " + count + " cuốn sách!!";
+//                JOptionPane.showMessageDialog(null, s, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//            } else {
+//                int count = 0;
+//                try {
+//                    count = importVPP(filePath);
+//                } catch (IOException e1) {
+//                    // TODO Auto-generated catch block
+//                    e1.printStackTrace();
+//                } catch (SQLException e1) {
+//                    // TODO Auto-generated catch block
+//                    e1.printStackTrace();
+//                }
+//                String s = "Import thành công " + count + " văn phòng phẩm!!";
+//                JOptionPane.showMessageDialog(null, s, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+//            }
+//        }
 
         if (o.equals(btnXuatFile)) {
             fch = new JFileChooser();

@@ -31,9 +31,7 @@ import util.Constants;
 import java.awt.SystemColor;
 
 public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JLabel lblSoTrang;
 	private JButton btnThoat;
@@ -41,7 +39,7 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 	private JTable tblChiTietHD;
 	private DefaultTableModel tableModelChiTietHoaDonDao;
 	private JScrollPane scrChiTietHD;
-	private JButton btnDoi;
+	//	private JButton btnDoi;
 
 	private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
 	private SanPhamService sanPhamService = (SanPhamService) Naming.lookup(URL + "sanPham");
@@ -52,7 +50,7 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 	private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService) Naming.lookup(URL + "chiTietHoaDon");
 	private KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
 	private TacGiaService tacGiaService = (TacGiaService) Naming.lookup(URL + "tacGia");
-//	@SuppressWarnings("deprecation")
+	//	@SuppressWarnings("deprecation")
 	public WinXemChiTietHoaDonSachLoi() throws Exception {
 
 		setTitle("Chi tiết hóa đơn");
@@ -67,7 +65,7 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 		lblTitle.setVerticalAlignment(SwingConstants.TOP);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblTitle.setBounds(201, 10, 766, 39);
+		lblTitle.setBounds(180, 10, 766, 39);
 		getContentPane().add(lblTitle);
 
 		lblSoTrang = new JLabel();
@@ -83,13 +81,13 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 
 		btnThoat = new JButton("Thoát");
 		btnThoat.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnThoat.setBounds(569, 10, 132, 39);
+		btnThoat.setBounds(480, 10, 132, 39);
 		pnlControl.add(btnThoat);
 
-		btnDoi = new JButton("Đổi");
-		btnDoi.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnDoi.setBounds(363, 10, 132, 39);
-		pnlControl.add(btnDoi);
+//		btnDoi = new JButton("Đổi");
+//		btnDoi.setFont(new Font("Tahoma", Font.PLAIN, 13));
+//		btnDoi.setBounds(363, 10, 132, 39);
+//		pnlControl.add(btnDoi);
 
 		JPanel panel_right = new JPanel();
 		panel_right.setBounds(28, 59, 1078, 511);
@@ -107,7 +105,7 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 		panel_right.add(scrChiTietHD);
 
 		JLabel lblDSSanPham = new JLabel("DANH SÁCH SẢN PHẨM");
-		lblDSSanPham.setBounds(274, 2, 360, 33);
+		lblDSSanPham.setBounds(360, 2, 360, 33);
 		panel_right.add(lblDSSanPham);
 		lblDSSanPham.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblDSSanPham.setHorizontalAlignment(SwingConstants.CENTER);
@@ -119,7 +117,7 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 		}
 
 		btnThoat.addActionListener(this);
-		btnDoi.addActionListener(this);
+//		btnDoi.addActionListener(this);
 	}
 
 	public void setValue() {
@@ -151,33 +149,33 @@ public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener
 					JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
 				this.setVisible(false);
 		}
-		if (o.equals(btnDoi)) {
-			try {
-				int row = tblChiTietHD.getSelectedRow();
-				if (row == -1) {
-					JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm cần đổi");
-				} else {
-					SanPham sanPham = sanPhamService.timSanPhamTheoMa(
-							tblChiTietHD.getValueAt(tblChiTietHD.getSelectedRow(), 1).toString());
-					sanPham.setSoLuongTon(sanPham.getSoLuongTon() + Integer
-							.parseInt(tblChiTietHD.getValueAt(tblChiTietHD.getSelectedRow(), 4).toString()));
-					sanPhamService.capNhatSoLuongSanPham(sanPham);
-					// Hàm xóa sản phẩm lỗi theo mã
-					sachLoiService.xoaSachLoi(sanPham.getMaSanPham(), tblChiTietHD.getValueAt(row, 3).toString());
-					JOptionPane.showMessageDialog(this, "Sản phẩm đã được đổi");
-					try {
-						tableModelChiTietHoaDonDao.setRowCount(0);
-						docDuLieuSachLoi();
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-
-			} catch (SQLException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-		}
+//		if (o.equals(btnDoi)) {
+//			try {
+//				int row = tblChiTietHD.getSelectedRow();
+//				if (row == -1) {
+//					JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm cần đổi");
+//				} else {
+//					SanPham sanPham = sanPhamService.timSanPhamTheoMa(
+//							tblChiTietHD.getValueAt(tblChiTietHD.getSelectedRow(), 1).toString());
+//					sanPham.setSoLuongTon(sanPham.getSoLuongTon() + Integer
+//							.parseInt(tblChiTietHD.getValueAt(tblChiTietHD.getSelectedRow(), 4).toString()));
+//					sanPhamService.capNhatSoLuongSanPham(sanPham);
+//					// Hàm xóa sản phẩm lỗi theo mã
+//					sachLoiService.xoaSachLoi(sanPham.getMaSanPham(), tblChiTietHD.getValueAt(row, 3).toString());
+//					JOptionPane.showMessageDialog(this, "Sản phẩm đã được đổi");
+//					try {
+//						tableModelChiTietHoaDonDao.setRowCount(0);
+//						docDuLieuSachLoi();
+//					} catch (Exception e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//				}
+//
+//			} catch (SQLException e2) {
+//				// TODO Auto-generated catch block
+//				e2.printStackTrace();
+//			}
+//		}
 	}
 }
