@@ -12,11 +12,13 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import service.ChatLieuService;
 import service.KhachHangService;
+import service.NhanVienService;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +28,7 @@ import java.util.ArrayList;
  * @version: 1.0
  */
 public class Main {
-    private static final String URL = "rmi://192.168.40.55:7878/";
+    private static final String URL = "rmi://172.20.10.2:7878/";
 
     public static void main(String[] args) throws Exception {
 //        JPA_ORM_MARIADB
@@ -46,13 +48,11 @@ public class Main {
 //        em.close();
 //        emf.close();
 
-        ChatLieuService chatLieuService = (ChatLieuService) Naming.lookup(URL + "chatLieu");
-
-        chatLieuService.getListChatLieu().forEach(System.out::println);
-
-//        KhachHangService khachHangService = (KhachHangService) Naming.lookup(URL + "khachHang");
-//        khachHangService.getDSKhachHang().forEach(System.out::println);
-
-
+        NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
+        NhanVien nv = new NhanVien("NV000002", "Jack 5 củ",
+                LocalDate.of(2002, 11, 9), "02120120462",
+                "Ho Chi Minh thanh pho khong ngu", "0969828711", true, "leminhbao@gmail.com", false,
+                false, "nvduy.jpg");
+        nhanVienService.suaNhanVien(nv);
     }
 }

@@ -519,7 +519,23 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
                     frmThemTK.setVisible(true);
                 } else {
                     System.out.println("Thme k dc");
-                    int erThem = NhanVienServiceImpl.errorsThem;
+                    int erThem = 0;
+                    if (!(nv.getHoTenNhanVien().length() > 0 && nv.getHoTenNhanVien()
+                            .matches("[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊ"
+                                    + "ỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]*"))) {
+                        erThem = 1;
+                    } else if (!(nv.getsDT().length() > 0 && nv.getsDT().matches("^[0-9]{10}$"))) {
+                        erThem = 2;
+
+                    } else if (!(nv.getcCCD().length() > 0 && nv.getcCCD().matches("^[0-9]{12}$"))) {
+                        erThem = 3;
+                    } else if (!(nv.getEmail().length() > 0 && nv.getEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$"))) {
+                        erThem = 4;
+                    } else if (!(nv.getDiaChi().length() > 0 && nv.getDiaChi()
+                            .matches("[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊ"
+                                    + "ỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ,\\w\\s]*"))) {
+                        erThem = 5;
+                    }
                     if (erThem == 1) {
                         JOptionPane.showMessageDialog(this, "Tên nhân viên phải theo mẫu : Nguyen Van Anh");
                         txtTenNV.setText("");
@@ -548,8 +564,25 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
             }
         } else if (obj.equals(btnLuu) && btnSuaNV.getText().equalsIgnoreCase("Hủy")) {
             NhanVien nvSua = revertNhanVienFromTextfields();
+            int erSua = 0;
             try {
-                int erSua = NhanVienServiceImpl.errorsSua;
+                if (!(nvSua.getHoTenNhanVien().length() > 0 && nvSua.getHoTenNhanVien()
+                        .matches("[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊ"
+                                + "ỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]*"))) {
+                    erSua = 1;
+                } else if (!(nvSua.getsDT().length() > 0 && nvSua.getsDT().matches("^[0-9]{10}$"))) {
+                    erSua = 2;
+
+                } else if (!(nvSua.getcCCD().length() > 0 && nvSua.getcCCD().matches("^[0-9]{12}$"))) {
+                    erSua = 3;
+                } else if (!(nvSua.getEmail().length() > 0 && nvSua.getEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$"))) {
+                    erSua = 4;
+                } else if (!(nvSua.getDiaChi().length() > 0 && nvSua.getDiaChi()
+                        .matches("[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊ"
+                                + "ỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ,\\w\\s]*"))) {
+                    erSua = 5;
+                }
+
                 if (erSua == 1) {
                     JOptionPane.showMessageDialog(this, "Tên nhân viên phải theo mẫu : Nguyen Van Anh");
                     txtTenNV.setText("");
@@ -783,11 +816,24 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
         String hinhAnh = "";
         if (file != null) {
             hinhAnh = file.getName();
-        }
+        } else
+            hinhAnh = "defaul";
 
-        NhanVien nv = new NhanVien(maNV, tenNV, lcDate, cccd, diaChi, sdt, gioiTinh, email, chucVu, caLam, hinhAnh,
-                null, null);
-        return nv;
+//        NhanVien nv = new NhanVien(maNV, tenNV, lcDate, cccd, diaChi, sdt, gioiTinh, email, chucVu, caLam, hinhAnh,
+//                null, null);
+        NhanVien nv1 = new NhanVien();
+        nv1.setMaNhanVien(maNV);
+        nv1.setHoTenNhanVien(tenNV);
+        nv1.setNgaySinh(lcDate);
+        nv1.setcCCD(cccd);
+        nv1.setDiaChi(diaChi);
+        nv1.setsDT(sdt);
+        nv1.setGioiTinh(gioiTinh);
+        nv1.setEmail(email);
+        nv1.setChucVu(chucVu);
+        nv1.setCaLamViec(caLam);
+        nv1.setHinhAnh(hinhAnh);
+        return nv1;
     }
 
     public void xoaHetDuLieu() {
