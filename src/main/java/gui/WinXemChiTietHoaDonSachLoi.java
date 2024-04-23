@@ -31,9 +31,7 @@ import util.Constants;
 import java.awt.SystemColor;
 
 public class WinXemChiTietHoaDonSachLoi extends JFrame implements ActionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private JLabel lblSoTrang;
 	private JButton btnThoat;
