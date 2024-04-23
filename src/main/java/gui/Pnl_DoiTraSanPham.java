@@ -145,10 +145,6 @@ public class Pnl_DoiTraSanPham extends JPanel implements ActionListener, MouseLi
 	private ChiTietHoaDonService chiTietHoaDonService = (ChiTietHoaDonService)Naming.lookup(URL + "chiTietHoaDon");
 	private NhanVienService nhanVienService = (NhanVienService)Naming.lookup(URL + "nhanVien");
 
-
-	/**
-	 * Create the panel.
-	 */
 	public Pnl_DoiTraSanPham() throws Exception{
 		setBackground(new Color(0, 206, 209));
 		setFont(new Font("Dialog", Font.BOLD, 16));
