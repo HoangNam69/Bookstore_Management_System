@@ -1226,11 +1226,9 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         Boolean tinhTrang = true;
         HoaDon hd = new HoaDon(mahd, nv, kh, ngayLapHoaDon, ghiChu, tienKhachDua, tinhTrang);
         hoaDonService.themHoaDon(hd);
-
     }
 
     public void themCTHD() throws Exception {
-
         HoaDon hd = hoaDonService.getHoaDonTheoMa(txtMaHoaDon.getText()).get(0);
         List<ChiTietHoaDon> listCTHD = new ArrayList<ChiTietHoaDon>();
         for (int i = 0; i < tblHoaDon.getRowCount(); i++) {
