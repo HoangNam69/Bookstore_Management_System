@@ -33,9 +33,6 @@ import javax.swing.table.DefaultTableModel;
 import entities.NhanVien;
 import lombok.SneakyThrows;
 import service.*;
-import service.impl.HoaDonServiceImpl;
-import service.impl.NhanVienServiceImpl;
-import service.impl.TaiKhoanServiceImpl;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -98,7 +95,7 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
     private JFileChooser fch;
     private JLabel lblHinhAnh;
 
-    private static final String URL = "rmi://"+ Constants.IPV4 + ":"+ Constants.PORT + "/";
+    private static final String URL = "rmi://" + Constants.IPV4 + ":" + Constants.PORT + "/";
     private HoaDonService hoaDonService = (HoaDonService) Naming.lookup(URL + "hoaDon");
     private TaiKhoanService taiKhoanService = (TaiKhoanService) Naming.lookup(URL + "taiKhoan");
     private NhanVienService nhanVienService = (NhanVienService) Naming.lookup(URL + "nhanVien");
@@ -387,16 +384,13 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
             try {
                 DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
                 Date date = new SimpleDateFormat("yyyy-MM-dd").parse((String) model.getValueAt(row, 3).toString());
-
                 dateChooserNgaySinh.setDate(date);
-
                 dateChooserNgaySinh.setDateFormatString("yyyy-MM-dd");
             } catch (Exception e2) {
-                // TODO: handle exception
                 System.out.println("sai");
             }
             txtMaNhanVien.setText(modelNhanVien.getValueAt(row, 1).toString());
-            NhanVien nv;
+            NhanVien nv = new NhanVien();
             File file = new File("");
             try {
                 nv = nhanVienService.timNhanVienTheoMa(txtMaNhanVien.getText());
@@ -405,10 +399,10 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
                 String hinhAnh = file.getAbsolutePath() + "\\hinhAnhHieuSach\\" + nv.getHinhAnh();
                 System.out.println(hinhAnh);
                 lblHinhAnh.setIcon(setSizeImageIconString(hinhAnh, lblHinhAnh.getWidth(), lblHinhAnh.getHeight()));
-
             } catch (SQLException e2) {
                 // TODO Auto-generated catch block
                 e2.printStackTrace();
+                System.out.println("loi khong tim thay nhan vien");
             }
 
             txtTenNV.setText(modelNhanVien.getValueAt(row, 2).toString());
@@ -553,39 +547,43 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
                 JOptionPane.showMessageDialog(this, "Trùng mã");
             }
         } else if (obj.equals(btnLuu) && btnSuaNV.getText().equalsIgnoreCase("Hủy")) {
-
-            NhanVien nv = revertNhanVienFromTextfields();
+            NhanVien nvSua = revertNhanVienFromTextfields();
             try {
-                if (nhanVienService.suaNhanVien(nv)) {
-                    JOptionPane.showMessageDialog(this, "Sửa thành công 1 nhân viên");
-                    btnLuu.setEnabled(false);
-                    btnSuaNV.setText("   Sửa");
-                    tblNhanVien.addMouseListener(this);
-                    moKhoaControls(true);
-                    moKhoaTextfields(false);
-                    editOnRow();
+                int erSua = NhanVienServiceImpl.errorsSua;
+                if (erSua == 1) {
+                    JOptionPane.showMessageDialog(this, "Tên nhân viên phải theo mẫu : Nguyen Van Anh");
+                    txtTenNV.setText("");
+                    txtTenNV.requestFocus();
+                } else if (erSua == 2) {
+                    JOptionPane.showMessageDialog(this, "Số điện thoại cần có 10 chữ số ví dụ: 0384600357");
+                    txtSDT.setText("");
+                    txtSDT.requestFocus();
+                } else if (erSua == 3) {
+                    JOptionPane.showMessageDialog(this, "Căn cước cần có 12 chữ số ví dụ: 038460035712");
+                    txtCCCD.setText("");
+                    txtCCCD.requestFocus();
+                } else if (erSua == 4) {
+                    JOptionPane.showMessageDialog(this, "Email cần dạng canh@gmail.com");
+                    txtEmail.setText("");
+                    txtEmail.requestFocus();
+                } else if (erSua == 5) {
+                    JOptionPane.showMessageDialog(this, "Địa chỉ bao gồm số và chữ : 12 Nguyen Van Bao");
+                    txtDiaChi.setText("");
+                    txtDiaChi.requestFocus();
                 } else {
-                    int erSua = NhanVienServiceImpl.errorsSua;
-                    if (erSua == 1) {
-                        JOptionPane.showMessageDialog(this, "Tên nhân viên phải theo mẫu : Nguyen Van Anh");
-                        txtTenNV.setText("");
-                        txtTenNV.requestFocus();
-                    } else if (erSua == 2) {
-                        JOptionPane.showMessageDialog(this, "Số điện thoại cần có 10 chữ số ví dụ: 0384600357");
-                        txtSDT.setText("");
-                        txtSDT.requestFocus();
-                    } else if (erSua == 3) {
-                        JOptionPane.showMessageDialog(this, "Căn cước cần có 12 chữ số ví dụ: 038460035712");
-                        txtCCCD.setText("");
-                        txtCCCD.requestFocus();
-                    } else if (erSua == 4) {
-                        JOptionPane.showMessageDialog(this, "Email cần dạng canh@gmail.com");
-                        txtEmail.setText("");
-                        txtEmail.requestFocus();
-                    } else if (erSua == 5) {
-                        JOptionPane.showMessageDialog(this, "Địa chỉ bao gồm số và chữ : 12 Nguyen Van Bao");
-                        txtDiaChi.setText("");
-                        txtDiaChi.requestFocus();
+                    System.out.println(nvSua);
+                    if (nhanVienService.suaNhanVien(nvSua)) {
+                        updateTableData(nvSua);
+                        System.out.println("DEbug nhan vien");
+                        JOptionPane.showMessageDialog(this, "Sửa thành công 1 nhân viên");
+                        btnLuu.setEnabled(false);
+                        btnSuaNV.setText("   Sửa");
+                        tblNhanVien.addMouseListener(this);
+                        moKhoaControls(true);
+                        moKhoaTextfields(false);
+                        editOnRow();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sửa không thành công nhân viên");
                     }
                 }
             } catch (HeadlessException | SQLException e1) {
@@ -734,6 +732,7 @@ public class Pnl_QuanLyNhanVien extends JPanel implements ActionListener, MouseL
 
         } else if (obj.equals(btnLamMoi)) {
             clearTxtfields();
+            moKhoaControls(true);
         } else if (obj.equals(btnChonAnh)) {
             fch = new JFileChooser("D:\\hinhAnhHieuSach");
             FileNameExtensionFilter imageFilter = new FileNameExtensionFilter("hinh anh", "jpg", "png");
