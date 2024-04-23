@@ -354,7 +354,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         pnlThongKeSanPham.setLayout(null);
 
         pnlTongSoLuongSach = new JPanel();
-        pnlTongSoLuongSach.setBounds(925, 23, 253, 152);
+        pnlTongSoLuongSach.setBounds(1200, 23, 253, 152);
         pnlThongKeSanPham.add(pnlTongSoLuongSach);
         pnlTongSoLuongSach.setLayout(null);
 
@@ -372,7 +372,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         pnlTongSoLuongSach.add(lblValueSoLuongSach);
 
         pnlTongSoLuongVanPhongPham = new JPanel();
-        pnlTongSoLuongVanPhongPham.setBounds(925, 376, 253, 152);
+        pnlTongSoLuongVanPhongPham.setBounds(1200, 376, 253, 152);
         pnlThongKeSanPham.add(pnlTongSoLuongVanPhongPham);
         pnlTongSoLuongVanPhongPham.setLayout(null);
 
@@ -390,7 +390,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         pnlTongSoLuongVanPhongPham.add(lblValueSoLuongVPP);
 
         pnlTongSoSachLoi = new JPanel();
-        pnlTongSoSachLoi.setBounds(925, 196, 253, 152);
+        pnlTongSoSachLoi.setBounds(1200, 196, 253, 152);
         pnlThongKeSanPham.add(pnlTongSoSachLoi);
         pnlTongSoSachLoi.setLayout(null);
 
@@ -409,7 +409,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
 
         pnlLocSPBanChay = new JPanel();
         pnlLocSPBanChay.setBackground(new Color(173, 255, 47));
-        pnlLocSPBanChay.setBounds(144, 23, 551, 523);
+        pnlLocSPBanChay.setBounds(400, 23, 551, 523);
         pnlThongKeSanPham.add(pnlLocSPBanChay);
         pnlLocSPBanChay.setLayout(null);
 
@@ -535,11 +535,11 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         tblNhanVien = new JTable(tableModel_NV);
         componentSp_TblNhanVien = new JScrollPane(tblNhanVien, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        componentSp_TblNhanVien.setBounds(397, 92, 746, 394);
+        componentSp_TblNhanVien.setBounds(550, 92, 1200, 600);
         pnlThongKeNhanVien.add(componentSp_TblNhanVien);
 
         btnLocNV = new JButton("Lọc");
-        btnLocNV.setBounds(52, 294, 92, 35);
+        btnLocNV.setBounds(100, 294, 92, 35);
         pnlThongKeNhanVien.add(btnLocNV);
         btnLocNV.setFont(new Font("Tahoma", Font.BOLD, 13));
 
@@ -561,7 +561,7 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         lblTop10NVBanNhieuNhat.setForeground(new Color(255, 69, 0));
         lblTop10NVBanNhieuNhat.setHorizontalAlignment(SwingConstants.CENTER);
         lblTop10NVBanNhieuNhat.setFont(new Font("Tahoma", Font.BOLD, 17));
-        lblTop10NVBanNhieuNhat.setBounds(397, 44, 746, 37);
+        lblTop10NVBanNhieuNhat.setBounds(750, 44, 746, 37);
         pnlThongKeNhanVien.add(lblTop10NVBanNhieuNhat);
         btnLocSP.addActionListener(this);
 
