@@ -1236,7 +1236,6 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
         HoaDon hd = hoaDonService.getHoaDonTheoMa(txtMaHoaDon.getText()).get(0);
         List<ChiTietHoaDon> listCTHD = new ArrayList<ChiTietHoaDon>();
         for (int i = 0; i < tblHoaDon.getRowCount(); i++) {
-            sanPhamService = new SanPhamServiceImpl();
             String masp = tblHoaDon.getValueAt(i, 1).toString();
             SanPham sp = sanPhamService.getSanPhamTheoMa(masp);
             int soLuong = Integer.parseInt(modelHoaDon.getValueAt(i, 4).toString());
@@ -1309,7 +1308,7 @@ public class Pnl_TaoHoaDon extends JPanel implements ActionListener, MouseListen
     public void tinhTienThua() {
         double tienThua = 0;
         tienThua = Double.parseDouble(txtTienKhachDua.getText().trim()) - Double.parseDouble(txtVAT.getText().trim());
-        txtTienThua.setText(tienThua + "");
+        txtTienThua.setText(String.valueOf(tienThua));
     }
 
     public void clearTxtFieldsSach() {
