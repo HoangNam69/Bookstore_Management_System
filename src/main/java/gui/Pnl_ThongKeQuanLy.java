@@ -41,10 +41,6 @@ import entities.KhachHang;
 import entities.NhanVien;
 import entities.SanPham;
 import service.*;
-import service.impl.HoaDonServiceImpl;
-import service.impl.KhachHangServiceImpl;
-import service.impl.NhanVienServiceImpl;
-import service.impl.SanPhamServiceImpl;
 import util.Constants;
 
 import javax.swing.ImageIcon;
@@ -741,7 +737,6 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
                             getNgayFromJDateChooser(dateChooserFromDoanhThu),
                             getNgayFromJDateChooser(dateChooserToDoanhThu));
                     for (NhanVien nv : dsNhanVien) {
-                        nhanVienService = new NhanVienServiceImpl();
                         try {
                             lblValueTop1NV.setText(nhanVienService.timNhanVienTheoMa(nv.getMaNhanVien()).getHoTenNhanVien());
                         } catch (SQLException e1) {
@@ -778,13 +773,11 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
         if (obj.equals(btnLocKH)) {
             if (getNgayFromJDateChooser(dateChooserFromKH) != null
                     && getNgayFromJDateChooser(dateChooserToKH) != null) {
-                khachHangService = new KhachHangServiceImpl();
                 if (khachHangService.getKhachHangMuaNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromKH),
                         getNgayFromJDateChooser(dateChooserToKH)) != null) {
                     dsKhachHang = khachHangService.getKhachHangMuaNhieuNhatTheoNgayTuChon(getNgayFromJDateChooser(dateChooserFromKH),
                             getNgayFromJDateChooser(dateChooserToKH));
                     for (KhachHang kh : dsKhachHang) {
-                        khachHangService = new KhachHangServiceImpl();
                         try {
                             lblTenKHValue
                                     .setText(khachHangService.timKhachHangTheoMa(kh.getMaKhachHang()).getHoTenKhachHang());
@@ -818,8 +811,6 @@ public class Pnl_ThongKeQuanLy extends JPanel implements MouseListener, ActionLi
             xoaHetDuLieuTableTop10NV();
             if (getNgayFromJDateChooser(dateChooserFromThongKeNV) != null
                     && getNgayFromJDateChooser(dateChooserToThongKeNV) != null) {
-//                nhanVienService = new NhanVienServiceImpl();
-//                hoaDonSerrviceImpl = new HoaDonServiceImpl();
                 docDuLieuTuArrayListTop10NVVaoModel();
             }
         }

@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * @version: 1.0
  */
 public class Main {
-    private static final String URL = "rmi://192.168.1.11:7878/";
+    private static final String URL = "rmi://192.168.40.55:7878/";
 
     public static void main(String[] args) throws Exception {
 //        JPA_ORM_MARIADB
